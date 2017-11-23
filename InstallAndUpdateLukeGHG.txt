@@ -1,0 +1,84 @@
+Install and update lukeghg python package in hirsi.in.metla.fi
+-------------------------------------------------------------- 
+
+The instructions are for "bash" shell.
+Type first
+
+prompt% bash
+
+to start "bash" if necessary. The prompt% denotes the command prompt.
+
+
+
+A Install 'lukeghg' python package in hirsi.in.metla.fi
+-----------------------------------------------------
+
+1. Set http proxy servers
+
+prompt% export http_proxy=10.88.2.10:8080
+prompt% export https_proxy=10.88.2.10:8080
+
+2. Create python virtual environment 'lukeghg' in your home directory
+
+prompt% /opt/miniconda3/bin/python -m venv lukeghg --without-pip
+
+3. Activate the virtual environment
+
+prompt% source lukeghg/bin/activate
+(lukeghg) prompt%:
+
+4. Install pip (pip=python install programs)
+
+(lukeghg) prompt%: curl -x 10.88.2.10:8080 https://bootstrap.pypa.io/get-pip.py | python
+
+5. Deactivate and reactivate virtual environment
+
+(lukeghg) prompt%:deactivate
+prompt%: source lukeghg/bin/activate
+(lukeghg) prompt%:
+
+6. Install lukeghg python package to the virtual environment
+
+(lukeghg) prompt%: cd /hsan2/khk/ghg/2016/xml/lukeghg
+(lukeghg) prompt%: pip --proxy 10.88.2.10:8080 install .
+
+7. Quick test the ghg-inventory.py program
+
+(lukeghg) prompt%: ghg-inventory.py -h
+Usage: ghg-inventory.py [options]
+
+Options:
+  -h, --help        show this help message and exit
+  -c F1, --csv=F1   Read GHG inventory csv files
+  -p F2, --pxml=F2  Read CRFReporter Party Profile xml file
+  -x F3, --xml=F3   Write new Party profile populated with inventory results
+  -m F4, --map=F4   CRFReporter 3.0.0 --> 5.0.0 UID mapping file
+  -y F5, --year=F5  Inventory year (the last year in CRFReporter)
+(lukeghg) prompt%:
+
+8. Deactivate virtual environment
+
+(lukeghg) prompt%: deactivate
+prompt%:
+
+B Update lukeghg
+----------------
+
+1. Set http proxy servers
+
+prompt% export http_proxy=10.88.2.10:8080
+prompt% export https_proxy=10.88.2.10:8080
+
+2. Activate the virtual environment. The tilde character (~) 
+denotes your home directory.
+
+prompt% source ~/lukeghg/bin/activate
+(lukeghg) prompt%:
+
+3. Update lukeghg
+
+(lukeghg) prompt%: cd /hsan2/khk/ghg/2016/xml/lukeghg
+(lukeghg) prompt%: pip --proxy 10.88.2.10:8080 install --upgrade .
+
+
+

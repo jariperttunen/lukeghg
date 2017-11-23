@@ -1,0 +1,14 @@
+import glob
+import setuptools
+from setuptools import setup
+
+setup(name='lukeghg',
+      version=1.0,
+      description='LUKE GHG Inventory Support tools',
+      author='Jari Perttunen',
+      author_email='jari.perttunen@luke.fi',
+      license='LUKE',
+      install_requires=['numpy','pandas','xlsxwriter','xlrd'],
+      packages=setuptools.find_packages(),
+      scripts=glob.glob('lukeghg/bin/[A-Za-z]*.py')
+      )
