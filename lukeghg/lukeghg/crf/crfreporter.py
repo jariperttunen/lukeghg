@@ -395,7 +395,8 @@ def InsertInventoryData(uid,variablels,datals,file,not_found_uid_ls,start_year,i
         #The  EU 529  Submission  requires the  (base)  year 1990  for
         #Cropland  management  KP.B.2   and  Grazing  land  management
         #KP.B.3. This is denoted in the file name.
-        if "EU529" in file:
+        basename=os.path.basename(file)
+        if "EU529" in basename:
             yearls=list(years)
             yearls.sort(key=SortYearList)
             #1990 is now the first, 2014 last in datals

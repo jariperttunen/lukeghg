@@ -2,7 +2,7 @@
 from xml.etree.ElementTree import ElementTree as ET
 from xml.etree.ElementTree import Element,SubElement,dump
 from optparse import OptionParser as OP
-import glob
+import sys,glob
 from lukeghg.crf.uid340to500mapping import MapUID340to500, Create340to500UIDMapping
 from lukeghg.crf.ppxml import PrettyPrint
 from lukeghg.crf.crfxmlconstants import *
@@ -23,10 +23,10 @@ def InsertNIR3TableInventoryData(uid,t,datals,file,not_found_uid_ls,start_year,i
     #Find the time series that match the UID
     varls = [var for var in variablels if var.get('uid')==uid]
     if len(varls) == 0:
-        print("UID:", uid, "not found, doing nothing")
+        print("UID:", uid, "not found, doing nothing",file=sys.stderr)
         not_found_uid_ls.append(uid)
     elif len(varls)> 1:
-        print("UID:", uid, "not unique, found",len(uidls),"time series, doing nothing")
+        print("UID:", uid, "not unique, found",len(uidls),"time series, doing nothing",file=sys.stderr)
     else:
         #Now start populating xml with time series data
         variable=varls[0]
