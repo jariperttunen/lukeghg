@@ -39,7 +39,7 @@ prompt%: source lukeghg/bin/activate
 
 6. Install lukeghg python package to the virtual environment
 
-(lukeghg) prompt%: cd /hsan2/khk/ghg/2016/xml/lukeghg
+(lukeghg) prompt%: cd /hsan2/khk/ghg/2016/lukeghg/lukeghg
 (lukeghg) prompt%: pip --proxy 10.88.2.10:8080 install .
 
 7. Quick test the ghg-inventory.py program
@@ -77,8 +77,22 @@ prompt% source ~/lukeghg/bin/activate
 
 3. Update lukeghg
 
-(lukeghg) prompt%: cd /hsan2/khk/ghg/2016/xml/lukeghg
+(lukeghg) prompt%: cd /hsan2/khk/ghg/2016/lukieghg/lukeghg
 (lukeghg) prompt%: pip --proxy 10.88.2.10:8080 install --upgrade .
 
 
+C Additional Notes
+------------------
 
+The installation of virtual environment will be simple in the future
+when python3.4 or later becomes available. hirsi and its operating
+system is too old to allow this (information from system administration).
+
+The software for CRFReporter in /hsan2/khk/ghg/2016/lukeghg/ is CVS 
+version control. You can retrieve it by typing (in your current directory):
+
+         cvs -d redmine.ns.luke.fi:/home/csv checkout lukeghg
+
+You should be able to log in to redmine server by giving your Luke network password.
+Please note not to override your virtual environment if it is called 'lukeghg'.
+  
