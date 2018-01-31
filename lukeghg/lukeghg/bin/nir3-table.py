@@ -66,8 +66,14 @@ def InsertNIR3TableInventoryData(uid,t,datals,file,not_found_uid_ls,start_year,i
             value = valuecommentls[0]
             #dump(value)
             #value.text = str(datals[0])
-            print(year_record.get('name'),value.text,"<----",str(datals[0]))
-            value.text = str(datals[0])
+            data = None
+            if len(datals) > 1:
+                data = str(datals[1])
+                print(year_record.get('name'),value.text,"<----",str(datals[1]))
+            else:
+                data = str(datals[0])
+                print(year_record.get('name'),value.text,"<----",str(datals[0]))
+            value.text = str(data)
             #The  EU 529  Submission  requires the  (base)  year 1990  for
         #Cropland  management  KP.B.2   and  Grazing  land  management
         #KP.B.3. This is denoted in the file name.
@@ -76,7 +82,6 @@ def InsertNIR3TableInventoryData(uid,t,datals,file,not_found_uid_ls,start_year,i
             yearls=list(years)
             yearls.sort(key=SortYearList)
             #1990 is now the first, 2014 last in datals
-            datals.reverse()
             #Only 1990 is needed
             datals=datals[:1]
             print("EU 529 submission, adding the base year 1990") 
