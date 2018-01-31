@@ -1,4 +1,5 @@
 #!python
+import os
 from xml.etree.ElementTree import ElementTree as ET
 from xml.etree.ElementTree import Element,SubElement,dump
 from optparse import OptionParser as OP
@@ -67,6 +68,41 @@ def InsertNIR3TableInventoryData(uid,t,datals,file,not_found_uid_ls,start_year,i
             #value.text = str(datals[0])
             print(year_record.get('name'),value.text,"<----",str(datals[0]))
             value.text = str(datals[0])
+            #The  EU 529  Submission  requires the  (base)  year 1990  for
+        #Cropland  management  KP.B.2   and  Grazing  land  management
+        #KP.B.3. This is denoted in the file name.
+        basename=os.path.basename(file)
+        if "EU529" in basename:
+            yearls=list(years)
+            yearls.sort(key=SortYearList)
+            #1990 is now the first, 2014 last in datals
+            datals.reverse()
+            #Only 1990 is needed
+            datals=datals[:1]
+            print("EU 529 submission, adding the base year 1990") 
+            for year_record,data in zip(yearls,datals):
+                recordls= list(year_record)
+                record=recordls[0]
+                valuecommentls=list(record)
+                value=valuecommentls[0]
+                try:
+                    #round to six decimals
+                    data_round = float(format(float(data),crf_precision))
+                    if data_round == 0.0:
+                        #if the value is zero after rounding use with original accuracy
+                        print(year_record.get('name'),value.text,"<----",str(data))
+                        if (float(data)== 0.0):
+                            print(file,uid,"Zero value",year_record.get('name'),file=sys.stderr)
+                        value.text = str(data)
+                    else:
+                        #otherwise use the rounded value
+                        print(year_record.get('name'),value.text,"<----",str(data_round))
+                        value.text = str(data_round)
+                #Notation key if not successfull conversion to floating point
+                except ValueError:
+                    print(year_record.get('name'),value.text,"<----",str(data))
+                    value.text = str(data)
+
 #---------------------------------The main program begins--------------------------------------------------
 #Command line generator
 parser = OP()
