@@ -1,5 +1,5 @@
 #!python
-
+#Sample usage: ghg-master.py -c 'ghg/2016/crf/[LUKP]*.csv' -p party_profile_232429.xml -x FIN_2018_3_PartyProfile.xml -m ghg/2016/lukeghg/300_500_mappings_1.1.csv -y 2016 > Import.log 2>Importerror.log
 import glob
 import subprocess
 from optparse import OptionParser as OP
