@@ -18,8 +18,9 @@ A Install 'lukeghg' python package in hirsi.in.metla.fi
 prompt% export http_proxy=10.88.2.10:8080
 prompt% export https_proxy=10.88.2.10:8080
 
-2. Create python virtual environment 'lukeghg' in your home directory
+2. Create python virtual environment called for example 'lukeghg' in your home directory
 
+prompt% cd
 prompt% /opt/miniconda3/bin/python -m venv lukeghg --without-pip
 
 3. Activate the virtual environment
@@ -86,13 +87,14 @@ C Additional Notes
 
 The installation of virtual environment will be simple in the future
 when python3.4 or later becomes available. hirsi and its operating
-system is too old to allow this (information from system administration).
+system is too old to allow this (information from Valtori).
 
-The software for CRFReporter in /hsan2/khk/ghg/2016/lukeghg/ is CVS 
-version control. You can retrieve it by typing (in your current directory):
+The software in lukeghg directory for CRFReporter is in CVS  version control.
+You can retrieve it by typing (in your current directory):
 
          cvs -d redmine.ns.luke.fi:/home/csv checkout lukeghg
 
+Then in lukeghg directory you should see this InstallAndUpdateLukeGHG.txt file.
 You should be able to log in to redmine server by giving your Luke network password.
 Please note not to override your virtual environment if it is called 'lukeghg'.
   
