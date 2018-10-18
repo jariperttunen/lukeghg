@@ -3,7 +3,7 @@ from lukeghg.crf.ppxml import PrettyPrint
 from xml.etree.ElementTree import ElementTree as ET
 from optparse import OptionParser as OP
 import string
-
+#Pretty print CRFReporter xml
 if __name__ == "__main__":
     #Command line generator   
     parser = OP()
