@@ -2,11 +2,12 @@ Install and update lukeghg python package in hirsi.in.metla.fi
 -------------------------------------------------------------- 
 
 The instructions are for "bash" shell.
-Type first (promt% denots your command prompt):
+Type first (prompt% denots your command prompt):
 
 prompt% bash
 
-to start "bash" if necessary. The prompt% denotes the command prompt.
+to start "bash" if necessary. Your default shell might
+be for example "tcsh". 
 
 
 
