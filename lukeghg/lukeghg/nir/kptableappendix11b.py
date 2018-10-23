@@ -2,7 +2,7 @@
 import datetime
 from optparse import OptionParser as OP
 from lukeghg.crf.crfxmlconstants import ch4co2eq, n2oco2eq, ctoco2
-from lukeghg.crf.crfxmlfunctions import *
+from lukeghg.crf.crfxmlfunctions import ConvertSign, ConvertToCO2, SumTwoValues, SumBiomassLs
 
 #These constants will come from CrfXMLConstants
 #Please check the 

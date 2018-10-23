@@ -99,3 +99,8 @@ Then in lukeghg directory you should see this InstallAndUpdateLukeGHG.txt file.
 You should be able to log in to redmine server by giving your Luke network password.
 Please note not to override your virtual environment if it is called 'lukeghg'.
   
+To update your lukeghg project type
+ 	
+	 cvs update lukeghg
+
+For the use of CVS see the so called "Cederqvist" CVS manual. 

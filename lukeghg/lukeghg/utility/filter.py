@@ -1,13 +1,14 @@
 import glob
 import argparse
 from lukeghg.crf.crfxmlfunctions import RoundToNDecimals, ReadGHGInventoryFile
+from  lukeghg.crf.crfxmlconstants import crfreporter_rounding as crfround
 
 def FilterUID(data_ls,uid_set):
     ls = []
     for data in data_ls:
         if len(data) > 0 and data[0].strip('{}') in uid_set:
             #This uses the same accuracy as in CRFReporter
-            data = [RoundToNDecimals(x,6) for x in data]
+            data = [RoundToNDecimals(x,crfround) for x in data]
             ls.append(data)
             uid_set.remove(data[0].strip('{}'))
         elif len(data) == 0:
@@ -35,7 +36,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-f',type=str,dest='f',help='Files to list (wildcard search)')
     args=parser.parse_args()
-    print(args.f)
     ls = glob.glob(args.f)
-    print(ls)
+    
     

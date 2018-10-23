@@ -1,6 +1,6 @@
 from xml.etree.ElementTree import ElementTree as ET
 from xml.etree.ElementTree import Element,SubElement
-
+from  lukeghg.crf.crfxmlconstants import crfreporter_rounding as crfround
 
 def RoundToNDecimals(data,n):
     try:
@@ -90,7 +90,7 @@ def InsertInventoryData(uid,t,datals,file,not_found_uid_ls,start_year,inventory_
             #dump(value)
             try:
                 #round to six decimals
-                data_round = float(format(float(data),'.6f'))
+                data_round = float(format(float(data),'.'+str(crfround)+'f'))
                 if data_round == 0.0:
                     #if the value is zero after rounding use with original accuracy
                     print(year_record.get('name'),value.text,"<----",str(data))

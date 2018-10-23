@@ -1,3 +1,5 @@
+#Decimals are rounded to 6 decimals 
+crfreporter_rounding=6
 #LULUCF and KPLULUCF start years 
 lulu_start_year = 1990
 kp_start_year = 2013
