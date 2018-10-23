@@ -23,6 +23,10 @@ def ParseGHGInventoryFile(file, sep1=None):
     """
     f = open(file)
     datals = [x.rpartition('#')[2].split(sep=sep1) for x in f.readlines() if x.count('#') != 1]
+    uid=datals[0]
+    uid = uid.replace(' ','')
+    uid_stripped = uid.strip('{}')
+    datals[0]=uid_stripped
     f.close()
     return datals
 
