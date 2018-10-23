@@ -9,6 +9,23 @@ import lukeghg.crf.ppxml as ppxml
 import lukeghg.crf.crfxmlconstants as crfxmlconstants 
 import lukeghg.crf.crfreporter as crfreporter
 
+def ParseGHGInventoryFile(file, sep1=None):
+    """
+    Split each data row to  list of strings, delimeters are white
+    space  characters by default. The  data  file  can  contain  
+    A) comment starting with  '#' for the  whole file spanning  over several
+    lines  and B)  comment for  the time  series in  front of  it
+    starting and  ending with '#'.  The following line (so called
+    list comprehension)  reads the  data file, filters  out lines
+    with single  '#', then  separates the  times series  from the
+    data comment and  finally splits the time series  into a list
+    of strings (datals).
+    """
+    f = open(file)
+    datals = [x.rpartition('#')[2].split(sep=sep1) for x in f.readlines() if x.count('#') != 1]
+    f.close()
+    return datals
+
 def GHGToCRFReporter(file_ls,partyprofile_xml_file,crf_xml_file,uid_mapping_file,current_inventory_year,sep1=None):
     time_series_count=0
     t=ET()
