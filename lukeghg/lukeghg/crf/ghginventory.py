@@ -9,7 +9,7 @@ import lukeghg.crf.ppxml as ppxml
 import lukeghg.crf.crfxmlconstants as crfxmlconstants 
 import lukeghg.crf.crfreporter as crfreporter
 
-def ParseGHGInventoryFile(file, sep1=None):
+def ParseGHGInventoryFile(file,uidmapping_file,sep1=None):
     """
     Split each data row to  list of strings, delimeters are white
     space  characters by default. The  data  file  can  contain  
@@ -21,12 +21,15 @@ def ParseGHGInventoryFile(file, sep1=None):
     data comment and  finally splits the time series  into a list
     of strings (datals).
     """
+    (uid340set,uiddict340to500) = Create340to500UIDMapping(uid_mapping_file)
     f = open(file)
     datals = [x.rpartition('#')[2].split(sep=sep1) for x in f.readlines() if x.count('#') != 1]
     uid=datals[0]
     uid = uid.replace(' ','')
     uid_stripped = uid.strip('{}')
-    datals[0]=uid_stripped
+    #Some UIDs have changed from CRFReporter version 3.4.0 to 5.0.0
+    uid_changed = MapUID340to500(uid_stripped,uid340set,uiddict340to500)
+    datals[0]=uid_changed
     f.close()
     return datals
 
