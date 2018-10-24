@@ -1,4 +1,3 @@
-#!python
 from xml.etree.ElementTree import ElementTree as ET
 from xml.etree.ElementTree import Element,SubElement
 import datetime
@@ -70,7 +69,7 @@ def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file):
     df_ls1.append(['Date: '+str(datetime.datetime.now())])
     df1 = pd.DataFrame(df_ls1)
     df_ls2=[]
-    df_ls2.append(['Current '+str(datetime.datetime.now().year)+' inventory'])
+    df_ls2.append(['Current '+str(datetime.datetime.now().year-1)+' inventory'])
     df_ls2.append(['UID','File','Number of inventory years','CRFReporter name'])
     ls = list(set2)
     for uid in ls:
@@ -88,7 +87,6 @@ def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file):
     df_ls3.append(['UID','File'])
     for data in uid_missing_ls:
         df_ls3.append(data)
-    print("LS3",df_ls3)
     df_ls3.append(['Date: '+str(datetime.datetime.now())])
     df3 = pd.DataFrame(df_ls3)
     writer = pd.ExcelWriter(outfile,engine='xlsxwriter')
