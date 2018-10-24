@@ -52,7 +52,7 @@ def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file):
     #Take the set difference, i.e. missing records from the inventory
     set3 = set1.difference(set2)
     df_ls1=[]
-    df_ls1.append(['Data in 2016 but not in 2017'])
+    df_ls1.append(['Data in '+str(datetime.datetime.now().year-2)+' but not in '+str(datetime.datetime.now().year-1)])
     df_ls1.append(['UID','File','Number of inventory years','CRFReporter name'])
     print("Number of inventory records",len(set1),len(set2),len(set3))
     if len(set3) == 0:
@@ -83,16 +83,16 @@ def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file):
     df_ls2.append(['Date: '+str(datetime.datetime.now())])
     df2 = pd.DataFrame(df_ls2)
     df_ls3=[]
-    df_ls3.append(['Missing UID 2017'])
+    df_ls3.append(['Missing UID '+str(datetime.datetime.now().year-1)])
     df_ls3.append(['UID','File'])
     for data in uid_missing_ls:
         df_ls3.append(data)
     df_ls3.append(['Date: '+str(datetime.datetime.now())])
     df3 = pd.DataFrame(df_ls3)
     writer = pd.ExcelWriter(outfile,engine='xlsxwriter')
-    df1.to_excel(writer,sheet_name='Missing from 2017')
-    df2.to_excel(writer,sheet_name='2017 inventory')
-    df3.to_excel(writer,sheet_name='Missing UID 2017')
+    df1.to_excel(writer,sheet_name='Missing from '+str(datetime.datetime.now().year-1))
+    df2.to_excel(writer,sheet_name=str(datetime.datetime.now().year-1)+' inventory')
+    df3.to_excel(writer,sheet_name='Missing UID '+str(datetime.datetime.now().year-1))
     writer.save()
 #---------------------------------The main program begins--------------------------------------------------
 #Command line generator   
