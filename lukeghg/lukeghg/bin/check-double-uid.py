@@ -20,7 +20,7 @@ if __name__ == "__main__":
     if options.f1 is None:
         print("No input")
         quit()
-     if options.f2 is None:
+    if options.f2 is None:
         print("No Excel file")
         quit()
     #List the inventory files to be imported 
