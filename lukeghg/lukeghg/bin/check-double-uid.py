@@ -6,6 +6,7 @@ import glob
 import os
 import sys
 import pwd
+import datetime
 import pandas as pd
 import xlsxwriter
 import lukeghg.check.checkdoubleuid as check
@@ -61,6 +62,7 @@ if __name__ == "__main__":
                 print(user,end= " ",file=sys.stderr)
             print("",file=sys.stderr)
             df_ls.append(duplicate_ls)
+        df_ls.append(['Date: '+str(datetime.datetime.now())])
         df = pd.DataFrame(df_ls)
         writer = pd.ExcelWriter(options.f2,engine='xlsxwriter')
         df.to_excel(writer,sheet_name='Duplicate UID')
