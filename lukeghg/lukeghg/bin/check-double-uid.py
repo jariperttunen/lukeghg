@@ -33,7 +33,7 @@ if __name__ == "__main__":
     df_ls = []
     if len(ls) > 0:
         print("Found duplicate UID:",len(ls),file=sys.stderr)
-        df_ls.append(["Found duplicate UID:",len(ls)]
+        df_ls.append(["Found duplicate UID:",len(ls)])
         print("UID",'\tTimes','\tFiles','\tOwners',file=sys.stderr)
         df_ls.append(['UID','Times','Files','Owners'])
         for item in ls:
