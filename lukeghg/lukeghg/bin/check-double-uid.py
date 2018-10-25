@@ -6,7 +6,7 @@ import glob
 import os
 import sys
 import pwd
-import pandas
+import pandas as pd
 import xlsxwriter
 import lukeghg.check.checkdoubleuid as check
 
