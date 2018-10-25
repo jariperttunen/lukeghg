@@ -36,7 +36,7 @@ if __name__ == "__main__":
         print("Found duplicate UID:",len(ls),file=sys.stderr)
         df_ls.append(["Found duplicate UID:",len(ls)])
         print("UID",'\tTimes','\tFiles','\tOwners',file=sys.stderr)
-        df_ls.append(['UID','Times','Files'])
+        df_ls.append(['UID','Times','Files','Owners'])
         for item in ls:
             duplicate_ls=[]
             uid = item[0]
@@ -49,7 +49,6 @@ if __name__ == "__main__":
             for file in filels:
                 duplicate_ls.append(file)
                 print(file,end=" ",file=sys.stderr)
-                df_ls[1].append([' '])
             #Print the file owners
             for file in filels:
                 stat_info = os.stat(file)
@@ -62,7 +61,6 @@ if __name__ == "__main__":
                     duplicate_ls.append(user)
                 print(user,end= " ",file=sys.stderr)
             print("",file=sys.stderr)
-            df_ls[1].append(['Owners'])
             df_ls.append(duplicate_ls)
         df_ls.append(['Date: '+str(datetime.datetime.now())])
         df = pd.DataFrame(df_ls)
