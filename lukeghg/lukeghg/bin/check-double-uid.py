@@ -63,7 +63,7 @@ if __name__ == "__main__":
             df_ls.append(duplicate_ls)
         df = pd.DataFrame(df_ls)
         writer = pd.ExcelWriter(options.f2,engine='xlsxwriter')
-        df.to_excel(writer,shee_name='Duplicate UID')
+        df.to_excel(writer,sheet_name='Duplicate UID')
         writer.save()
         sys.exit(1)
     else:
