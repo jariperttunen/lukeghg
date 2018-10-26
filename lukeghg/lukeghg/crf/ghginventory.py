@@ -9,30 +9,32 @@ import lukeghg.crf.ppxml as ppxml
 import lukeghg.crf.crfxmlconstants as crfxmlconstants 
 import lukeghg.crf.crfreporter as crfreporter
 
-def ParseGHGInventoryFile(data_file,uidmapping_file,sep1=None):
+def ParseGHGInventoryFile(data_file,uid_mapping_file,sep1=None):
     """
     Split each data row to  list of strings, delimeters are white
     space  characters by default. The  data  file  can  contain  
-    A) comment starting with  '#' for the  whole file spanning  over several
-    lines  and B)  comment for  the time  series in  front of  it
-    starting and  ending with '#'.  The following line (so called
-    list comprehension)  reads the  data file, filters  out lines
-    with single  '#', then  separates the  times series  from the
-    data comment and  finally splits the time series  into a list
-    of strings (datals).
+    A) Line comment starting with  '#' (for the whole file) and 
+    B)  comment for  the time  series in  front of  it
+    starting and  ending with '#'.  The  so called list comprehension
+    reads the  data file, filters  out line with single  '#', then  separates 
+    the  times series  from the data comment and  then splits the time series  into a list
+    of strings. The result is a list of lists (datalss) of data series (datals)
+    including their UID's to mapped to match current CRFREporter xml.
     """
     (uid340set,uiddict340to500) = Create340to500UIDMapping(uid_mapping_file)
     f = open(data_file)
-    datals = [x.rpartition('#')[2].split(sep=sep1) for x in f.readlines() if x.count('#') != 1]
-    uid=datals[0]
-    uid = uid.replace(' ','')
-    uid_stripped = uid.strip('{}')
-    print(datals)
-    #Some UIDs have changed from CRFReporter version 3.4.0 to 5.0.0
-    uid_changed = MapUID340to500(uid_stripped,uid340set,uiddict340to500)
-    datals[0]=uid_changed
+    datalss = [x.rpartition('#')[2].split(sep=sep1) for x in f.readlines() if x.count('#') != 1]
+    #Remove empty lines (result from readlines == [])
+    datalss = [ x for x in datalss if x != []]
+    for datals in datalss:
+        uid=datals[0]
+        uid = uid.replace(' ','')
+        uid_stripped = uid.strip('{}')
+        #Some UIDs have changed from CRFReporter version 3.4.0 to 5.0.0
+        uid_changed = MapUID340to500(uid_stripped,uid340set,uiddict340to500)
+        datals[0]=uid_changed
     f.close()
-    return datals
+    return datalss
 
 def GHGToCRFReporter(file_ls,partyprofile_xml_file,crf_xml_file,uid_mapping_file,current_inventory_year,sep1=None):
     time_series_count=0

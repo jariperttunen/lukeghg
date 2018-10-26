@@ -17,6 +17,7 @@ def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file):
     filels2 = glob.glob(fcurrent)
     filels2 = sorted(filels2)
     t = ET()
+    print("Parsing xml file", xml_file)
     t.parse(xml_file)
     it=t.iter('variable')
     variablels = [e for e in it if e.tag=='variable']
@@ -28,6 +29,7 @@ def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file):
     uid_file_dict={}
     uid_missing_ls=[]
     #Read results
+    print("Reading inventory",fprev)
     for fname in filels1:
         ls = ghg.ParseGHGInventoryFile(fname,uid_mapping_file)
         for x in ls:
@@ -37,6 +39,7 @@ def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file):
                 uid1 = x.pop(0)
                 set1.add(uid1)
                 uid_file_dict[uid1]=(fname,len(x))
+    print("Reading inventory",fcurrent)
     for fname in filels2:
         ls = ghg.ParseGHGInventoryFile(fname,uid_mapping_file)
         for x in ls:
@@ -48,14 +51,14 @@ def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file):
                 uid_file_dict[uid2]=(fname,len(x))
                 varls = [var for var in variablels if var.get('uid')==uid2]
                 if len(varls)==0:
-                    print('UID2',uid2,fname)
+                    #Missing UID
                     uid_missing_ls.append([uid2,fname])
     #Take the set difference, i.e. missing records from the inventory
     set3 = set1.difference(set2)
     df_ls1=[]
     df_ls1.append(['Data in '+str(datetime.datetime.now().year-2)+' but not in '+str(datetime.datetime.now().year-1)])
     df_ls1.append(['UID','File','Number of inventory years','CRFReporter name'])
-    print("Number of inventory records",len(set1),len(set2),len(set3))
+    print("Number of inventory records:","Previous",len(set1),"Current",len(set2),"Set difference",len(set3))
     if len(set3) == 0:
         print("Same set of inventory ")
     else:
@@ -67,6 +70,7 @@ def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file):
             fname=uid_file_dict[uid][0]
             length=uid_file_dict[uid][1]
             df_ls1.append([uid,fname,length,name])
+    print("Creating Excel file",outfile)
     df_ls1.append(['Date: '+str(datetime.datetime.now())])
     df1 = pd.DataFrame(df_ls1)
     df_ls2=[]
@@ -124,5 +128,5 @@ if args.m is None:
     quit()
 
 GHGToDo(args.f1,args.f2,args.x,args.o,args.m)
-
+print("Done")
 
