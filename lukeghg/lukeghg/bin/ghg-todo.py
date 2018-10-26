@@ -47,7 +47,7 @@ def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file):
                     user = pwd.getpwuid(uid)[0]
                 except KeyError:
                     user=uid
-                uid_file_dict[uid1]=(fname,len(x),user)
+                uid_file_dict[uid1]=(fname,len(x),user,x)
     print("Reading inventory",fcurrent)
     for fname in filels2:
         ls = ghg.ParseGHGInventoryFile(fname,uid_mapping_file)
@@ -71,11 +71,11 @@ def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file):
                     uid_missing_ls.append([uid2,fname])
     #Take the set difference, i.e. missing records from the inventory
     set3 = set1.difference(set2)
+    print("Number of inventory records:","Previous",len(set1),"Current",len(set2),"Set difference",len(set3))
     df_ls1=[]
     df_ls1.append(['Data in '+str(datetime.datetime.now().year-2)+' but not in '+str(datetime.datetime.now().year-1)])
-    df_ls1.append(['UID','File','Number of inventory years','CRFReporter name','Owner'])
-    print("Number of inventory records:","Previous",len(set1),"Current",len(set2),"Set difference",len(set3))
-    print("Creating Excel file",outfile)
+    df_ls1.append(['UID','File','Number of inventory years','CRFReporter name','Owner','Data'])
+    print("Creating Excel sheets",outfile)
     if len(set3) == 0:
         print("Same set of inventory ")
     else:
@@ -87,7 +87,8 @@ def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file):
             fname=uid_file_dict[uid][0]
             length=uid_file_dict[uid][1]
             user = uid_file_dict[uid][2]
-            df_ls1.append([uid,fname,length,name,user])
+            data = uid_file_dict[uid][3]
+            df_ls1.append([uid,fname,length,name,user]+data)
     df_ls1.append(['Date: '+str(datetime.datetime.now())])
     df1 = pd.DataFrame(df_ls1)
     df_ls2=[]
@@ -112,6 +113,7 @@ def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file):
         df_ls3.append(data)
     df_ls3.append(['Date: '+str(datetime.datetime.now())])
     df3 = pd.DataFrame(df_ls3)
+    print("Creating Excel file",outfile)
     writer = pd.ExcelWriter(outfile,engine='xlsxwriter')
     df1.to_excel(writer,sheet_name='Missing from '+str(datetime.datetime.now().year-1))
     df2.to_excel(writer,sheet_name=str(datetime.datetime.now().year-1)+' inventory')
