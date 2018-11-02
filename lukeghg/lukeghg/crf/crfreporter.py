@@ -6,7 +6,7 @@ from xml.etree.ElementTree import Element,SubElement,dump
 from optparse import OptionParser as OP
 from lukeghg.crf.uid340to500mapping import MapUID340to500, Create340to500UIDMapping
 from lukeghg.crf.ppxml import PrettyPrint
-from lukeghg.crf.crfxmlconstants import *
+from lukeghg.crf.crfxmlconstants import lulu_hwp_start_year,lulu_start_year,kp_start_year,crf_precision
 
 #filter KPLULUCF and LULUCF sectors
 keywordls = ['4(KP)','NIR-1','NIR-2','NIR-3','HWP','Cropland',
@@ -16,15 +16,13 @@ keywordls = ['4(KP)','NIR-1','NIR-2','NIR-3','HWP','Cropland',
              'Land Use','LULUCF']
 
 #LULUCF HWP start year is 1961
-lulu_hwp_start_year=1961
-#LULUCF and KPLULUCF start years
-lulu_start_year = 1990
-kp_start_year = 2013
+#LULUCF and KPLULUCF start years 1990 and 2013 respectively
 user_information_file = "file-owners-dict.txt"
 #Current inventory year is mandatory information from command line
 current_inventory_year=0
 #Precision to use when when impoting data to CRFREporter
-crf_precision='.6f'
+#crf_precision='.6f'
+
 class WrongTypeError(ValueError):
     def __init__(self,arg):
         self.args=arg
