@@ -36,7 +36,7 @@ def ParseGHGInventoryFile(data_file,uid_mapping_file,sep1=None):
     f.close()
     return datalss
 
-def GHGToCRFReporter(file_ls,partyprofile_xml_file,crf_xml_file,uid_mapping_file,current_inventory_year,sep1=None):
+def GHGToCRFReporter(file_ls,partyprofile_xml_file,crf_xml_file,uid_mapping_file,current_inventory_year,sep1=None,kp_1990=None):
     time_series_count=0
     t=ET()
     t.parse(partyprofile_xml_file)
@@ -96,7 +96,8 @@ def GHGToCRFReporter(file_ls,partyprofile_xml_file,crf_xml_file,uid_mapping_file
                     uid_new = uid_changed
                 else:
                     print("UID:",uid_new)
-                crfreporter.InsertInventoryData(uid_new,variablels,time_series,file_name,not_found_uid_ls,start_year,current_inventory_year)
+                crfreporter.InsertInventoryData(uid_new,variablels,time_series,file_name,not_found_uid_ls,start_year,current_inventory_year,
+                                                kp_1990)
                 print("--------------------------------------------------------------------------")
         print("Done, total of",time_series_count,"time series")
         if len(not_found_uid_ls)==0:
@@ -122,6 +123,7 @@ if __name__ == "__main__":
     parser.add_option("-x","--xml",dest="f3",help="Write new Party profile populated with inventory results")
     parser.add_option("-m","--map",dest="f4",help="CRFReporter 3.0.0 --> 5.0.0 UID mapping file")
     parser.add_option("-y","--year",dest="f5",help="Inventory year (the last year in CRFReporter)")
+    parser.add_option("-kp","--kp1990",dest="f6",help="KP notation keys file for 1990 insertion, see lukeghg/KP1990 directory")
     (options,arg)=parser.parse_args()
     if opions.f1 is None:
         print("No inventory GHG csv files")
@@ -138,8 +140,12 @@ if __name__ == "__main__":
     if options.f5 is None:
         print("No last inventory year")
         quit()
-
+    kp1990_file_name=None
+    if options.f5 is None:
+        print("No file for KP 1990 insertion given")
+    else:
+        kp1990_file_name=options.f5
     file_ls=glob.glob(options.f1)
     print("Filling",options.f2,"with GHG inventory data from",options.f1)
     print("REMEMBER TO UPDATE PARTY PROFILE XML FROM CRFREPORTER AFTER NEW NODES IN THE INVENTORY!")
-    GHGToCRFReporter(file_ls,options.f2,options.f3,options.f4,int(options.f5))
+    GHGToCRFReporter(file_ls,options.f2,options.f3,options.f4,int(options.f5),kp1990_file_name=kp1990_file_name)

@@ -303,12 +303,12 @@ def CheckUIDInXml(uid,variablels):
     else:
         return True
     
-def InsertInventoryData(uid,variablels,datals,file,not_found_uid_ls,start_year,inventory_year):
+def InsertInventoryData(uid,variablels,datals,file_name,not_found_uid_ls,start_year,inventory_year,kp_1990=None):
     """Insert inventory data to the CRFReporter PartyProfile xml
        uid: The variable identifier
        variablels: the list of all variables from the CRFReporter xml
        datals: the time series/data to be inserted
-       file: the time series file
+       file_name: the time series file
        not_found_uid_ls: collect uid's not found in variables (perhaps due to a typo)
        start_year: Inventory start year (LULUCF 1990/KPLULUCF 1993)
        inventory_year: the last year in CRFReporter
@@ -337,13 +337,12 @@ def InsertInventoryData(uid,variablels,datals,file,not_found_uid_ls,start_year,i
         first_year=yearls[0]
         first_year_number=int(first_year.get('name'))
         if len(yearls) != len(datals):
-            print("Warning! File:",file,uid,"datalength",len(datals),"differs from number of records",len(yearls),"in XML file")
-        if  abs(len(yearls) - len(datals)) > 0 and abs(len(yearls) - len(datals)) < 4:
-             print("Warning! File:",file,uid,"datalength",len(datals),"differs from number of records",len(yearls),"in XML file",file=sys.stderr)
+            print("Warning! File:",file_name,uid,"datalength",len(datals),"differs from number of records",len(yearls),"in XML file")
+            print("Warning! File:",file_name,uid,"datalength",len(datals),"differs from number of records",len(yearls),"in XML file",file=sys.stderr)
         if len(yearls) == 0:
             print('NO RECORD',uid, len(yearls), len(datals),file=sys.stderr)
         if start_year == kp_start_year:
-            print("File:",file,"Inventory start 2013, assuming KPLULUCF")
+            print("File:",file_name,"Inventory start 2013, assuming KPLULUCF")
             #Reverse both year records in XML and the inventory data list 
             yearls.reverse()
             #The last value is the current inventory year  in the data series
@@ -358,7 +357,8 @@ def InsertInventoryData(uid,variablels,datals,file,not_found_uid_ls,start_year,i
         if first_year_number == lulu_hwp_start_year and start_year==lulu_start_year:
             yearls.reverse()
             datals.reverse()
-            print("Warning! File:",file,uid,"start year is", lulu_hwp_start_year,"filling XML from", yearls[0].get('name'),"backwards",file=sys.stderr)
+            print("Note! File:",file_name,uid,"start year is", lulu_hwp_start_year,"filling XML from", yearls[0].get('name'),"backwards")
+            print("Note! File:",file_name,uid,"start year is", lulu_hwp_start_year,"filling XML from", yearls[0].get('name'),"backwards",file=sys.stderr)
         for year_record,data in zip(yearls,datals):
             #A year_record has name and uid attributes, a single value (data to be inserted) and comment subtrees
             #Special case HWP requires Exported or Domestically consumed information
@@ -382,7 +382,7 @@ def InsertInventoryData(uid,variablels,datals,file,not_found_uid_ls,start_year,i
                     #if the value is zero after rounding use with original accuracy
                     print(year_record.get('name'),value.text,"<----",str(data))
                     if (float(data)== 0.0):
-                        print(file,uid,"Zero value",year_record.get('name'),file=sys.stderr)
+                        print(file_name,uid,"Zero value",year_record.get('name'),file=sys.stderr)
                     value.text = str(data)
                 else:
                     #otherwise use the rounded value
@@ -395,15 +395,17 @@ def InsertInventoryData(uid,variablels,datals,file,not_found_uid_ls,start_year,i
         #The  EU 529  Submission  requires the  (base)  year 1990  for
         #Cropland  management  KP.B.2   and  Grazing  land  management
         #KP.B.3. This is denoted in the file name.
-        basename=os.path.basename(file)
-        if "EU529" in basename:
+        #From 2017 inventory the same applies also for the normal submission
+        #The file kp_1990 denotes that single file.
+        basename=os.path.basename(file_name)
+        if "EU529" in basename or basename==kp_1990:
             yearls=list(years)
             yearls.sort(key=SortYearList)
-            #1990 is now the first, 2014 last in datals
+            #1990 is now the first, the current inventory year last in datals
             datals.reverse()
             #Only 1990 is needed
             datals=datals[:1]
-            print("EU 529 submission, adding the base year 1990") 
+            print("KP file:",basename,"adding the base year 1990") 
             for year_record,data in zip(yearls,datals):
                 recordls= list(year_record)
                 record=recordls[0]
@@ -416,7 +418,7 @@ def InsertInventoryData(uid,variablels,datals,file,not_found_uid_ls,start_year,i
                         #if the value is zero after rounding use with original accuracy
                         print(year_record.get('name'),value.text,"<----",str(data))
                         if (float(data)== 0.0):
-                            print(file,uid,"Zero value",year_record.get('name'),file=sys.stderr)
+                            print(file_name,uid,"Zero value",year_record.get('name'),file=sys.stderr)
                         value.text = str(data)
                     else:
                         #otherwise use the rounded value
