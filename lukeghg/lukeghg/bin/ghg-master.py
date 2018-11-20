@@ -14,6 +14,7 @@ from optparse import OptionParser as OP
 #
 #If one wants to do import step by step execute the following 6 steps.
 #Each program has '-h' (help) option that gives command arguments and their descriptions
+#See also the end of this file, where the commands are executed with 'subprocess.run'
 #1. Basic xml import
 #ghg-inventory.py -c "/hsan2/khk/ghg/2017/crf/[KPLU]*.csv" -p /hsan2/khk/ghg/2017/FIN_2019_1/PartyProfile-2017-PP.xml \
 #-x PartyProfileResults_2017.xml -b /hsan2/khk/ghg/lukeghg/KPLULU1990/KP_CM_GM_RV_WDR_UID_notaatioavain.\
