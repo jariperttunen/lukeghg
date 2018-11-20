@@ -79,7 +79,7 @@ prompt% source ~/lukeghg/bin/activate
 
 3. Update lukeghg
 
-(lukeghg) prompt%: cd /hsan2/khk/ghg/2016/lukeghg/lukeghg
+(lukeghg) prompt%: cd /hsan2/khk/ghg/lukeghg/lukeghg
 (lukeghg) prompt%: pip --proxy 10.88.2.10:8080 install --upgrade .
 
 
