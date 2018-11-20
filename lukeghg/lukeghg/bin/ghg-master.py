@@ -2,19 +2,23 @@
 import subprocess
 import argparse
 from optparse import OptionParser as OP
-#ghg-master.py gathers all steps of xml import into one (this) file
+#ghg-master.py gathers all steps of xml import into one (this) file.
 #For the 2017 inventory the single command line is as follows. NOTE the double quotes for correct wild card usage.
+#The '\' character just denotes line continuation (if you want to break up the command to several lines).
+#
 #ghg-master.py -c "/hsan2/khk/ghg/2017/crf/[KPLU]*.csv" -p /hsan2/khk/ghg/2017/FIN_2019_1/PartyProfile-2017-PP.xml \
 #-x PartyProfileResults_2017.xml -b /hsan2/khk/ghg/lukeghg/KPLULU1990/KP_CM_GM_RV_WDR_UID_notaatioavain.csv \
 #-k /hsan2/khk/ghg/lukeghg/KPLULUSummary/KPSummary.csv  -l /hsan2/khk/ghg/lukeghg/KPLULUSummary/LUSummary.csv \
 #-m /hsan2/khk/ghg/lukeghg/300_500_mappings_1.1.csv -n "/hsan2/khk/ghg/2017/crf/NIR*.csv"\
 #-i "/hsan2/khk/ghg/2017/crf/C*.csv" -y 2017
-#If one wants to do import step by step
-#1.
+#
+#If one wants to do import step by step execute the following 6 steps.
+#Each program has '-h' (help) option that gives command arguments and their descriptions
+#1. Basic xml import
 #ghg-inventory.py -c "/hsan2/khk/ghg/2017/crf/[KPLU]*.csv" -p /hsan2/khk/ghg/2017/FIN_2019_1/PartyProfile-2017-PP.xml \
 #-x PartyProfileResults_2017.xml -b /hsan2/khk/ghg/lukeghg/KPLULU1990/KP_CM_GM_RV_WDR_UID_notaatioavain.\
 #-m /hsan2/khk/ghg/lukeghg/300_500_mappings_1.1.csv -y 2017
-#2.
+#2. Some CL, GL inventory results come from two source, add up and import to xml
 #kp-lulu-summary.py -c "/hsan2/khk/ghg/2017/crf/KP*.csv" -p PartyProfileResults_2017.xml \
 #-x PartyProfileResults_2017.xml -u /hsan2/khk/ghg/lukeghg/KPLULUSummary/KPSummary.csv \
 #-m /hsan2/khk/ghg/lukeghg/300_500_mappings_1.1.csv,args.m -y 2017
@@ -22,13 +26,13 @@ from optparse import OptionParser as OP
 #kp-lulu-summary.py -c "/hsan2/khk/ghg/2017/crf/LU*.csv" -p PartyProfileResults_2017.xml \
 #-x PartyProfileResults_2017.xml -u /hsan2/khk/ghg/lukeghg/KPLULUSummary/LUSummary.csv \
 #-m /hsan2/khk/ghg/lukeghg/300_500_mappings_1.1.csv,args.m -y 2017
-#4.
+#4. NIR3 table requires own algorithm for xml import
 #nir3-table.py -c "/hsan2/khk/ghg/2017/crf/NIR*.csv" -p PartyProfileResults_2017.xml -x PartyProfileResults_2017.xml\
 #-m /hsan2/khk/ghg/lukeghg/300_500_mappings_1.1.csv,args.m -y 2017
-#5.
+#5. Information items are calculated from the deforestation results
 #information-items.py -p PartyProfileResults_2017.xml -x PartyProfileResults_2017.xml\
 #-m /hsan2/khk/ghg/lukeghg/300_500_mappings_1.1.csv,args.m -y 2017
-#6.
+#6. Finally, insert KP and LULU comments for notation keys
 #nk-comments.py -c "/hsan2/khk/ghg/2017/crf/C*.csv" -p PartyProfileResults_2017.xml -x PartyProfileResults_2017.xml\
 #-m /hsan2/khk/ghg/lukeghg/300_500_mappings_1.1.csv,args.m 
 
@@ -55,4 +59,4 @@ subprocess.run(["kp-lulu-summary.py","-c",args.c,"-p",args.x,"-x",args.x,"-u",ar
 subprocess.run(["kp-lulu-summary.py","-c",args.c,"-p",args.x,"-x",args.x,"-u",args.l,'-m',args.m,"-y",args.y])
 subprocess.run(["nir3-table.py","-c",args.n,"-p",args.x,"-x",args.x,"-m",args.m,"-y",args.y])
 subprocess.run(["information-items.py","-p",args.x,"-x",args.x,"-m",args.m,"-y",args.y])
-subprocess.run(["nk-comments.py","-c",args.i,"-p",result_xml,"-x",result_xml,"-m",uid_mapping])
+subprocess.run(["nk-comments.py","-c",args.i,"-p",args.x,"-x",args.x,"-m",args.m])
