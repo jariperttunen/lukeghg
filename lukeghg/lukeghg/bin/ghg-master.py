@@ -2,25 +2,35 @@
 import subprocess
 import argparse
 from optparse import OptionParser as OP
-
-
-#The basic xml import
-inventory_year="2017"
-crf_files="/hsan2/khk/ghg/2017/crf/[KPLU]*.csv"
-partyprofile="/hsan2/khk/ghg/2017/FIN_2019_1/PartyProfile-2017-PP.xml"
-result_xml="PartyProfileResults_2017.xml"
-uid_mapping="/hsan2/khk/ghg/lukeghg/300_500_mappings_1.1.csv"
-#some CLGL items need the base year 1990
-add_1990="/hsan2/khk/ghg/lukeghg/KPLULU1990/KP_CM_GM_RV_WDR_UID_notaatioavain.csv"
-#Some items from agriculture come from two sources
-kp_files="/hsan2/khk/ghg/2017/crf/[KP]*.csv"
-lulu_files="/hsan2/khk/ghg/2017/crf/[LU]*.csv"
-kpsummary="/hsan2/khk/ghg/lukeghg/KPLULUSummary/KPSummary.csv"
-lulusummary='"/hsan2/khk/ghg/lukeghg/KPLULUSummary/LUSummary.csv"'
-#NIR3 table is also a special case in xml import
-nir3_files="/hsan2/khk/ghg/2017/crf/NIR*.csv"
-#Finally add comments
-comment_files="/hsan2/khk/ghg/2017/crf/C*.csv"
+#ghg-master.py gathers all steps of xml import into one (this) file
+#For the 2017 inventory the single command line is as follows. NOTE the double quotes for correct wild card usage.
+#ghg-master.py -c "/hsan2/khk/ghg/2017/crf/[KPLU]*.csv" -p /hsan2/khk/ghg/2017/FIN_2019_1/PartyProfile-2017-PP.xml \
+#-x PartyProfileResults_2017.xml -b /hsan2/khk/ghg/lukeghg/KPLULU1990/KP_CM_GM_RV_WDR_UID_notaatioavain.csv \
+#-k /hsan2/khk/ghg/lukeghg/KPLULUSummary/KPSummary.csv  -l /hsan2/khk/ghg/lukeghg/KPLULUSummary/LUSummary.csv \
+#-m /hsan2/khk/ghg/lukeghg/300_500_mappings_1.1.csv -n "/hsan2/khk/ghg/2017/crf/NIR*.csv"\
+#-i "/hsan2/khk/ghg/2017/crf/C*.csv" -y 2017
+#If one wants to do import step by step
+#1.
+#ghg-inventory.py -c "/hsan2/khk/ghg/2017/crf/[KPLU]*.csv" -p /hsan2/khk/ghg/2017/FIN_2019_1/PartyProfile-2017-PP.xml \
+#-x PartyProfileResults_2017.xml -b /hsan2/khk/ghg/lukeghg/KPLULU1990/KP_CM_GM_RV_WDR_UID_notaatioavain.\
+#-m /hsan2/khk/ghg/lukeghg/300_500_mappings_1.1.csv -y 2017
+#2.
+#kp-lulu-summary.py -c "/hsan2/khk/ghg/2017/crf/KP*.csv" -p PartyProfileResults_2017.xml \
+#-x PartyProfileResults_2017.xml -u /hsan2/khk/ghg/lukeghg/KPLULUSummary/KPSummary.csv \
+#-m /hsan2/khk/ghg/lukeghg/300_500_mappings_1.1.csv,args.m -y 2017
+#3.
+#kp-lulu-summary.py -c "/hsan2/khk/ghg/2017/crf/LU*.csv" -p PartyProfileResults_2017.xml \
+#-x PartyProfileResults_2017.xml -u /hsan2/khk/ghg/lukeghg/KPLULUSummary/LUSummary.csv \
+#-m /hsan2/khk/ghg/lukeghg/300_500_mappings_1.1.csv,args.m -y 2017
+#4.
+#nir3-table.py -c "/hsan2/khk/ghg/2017/crf/NIR*.csv" -p PartyProfileResults_2017.xml -x PartyProfileResults_2017.xml\
+#-m /hsan2/khk/ghg/lukeghg/300_500_mappings_1.1.csv,args.m -y 2017
+#5.
+#information-items.py -p PartyProfileResults_2017.xml -x PartyProfileResults_2017.xml\
+#-m /hsan2/khk/ghg/lukeghg/300_500_mappings_1.1.csv,args.m -y 2017
+#6.
+#nk-comments.py -c "/hsan2/khk/ghg/2017/crf/C*.csv" -p PartyProfileResults_2017.xml -x PartyProfileResults_2017.xml\
+#-m /hsan2/khk/ghg/lukeghg/300_500_mappings_1.1.csv,args.m 
 
 #The filling of the Party Profile xml with inventory data follows
 parser = argparse.ArgumentParser()
