@@ -1,37 +1,48 @@
-#!python
-#Sample usage: ghg-master.py -c 'ghg/2016/crf/[LUKP]*.csv' -p party_profile_232429.xml -x FIN_2018_3_PartyProfile.xml -m ghg/2016/lukeghg/300_500_mappings_1.1.csv -y 2016 > Import.log 2>Importerror.log
-import glob
+#!python 
 import subprocess
+import argparse
 from optparse import OptionParser as OP
 
-parser = OP()
-parser.add_option("-c","--csv",dest="f1",help="Read GHG inventory csv files")
-parser.add_option("-p","--pxml",dest="f2",help="Read CRFReporter Party Profile xml file")
-parser.add_option("-x","--xml",dest="f3",help="Write new Party profile populated with inventory results")
-parser.add_option("-m","--map",dest="f4",help="CRFReporter 3.0.0 --> 5.0.0 UID mapping file")
-parser.add_option("-y","--year",dest="f5",help="Inventory year (the last year in CRFReporter)")
-(options,arg)=parser.parse_args()
-if options.f1 is None:
-    print("No inventory GHG csv files")
-    quit()
-if options.f2 is None:
-    print("No CRFReporter Party Profile XML input file")
-    quit()
-if options.f3 is None:
-    print("No CRFReporter XML output file name")
-    quit()
-if options.f4 is None:
-    print("No CRFReporter v3.0.0 to CRFReporter v5.0.0 UID mapping file")
-    quit()
-if options.f5 is None:
-    print("No last inventory year")
-    quit()
 
-subprocess.run(["ghg-inventory.py","-c",options.f1,"-p",options.f2,"-x",options.f3,"-m",options.f4,"-y",options.f5])
-subprocess.run(["kp-lulu-summary.py","-c","ghg/2016/crf/KP*.csv","-p",options.f3,"-x",options.f3,"-u",
-                "ghg/2015/crf/KPLULUSummary2015/KPSummary.csv",'-m',options.f4,"-y",options.f5])
-subprocess.run(["kp-lulu-summary.py","-c","ghg/2016/crf/LU*.csv","-p",options.f3,"-x",options.f3,"-u",
-                "ghg/2015/crf/KPLULUSummary2015/LUSummary.csv",'-m',options.f4,"-y",options.f5])
-subprocess.run(["nir3-table.py","-c","ghg/2016/crf/NIR*.csv","-p",options.f3,"-x",options.f3,"-m",options.f4,"-y","2016"])
-subprocess.run(["information-items.py","-p",options.f3,"-x",options.f3,"-m", options.f4,"-y",options.f5])
-subprocess.run(["nk-comments.py","-c","ghg/2016/crf/C*.csv","-p",options.f3,"-x",options.f3,"-m",options.f4])
+#The basic xml import
+inventory_year="2017"
+crf_files="/hsan2/khk/ghg/2017/crf/[KPLU]*.csv"
+partyprofile="/hsan2/khk/ghg/2017/FIN_2019_1/PartyProfile-2017-PP.xml"
+result_xml="PartyProfileResults_2017.xml"
+uid_mapping="/hsan2/khk/ghg/lukeghg/300_500_mappings_1.1.csv"
+#some CLGL items need the base year 1990
+add_1990="/hsan2/khk/ghg/lukeghg/KPLULU1990/KP_CM_GM_RV_WDR_UID_notaatioavain.csv"
+#Some items from agriculture come from two sources
+kp_files="/hsan2/khk/ghg/2017/crf/[KP]*.csv"
+lulu_files="/hsan2/khk/ghg/2017/crf/[LU]*.csv"
+kpsummary="/hsan2/khk/ghg/lukeghg/KPLULUSummary/KPSummary.csv"
+lulusummary='"/hsan2/khk/ghg/lukeghg/KPLULUSummary/LUSummary.csv"'
+#NIR3 table is also a special case in xml import
+nir3_files="/hsan2/khk/ghg/2017/crf/NIR*.csv"
+#Finally add comments
+comment_files="/hsan2/khk/ghg/2017/crf/C*.csv"
+
+#The filling of the Party Profile xml with inventory data follows
+parser = argparse.ArgumentParser()
+#ghg-inventory.py arguments, GHG inventory results
+parser.add_argument('-c','--csv',type=str,dest='c',help='GHG Inventory csv files')
+parser.add_argument('-p','--party_profile_xml',type=str,dest='p',help='CRFReporter Party Profile XML')
+parser.add_argument('-x','--xml',type=str,dest='x',help='XML output file filled with inventory results')
+parser.add_argument('-b','--kp1990',type=str,dest='b',help='Base year 1990 GHG inventory csv file')
+parser.add_argument('-m','--uid_map',type=str,dest='m',help='UID mapping file for CRFReporter')
+parser.add_argument('-y','--year',type=str,dest='y',help='GHG Inventory year (last year in CRFReporter)')
+#kp-lulu-summary.py arguments, GHG results come from two different sources 
+parser.add_argument('-k','--kpsummary',type=str,dest='k',help='KP Summary file')
+parser.add_argument('-l','--lusummary',type=str,dest='l',help='LULUCF Summary file')
+#nir3-table.oy part arguments, NIR3 table
+parser.add_argument('-n','--nir3',type=str,dest='n',help='NIR3 files')
+#nk-comments.py part arguments, comments
+parser.add_argument('-i','--comments',type=str,dest='i',help='KP and LULUCF comment files')
+args=parser.parse_args()
+
+subprocess.run(["ghg-inventory.py","-c",args.c,"-p",args.p,"-x",args.x,"-b",args.b,"-m",args.m,"-y",args.y])
+subprocess.run(["kp-lulu-summary.py","-c",args.c,"-p",args.x,"-x",args.x,"-u",args.k,'-m',args.m,"-y",args.y])
+subprocess.run(["kp-lulu-summary.py","-c",args.c,"-p",args.x,"-x",args.x,"-u",args.l,'-m',args.m,"-y",args.y])
+subprocess.run(["nir3-table.py","-c",args.n,"-p",args.x,"-x",args.x,"-m",args.m,"-y",args.y])
+subprocess.run(["information-items.py","-p",args.x,"-x",args.x,"-m",args.m,"-y",args.y])
+subprocess.run(["nk-comments.py","-c",args.i,"-p",result_xml,"-x",result_xml,"-m",uid_mapping])

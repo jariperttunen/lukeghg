@@ -16,8 +16,10 @@ def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file):
     filels1 = glob.glob(fprev)
     filels1 = sorted(filels1)
     #Inventory results from the current year
-    filels2 = glob.glob(fcurrent)
-    filels2 = sorted(filels2)
+    filels2= []
+    if fcurrent != None:
+        filels2 = glob.glob(fcurrent)
+        filels2 = sorted(filels2)
     t = ET()
     print("Parsing xml file", xml_file)
     t.parse(xml_file)
@@ -28,7 +30,8 @@ def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file):
     set1=set()
     #Current year
     set2=set()
-    uid_file_dict={}
+    uid_file_dict1={}
+    uid_file_dict2={}
     uid_missing_ls=[]
     #Read results
     print("Reading inventory",fprev)
@@ -39,7 +42,6 @@ def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file):
                 print("Empty line found")
             else:
                 uid1 = x.pop(0)
-                set1.add(uid1)
                 #get owner information
                 stat_info = os.stat(fname)
                 user = uid = stat_info.st_uid
@@ -47,7 +49,13 @@ def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file):
                     user = pwd.getpwuid(uid)[0]
                 except KeyError:
                     user=uid
-                uid_file_dict[uid1]=(fname,len(x),user,x)
+                varls = [var for var in variablels if var.get('uid')==uid1]
+                if len(varls)==0:
+                    #Missing UID
+                    uid_missing_ls.append([uid1,fname]+x)
+                else:
+                    set1.add(uid1)
+                    uid_file_dict1[uid1]=(fname,len(x),user,x)   
     print("Reading inventory",fcurrent)
     for fname in filels2:
         ls = ghg.ParseGHGInventoryFile(fname,uid_mapping_file)
@@ -56,7 +64,6 @@ def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file):
                 print("Empty line found")
             else:
                 uid2 = x.pop(0)
-                set2.add(uid2)
                 #get owner information
                 stat_info = os.stat(fname)
                 user = uid = stat_info.st_uid
@@ -64,17 +71,19 @@ def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file):
                     user = pwd.getpwuid(uid)[0]
                 except KeyError:
                     user=uid
-                uid_file_dict[uid2]=(fname,len(x),user)
                 varls = [var for var in variablels if var.get('uid')==uid2]
                 if len(varls)==0:
                     #Missing UID
-                    uid_missing_ls.append([uid2,fname])
+                    uid_missing_ls.append([uid2,fname]+x)
+                else:
+                    set2.add(uid2)
+                    uid_file_dict2[uid2]=(fname,len(x),user)    
     #Take the set difference, i.e. missing records from the inventory
     set3 = set1.difference(set2)
     print("Number of inventory records:","Previous",len(set1),"Current",len(set2),"Set difference",len(set3))
     df_ls1=[]
     df_ls1.append(['Data in '+str(datetime.datetime.now().year-2)+' but not in '+str(datetime.datetime.now().year-1)])
-    df_ls1.append(['UID','File','Number of inventory years','CRFReporter name','Owner','Data'])
+    df_ls1.append(['UID','File','Inventory Years','CRFReporter name','Owner','Data'])
     print("Creating Excel sheets",outfile)
     if len(set3) == 0:
         print("Same set of inventory ")
@@ -84,10 +93,10 @@ def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file):
             varls = [var for var in variablels if var.get('uid')==uid]
             var=varls[0]
             name = var.get('name')
-            fname=uid_file_dict[uid][0]
-            length=uid_file_dict[uid][1]
-            user = uid_file_dict[uid][2]
-            data = uid_file_dict[uid][3]
+            fname=uid_file_dict1[uid][0]
+            length=uid_file_dict1[uid][1]
+            user = uid_file_dict1[uid][2]
+            data = uid_file_dict1[uid][3]
             df_ls1.append([uid,fname,length,name,user]+data)
     df_ls1.append(['Date: '+str(datetime.datetime.now())])
     df1 = pd.DataFrame(df_ls1)
@@ -100,9 +109,9 @@ def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file):
         if len(varls) > 0:
             var=varls[0]
             name = var.get('name')
-            fname=uid_file_dict[uid][0]
-            length=uid_file_dict[uid][1]
-            user=uid_file_dict[uid][2]
+            fname=uid_file_dict2[uid][0]
+            length=uid_file_dict2[uid][1]
+            user=uid_file_dict2[uid][2]
             df_ls2.append([uid,fname,length,name,user])
     df_ls2.append(['Date: '+str(datetime.datetime.now())])
     df2 = pd.DataFrame(df_ls2)
@@ -136,7 +145,7 @@ if args.f1 is None:
     quit()
 if args.f2 is None:
     print("No input ghg inventory results files, current year")
-    quit()
+    args.f2= None
 if args.x is None:
     print("No input CRFReporter Simple XML file to generate human readable output")
     quit()

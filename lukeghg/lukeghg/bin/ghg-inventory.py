@@ -11,7 +11,7 @@ parser.add_option("-x","--xml",dest="f3",help="Write new Party profile populated
 parser.add_option("-m","--map",dest="f4",help="CRFReporter 3.0.0 --> 5.0.0 UID mapping file")
 parser.add_option("-y","--year",dest="f5",help="Inventory year (the last year in CRFReporter)")
 parser.add_option("-s","--sep",dest="f6",help="Time series value separator (default=None)")
-parser.add_option("-k","--kp1990",dest="f7",help="KP notation keys file for 1990 insertion, see lukeghg/KP1990 directory (default None)")
+parser.add_option("-b","--kp1990",dest="f7",help="KP notation keys file for 1990 insertion, see lukeghg/KP1990 directory (default None)")
 (options,arg)=parser.parse_args()
 if options.f1 is None:
     print("No inventory GHG csv files")
@@ -38,7 +38,6 @@ if options.f7 is None:
     print("No file for KP 1990 insertion file given")
 else:
     kp_1990=os.path.basename(options.f7)
-print("KP_1990",kp_1990)
 file_ls=glob.glob(options.f1)
 file_ls.sort()
 print("Filling",options.f2,"with GHG inventory data from",options.f1)
