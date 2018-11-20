@@ -19,7 +19,7 @@ A Install 'lukeghg' python package in hirsi.in.metla.fi
 prompt% export http_proxy=10.88.2.10:8080
 prompt% export https_proxy=10.88.2.10:8080
 
-2. Create python virtual environment called for example 'lukeghg' in your home directory
+2. Create python virtual environment called 'lukeghg' in your home directory
 
 prompt% cd
 prompt% /opt/miniconda3/bin/python -m venv lukeghg --without-pip
