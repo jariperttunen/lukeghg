@@ -10,5 +10,5 @@ setup(name='lukeghg',
       license='LUKE',
       install_requires=['numpy','pandas','xlsxwriter','xlrd'],
       packages=setuptools.find_packages(),
-      scripts=glob.glob('lukeghg/bin/[A-Za-z]*.py')
+      scripts=glob.glob('lukeghg/bin/[A-Za-z]*.py')+glob.glob('lukeghg/bin/[A-Za-z]*.sh')
       )
