@@ -1,5 +1,6 @@
 #!/bin/bash
-#Run 2017 inventory xml import in one step. Note the use of double quotes to allow wild card file reading. 
+#Run 2017 inventory xml import in one step. Note the use of double quotes to allow wild card file reading.
+#See "/hsan2/khk/ghg/lukeghg/InstallAndUpdateLukeGHG.txt" to setup 'lukeghg' python virtual environment. 
 source ~/lukeghg/bin/activate
 ghg-master.py -c "/hsan2/khk/ghg/2017/crf/[KPLU]*.csv" -p /hsan2/khk/ghg/2017/FIN_2019_1/PartyProfile-2017-PP.xml\
 	      -x PartyProfileResults_2017.xml\
