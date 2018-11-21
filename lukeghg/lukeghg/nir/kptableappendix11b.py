@@ -3,6 +3,7 @@ import datetime
 from optparse import OptionParser as OP
 from lukeghg.crf.crfxmlconstants import ch4co2eq, n2oco2eq, ctoco2
 from lukeghg.crf.crfxmlfunctions import ConvertSign, ConvertToCO2, SumTwoValues, SumBiomassLs
+from lukeghg.crf.crfxmlfunctions import PaddingList, GenerateRowTitleList
 
 #These constants will come from CrfXMLConstants
 #Please check the 
@@ -15,45 +16,45 @@ def SortKey(x):
     return x.attrib['YearName']
 #---------------------------------The main program begins--------------------------------------------------
 
-def appendix11b(start,end,file_name):
+def appendix11b(start,end,directory,file_name):
     #Command line generator   
     global ch4co2eq, n2oco2eq,ctoco2
     inventory_year=end
     #Output file, the table
     kptable_appendix_11b_file = file_name
-
+    directory=directory+'/'
     #Table Appendix-11b Afforestation/Reforestation and Deforestation files
     #Deforestation "Conversion to water CH4" comes from NIR folder
-    kp4a2_fl_to_waters_ch4_org='KP4A2_FLtowaters_orgsoil_CH4.csv'
+    kp4a2_fl_to_waters_ch4_org=directory+'KP4A2_FLtowaters_orgsoil_CH4.csv'
     #The rest of the files are from  crf-folder.
-    kp4a_agr_bm_gains_losses='KP4A_agr_bm_gains_losses.csv'
+    kp4a_agr_bm_gains_losses=directory+'KP4A_agr_bm_gains_losses.csv'
     #2015 file name change
     #2016 file name change
     #2015:kpa2_ar_under_D_gains='KP4A2_AR_und_defor_treebm_gains.csv'
-    kpa2_ar_under_D_gains='KP4A2_AR_und_D_living_biomass_gains_trees.csv'
-    kp4a2_sl_soil='KP4A2_SL_soil.csv'
-    kp4a2_ar_under_d_soil='KP4A2_AR_und_defor_soils.csv'
+    kpa2_ar_under_D_gains=directory+'KP4A2_AR_und_D_living_biomass_gains_trees.csv'
+    kp4a2_sl_soil=directory+'KP4A2_SL_soil.csv'
+    kp4a2_ar_under_d_soil=directory+'KP4A2_AR_und_defor_soils.csv'
     #2015 KP_MTT_UID.csv in two files: KP_defor_mineral.csv and KP_defor_organic.csv
     #kp_uid_mtt='KP_MTT_UID.csv'
-    kp_defor_mineral='KP_defor_mineral.csv'
-    kp_defor_organic='KP_defor_organic.csv'
-    kp4a2_fl_to_wl_soil='KP4A2_FLtoWL_soils.csv'
-    kp4a2_clglpewesl_deadwood='KP4A2_CLGLPEWESL_deadwood.csv'
-    kp4a2_d_living_biomass_losses_trees='KP4A2_D_living_biomass_losses_trees.csv'
-    kp4a2_fl_to_waters_org_soil='KP4A2_FLtowaters_orgsoil.csv'
+    kp_defor_mineral=directory+'KP_defor_mineral.csv'
+    kp_defor_organic=directory+'KP_defor_organic.csv'
+    kp4a2_fl_to_wl_soil=directory+'KP4A2_FLtoWL_soils.csv'
+    kp4a2_clglpewesl_deadwood=directory+'KP4A2_CLGLPEWESL_deadwood.csv'
+    kp4a2_d_living_biomass_losses_trees=directory+'KP4A2_D_living_biomass_losses_trees.csv'
+    kp4a2_fl_to_waters_org_soil=directory+'KP4A2_FLtowaters_orgsoil.csv'
     #2015 rename
     #kp4a2_d_mineralization='KP4A2_D_mineraalisationcl_gl_sl.csv'
-    kp4a2_d_mineralization='KPA2_soil_leaching_N2O.csv'
+    kp4a2_d_mineralization=directory+'KPA2_soil_leaching_N2O.csv'
     #2015 addition is Afforestation mineralization
-    kp4_ar_mineralization='KP4_Affor_mineralization.csv' 
-    kp4a2_fl_to_wl_non_co2='KP4A2_FLtoWL_soils_nonCO2.csv'
-    kp4_living_biomass_gains_trees='KP4_living_biomass_gains_trees.csv'
-    kp4_ar_living_biomass_losses_trees='KP4A1_AR_living_biomass_losses_trees.csv'
-    kp4a1_clglsl_mineral_soil='KP4A1_CLGLSL_mineral_soil.csv'
-    kp4a1_ar_org_soil='KP4A1_AR_Organic_soil_C.csv'
-    kp4a11_wildfires='KP4A11_wildfires.csv'
-    kp4a1_clglpewesl_organic_soils_nonco2='KP4A1_CLGLPEWESL_organic_soils_nonco2.csv'
-    kp4_hwp_ard='KP4_HWP-AR.csv'
+    kp4_ar_mineralization=directory+'KP4_Affor_mineralization.csv' 
+    kp4a2_fl_to_wl_non_co2=directory+'KP4A2_FLtoWL_soils_nonCO2.csv'
+    kp4_living_biomass_gains_trees=directory+'KP4_living_biomass_gains_trees.csv'
+    kp4_ar_living_biomass_losses_trees=directory+'KP4A1_AR_living_biomass_losses_trees.csv'
+    kp4a1_clglsl_mineral_soil=directory+'KP4A1_CLGLSL_mineral_soil.csv'
+    kp4a1_ar_org_soil=directory+'KP4A1_AR_Organic_soil_C.csv'
+    kp4a11_wildfires=directory+'KP4A11_wildfires.csv'
+    kp4a1_clglpewesl_organic_soils_nonco2=directory+'KP4A1_CLGLPEWESL_organic_soils_nonco2.csv'
+    kp4_hwp_ard=directory+'KP4_HWP-AR.csv'
     #Data for the two Tables in Appendix 1
     #1. Deforestation: Conversion to water CH4
     #Change in 2015: use third (CH4) line in kp4a2_fl_to_waters_org_soil
