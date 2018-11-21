@@ -1,9 +1,9 @@
 #!python
 import glob
 from optparse import OptionParser as OP
-from lukeghg.nir import table612
+from lukeghg.nir import lulucftable612
 start=1990
-end=2015
+end=2017
 file_name='Table-6.1-2.txt'
 parser = OP()
 parser.add_option("-s","--start",dest="f1",help="Inventory start year (1990)")
