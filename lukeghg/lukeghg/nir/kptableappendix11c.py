@@ -18,32 +18,33 @@ import datetime
 #output file name (i.e. command line) 
 
 
-def appendix11c(start,end,file_name):
+def appendix11c(start,end,directory,file_name):
     global ch4co2eq,n2oco2eq,ctoco2,nkset
+    directory=directory+'/'
     #The two biomass files
     #Lines 1-4
-    kp4b1_bm_gains_trees_file='KP4_living_biomass_gains_trees.csv'
+    kp4b1_bm_gains_trees_file=directory+'KP4_living_biomass_gains_trees.csv'
     #Lines 1-4
-    kp4b1_bm_losses_trees_file='KP4B1_FM_living_biomass_losses_trees.csv'
+    kp4b1_bm_losses_trees_file=directory+'KP4B1_FM_living_biomass_losses_trees.csv'
     #DOM+SOM mineral sink
     #As before (2013)
-    kp4b1minsink='KP4B1_mineral_soil_sink.csv'
+    kp4b1minsink=directory+'KP4B1_mineral_soil_sink.csv'
     #DOM+SOM organic emission
     #As before
-    kp4b1orgemission='KP4B1_organic_soil_emission.csv'
+    kp4b1orgemission=directory+'KP4B1_organic_soil_emission.csv'
     #Biomass burning files
     #As before
-    kp4b1controlled_burning_file='KP4B1_controlledburning.csv'
+    kp4b1controlled_burning_file=directory+'KP4B1_controlledburning.csv'
     #As before
-    kp4b1wildfires_file='KP4B1_wildfires.csv'
+    kp4b1wildfires_file=directory+'KP4B1_wildfires.csv'
     #Lines 1-4
-    kp4b1fertilization_file='KP_II_1_fertilisation.csv'
+    kp4b1fertilization_file=directory+'KP_II_1_fertilisation.csv'
     #As before
-    kp4b1drainage_n2o_file='KP4B1_N2O_drainaged_soils.csv'
+    kp4b1drainage_n2o_file=directory+'KP4B1_N2O_drainaged_soils.csv'
     #As before
-    kp4b1drainage_ch4_file='KP4B1_CH4_drainaged_soils.csv'
+    kp4b1drainage_ch4_file=directory+'KP4B1_CH4_drainaged_soils.csv'
     #HWP, harvested wood products since 2013 inventory
-    kp4hwp_file='KP4_HWP-FM.csv'
+    kp4hwp_file=directory+'KP4_HWP-FM.csv'
 
     #The biomasses
     f1 = open(kp4b1_bm_gains_trees_file)
