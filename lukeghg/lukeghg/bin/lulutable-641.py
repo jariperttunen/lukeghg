@@ -21,8 +21,7 @@ columnls=['Mineral','Undrained','Herb-rich type (Rhtg)','Vaccinium myrtillus typ
 df_title=pd.DataFrame(['Table 6.4-1 Areas of organic soils (peatlands) of forest land remaining forest land by site type (1 000 ha)']).transpose()
 df = pd.read_table(options.f1,delim_whitespace=True,names=columnls,usecols=range(1,8),header=None)
 df.index=list(range(1990,int(options.f2)+1))
-df['Drained organic']=df['Herb-rich type (Rhtg)']+df['Vaccinium myrtillus type (Mtkg)']+df['Vaccinium vitis-idaea type (Ptkg)']+\
-                  df['Drwarf shrub type(Vatkg)']+df['Caldina type (Jätkg)']
+df['Drained organic']=df['Herb-rich type (Rhtg)']+df['Vaccinium myrtillus type (Mtkg)']+df['Vaccinium vitis-idaea type (Ptkg)']+df['Dwarf shrub type (Vatkg)']+df['Caldina type (Jätkg)']
 df['Organic']=df['Drained organic']+df['Undrained']
 df['Total (Mineral+Organic)']=df['Mineral']+df['Organic']
 
