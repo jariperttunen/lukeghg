@@ -24,7 +24,7 @@ def ReadGHGInventoryFile(file_name):
     [[UID1, val1,val2,...,valn],[UID2,val1,val2,...,valn],...,[UIDN,val1,...,valn]]
     The values are character strings and not converted to numbers.
     """
-    print("GHG FILE",file_name)
+    #print("GHG FILE",file_name)
     f = open(file_name)
     ls = [x.rpartition('#')[2].split() for x in f.readlines() if x.count('#') != 1]
     f.close()
