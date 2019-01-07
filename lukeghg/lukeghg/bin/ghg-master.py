@@ -50,7 +50,9 @@ args=parser.parse_args()
 
 subprocess.run(["ghg-inventory.py","-c",args.c,"-p",args.p,"-x",args.x,"-b",args.b,"-m",args.m,"-y",args.y])
 subprocess.run(["kp-lulu-summary.py","-c",args.c,"-p",args.x,"-x",args.x,"-u",args.k,'-m',args.m,"-y",args.y])
-subprocess.run(["kp-lulu-summary.py","-c",args.c,"-p",args.x,"-x",args.x,"-u",args.l,'-m',args.m,"-y",args.y])
+#EU529 does not have LULUCF sector 
+if args.l != None:
+    subprocess.run(["kp-lulu-summary.py","-c",args.c,"-p",args.x,"-x",args.x,"-u",args.l,'-m',args.m,"-y",args.y])
 subprocess.run(["nir3-table.py","-c",args.n,"-p",args.x,"-x",args.x,"-m",args.m,"-y",args.y])
 subprocess.run(["information-items.py","-p",args.x,"-x",args.x,"-m",args.m,"-y",args.y])
 subprocess.run(["nk-comments.py","-c",args.i,"-p",args.x,"-x",args.x,"-m",args.m])
