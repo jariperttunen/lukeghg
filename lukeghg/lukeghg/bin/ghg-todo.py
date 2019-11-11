@@ -73,7 +73,6 @@ def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file):
                     user=uid
                 varls = [var for var in variablels if var.get('uid')==uid2]
                 if len(varls)==0:
-                    #Missing UID
                     uid_missing_ls.append([uid2,fname]+x)
                 else:
                     set2.add(uid2)
