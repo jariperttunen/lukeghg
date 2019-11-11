@@ -4,13 +4,13 @@
 #See "/hsan2/khk/ghg/lukeghg/InstallAndUpdateLukeGHG.txt" to setup 'lukeghg' python virtual environment. 
 #To redirect output type e.g.: run-ghgr-.master.sh > output.txt 2> errors.txt.  
 source ~/lukeghg/bin/activate
-ghg-master.py -c "/hsan2/khk/ghg/2017/crf/[KPLU]*.csv" -p /hsan2/khk/ghg/2017/FIN_2019_1/PartyProfile-2017-PP.xml\
-	      -x PartyProfileResults_2017.xml\
-	      -b /hsan2/khk/ghg/lukeghg/KPLULU1990/KP_CM_GM_RV_WDR_UID_notaatioavain.csv\
-	      -k /hsan2/khk/ghg/lukeghg/KPLULUSummary/KPSummary.csv\
-	      -l /hsan2/khk/ghg/lukeghg/KPLULUSummary/LUSummary.csv\
-	      -m /hsan2/khk/ghg/lukeghg/300_500_mappings_1.1.csv\
-	      -n "/hsan2/khk/ghg/2017/crf/NIR*.csv"\
-	      -i "/hsan2/khk/ghg/2017/crf/C*.csv"\
-	      -y 2017
+ghg-master.py -c "crf/[KPLU]*.csv" -p PartyProfile_2018_template.xml\
+	      -x GHG2018_FIN_2020_1.xml\
+	      -b lukeghg/KPLULU1990/KP_CM_GM_RV_WDR_UID_notaatioavain.csv\
+	      -k lukeghg/KPLULUSummary/KPSummary.csv\
+	      -l lukeghg/KPLULUSummary/LUSummary.csv\
+	      -m lukeghg/300_500_mappings_1.1.csv\
+	      -n "crf/NIR*.csv"\
+	      -i "crf/C*.csv"\
+	      -y 2018
 deactivate
