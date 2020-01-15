@@ -1,5 +1,8 @@
 import os
 import datetime
+import pathlib
+import pandas as pd
+import xlsxwriter
 #from operator import add
 #from optparse import OptionParser as OP
 from lukeghg.crf.uid340to500mapping import MapUID340to500, Create340to500UIDMapping
@@ -355,7 +358,7 @@ def WriteCO2eqTableData(start,end,file_name,crf_dir):
     CreateCO2eqTableData(crf_dir)
     separator = '#'
     row_title_ls = GenerateRowTitleList(start,end)
-    row_title_ls = ["Mt CO2 eq"]+row_title_ls
+    row_title_ls1 = ["Mt CO2 eq"]+row_title_ls
     column_title_ls = ["4.A Forest land","Biomass, mineral soils","Biomass, organic soils",
                     "DOM+SOM, mineral soils", "DOM+SOM, organic soils", "4(I) N fertilisation",
                     "4(V) Biomass burning", "4(III) N mineralisation", "4(II) CH4 and N2O emissions from drained forest land",
@@ -369,7 +372,7 @@ def WriteCO2eqTableData(start,end,file_name,crf_dir):
         quit()
     
     f = open(file_name,'w')
-    for title in row_title_ls:
+    for title in row_title_ls1:
         f.write(title+separator)
     f.write('\n')
     for (title,data_ls) in zip(column_title_ls,CO2eq_table_data_ls):
@@ -384,6 +387,16 @@ def WriteCO2eqTableData(start,end,file_name,crf_dir):
     f.write("Date produced: "+str(now)+"\n")
     f.write("Data from: "+crf_dir)
     f.close()
+    p = pathlib.Path(file_name)
+    parent = str(p.parent)+'/'
+    stem = p.stem
+    excel_file_name=parent+stem+'.xlsx' 
+    writer = pd.ExcelWriter(excel_file_name,engine='xlsxwriter')
+    row_title_ls = [int(x) for x in row_title_ls]  
+    df=pd.DataFrame(CO2eq_table_data_ls,columns=row_title_ls,index=column_title_ls)
+    df_float=df.applymap(ConvertFloat)
+    df_float.index.name="Mt CO2eq"
+    df_float.to_excel(writer,sheet_name='Table-6.1-2')
 #End of WriteCO2eqTableData
 if __name__ == "__main__":
     start=1990

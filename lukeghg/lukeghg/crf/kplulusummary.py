@@ -50,40 +50,44 @@ def CreateGHGDictionary(dirfilels):
                print(file_name,"Found empty line")
     return dictionary 
 
-def CheckActivityFile(activity_file,dict):
+def CheckActivityFile(activity_file,uid_dict):
     ls = ReadGHGInventoryFile(activity_file)
     for line in ls:
         #The first is the UID to find place in CRFReporter
         uid_to = line.pop(0)
         for uid in line:
             uid_new = uid.strip('{}')
-            if not uid_new in dict:
+            if not uid_new in uid_dict:
                 print(activity_file,"UID not found", uid_new)
 
-def KPRegionSum(activity_file,dict,inventory_year):
+def KPRegionSum(activity_file,uid_dict,inventory_year):
     """
     Region sums (Region 1 and Region 2) for each activity.
     activity_file: each line has the same following format: First_UID Other_UID1 Other_UID2 ... Other_UIDN
                  First_UID: where the sum of the time series goes in CRFREporter
                  Other_UID: time series UID to be summed
-    dict: dictionary to find the time series themselves
+    uid_dict: dictionary to find the time series themselves
     return the list of the sums with UID where to put them in CRFReporter:
     [[UID1,year1,year2...,inv_year],...,[UIDN,year1,year2,...,inv_year]]
     """
     ls = ReadGHGInventoryFile(activity_file)
+    print('Activity file',ls)
+    sum_ls=[]
     reporter_sum_ls=[]
     for line in ls:
         #The first is the UID to find place in CRFReporter
         uid_to = line.pop(0)
         uid_new_to = uid_to.strip('{}')
         #Create the first list of zeros ("inital sum") from 1990 to inventory_year
-        #print(uid_new_first,sum_ls)
-        #print("")
+        #print("SumLS",sum_ls)
+        #print("UID_to",uid_new_to)
         for uid_from in line:
             #Find the time series for the UID
             uid_from_new = uid_from.strip('{}')
+            print("UIDfrom",uid_from_new)
             #One or more time series in a list
-            time_series_lss = dict[uid_from_new]
+            time_series_lss = uid_dict[uid_from_new]
+            print("Time series",time_series_lss)
             first_sum_ls = time_series_lss.pop(0)
             #Remove UID
             first_sum_ls.pop(0)
@@ -105,8 +109,8 @@ def KPRegionSum(activity_file,dict,inventory_year):
                 time_series_ls = padding_ls+time_series_ls
                 sum_ls = [SumTwoValues(ConvertFloat(x),ConvertFloat(y)) for (x,y) in zip(first_sum_ls,
                                                                                          time_series_ls)]
-                #print(uid_new,time_series_ls)
-                #print(uid_new_first,sum_ls)
+                #print('Series',uid_new,time_series_ls)
+                #print('Sum series',uid_new_first,sum_ls)
                 #print("")
         #The sum for the aggregate uid_to is done 
         reporter_sum_ls.append([uid_new_to]+sum_ls)

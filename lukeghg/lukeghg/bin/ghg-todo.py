@@ -11,7 +11,7 @@ import xlsxwriter
 from lukeghg.crf.uid340to500mapping import MapUID340to500, Create340to500UIDMapping
 import lukeghg.crf.ghginventory as ghg
 
-def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file):
+def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file,inventory_year:int):
     #Inventory results from the previous year
     filels1 = glob.glob(fprev)
     filels1 = sorted(filels1)
@@ -21,6 +21,8 @@ def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file):
         filels2 = glob.glob(fcurrent)
         filels2 = sorted(filels2)
     t = ET()
+    print("Number of files",inventory_year-1,len(filels1))
+    print("Number of files",inventory_year,len(filels2))
     print("Parsing xml file", xml_file)
     t.parse(xml_file)
     it=t.iter('variable')
@@ -81,9 +83,9 @@ def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file):
     set3 = set1.difference(set2)
     print("Number of inventory records:","Previous",len(set1),"Current",len(set2),"Set difference",len(set3))
     df_ls1=[]
-    df_ls1.append(['Data in '+str(datetime.datetime.now().year-2)+' but not in '+str(datetime.datetime.now().year-1)])
+    df_ls1.append(['Data in '+str(inventory_year-1)+' but not in '+str(inventory_year)])
     df_ls1.append(['UID','File','Inventory Years','CRFReporter name','Owner','Data'])
-    print("Creating Excel sheets",outfile)
+    print("Creating Excel sheets for",outfile)
     if len(set3) == 0:
         print("Same set of inventory ")
     else:
@@ -100,7 +102,7 @@ def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file):
     df_ls1.append(['Date: '+str(datetime.datetime.now())])
     df1 = pd.DataFrame(df_ls1)
     df_ls2=[]
-    df_ls2.append(['Current '+str(datetime.datetime.now().year-1)+' inventory'])
+    df_ls2.append(['Current '+str(inventory_year-1)+' inventory'])
     df_ls2.append(['UID','File','Number of inventory years','CRFReporter name','Owner'])
     ls = list(set2)
     for uid in ls:
@@ -115,7 +117,7 @@ def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file):
     df_ls2.append(['Date: '+str(datetime.datetime.now())])
     df2 = pd.DataFrame(df_ls2)
     df_ls3=[]
-    df_ls3.append(['Missing UID '+str(datetime.datetime.now().year-1)])
+    df_ls3.append(['Missing UID '+str(inventory_year-1)])
     df_ls3.append(['UID','File'])
     for data in uid_missing_ls:
         df_ls3.append(data)
@@ -123,9 +125,9 @@ def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file):
     df3 = pd.DataFrame(df_ls3)
     print("Creating Excel file",outfile)
     writer = pd.ExcelWriter(outfile,engine='xlsxwriter')
-    df1.to_excel(writer,sheet_name='Missing from '+str(datetime.datetime.now().year-1))
-    df2.to_excel(writer,sheet_name=str(datetime.datetime.now().year-1)+' inventory')
-    df3.to_excel(writer,sheet_name='Missing UID '+str(datetime.datetime.now().year-1))
+    df1.to_excel(writer,sheet_name='Missing from '+str(inventory_year-1))
+    df2.to_excel(writer,sheet_name=str(inventory_year)+' inventory')
+    df3.to_excel(writer,sheet_name='Missing UID '+str(inventory_year))
     writer.save()
 #---------------------------------The main program begins--------------------------------------------------
 #Command line generator   
@@ -135,6 +137,8 @@ parser.add_argument("-f2",type=str,dest="f2",help="Read input ghg result files (
 parser.add_argument("-x",type=str,dest="x",help="CRFReporter Simple XML file for current year")
 parser.add_argument("-o",type=str,dest="o",help="Output Excel file for missing inventory categories")
 parser.add_argument("-m",type=str,dest="m",help="CRFReporter 3.0.0 --> 5.0.0 UID mapping file")
+parser.add_argument("-y",type=int,dest="y",help="Inventory year")
+
 #parser.add_argument("-u",type=str,dest="f5",help="File for dictionary of (UID,file name, date modified, file owner) from previous year")
 
 args = parser.parse_args()
@@ -154,7 +158,10 @@ if args.o is None:
 if args.m is None:
     print("No output file for missing inventory categories")
     quit()
+if args.m is None:
+    print("No inventory year")
+    quit()
 
-GHGToDo(args.f1,args.f2,args.x,args.o,args.m)
+GHGToDo(args.f1,args.f2,args.x,args.o,args.m,args.y)
 print("Done")
 

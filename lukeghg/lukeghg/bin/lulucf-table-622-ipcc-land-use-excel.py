@@ -152,7 +152,7 @@ df_total_from_file=pd.DataFrame(['Total area (land and inland waters) in: '+opti
 date_now=datetime.datetime.now()
 df_date_now=pd.DataFrame(['Date:',str(date_now)]).transpose()
 writer=pd.ExcelWriter('LUTable_622.xlsx',engine='xlsxwriter')
-df_title.to_excel(writer,'LUTable622',startrow=0,startcol=0,header=False)
+df_title.to_excel(writer,sheet_name='LUTable622',startrow=0,startcol=0,header=False)
 df_first_row.to_excel(writer,sheet_name='LUTable622',startrow=1,startcol=0,header=False)
 df_second_row.to_excel(writer,sheet_name='LUTable622',startrow=2,startcol=0,header=False)
 df_all_land_use.to_excel(writer,sheet_name='LUTable622',startrow=3,startcol=0,header=False)
@@ -162,8 +162,10 @@ df_uncertainty_from.to_excel(writer,sheet_name='LUTable622',startrow=7+len(list(
 df_total_from_file.to_excel(writer,sheet_name='LUTable622',startrow=10+len(list(range(1990,inventory_year+1))),startcol=0,index=False,header=False)
 df_total_area.to_excel(writer,sheet_name='LUTable622',startrow=11+len(list(range(1990,inventory_year+1))),startcol=0,index=False)
 df_date_now.to_excel(writer,sheet_name='LUTable622',startrow=14+len(list(range(1990,inventory_year+1))),startcol=0,index=False,header=False)
+print(df_all_land_use.head())
+print("Done")
 writer.save()
-quit()
+writer.close()
 #Quit now, Fix the file naming so that the text file does not override excel file
 #or remove the text file part because now it is innecessary
 

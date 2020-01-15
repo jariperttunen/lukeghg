@@ -2,7 +2,7 @@
 #run-ghg-master.sh: Run (2017) inventory xml import in one step. 
 #Note the use of double quotes to allow wild card file reading.
 #See "/hsan2/khk/ghg/lukeghg/InstallAndUpdateLukeGHG.txt" to setup 'lukeghg' python virtual environment. 
-#To redirect output type e.g.: run-ghgr-.master.sh > output.txt 2> errors.txt.  
+#To redirect output type e.g.: run-ghg-master.sh > output.txt 2> errors.txt.  
 source ~/lukeghg/bin/activate
 ghg-master.py -c "crf/[KPLU]*.csv" -p PartyProfile_2018_template.xml\
 	      -x GHG2018_FIN_2020_1.xml\
