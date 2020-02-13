@@ -5,7 +5,7 @@
 #To redirect output type e.g.: run-ghg-master.sh > output.txt 2> errors.txt.  
 source ~/lukeghg/bin/activate
 ghg-master.py -c "crf/[KPLU]*.csv" -p PartyProfile_2018_template.xml\
-	      -x GHG2018_FIN_2020_1.xml\
+	      -x GHG2018_FIN_2020_4.xml\
 	      -b lukeghg/KPLULU1990/KP_CM_GM_RV_WDR_UID_notaatioavain.csv\
 	      -k lukeghg/KPLULUSummary/KPSummary.csv\
 	      -l lukeghg/KPLULUSummary/LUSummary.csv\
