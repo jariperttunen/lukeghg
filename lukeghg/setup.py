@@ -1,7 +1,6 @@
 import glob
 import setuptools
 from setuptools import setup
-
 setup(name='lukeghg',
       version=1.0,
       description='LUKE GHG Inventory Support tools',

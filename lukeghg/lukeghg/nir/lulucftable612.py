@@ -9,6 +9,7 @@ from lukeghg.crf.uid340to500mapping import MapUID340to500, Create340to500UIDMapp
 import glob
 from lukeghg.crf.crfxmlconstants import *
 from lukeghg.crf.crfxmlfunctions import *
+import lukeghg.utility.remote as remote
 #inventory_year=2015
 
 def FormatNumber(x,formatting):
@@ -146,12 +147,14 @@ def CreateCO2eqTableData(crf_dir):
     biomass_file="Table_6.1-2.csv"
 #Forest land
 #1. 4A Biomass, mineral and organic
-    f = open(biomass_file)
-    biomass_data_ls = [x.split() for x in f.readlines()]
-    f.close()
-    biomass_data_ls.pop(0)
-    biomass_data_ls = [list(map(lambda x: format(float(x),'.6f'),ls)) for ls in biomass_data_ls] 
+    #f = open(biomass_file)
+    #biomass_data_ls = [x.split() for x in f.readlines()]
+    #f.close()
+    #biomass_data_ls.pop(0)
+    #biomass_data_ls = [list(map(lambda x: format(float(x),'.6f'),ls)) for ls in biomass_data_ls]
     #-------------------------------------------
+    r = remote.RemoteFile()
+    biomass_data_ls = r.read_remote_file_as_str('hirsi.in.metla.fi','/hsan2/khk/ghg/2018/NIR/Table_6.1-2.csv')
     place_holder_ls = ['0']*len(biomass_data_ls[0])
     print(biomass_data_ls[0])
     print(biomass_data_ls[1])

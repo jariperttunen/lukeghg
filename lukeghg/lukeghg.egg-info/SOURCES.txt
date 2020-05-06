@@ -45,3 +45,6 @@ lukeghg/nir/kptableappendix11b.py
 lukeghg/nir/kptableappendix11c.py
 lukeghg/nir/lulucftable612.py
 lukeghg/requests/__init__.py
+lukeghg/utility/__init__.py
+lukeghg/utility/filter.py
+lukeghg/utility/remote.py
