@@ -102,7 +102,7 @@ def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file,inventory_year:int)
     df_ls1.append(['Date: '+str(datetime.datetime.now())])
     df1 = pd.DataFrame(df_ls1)
     df_ls2=[]
-    df_ls2.append(['Current '+str(inventory_year-1)+' inventory'])
+    df_ls2.append(['Current '+str(inventory_year)+' inventory'])
     df_ls2.append(['UID','File','Number of inventory years','CRFReporter name','Owner'])
     ls = list(set2)
     for uid in ls:
@@ -117,7 +117,7 @@ def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file,inventory_year:int)
     df_ls2.append(['Date: '+str(datetime.datetime.now())])
     df2 = pd.DataFrame(df_ls2)
     df_ls3=[]
-    df_ls3.append(['Missing UID '+str(inventory_year-1)])
+    df_ls3.append(['Missing UID '+str(inventory_year)])
     df_ls3.append(['UID','File'])
     for data in uid_missing_ls:
         df_ls3.append(data)
