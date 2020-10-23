@@ -390,7 +390,6 @@ def WriteCO2eqTableData(start,end,file_name,crf_dir):
     f.write("Date produced: "+str(now)+"\n")
     f.write("Data from: "+crf_dir)
     f.close()
-    print("HERE")
     p = pathlib.Path(file_name)
     parent = str(p.parent)+'/'
     stem = p.stem
