@@ -142,7 +142,7 @@ N2O_indirect_uid_ls = ['E3A677C8-0818-417A-9D7C-053DEFD1F14E']
 #This list collects all results
 CO2eq_table_data_ls = []
 #-------------------------------------------
-def CreateCO2eqTableData(crf_dir):
+def CreateCO2eqTableData(crf_dir,end):
     lulucf_file_ls = glob.glob(crf_dir+"/"+"LU*.csv")
     biomass_file="Table_6.1-2.csv"
 #Forest land
@@ -154,7 +154,7 @@ def CreateCO2eqTableData(crf_dir):
     #biomass_data_ls = [list(map(lambda x: format(float(x),'.6f'),ls)) for ls in biomass_data_ls]
     #-------------------------------------------
     r = remote.RemoteFile()
-    biomass_data_ls = r.read_remote_file_as_str('hirsi.in.metla.fi','/hsan2/khk/ghg/2018/NIR/Table_6.1-2.csv')
+    biomass_data_ls = r.read_remote_file_as_str('hirsi.in.metla.fi','/hsan2/khk/ghg/'+str(end)+'/NIR/Table_6.1-2.csv')
     place_holder_ls = ['0']*len(biomass_data_ls[0])
     print(biomass_data_ls[0])
     print(biomass_data_ls[1])
@@ -358,7 +358,7 @@ def CreateCO2eqTableData(crf_dir):
 #---------------------------------------------------------------------------------------------------
 #Write data to a file
 def WriteCO2eqTableData(start,end,file_name,crf_dir):
-    CreateCO2eqTableData(crf_dir)
+    CreateCO2eqTableData(crf_dir,end)
     separator = '#'
     row_title_ls = GenerateRowTitleList(start,end)
     row_title_ls1 = ["Mt CO2 eq"]+row_title_ls
@@ -390,6 +390,7 @@ def WriteCO2eqTableData(start,end,file_name,crf_dir):
     f.write("Date produced: "+str(now)+"\n")
     f.write("Data from: "+crf_dir)
     f.close()
+    print("HERE")
     p = pathlib.Path(file_name)
     parent = str(p.parent)+'/'
     stem = p.stem
