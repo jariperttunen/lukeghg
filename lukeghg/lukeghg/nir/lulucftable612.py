@@ -154,7 +154,7 @@ def CreateCO2eqTableData(crf_dir):
     #biomass_data_ls = [list(map(lambda x: format(float(x),'.6f'),ls)) for ls in biomass_data_ls]
     #-------------------------------------------
     r = remote.RemoteFile()
-    biomass_data_ls = r.read_remote_file_as_str('hirsi.in.metla.fi','/hsan2/khk/ghg/2018/NIR/Table_6.1-2.csv')
+    biomass_data_ls = r.read_remote_file_as_str('hirsi','/hsan2/khk/ghg/2018/NIR/Table_6.1-2.csv')
     place_holder_ls = ['0']*len(biomass_data_ls[0])
     print(biomass_data_ls[0])
     print(biomass_data_ls[1])
