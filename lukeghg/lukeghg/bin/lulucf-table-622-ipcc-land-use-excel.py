@@ -1,4 +1,4 @@
-#!/nas1/home/jarip/lukeghg/bin/python
+#!/Users/jarip/lukeghg/bin/python3.6
 import pandas as pd
 import xlsxwriter
 from numpy import *
@@ -41,7 +41,7 @@ row_title_ls=GenerateRowTitleList(1990,inventory_year)
 
 lulucf_classes_all_file=options.f1
 
-table_file=open(options.f2,"w")
+table_file=open('LULUTable6-2.2.txt',"w")
 #print(row_title_ls)
 #Read the raw data
 df = pd.read_table(lulucf_classes_all_file,delim_whitespace=True)
@@ -51,7 +51,6 @@ df_uncertainty=pd.read_table(options.f4,sep=';')
 df_uncertainty.insert(6,column='Wetlands total',value='')
 df_uncertainty['InWater']=""
 df_uncertainty.index=['Uncertainty']
-
 df=df[(df['region']==99) & (df['soil']==99)]
 a=loadtxt(lulucf_classes_all_file,float,skiprows=1)
 #Select sum rows first
@@ -151,7 +150,7 @@ df_uncertainty_from=pd.DataFrame(['Uncertainty from: '+options.f4]).transpose()
 df_total_from_file=pd.DataFrame(['Total area (land and inland waters) in: '+options.f1]).transpose()
 date_now=datetime.datetime.now()
 df_date_now=pd.DataFrame(['Date:',str(date_now)]).transpose()
-writer=pd.ExcelWriter('LUTable_622.xlsx',engine='xlsxwriter')
+writer=pd.ExcelWriter(options.f2,engine='xlsxwriter')
 df_title.to_excel(writer,sheet_name='LUTable622',startrow=0,startcol=0,header=False)
 df_first_row.to_excel(writer,sheet_name='LUTable622',startrow=1,startcol=0,header=False)
 df_second_row.to_excel(writer,sheet_name='LUTable622',startrow=2,startcol=0,header=False)
@@ -168,7 +167,6 @@ writer.save()
 writer.close()
 #Quit now, Fix the file naming so that the text file does not override excel file
 #or remove the text file part because now it is innecessary
-
 #Create the table)
 table_file.write(table_title)
 table_file.write(header_title)
