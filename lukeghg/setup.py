@@ -3,7 +3,7 @@ import setuptools
 from setuptools import setup
 setup(name='lukeghg',
       version=1.0,
-      description='LUKE GHG Inventory Support tools',
+      description='LUKE GHG Inventory Support Tools',
       author='Jari Perttunen',
       author_email='jari.perttunen@luke.fi',
       license='LUKE',
