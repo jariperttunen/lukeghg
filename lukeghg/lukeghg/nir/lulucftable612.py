@@ -2,7 +2,10 @@ import os
 import datetime
 import pathlib
 import pandas as pd
-import xlsxwriter
+import openpyxl
+from openpyxl.styles import PatternFill
+from xlsxwriter.utility import xl_rowcol_to_cell
+
 #from operator import add
 #from optparse import OptionParser as OP
 from lukeghg.crf.uid340to500mapping import MapUID340to500, Create340to500UIDMapping
@@ -25,7 +28,7 @@ def ConvertToCO2AndRound(x,sign,conversion,decimals):
        decimals: accuracy in rounding
     """
     try:#CRFREeporter uses kt, convert to Mt
-        print(x)
+        #print(x)
         return RoundToNDecimals(ConvertToCO2(conversion,sign*x)/1000.0,decimals)
     except TypeError:
         return x
@@ -56,12 +59,12 @@ def EmissionToMtCO2eqSum(file_ls,uid_ls,conversion,sign):
     #print(sum_ls)
     for ls in data_ls:
         ls.pop(0)
-        print(ls)
+        #print(ls)
         sum_ls = [SumTwoValues(x,y) for (x,y) in zip(ls,sum_ls)]
         #print("SUM",sum_ls)
     #Reporter uses kt, convert to Mt 
     sum_ls = [str(ConvertToCO2AndRound(x,sign,conversion,12)) for x in sum_ls]
-    print("CO2",sum_ls)
+    #print("CO2",sum_ls)
     return sum_ls
 
 def SumFileList(file_ls,toCO2):
@@ -142,9 +145,9 @@ N2O_indirect_uid_ls = ['E3A677C8-0818-417A-9D7C-053DEFD1F14E']
 #This list collects all results
 CO2eq_table_data_ls = []
 #-------------------------------------------
-def CreateCO2eqTableData(crf_dir,end):
+def CreateCO2eqTableData(crf_dir,server,file_path):
     lulucf_file_ls = glob.glob(crf_dir+"/"+"LU*.csv")
-    biomass_file="Table_6.1-2.csv"
+    #biomass_file="Table_6.1-2.csv"
 #Forest land
 #1. 4A Biomass, mineral and organic
     #f = open(biomass_file)
@@ -154,10 +157,10 @@ def CreateCO2eqTableData(crf_dir,end):
     #biomass_data_ls = [list(map(lambda x: format(float(x),'.6f'),ls)) for ls in biomass_data_ls]
     #-------------------------------------------
     r = remote.RemoteFile()
-    biomass_data_ls = r.read_remote_file_as_str('hirsi.in.metla.fi','/hsan2/khk/ghg/'+str(end)+'/NIR/Table_6.1-2.csv')
+    biomass_data_ls = r.read_remote_file_as_str(server,file_path)
     place_holder_ls = ['0']*len(biomass_data_ls[0])
-    print(biomass_data_ls[0])
-    print(biomass_data_ls[1])
+    #print(biomass_data_ls[0])
+    #print(biomass_data_ls[1])
     CO2eq_table_data_ls.append(place_holder_ls)
     CO2eq_table_data_ls.append(biomass_data_ls[0])
     CO2eq_table_data_ls.append(biomass_data_ls[1])
@@ -171,14 +174,14 @@ def CreateCO2eqTableData(crf_dir,end):
                                 '758A489C-2516-4828-9DD7-DAA8C3FE2BAD']
     mineral_sum_ls = EmissionToMtCO2eqSum(lulucf_file_ls,fl_dom_som_mineral_uid_ls,ctoco2,-1.0)
     organic_sum_ls = EmissionToMtCO2eqSum(lulucf_file_ls,fl_dom_som_organic_uid_ls,ctoco2,-1.0)
-    print(mineral_sum_ls)
+    #print(mineral_sum_ls)
     CO2eq_table_data_ls.append(mineral_sum_ls)
-    print(organic_sum_ls)
+    #print(organic_sum_ls)
     CO2eq_table_data_ls.append(organic_sum_ls)
 #3. 4A1 N fertilisation
     n_fertilization_uid_ls = ['22DBD636-5D80-4C41-AD31-CB2CA289CAEA']
     n_fertilisation_ls = EmissionToMtCO2eqSum(lulucf_file_ls,n_fertilization_uid_ls,n2oco2eq,1.0)
-    print(n_fertilisation_ls)
+    #print(n_fertilisation_ls)
     CO2eq_table_data_ls.append(n_fertilisation_ls)
 #4. Biomass burning
 #I. Controlled burning
@@ -208,15 +211,15 @@ def CreateCO2eqTableData(crf_dir,end):
 #(I+II)+III
     bm_burning_ls = [FormatNumber(SumTwoValues(a,SumTwoValues(b,SumTwoValues(c,d))),'.12f')
                     for (a,b,c,d) in zip(fl_wfV_co2_ls,fl_wfV_ch4_ls,fl_wfV_n2o_ls,bm_burning_ls)]
-    print("3. BM burning")
-    print(bm_burning_ls)
+    #print("3. BM burning")
+    #print(bm_burning_ls)
     CO2eq_table_data_ls.append(bm_burning_ls)
 #5. N mineralisation
     fl_N_mineralisation_uid_ls = ['1FDFE900-D9C3-44C5-9CCE-2AA4B6713DBB','E82036FA-99A3-4048-9B1F-5EC104BA0337',
                                 'B598E180-C1C5-492A-B7FA-C0FAB7816050','860D7B59-2124-4518-A98E-A9BA913F9118',
                                 '2EFC222A-3826-43A0-BE19-D0D51BBF46B2']
     N_mineralisation_sum_ls = EmissionToMtCO2eqSum(lulucf_file_ls,fl_N_mineralisation_uid_ls,n2oco2eq,1.0)
-    print(N_mineralisation_sum_ls)
+    #print(N_mineralisation_sum_ls)
     CO2eq_table_data_ls.append(N_mineralisation_sum_ls)
 #6. CH4 and N2O from drainaged forest land
     fl_ch4_uid_ls = ['50671AEF-56F6-44DA-B196-85D05206FCFB']
@@ -224,7 +227,7 @@ def CreateCO2eqTableData(crf_dir,end):
     fl_ch4_ls = EmissionToMtCO2eqSum(lulucf_file_ls,fl_ch4_uid_ls,ch4co2eq,1.0)
     fl_n2o_ls = EmissionToMtCO2eqSum(lulucf_file_ls,fl_n2o_uid_ls,n2oco2eq,1.0)
     sum_ch4n2oco2eq_ls = [FormatNumber(SumTwoValues(x,y),'.12f') for (x,y) in zip(fl_ch4_ls,fl_n2o_ls)]
-    print(sum_ch4n2oco2eq_ls)
+    #print(sum_ch4n2oco2eq_ls)
     CO2eq_table_data_ls.append(sum_ch4n2oco2eq_ls)
 #7. 4B Cropland biomass
     cl_biomass_uid_ls = ['176984AA-39DD-46BD-8783-2632BEF3C520','0A0CAA48-DB6F-412A-AFBD-8F078B1AF8A6',
@@ -235,26 +238,26 @@ def CreateCO2eqTableData(crf_dir,end):
     CO2eq_table_data_ls.append(place_holder_ls)
     #cl_biomass_file_ls = [mtt_file,agr_bm_file,agr_bm_losses_file,agr_wl_cl_bm_losses_file]
     sum_cl_biomass_co2_ls  =  EmissionToMtCO2eqSum(lulucf_file_ls,cl_biomass_uid_ls,ctoco2,-1.0)
-    print(sum_cl_biomass_co2_ls)
+    #print(sum_cl_biomass_co2_ls)
     CO2eq_table_data_ls.append(sum_cl_biomass_co2_ls)
 #8. 4B Dead wood
     deadwood_uid_ls = ['810E194F-0D38-4486-8A88-96ACF87C2059']
     sum_deadwood_co2_ls = EmissionToMtCO2eqSum(lulucf_file_ls,deadwood_uid_ls,ctoco2,-1.0)
-    print("8. CL Dead wood")
-    print(sum_deadwood_co2_ls)
+    #print("8. CL Dead wood")
+    #print(sum_deadwood_co2_ls)
     CO2eq_table_data_ls.append(sum_deadwood_co2_ls)
 #9. 4B DOM+SOM mineral and organic soil
 #Mineral
     sum_dom_som_min_co2_ls =  EmissionToMtCO2eqSum(lulucf_file_ls,dom_som_mineral_uid_ls,ctoco2,-1.0)
-    print(sum_dom_som_min_co2_ls)
+    #print(sum_dom_som_min_co2_ls)
     CO2eq_table_data_ls.append(sum_dom_som_min_co2_ls)
 #Organic
     sum_dom_som_org_co2_ls = EmissionToMtCO2eqSum(lulucf_file_ls,dom_som_organic_uid_ls,ctoco2,-1.0)
-    print(sum_dom_som_org_co2_ls)
+    #print(sum_dom_som_org_co2_ls)
     CO2eq_table_data_ls.append(sum_dom_som_org_co2_ls)
 #10. N mineralisation
     sum_N_mineralisation_ls = EmissionToMtCO2eqSum(lulucf_file_ls,N_mineralisation_uid_ls,n2oco2eq,1.0)
-    print(sum_N_mineralisation_ls)
+    #print(sum_N_mineralisation_ls)
     CO2eq_table_data_ls.append(sum_N_mineralisation_ls)
 #4 C Grassland
     gl_biomass_uid_ls = ['9268C483-1CDF-492B-A0CC-510A18787438','53255AB3-3284-479F-9451-7AA403AC0C99',
@@ -277,23 +280,23 @@ def CreateCO2eqTableData(crf_dir,end):
     #gl_biomass_file_ls = [biomass_gains_trees_file,mtt_file,agr_bm_file,agr_bm_losses_file,
     #                    agr_wl_cl_bm_losses_file]
     sum_gl_biomass_ls = EmissionToMtCO2eqSum(lulucf_file_ls,gl_biomass_uid_ls,ctoco2,-1.0)
-    print(sum_gl_biomass_ls)
+    #print(sum_gl_biomass_ls)
     CO2eq_table_data_ls.append(sum_gl_biomass_ls)
 #12. Dead wood
     sum_gl_deadwood_ls = EmissionToMtCO2eqSum(lulucf_file_ls,gl_dead_wood_uid_ls,ctoco2,-1.0)
-    print(sum_gl_deadwood_ls)
+    #print(sum_gl_deadwood_ls)
     CO2eq_table_data_ls.append(sum_gl_deadwood_ls)
 #13. DOM+SOM mineral
     sum_gl_dom_som_mineral_ls = EmissionToMtCO2eqSum(lulucf_file_ls,gl_dom_som_mineral_uid_ls,ctoco2,-1.0)
-    print(sum_gl_dom_som_mineral_ls)
+    #print(sum_gl_dom_som_mineral_ls)
     CO2eq_table_data_ls.append(sum_gl_dom_som_mineral_ls)
 #14. DOM+SOM organic
     sum_gl_dom_som_organic_ls = EmissionToMtCO2eqSum(lulucf_file_ls,gl_dom_som_organic_uid_ls,ctoco2,-1.0)
-    print(sum_gl_dom_som_organic_ls)
+    #print(sum_gl_dom_som_organic_ls)
     CO2eq_table_data_ls.append(sum_gl_dom_som_organic_ls)
 #15. N mineralisation
     sum_gl_N_mineralisation_ls = EmissionToMtCO2eqSum(lulucf_file_ls,gl_N_mineralisation_uid_ls,n2oco2eq,1.0)
-    print(sum_gl_N_mineralisation_ls)
+    #print(sum_gl_N_mineralisation_ls)
     CO2eq_table_data_ls.append(sum_gl_N_mineralisation_ls)
 #Wildfires
     gl_wf_co2_ls = EmissionToMtCO2eqSum(lulucf_file_ls,gl_wf_co2_uid_ls,1.0,1.0)
@@ -307,15 +310,15 @@ def CreateCO2eqTableData(crf_dir,end):
     #wl_biomass_file_ls = [biomass_gains_trees_file,mtt_file,agr_bm_file,agr_bm_losses_file,
     #                      agr_wl_cl_bm_losses_file]
     sum_wl_biomass_ls = EmissionToMtCO2eqSum(lulucf_file_ls,wl_biomass_uid_ls,ctoco2,-1.0)
-    print(sum_wl_biomass_ls)
+    #print(sum_wl_biomass_ls)
     CO2eq_table_data_ls.append(sum_wl_biomass_ls)
 #17. Deadwood
     sum_wl_dead_wood_ls =  EmissionToMtCO2eqSum(lulucf_file_ls,wl_dead_wood_uid_ls,ctoco2,-1.0)
-    print(sum_wl_dead_wood_ls)
+    #print(sum_wl_dead_wood_ls)
     CO2eq_table_data_ls.append(sum_wl_dead_wood_ls)
 #18. SOM (organic soil)
     sum_wl_som_ls = EmissionToMtCO2eqSum(lulucf_file_ls,wl_som_uid_ls,ctoco2,-1.0)
-    print(sum_wl_som_ls)
+    #print(sum_wl_som_ls)
     CO2eq_table_data_ls.append(sum_wl_som_ls)
 #19. 4(II) CH4 and N2O emissions
 #CH4
@@ -324,45 +327,98 @@ def CreateCO2eqTableData(crf_dir,end):
     n2o_ls = EmissionToMtCO2eqSum(lulucf_file_ls,wl_n2o_uid_ls,n2oco2eq,1.0)
 #CH4+N2O
     sum_wl_ch4_n2o_ls = [FormatNumber(SumTwoValues(x,y),'.12f') for (x,y) in zip(ch4_ls,n2o_ls)]
-    print(sum_wl_ch4_n2o_ls)
+    #print(sum_wl_ch4_n2o_ls)
     CO2eq_table_data_ls.append(sum_wl_ch4_n2o_ls)
 #Settlements
 #20. Biomass
     CO2eq_table_data_ls.append(place_holder_ls)
     sum_sl_biomass_ls = EmissionToMtCO2eqSum(lulucf_file_ls,sl_biomass_uid_ls,ctoco2,-1.0)
-    print(sum_sl_biomass_ls)
+    #print(sum_sl_biomass_ls)
     CO2eq_table_data_ls.append(sum_sl_biomass_ls)
 #21. Deadwood
     sum_sl_dead_wood_ls = EmissionToMtCO2eqSum(lulucf_file_ls,sl_dead_wood_uid_ls,ctoco2,-1.0)
-    print(sum_sl_dead_wood_ls)
+    #print(sum_sl_dead_wood_ls)
     CO2eq_table_data_ls.append(sum_sl_dead_wood_ls)
 #22. SOM (mineral soil)
     sum_sl_som_ls =  EmissionToMtCO2eqSum(lulucf_file_ls,sl_som_uid_ls,ctoco2,-1.0)
-    print(sum_sl_som_ls)
+    #print(sum_sl_som_ls)
     CO2eq_table_data_ls.append(sum_sl_som_ls)
 #23. N mineralisation
     sum_sl_N2O_mineralisation_ls = EmissionToMtCO2eqSum(lulucf_file_ls,sl_N2O_mineralisation_uid_ls,n2oco2eq,1.0)
-    print(sum_sl_N2O_mineralisation_ls)
+    #print(sum_sl_N2O_mineralisation_ls)
     CO2eq_table_data_ls.append(sum_sl_N2O_mineralisation_ls)
 #24. HWP (in CO2)
     sum_hwp_ls = EmissionToMtCO2eqSum(lulucf_file_ls,hwp_CO2_uid_ls,1.0,1.0)
-    print(sum_hwp_ls)
+    #print(sum_hwp_ls)
     CO2eq_table_data_ls.append(sum_hwp_ls)
 #25. Indirect N2O emissions
     sum_N2O_indirect_ls = EmissionToMtCO2eqSum(lulucf_file_ls,N2O_indirect_uid_ls,n2oco2eq,1.0)
-    print('---')
-    print(sum_N2O_indirect_ls)
+    #print('---')
+    #print(sum_N2O_indirect_ls)
     CO2eq_table_data_ls.append(sum_N2O_indirect_ls)
     CO2eq_table_data_ls.append(place_holder_ls)
 #End of CreateCO2eqTableData
+
+def find_numeric_part(cell:str):
+    for (index,x) in enumerate(cell):
+        if x.isnumeric():
+            break
+    return index
+
+def cut_cell_number(cell:str):
+    index = find_numeric_part(cell)
+    cell_ls = list(cell)
+    cell_ls = cell_ls[:index]
+    new_cell = "".join(cell_ls)
+    return new_cell
+
+def write_co2sum_formula(sheet,ncols,row,sum_start,sum_end,color):
+    for i in range(2,ncols+2):
+        #cell = xl_rowcol_to_cell(row,i)
+        cell = openpyxl.cell.cell.Cell(sheet,row,i)
+        cell_coordinate = cell.coordinate 
+        cell_letter = cut_cell_number(cell_coordinate)
+        cell_start = cell_letter+str(sum_start)
+        cell_end = cell_letter+str(sum_end)
+        #sheet.write_array_formula(cell,'=SUM('+cell_start+':'+cell_end+')',cell_format=cell_format)
+        sheet[cell_coordinate]='=SUM('+cell_start+':'+cell_end+')'
+        sheet[cell_coordinate].fill = PatternFill(start_color=color, fill_type = "solid")
+    return sheet
+
+def write_co2tot_formula(sheet,ncols,row,row_number_ls,color):
+    for i in range(2,ncols+2):
+        cell = openpyxl.cell.cell.Cell(sheet,row,i)
+        cell_coordinate = cell.coordinate
+        cell_letter = cut_cell_number(cell_coordinate)
+        cell_ls = []
+        for row_number in row_number_ls:
+            cell_ls.append(cell_letter+str(row_number))
+        formula = '=SUM('
+        for cell_name in cell_ls:
+            formula = formula+cell_name+','
+        #replace last ',' with ')
+        formula = formula[:len(formula)-1]
+        formula = formula+')'
+        print(formula)
+        #sheet.write_array_formula(cell,formula,cell_format=cell_format)
+        sheet[cell_coordinate]=formula
+        sheet[cell_coordinate].fill = PatternFill(start_color=color, fill_type = "solid")
+    return sheet
+
+def set_row_color(sheet,ncols,row,color):
+    for i in range(2,ncols+2):
+        cell = openpyxl.cell.cell.Cell(sheet,row,i)
+        cell_coordinate = cell.coordinate
+        sheet[cell_coordinate].fill = PatternFill(start_color=color, fill_type = "solid")
+    return sheet
 #---------------------------------------------------------------------------------------------------
 #Write data to a file
-def WriteCO2eqTableData(start,end,file_name,crf_dir):
-    CreateCO2eqTableData(crf_dir,end)
+def WriteCO2eqTableData(start,end,file_name,crf_dir,server,biomass_file_path):
+    CreateCO2eqTableData(crf_dir,server,biomass_file_path)
     separator = '#'
-    row_title_ls = GenerateRowTitleList(start,end)
-    row_title_ls1 = ["Mt CO2 eq"]+row_title_ls
-    column_title_ls = ["4.A Forest land","Biomass, mineral soils","Biomass, organic soils",
+    col_title_ls = GenerateRowTitleList(start,end)
+    row_title_ls1 = ["Mt CO2 eq"]+col_title_ls
+    row_title_ls = ["4.A Forest land","Biomass, mineral soils","Biomass, organic soils",
                     "DOM+SOM, mineral soils", "DOM+SOM, organic soils", "4(I) N fertilisation",
                     "4(V) Biomass burning", "4(III) N mineralisation", "4(II) CH4 and N2O emissions from drained forest land",
                     "4.B Cropland", "Biomass", "Dead wood", "DOM+SOM, mineral soils", "DOM+SOM organic soils",
@@ -370,36 +426,42 @@ def WriteCO2eqTableData(start,end,file_name,crf_dir):
                     "DOM+SOM organic soils", "4(III) N mineralisation", "4(V) Biomass burning", "4.D Wetlands", "Biomass", "Dead wood", "SOM",
                     "4(II) CH4 and N2O emissions", "4.E Settlements", "Biomass", "Dead wood", "SOM", "4(III) N mineralisation",
                     "4.G Harvested wood products", "4(IV) Indirect N2O emissions", "4 Total CO2 eq"]
-    if len(CO2eq_table_data_ls) != len(column_title_ls):
-        print(len(CO2eq_table_data_ls),len(column_title_ls))
+    if len(CO2eq_table_data_ls) != len(row_title_ls):
+        print("ERROR",len(CO2eq_table_data_ls),len(row_title_ls))
         quit()
     
-    f = open(file_name,'w')
-    for title in row_title_ls1:
-        f.write(title+separator)
-    f.write('\n')
-    for (title,data_ls) in zip(column_title_ls,CO2eq_table_data_ls):
-        f.write(title+separator)
-        for data in data_ls:
-            f.write(data+separator)
-        f.write('\n')
-    f.write('\n')
-#Sign with the date time
-    now = datetime.datetime.now()
-    print(str(now))
-    f.write("Date produced: "+str(now)+"\n")
-    f.write("Data from: "+crf_dir)
-    f.close()
+    
     p = pathlib.Path(file_name)
     parent = str(p.parent)+'/'
     stem = p.stem
     excel_file_name=parent+stem+'.xlsx' 
-    writer = pd.ExcelWriter(excel_file_name,engine='xlsxwriter')
-    row_title_ls = [int(x) for x in row_title_ls]  
-    df=pd.DataFrame(CO2eq_table_data_ls,columns=row_title_ls,index=column_title_ls)
+    writer = pd.ExcelWriter(excel_file_name,engine='openpyxl')
+    col_title_ls = [int(x) for x in col_title_ls]
+    CO2eq_table_data_ls.append([' ']*len(col_title_ls))
+    CO2eq_table_data_ls.append([' ']*len(col_title_ls))
+    row_title_ls.append("Biomass from")
+    row_title_ls.append('Date')
+    df=pd.DataFrame(CO2eq_table_data_ls,columns=col_title_ls,index=row_title_ls)
+    print(df)
     df_float=df.applymap(ConvertFloat)
+    biomass_text=server+'://'+biomass_file_path
+    now = datetime.datetime.now()
+    df_float.loc["Biomass from",1990]=biomass_text
+    df_float.loc["Date",1990]=str(now)
     df_float.index.name="Mt CO2eq"
     df_float.to_excel(writer,sheet_name='Table-6.1-2')
+    workbook = writer.book
+    #cell_format = workbook.add_format({'bg_color':'#FFFF00'}) 
+    sheet = writer.sheets['Table-6.1-2']
+    sheet = write_co2sum_formula(sheet,len(col_title_ls),2,3,10,'00FFFF00')
+    sheet = write_co2sum_formula(sheet,len(col_title_ls),11,12,16,'00FFFF00')
+    sheet = write_co2sum_formula(sheet,len(col_title_ls),17,18,23,'00FFFF00')
+    sheet = write_co2sum_formula(sheet,len(col_title_ls),24,25,28,'00FFFF00')
+    sheet = write_co2sum_formula(sheet,len(col_title_ls),29,30,33,'00FFFF00')
+    sheet = write_co2tot_formula(sheet,len(col_title_ls),36,[2,11,17,24,29,34,35],'00FFFF00')
+    sheet = set_row_color(sheet,len(col_title_ls),34,'00FFFF00')
+    sheet = set_row_color(sheet,len(col_title_ls),35,'00FFFF00')
+    writer.close()
 #End of WriteCO2eqTableData
 if __name__ == "__main__":
     start=1990

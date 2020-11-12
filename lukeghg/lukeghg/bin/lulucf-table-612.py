@@ -29,4 +29,4 @@ if options.f4 is None:
     quit()
 d=options.f4
 
-lulucftable612.WriteCO2eqTableData(start,end,file_name,d)
+lulucftable612.WriteCO2eqTableData(start,end,file_name,d,'hirsi.in.metla.fi','/hsan2/khk/ghg/'+str(end)+'/NIR/Table_6.1-2.csv')
