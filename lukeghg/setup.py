@@ -2,7 +2,7 @@ import glob
 import setuptools
 from setuptools import setup
 setup(name='lukeghg',
-      version=1.0,
+      version='1.0',
       description='LUKE GHG Inventory Support Tools',
       author='Jari Perttunen',
       author_email='jari.perttunen@luke.fi',
