@@ -15,7 +15,7 @@ The instructions are for zsh shell in sorvi.
 ----------------------------
 
 1. Create python virtual environment called 'lukeghg' in your home directory
-(promt% denotes your command prompt).
+(promt% denotes your terminal command line prompt).
 
 prompt% /usr/bin/python3 -m venv lukeghg
 
@@ -58,7 +58,7 @@ directory. Edit the following command options:
 -p Location of the CRFReporter PartyProfile file
 -x Locatation of the PartyProfile result file to be imported to CRFReporter
 -n Location of the specific NIR files
--i  Location of the Comment files
+-i Location of the Comment files
 -y Inventory year
 
 Note the options -b, -k,-l and -m refer to ubiquitous configuration
@@ -68,16 +68,18 @@ directories in <GHGInventoryDirectory> and run the run-ghg-master.sh
 in <GHGInventoryDirectory>.
 
 When "run-ghg-master.sh" is edited for the current inventory
-and the lukeghg is updated for the virtual environment 
-simply run the script to the generate xml file for CRFReporter:
+lukeghg must be updated for the virtual environment (see C Update lukeghg). 
+
+Then the xml for CRFReporter can be produced:
 
 (lukeghg) prompt%: python3 -m lukeghg.utility.convertuf8 -f crf/'*.csv'
 (lukeghg) prompt%: run-ghg-master.sh > Import.log 2> Error.log
 
-The GHG inventory result files (csv files) seem to use different encoding systems.
-convertuf8 converts them to utf8. The script run-ghg-master.sh will run at most few minutes. 
+The GHG inventory result files (csv files) seem to use different encoding systems,
+convertuf8 converts them to utf8 (this is why they need to be copied with scp to crf directory first). 
+The script run-ghg-master.sh will run few minutes at most. 
 The '>' character redirects 'standard out' terminal output to Import.log file 
-and '2>' redirects 'standard error' output to Error.log file.
+and '2>' redirects 'standard error' terminal output to Error.log file.
 
 For EU529 there is similar run-eu529-ghg-master.sh script. Note EU529
 concerns KPLULUCF files only (LULUCF files are not missing by accident).
