@@ -4,7 +4,7 @@ Contents
 -------
 0 Create python virtual environment
 A Install 'lukeghg' python package
-B  Basic workflow: GHG inventory to CRFReporter xml file
+B Basic workflow: GHG inventory to CRFReporter xml file
 C Update  lukeghg
 D Version control
 
