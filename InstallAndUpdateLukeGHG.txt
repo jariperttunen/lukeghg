@@ -32,6 +32,8 @@ Note the '(lukeghg)' appearing in front of your command prompt.
 
 A Install 'lukeghg' python package
 ---------------------------
+For GitHub you need to have ".gitconfig" that defines Luke proxy server.
+See item E Version control at the end.
 
 1. Install lukeghg python package to the virtual environment
    
@@ -131,4 +133,4 @@ E Version control
 
 Currently lukeghg is in GitHub. For smooth operation with Luke network
 sample gitgonfig is available in Git directory. Edit email and your name and
-install it as ".gitconfig" in your home directory.
+install it as ".gitconfig" in your home directory. 
