@@ -99,7 +99,7 @@ the lukeghg package and then upgrade lukeghg and its dependencies.
 (lukeghg) prompt%: python3 -m pip uninstall lukeghg
 (lukeghg) prompt%: python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
 
-Version control
+D Version control
 ------------
 
 Currently lukeghg is in GitHub. For smooth operation with Luke network
