@@ -45,7 +45,7 @@ Clone lukeghg from GitHub for example to /data/shared/<user>
 
 (lukeghg) prompt% cd <GHGInventoryDirectory>/lukeghg/lukeghg
 (lukeghg) prompt% python3 setup.py sdist bdist_wheel
-(lukeghg) prompt% python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
+(lukeghg) prompt% python3 -m pip --proxy 10.88.2.10:8080 install --upgrade dist/lukeghg-1.0-py3-none-any.whl
 
 B Update lukeghg
 ----------------
@@ -65,7 +65,7 @@ the lukeghg package and then upgrade lukeghg and its dependencies.
 
 (lukeghg) prompt%: python3 setup.py sdist bdist_wheel
 (lukeghg) prompt%: python3 -m pip uninstall lukeghg
-(lukeghg) prompt%: python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
+(lukeghg) prompt%: python3 -m pip --proxy 10.88.2.10:8080 install --upgrade dist/lukeghg-1.0-py3-none-any.whl
 
 C. GHG inventory to CRFReporter xml file: basic workflow
 ---------------------------------------------
