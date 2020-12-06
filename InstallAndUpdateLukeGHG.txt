@@ -5,8 +5,9 @@ Contents
 0 Create python virtual environment
 A Install 'lukeghg' python package
 B Update  lukeghg
-C Basic workflow: GHG inventory to CRFReporter xml file
-D Version control
+C GHG inventory to CRFReporter xml file: basic workflow
+D Some other useful programs
+E Version control
 
 The instructions are for zsh shell in sorvi.
 (Your default shell might be for example "tcsh").
@@ -66,7 +67,7 @@ the lukeghg package and then upgrade lukeghg and its dependencies.
 (lukeghg) prompt%: python3 -m pip uninstall lukeghg
 (lukeghg) prompt%: python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
 
-C.  Basic workflow: ghg inventory to CRFReporter xml file
+C. GHG inventory to CRFReporter xml file: basic workflow
 ---------------------------------------------
 
 "run-ghg-master.sh" is a script that sets directories and files
@@ -108,7 +109,24 @@ Please note CRFReporter checks that the version number of the PartyProfile
 xml matches the CRFReporter version. Each CRFReporter update requires new
 empty PartyProfile xml from CRFReporter.
 
-D Version control
+D Some other useful programs
+----------------------------
+lukeghg package contains useful scripts for during the inventory checks 
+and to generate some ubiquitous tables for NIR. Each one has -h (help) option
+that should print self-explanatory explanation for each command line option.
+
+ghg-todo.py: 
+Compare two inventories and list missing time series and UIDs not found.
+Also, this is a quick fix to help to bring together scenario predictions for
+further analysis. Give all scenario result files for argument -f1 and let 
+the -f2 be a listing that produces no files. 
+
+lulucf-table-612.py:
+kptable-appendix11b.py:
+kptable-appendix11c.py:
+Produce three ubiquitous tables for NIR directly from the inventory results.
+
+E Version control
 ------------
 
 Currently lukeghg is in GitHub. For smooth operation with Luke network
