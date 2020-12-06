@@ -26,7 +26,7 @@ prompt% source lukeghg/bin/activate
 Note the '(lukeghg)' appearing in front of your command prompt.
 
 3. Check you have the latest versions of setuptools and wheel 
-(lukeghg) prompt% python3 -m pip install --user --upgrade setuptools wheel
+(lukeghg) prompt% python3 -m pip install --upgrade setuptools wheel
 
 A Install 'lukeghg' python package
 ---------------------------
