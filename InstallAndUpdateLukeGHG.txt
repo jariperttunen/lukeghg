@@ -1,124 +1,107 @@
-Install and update lukeghg python package in hirsi.in.metla.fi
--------------------------------------------------------------- 
+Install and update lukeghg python package, sorvi
+---------------------------------------
 Contents
 -------
-A Install 'lukeghg' python package in hirsi.in.metla.fi
-B  Basic workflow: ghg inventory to CRFReporter xml file
+0 Create python virtual environment
+A Install 'lukeghg' python package
+B  Basic workflow: GHG inventory to CRFReporter xml file
 C Update  lukeghg
-D Additional notes
+D Version control
 
-The instructions are for "bash" shell.
-Your default shell might be for example "tcsh".
+The instructions are for zsh shell in sorvi.
+(Your default shell might be for example "tcsh").
 
-To start bash shell type:
-
-prompt% bash
-
- The "prompt% " denotes your own command prompt.
-
-A Install 'lukeghg' python package in hirsi.in.metla.fi
------------------------------------------------------
+0 Create python virtual environment
+----------------------------
 
 1. Create python virtual environment called 'lukeghg' in your home directory
 
-prompt% cd
-prompt% /opt/miniconda3/bin/python -m venv lukeghg --without-pip
+prompt% /usr/bin/python3 -m venv lukeghg
 
 2. Activate the virtual environment
 
 prompt% source lukeghg/bin/activate
-(lukeghg) prompt%:
+(lukeghg) prompt%
 
 Note the '(lukeghg)' appearing in front of your command prompt.
 
-3. Install pip (pip=python install programs)
+3. Check you have the latest versions of setuptools and wheel 
+(lukeghg) prompt% python3 -m pip install --user --upgrade setuptools wheel
 
-(lukeghg) prompt%: curl -x 10.88.2.10:8080 https://bootstrap.pypa.io/get-pip.py | python
+A Install 'lukeghg' python package
+---------------------------
 
-The address '10.88.2.10:8080' is Luke/Valtori www-proxy.
-If for some reason you have connection problems, you can try to type first:
+1. Install lukeghg python package to the virtual environment
+   
+Clone lukeghg from GitHub for example to /data/shared/<user>
+(lukeghg) prompt% cd /data/shared/<user>
+(lukeghg) prompt% mkdir <GHGInventoryDirectory>
+(lukeghg) prompt% cd <GHGInventoryDirectory>
+(lukeghg) prompt% git clone https://github.com/jariperttunen/lukeghg.git
 
-(lukeghg) prompt%: export http_proxy=10.88.2.10:8080
-(lukeghg) prompt%: export https_proxy=10.88.2.10:8080
+2. Create the wheel package for lukeghg and install it 
 
-Then try the curl comman again.
-
-4. Deactivate and reactivate virtual environment
-
-This merely to test the the virtual environment is O.K.
-
-(lukeghg) prompt%:deactivate
-prompt%: source lukeghg/bin/activate
-(lukeghg) prompt%:
-
-5. Install lukeghg python package to the virtual environment
-
-(lukeghg) prompt%: cd /hsan2/khk/ghg/lukeghg/lukeghg
-(lukeghg) prompt%: pip --proxy 10.88.2.10:8080 install .
-
-Please note to type the the dot ('.') at the end. Then pip will read the
-setup.py file found in the directory.
+(lukeghg) prompt% cd lukeghg/lukeghg
+(lukeghg) prompt% python3 setup.py sdist bdist_wheel
+(lukeghg) prompt% python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
 
 B.  Basic workflow: ghg inventory to CRFReporter xml file
 ---------------------------------------------
 
-"run-ghg-master.sh" is a script that sets ghg inventory files,
-directories and the xml output file for the current inventory.
+"run-ghg-master.sh" is a script that sets directories and files
+for the current ghg inventory.
 
-Thus, when Luke lukeghg is installed and ghg
-inventory files are available the following five step work flow
-will generate xml file for CRFReporter:
+Thus, when "run-ghg-master.sh" is edited for the current inventory
+and the lukeghg updated simply run the script to the generate xml file for CRFReporter:
 
-prompt% bash
-prompt%: source ~/lukeghg/bin/activate
-(lukeghg) prompt%: run-ghg-master.sh > Import.log 2> Error.log
-(lukeghg) prompt%: deactivate
-prompt%: exit
+prompt%: run-ghg-master.sh > Import.log 2> Error.log
+prompt%: deactivate
 
 The script will run few minutes allowing you to take a coffee break.
 The '>' character redirects 'standard out' terminal output to
 Import.log file and '2>' redirects 'standard error' output to Error.log file
 
-CRReporter PartyProfile xml file will appear in your working
-(i.e. current) directory. This file can be imported to CRFReporter.
+The "run-ghg-master.sh" is located in "<GHGInventoryDirectory>/lukeghg/lukeghg/lukeghg/bin"
+directory. Edit the following command options:
+-c Location of the GHG inventory files
+-p Location of the CRFReporeter PartyProfile file
+-x Locatation of the PartyProfile result file to be imported to CRFReporter
+-n Location of the specific NIR files
+-i  Location of the Comment files
+-y Inventory year
 
+Note the options -b, -k,-l and -m refer to ubiquitous configuration
+files. They come with the lukeghg package. Thus after downloading
+lukeghg from GitHub it is recommended to create "crf" and "PartyProfile"
+directories in <GHGInventoryDirectory> and run the run-ghg-master.sh
+in <GHGInventoryDirectory>.
+
+For EU529 there is similar run-eu529-ghg-master.sh script. Note EU529
+concerns KPLULUCF files only.
 
 C Update lukeghg
 ----------------
 
+You need to update lukeghg whenever you edit the files there (e.g. run-ghg-master.sh).
+Otherewise changes will not appear available in the virtual environment,
 
-1. Activate the virtual environment. 
+1. If needed activate the virtual environment. 
 
 prompt% source ~/lukeghg/bin/activate
 (lukeghg) prompt%:
 
 2. Update lukeghg
 
-(lukeghg) prompt%: cd /hsan2/khk/ghg/lukeghg/lukeghg
-(lukeghg) prompt%: pip --proxy 10.88.2.10:8080 install --upgrade .
+As with the first install recreate the wheel package, but now first remove
+the lukeghg package and then upgrade lukeghg and its dependencies.
 
-Please note to type the the dot ('.') at the end.
-
-D Additional Notes
----------------
-
-The installation of virtual environment will be simple in the future
-when python3.4 or later becomes available. hirsi and its operating
-system is too old to allow this (information from Valtori).
+(lukeghg) prompt%: python3 setup.py sdist bdist_wheel
+(lukeghg) prompt%: python3 -m pip uninstall lukeghg
+(lukeghg) prompt%: python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
 
 Version control
 ------------
-The software in lukeghg directory for CRFReporter is in CVS  version control.
-You can retrieve it by typing (in your current directory):
 
-         cvs -d redmine.ns.luke.fi:/home/csv checkout lukeghg
-
-Then in lukeghg directory you should see this InstallAndUpdateLukeGHG.txt file.
-You should be able to log in to redmine server by giving your Luke network password.
-Please note not to override your virtual environment if it is called 'lukeghg'.
-  
-To update your lukeghg project type
- 	
-	 cvs update lukeghg
-
-For the use of CVS see the so called "Cederqvist" CVS manual. 
+Currently lukeghg is in GitHub. For smooth operation with Luke network
+sample gitgonfig is also available in Git directory. Edit email and your name and
+install it as ".gitconfig" in you home directory.
