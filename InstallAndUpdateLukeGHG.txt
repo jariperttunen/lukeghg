@@ -103,5 +103,5 @@ D Version control
 ------------
 
 Currently lukeghg is in GitHub. For smooth operation with Luke network
-sample gitgonfig is also available in Git directory. Edit email and your name and
+sample gitgonfig is available in Git directory. Edit email and your name and
 install it as ".gitconfig" in your home directory.
