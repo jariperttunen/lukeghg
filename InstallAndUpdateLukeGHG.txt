@@ -4,8 +4,8 @@ Contents
 -------
 0 Create python virtual environment
 A Install 'lukeghg' python package
-B Basic workflow: GHG inventory to CRFReporter xml file
-C Update  lukeghg
+B Update  lukeghg
+C Basic workflow: GHG inventory to CRFReporter xml file
 D Version control
 
 The instructions are for zsh shell in sorvi.
