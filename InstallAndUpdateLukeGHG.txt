@@ -42,21 +42,41 @@ Clone lukeghg from GitHub for example to /data/shared/<user>
 
 2. Create the wheel package for lukeghg and install it 
 
-(lukeghg) prompt% cd lukeghg/lukeghg
+(lukeghg) prompt% cd <GHGInventoryDirectory>/lukeghg/lukeghg
 (lukeghg) prompt% python3 setup.py sdist bdist_wheel
 (lukeghg) prompt% python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
 
-B.  Basic workflow: ghg inventory to CRFReporter xml file
+B Update lukeghg
+----------------
+
+You need to update lukeghg whenever you edit the files there (e.g. run-ghg-master.sh).
+Otherwise changes will not appear available in the virtual environment,
+
+1. Remember to activate the virtual environment. 
+
+prompt% source ~/lukeghg/bin/activate
+(lukeghg) prompt%:
+
+2. Update lukeghg
+
+As with the first install recreate the wheel package, but now first remove
+the lukeghg package and then upgrade lukeghg and its dependencies.
+
+(lukeghg) prompt%: python3 setup.py sdist bdist_wheel
+(lukeghg) prompt%: python3 -m pip uninstall lukeghg
+(lukeghg) prompt%: python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
+
+C.  Basic workflow: ghg inventory to CRFReporter xml file
 ---------------------------------------------
 
 "run-ghg-master.sh" is a script that sets directories and files
-for the current ghg inventory.
+for the current ghg inventory and inserts inventory results to PartyProfile xml.
 
 The "run-ghg-master.sh" is located in "<GHGInventoryDirectory>/lukeghg/lukeghg/lukeghg/bin"
 directory. Edit the following command options:
 -c Location of the GHG inventory files
--p Location of the CRFReporter PartyProfile file
--x Locatation of the PartyProfile result file to be imported to CRFReporter
+-p Location of the empty (i.e. no inventory data) PartyProfile xml from CRFReporter
+-x Location of the PartyProfile result file to be imported to CRFReporter
 -n Location of the specific NIR files
 -i Location of the Comment files
 -y Inventory year
@@ -68,9 +88,9 @@ directories in <GHGInventoryDirectory> and run the run-ghg-master.sh
 in <GHGInventoryDirectory>.
 
 When "run-ghg-master.sh" is edited for the current inventory
-lukeghg must be updated for the virtual environment (see C Update lukeghg). 
+lukeghg must be updated for the virtual environment. 
 
-Then the xml for CRFReporter can be produced:
+The xml for CRFReporter can be produced as follows:
 
 (lukeghg) prompt%: python3 -m lukeghg.utility.convertuf8 -f crf/'*.csv'
 (lukeghg) prompt%: run-ghg-master.sh > Import.log 2> Error.log
@@ -84,25 +104,9 @@ and '2>' redirects 'standard error' terminal output to Error.log file.
 For EU529 there is similar run-eu529-ghg-master.sh script. Note EU529
 concerns KPLULUCF files only (LULUCF files are not missing by accident).
 
-C Update lukeghg
-----------------
-
-You need to update lukeghg whenever you edit the files there (e.g. run-ghg-master.sh).
-Otherewise changes will not appear available in the virtual environment,
-
-1. If needed activate the virtual environment. 
-
-prompt% source ~/lukeghg/bin/activate
-(lukeghg) prompt%:
-
-2. Update lukeghg
-
-As with the first install recreate the wheel package, but now first remove
-the lukeghg package and then upgrade lukeghg and its dependencies.
-
-(lukeghg) prompt%: python3 setup.py sdist bdist_wheel
-(lukeghg) prompt%: python3 -m pip uninstall lukeghg
-(lukeghg) prompt%: python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
+Please note CRFReporter checks that the version number of the PartyProfile 
+xml matches the CRFReporter version. Each CRFReporter update requires new
+empty PartyProfile xml from CRFReporter.
 
 D Version control
 ------------
