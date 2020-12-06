@@ -15,6 +15,7 @@ The instructions are for zsh shell in sorvi.
 ----------------------------
 
 1. Create python virtual environment called 'lukeghg' in your home directory
+(promt% denotes your command prompt).
 
 prompt% /usr/bin/python3 -m venv lukeghg
 
