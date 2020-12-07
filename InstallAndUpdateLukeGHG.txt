@@ -109,7 +109,7 @@ concerns KPLULUCF files only (LULUCF files are not missing by accident).
 
 Please note CRFReporter checks that the version number of the PartyProfile 
 xml matches the CRFReporter version. Each CRFReporter update requires new
-empty PartyProfile xml from CRFReporter.
+PartyProfile xml from CRFReporter.
 
 D Some other useful programs
 ----------------------------
