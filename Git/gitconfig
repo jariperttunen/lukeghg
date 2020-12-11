@@ -1,0 +1,7 @@
+[user]
+	name = Jari Perttunen
+	email = first.last@luke.fi
+[http]
+	proxy = http://10.88.2.10:8080
+[https]
+	proxy = https://10.88.2.10:8080
