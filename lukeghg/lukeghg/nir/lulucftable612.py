@@ -399,8 +399,7 @@ def write_co2tot_formula(sheet,ncols,row,row_number_ls,color):
         #replace last ',' with ')
         formula = formula[:len(formula)-1]
         formula = formula+')'
-        print(formula)
-        #sheet.write_array_formula(cell,formula,cell_format=cell_format)
+        #print(formula)
         sheet[cell_coordinate]=formula
         sheet[cell_coordinate].fill = PatternFill(start_color=color, fill_type = "solid")
     return sheet
