@@ -195,3 +195,10 @@ install it as ".gitconfig" in your home directory.
 hirsi server will be phased out in the near future (winter, spring 2021).
 The parts of the manual refering to hirsi are due to change to reflect  the fact
 the GHG inventory will be done in sorvi completely.
+
+References
+--------
+https://sorvi-int1.ns.luke.fi/sorvi-guides/ug/
+https://docs.python.org/3/library/venv.html
+https://docs.python.org/3/distutils/index.html
+https://docs.python.org/3/distutils/setupscript.html
