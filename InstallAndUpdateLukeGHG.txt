@@ -42,7 +42,7 @@ Now you should be able to login to hirsi.in.metla.fi with ssh (without
 password). Check that this is possible. You will need it in 2.1
 lulucf-table-612.py:
 
-lukeghg) prompt% ssh  hirsi.in.metla.fi
+(lukeghg) prompt% ssh  hirsi.in.metla.fi
 
 
 B Install 'lukeghg' python package
@@ -142,7 +142,7 @@ PartyProfile xml from CRFReporter.
 
 E Some other useful programs
 ----------------------------
-lukeghg package contains useful scripts for during the inventory checks 
+lukeghg package contains useful scripts for checks during the inventory 
 and to generate some ubiquitous tables for NIR. Each one has -h (help) option
 that should print explanation for each command line option.
 
@@ -161,23 +161,26 @@ the -f2 be a listing that produces no files. For example:
 This assumes that the scenario files are in 'scen' directory and '-f2 scen/[KPLU]*.txt' produces empty list of files.
 Better solution for scenario projects is under construction.
 
-2. Produce three ubiquitous tables for NIR directly from the inventory results.
-2.1 lulucf-table-612.py:
-Table 6-1.2 in LuluTable6-1.2.xlsx. Assumes inventory files are in 'crf' directory. 
+
+2. lulucf-table-612.py:
+Produce Table 6-1.2 in LuluTable6-1.2.xlsx. In the command line example inventory files are in 'crf' directory. 
+
 (lukeghg) prompt% lulucf-table-612.py -s 1990 -e 2019 -o LuluTable6-1.2.xlsx -d crf/
 
 Please note you must have set up public private key for
-ssh. lulucf-table-612.py  will fetch biomasses (first two rows) from
+ssh. lulucf-table-612.py  will fetch biomasses (first two rows in the table) from
 hirsi for the current inventory year.
 
-2.2 kptable-appendix11b.py:
-Table Appendix11b in KPTable_Appendix11b.txt. Read it to excel with '#' as a column separator.
-Assumes inventory files are in 'crf' directory. 
+3. kptable-appendix11b.py:
+Produce Table Appendix11b in KPTable_Appendix11b.txt. Read it to excel with '#' as a column separator.
+In the command line example inventory files are in 'crf' directory. 
+
 (lukeghg) prompt%  kptable-appendix11b.py -s 1990 -e 2019 -o KPTable_Appendix11b.txt -d crf/
 
-2.3 kptable-appendix11c.py:
-Table Appendix11c in KPTable_Appendix11c.txt. Read it to excel with '#' as a column separator
-Assumes inventory files are in 'crf' directory. 
+4. kptable-appendix11c.py:
+Produce Table Appendix11c in KPTable_Appendix11c.txt. Read it to excel with '#' as a column separator
+In the command line example inventory files are in 'crf' directory. 
+
 (lukeghg) prompt%  kptable-appendix11c.py -s 1990 -e 2019 -o KPTable_Appendix11c.txt -d crf/
 
 
@@ -188,6 +191,7 @@ Currently lukeghg is in GitHub. For smooth operation with Luke network
 sample gitgonfig for git is available in Git directory. Edit email and your name and
 install it as ".gitconfig" in your home directory. 
 
-hirsi server will be phased out in teh near future (winter, spring
-2021). The parts of the manual refering to hirsi are due to change to reflect  the fact
+---
+hirsi server will be phased out in the near future (winter, spring 2021).
+The parts of the manual refering to hirsi are due to change to reflect  the fact
 the GHG inventory will be done in sorvi completely.
