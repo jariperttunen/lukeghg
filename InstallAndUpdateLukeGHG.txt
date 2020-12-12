@@ -39,7 +39,8 @@ following two commands:
 (lukeghg) prompt% ssh-copy-id <username>@hirsi.in.metla.fi
 
 Now you should be able to login to hirsi.in.metla.fi with ssh (without
-password). Check that this is possible:
+password). Check that this is possible. You will need it in 2.1
+lulucf-table-612.py:
 
 lukeghg) prompt% ssh  hirsi.in.metla.fi
 
@@ -139,10 +140,6 @@ Please note CRFReporter checks that the version number of the PartyProfile
 xml matches the CRFReporter version. Each CRFReporter update requires new
 PartyProfile xml from CRFReporter.
 
-hirsi server will be phased out in near future (winter, spring
-2021). This part of the manual is due to change to reflect  the fact
-the GHG inventory will be done in sorvi. 
-
 E Some other useful programs
 ----------------------------
 lukeghg package contains useful scripts for during the inventory checks 
@@ -169,6 +166,10 @@ Better solution for scenario projects is under construction.
 Table 6-1.2 in LuluTable6-1.2.xlsx. Assumes inventory files are in 'crf' directory. 
 (lukeghg) prompt% lulucf-table-612.py -s 1990 -e 2019 -o LuluTable6-1.2.xlsx -d crf/
 
+Please note you must have set up public private key for
+ssh. lulucf-table-612.py  will fetch biomasses (first two rows) from
+hirsi for the current inventory year.
+
 2.2 kptable-appendix11b.py:
 Table Appendix11b in KPTable_Appendix11b.txt. Read it to excel with '#' as a column separator.
 Assumes inventory files are in 'crf' directory. 
@@ -186,3 +187,7 @@ F Version control
 Currently lukeghg is in GitHub. For smooth operation with Luke network
 sample gitgonfig for git is available in Git directory. Edit email and your name and
 install it as ".gitconfig" in your home directory. 
+
+hirsi server will be phased out in teh near future (winter, spring
+2021). The parts of the manual refering to hirsi are due to change to reflect  the fact
+the GHG inventory will be done in sorvi completely.
