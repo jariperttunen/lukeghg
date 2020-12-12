@@ -148,7 +148,9 @@ that should print explanation for each command line option.
 
 1. ghg-todo.py: 
 Compare two inventories and list missing time series and UIDs not
-found. This sample command assumes that 2018 inventory is in 2018crf directory:
+found. This sample command assumes that 2018 inventory is in 2018crf
+directory and the output excel file is GHGToDo2019.xlsx.
+
 
 (lukeghg) promt% ghg-todo.py -f1 '2018crf/[KPLU]*.csv' -f2 'crf/[KPLU]*.csv' -x PartyProfile/PartyProfile_FIN_2021_1.xml -o GHGToDo2019.xlsx -m lukeghg/300_500_mappings_1.1.csv -y 2019
 
@@ -187,9 +189,8 @@ In the command line example inventory files are in 'crf' directory.
 F Version control
 ------------
 
-Currently lukeghg is in GitHub. For smooth operation with Luke network
-sample gitgonfig for git is available in Git directory. Edit email and your name and
-install it as ".gitconfig" in your home directory. 
+Currently lukeghg is in GitHub. Sample gitgonfig for git is available
+in Git directory. Edit email and your name and install it as ".gitconfig" in your home directory. 
 
 ---
 hirsi server will be phased out in the near future (winter, spring 2021).
