@@ -158,7 +158,7 @@ if args.o is None:
 if args.m is None:
     print("No output file for missing inventory categories")
     quit()
-if args.m is None:
+if args.y is None:
     print("No inventory year")
     quit()
 
