@@ -5,6 +5,10 @@ import pandas as pd
 import openpyxl
 import lukeghg.utility.xlmanip as xlp
 import lukeghg.crf.ghginventory as ghginv
+import lukeghg.crf.crfxmlconstants as crfc
+
+class NoInventoryFiles(Exception):
+    pass
 
 def convert_to_float(x:str, keys:bool=True):
     """
@@ -31,6 +35,8 @@ def create_ghg_file_dictionary(reg_expr:str,uid_mapping_file:str,keys:bool=False
     d=dict()
     for fname in filels:
         d=insert_ghg_file_to_dictionary(d,fname,uid_mapping_file,keys)
+    if not d:
+        raise NoInventoryFiles
     return d
 
 def read_uid_matrix_file(excel_file:str,skip_rows=4):
@@ -129,9 +135,11 @@ def write_co2sum_formula(sheet,start_col,ncols,result_row,row_number_ls,color,sc
         for row_number in row_number_ls:
             cell_ls.append(cell_letter+str(row_number))
         for cell_name in cell_ls:
+            #Fill missing cells with Red
             if sheet[cell_name].value == "":
                 #It seems ordering of parameters matters in PatternFill!!
-                sheet[cell_name].fill = openpyxl.styles.PatternFill(start_color='00FF0000',fill_type="solid") 
+                sheet[cell_name].fill = openpyxl.styles.PatternFill(start_color='00FF0000',fill_type="solid")
+        #Create the excel SUM formula
         formula = '=SUM('
         for cell_name in cell_ls:
             formula = formula+cell_name+','
@@ -140,6 +148,7 @@ def write_co2sum_formula(sheet,start_col,ncols,result_row,row_number_ls,color,sc
         formula = formula+')'+'*'+str(scale)
         #print(formula)
         sheet[cell_coordinate]=formula
+        #Fill sum rows with yellow
         sheet[cell_coordinate].fill = openpyxl.styles.PatternFill(start_color=color, end_color=color,fill_type = "solid")
     return sheet
 
@@ -147,10 +156,12 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,uid_excel_
                           start_year,end_year,keys:bool=False):
     missing_uid_dict = dict()
     writer = pd.ExcelWriter(scen_excel_file,engine='openpyxl')
+    #Read inventory to dictionary: UID:time series
     d = create_ghg_file_dictionary(scen_files_reg_expr,uid_300_500_file,keys)
     df_uid = read_uid_matrix_file(uid_excel_file)
-    df_scen_template = read_scenario_template_file(scen_template_file)
+    #Column values, i.e. land use classes from UIDMatrix
     ls = land_use_classes(df_uid)
+    df_scen_template = read_scenario_template_file(scen_template_file)
     #print("CLASSES",ls)
     for class_name in ls:
         print("LAND USE",class_name)
@@ -158,7 +169,7 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,uid_excel_
         missing_uid_dict[class_name]=[]
         #Return for three columns from the UIDMatrix: Number, stock change/emission type, class_name
         df_uid_class=land_use_class_uid_df(df_uid,class_name)
-        #Make a list of uids in class_name columns
+        #Make a list of uids in class_name column
         uid_ls = land_use_class_uid_ls(df_uid_class,class_name)
         df_scen_new = df_scen_template.copy()
         len_current_data_series_ls=0
@@ -181,15 +192,117 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,uid_excel_
         column_ls = ["Number","Source","Unit"]+list(range(start_year,start_year+len(year_ls)-1))
         df_scen_new.columns = column_ls
         df_scen_new.to_excel(writer,sheet_name=class_name)
-        #2. Add sum rows
+        #Add sum rows
         sheets = writer.sheets
         sheet = sheets[class_name]
-        #2.1 Biomass Net change
+        #1 Biomass Net change
         write_co2sum_formula(sheet,5,end_year-start_year+1+5,9,[7,8],'00FFFF00',1)
-        #2.2 Biomass Total
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,14,range(9,14),'00FFFF00',1)
+        #2 Biomass Total
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,14,range(9,13+1),'00FFFF00',1)
+        #3 Direct N2O emissions from N fertilization
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,19,[17,18],'00FFFF00',1)
+        #4 Indirect N20 emissions from managed soils
+        #Total
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,41,[39,40],'00FFFF00',1)
+        #5 Biomass burning
+        #Biomass burning total CO2
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,54,[44,49],'00FFFF00',1)
+        #Biomass burning total CH4
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,55,[45,50],'00FFFF00',1)
+        #Biomass burning total N2O
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,56,[46,51],'00FFFF00',1)
+        #5 HWP
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,63,range(60,62+1),'00FFFF00',1)
+        #----------------
+        #1 Biomass MtCO2 eq.
+        #Gains
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,71,[7],'00FFFF00',(crfc.ctoco2)/1000.0)
+        #Losses
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,72,[8],'00FFFF00',(crfc.ctoco2)/1000.0)
+        #Net change
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,73,[9],'00FFFF00',(crfc.ctoco2)/1000.0)
+        #Dead wood
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,74,[10],'00FFFF00',(crfc.ctoco2)/1000.0)
+        #Litter
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,75,[11],'00FFFF00',(crfc.ctoco2)/1000.0)
+        #Mineral soil
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,76,[12],'00FFFF00',(crfc.ctoco2)/1000.0)
+        #Organic soil
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,77,[13],'00FFFF00',(crfc.ctoco2)/1000.0)
+        #Total
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,78,[14],'00FFFF00',(crfc.ctoco2)/1000.0)
+        #2 N fertilization
+        #Inorganic
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,81,[17],'00FFFF00',(crfc.n2oco2eq)/1000.0)
+        #Organic
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,82,[18],'00FFFF00',(crfc.n2oco2eq)/1000.0)
+        #Total
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,83,[81,82],'00FFFF00',(crfc.n2oco2eq)/1000.0)
+        #3 Drainage and rewetting
+        #Drained organing N2O
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,86,[22],'00FFFF00',(crfc.n2oco2eq)/1000.0)
+        #Drained organic CH4
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,87,[23],'00FFFF00',(crfc.ch4co2eq)/1000.0)
+        #Total
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,88,[86,87],'00FFFF00',1)
+        #4 Drainage and rewetting
+        #Rewetted organing N2O
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,89,[25],'00FFFF00',(crfc.n2oco2eq)/1000.0)
+        #Rewetted organing CH4
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,90,[26],'00FFFF00',(crfc.ch4co2eq)/1000.0)
+        #Total
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,91,[89,90],'00FFFF00',1)
+        #Drained mineral N20
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,92,[28],'00FFFF00',(crfc.n2oco2eq)/1000.0)
+        #Drained mineral CH4
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,93,[29],'00FFFF00',(crfc.ch4co2eq)/1000.0)
+        #Total
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,94,[92,93],'00FFFF00',1)
+        #Rewetted mineral N20
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,95,[31],'00FFFF00',(crfc.n2oco2eq)/1000.0)
+        #Rewetted mineral CH4
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,96,[32],'00FFFF00',(crfc.ch4co2eq)/1000.0)
+        #Total
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,97,[95,96],'00FFFF00',1)
+        #5 Mineralization
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,100,[36],'00FFFF00',(crfc.n2oco2eq)/1000.0)
+        #6 Indirect N2O managed soils
+        #Atmospheric deposition N2O
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,103,[39],'00FFFF00',(crfc.n2oco2eq)/1000.0)
+        #Nitrogen leaching and run-off N2O
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,104,[40],'00FFFF00',(crfc.n2oco2eq)/1000.0)
+        #Total
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,105,[103,104],'00FFFF00',1)
+        #Controlled burning CO2
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,108,[44],'00FFFF00',(crfc.ctoco2)/1000.0)
+        #Controlled burning CH4
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,109,[45],'00FFFF00',(crfc.ch4co2eq)/1000.0)
+        #Controlled burning N2O
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,110,[46],'00FFFF00',(crfc.n2oco2eq)/1000.0)
+        #Total
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,111,[108,109,110],'00FFFF00',1)
+        #7 Biomass burning
+        #Wildfires CO2
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,113,[49],'00FFFF00',(crfc.ctoco2)/1000.0)
+        #Wildfires CH4
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,114,[50],'00FFFF00',(crfc.ch4co2eq)/1000.0)
+        #Wildfires N2O
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,115,[51],'00FFFF00',(crfc.n2oco2eq)/1000.0)
+        #Total
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,116,[113,114,115],'00FFFF00',1)
+        #8 HWP
+        #Sawnwood
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,119,[60],'00FFFF00',(crfc.ctoco2)/1000.0)
+        #Wood panels
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,120,[61],'00FFFF00',(crfc.ctoco2)/1000.0)
+        #Paper and paper board
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,121,[62],'00FFFF00',(crfc.ctoco2)/1000.0)
+        #Total
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,122,[119,120,121],'00FFFF00',1)
+        #GRAND TOTAL MtCO2eq
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,124,[78,83,88,91,94,97,100,105,111,116,122],'00FFFF00',1)
     missing_uid_df = pd.DataFrame.from_dict(missing_uid_dict,orient='index')
-    sheet_name="UID not in Inventory"
+    sheet_name="UIDMatrix UID not in Inventory"
     missing_uid_df.to_excel(writer,sheet_name=sheet_name)
     workbook = writer.book
     workbook.move_sheet(sheet_name,-(len(workbook.sheetnames)-1))
@@ -223,6 +336,9 @@ if __name__ == "__main__":
     result = args.files and args.uid and args.scen and args.m and args.o and args.start and args.end
     if result == None:
         quit()
-    excel_writer = create_scenario_excel(args.o,args.files,args.uid,args.scen,args.m,args.start,args.end,args.keys)
-    excel_writer.save()
-    excel_writer.close()
+    try:
+        excel_writer = create_scenario_excel(args.o,args.files,args.uid,args.scen,args.m,args.start,args.end,args.keys)
+        excel_writer.save()
+        excel_writer.close()
+    except NoInventoryFiles:
+        print("No scenario inventory files")
