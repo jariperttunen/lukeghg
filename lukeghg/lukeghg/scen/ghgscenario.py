@@ -220,7 +220,7 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,uid_excel_
         #Losses
         write_co2sum_formula(sheet,5,end_year-start_year+1+5,72,[8],'00FFFF00',(crfc.ctoco2)/1000.0)
         #Net change
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,73,[9],'00FFFF00',(crfc.ctoco2)/1000.0)
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,73,[71,72],'00FFFF00',1)
         #Dead wood
         write_co2sum_formula(sheet,5,end_year-start_year+1+5,74,[10],'00FFFF00',(crfc.ctoco2)/1000.0)
         #Litter
@@ -230,14 +230,14 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,uid_excel_
         #Organic soil
         write_co2sum_formula(sheet,5,end_year-start_year+1+5,77,[13],'00FFFF00',(crfc.ctoco2)/1000.0)
         #Total
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,78,[14],'00FFFF00',(crfc.ctoco2)/1000.0)
-        #2 N fertilization
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,78,range(73,77+1),'00FFFF00',1)
+        #2 Direct N20 emissions from N fertilization
         #Inorganic
         write_co2sum_formula(sheet,5,end_year-start_year+1+5,81,[17],'00FFFF00',(crfc.n2oco2eq)/1000.0)
         #Organic
         write_co2sum_formula(sheet,5,end_year-start_year+1+5,82,[18],'00FFFF00',(crfc.n2oco2eq)/1000.0)
         #Total
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,83,[81,82],'00FFFF00',(crfc.n2oco2eq)/1000.0)
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,83,[81,82],'00FFFF00',1)
         #3 Drainage and rewetting
         #Drained organing N2O
         write_co2sum_formula(sheet,5,end_year-start_year+1+5,86,[22],'00FFFF00',(crfc.n2oco2eq)/1000.0)
