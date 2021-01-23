@@ -16,4 +16,3 @@ HWP Activity data
 
 The years starting from 1961 miss the current inventory year. It is not automatically added.
 The current inventory year must be manually inserted. 
-
