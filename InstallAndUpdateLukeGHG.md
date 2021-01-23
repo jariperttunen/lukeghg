@@ -56,7 +56,7 @@ Clone lukeghg from GitHub for example to `/data/shared/<user>`.
 `<user>` denotes your user name and `<GHGInventoryDirectory>` the name
 of your choice for the working directory.
 
-	lukeghg) prompt% cd /data/shared/<user>
+	(lukeghg) prompt% cd /data/shared/<user>
 	(lukeghg) prompt% mkdir <GHGInventoryDirectory>
 	(lukeghg) prompt% cd <GHGInventoryDirectory>
 	(lukeghg) prompt% git clone https://github.com/jariperttunen/lukeghg.git
@@ -70,7 +70,7 @@ Create the wheel package for lukeghg and install it to your virtual environment
 ## C Update lukeghg python package
 
 You need to update lukeghg package from GitHub whenever someone has made changes
-and pushed the work the  there. Otherwise changes will not appear available in the virtual environment,
+and pushed the work there. Otherwise changes will not appear available in the virtual environment,
 
 Remember to activate the virtual environment (check your prompt). 
 
@@ -78,11 +78,11 @@ Remember to activate the virtual environment (check your prompt).
 		(lukeghg) prompt%
 
 Update lukeghg package from GitHub. Make sure you are in
-*<GHGInventoryDirectory>/lukeghg/* directory:
+`<GHGInventoryDirectory>/lukeghg/` directory:
 
 		(lukeghg) prompt% git pull
 
-Update lukeghg virtual environment
+Update your lukeghg virtual environment:
 
 As with the first install recreate the wheel package, but now first remove
 the lukeghg package and then upgrade lukeghg and its dependencies.
@@ -101,7 +101,7 @@ this seems to be straightforward.
 `run-ghg-master.sh` is a script that sets directories and files
 for the current ghg inventory and inserts inventory results to PartyProfile xml.
 
-The `run-ghg-master.sh`is located in *<GHGInventoryDirectory>/lukeghg/lukeghg/lukeghg/bin*
+The `run-ghg-master.sh`is located in `<GHGInventoryDirectory>/lukeghg/lukeghg/lukeghg/bin`
 directory. Edit the following command options if needed:
 
 - -c Location of the GHG inventory files
@@ -114,11 +114,11 @@ directory. Edit the following command options if needed:
 Note in addition that the options -b, -k,-l and -m refer to ubiquitous configuration
 files. They come with the lukeghg package. Thus after downloading
 lukeghg from GitHub create *crf* and *PartyProfile* directories in
-*<GHGInventoryDirectory>* and run the `run-ghg-master.sh` script 
-in *<GHGInventoryDirectory>*. 
+`<GHGInventoryDirectory>` and run the `run-ghg-master.sh` script 
+in `<GHGInventoryDirectory>`. 
 
 The xml for CRFReporter can be produced as follows. Make sure you are
-in *<GHGInventoryDirectory>*. Copy GHG inventory files to crf directory:
+in `<GHGInventoryDirectory>`. Copy GHG inventory files to crf directory:
 
 	(lukeghg) prompt%: scp <user>@hirsi.in.metla.fi:/hsan2/khk/ghg/2019/crf/*.csv crf/
 
@@ -133,7 +133,7 @@ directory. Rename as denoted by the `-p` option in `run-ghg-master.sh`.
 The GHG inventory result files (csv files) seem to use different encoding systems.
 convertutf8 converts them to utf8 (this is why they need to be copied with scp to crf directory first). 
 
-The script run-ghg-master.sh will run few minutes at most. 
+The script `run-ghg-master.sh` will run few minutes at most. 
 The `>`character redirects standard out terminal output to *Import.log* file 
 and `2>` redirects standard error terminal output to *Error.log* file.
 
@@ -157,11 +157,11 @@ the files is the  same as in ghg inventory. A row consists of optional
 but highly recommended comment part, UID of the time series followed by the time series.
 
 - -uid: The UIDMatrix excel file containing the UID for each
-  time series. The file is  ScenarioTemplate/UIDMatrix.xlsx.
+  time series. The file is  `<GHGInventoryDirectory>/ScenarioTemplate/UIDMatrix.xlsx`.
 
 - -scen: The template excel for results. Using  this template
-   ghg-scenario.py generates excel sheet for each land use  and land
-  use change classes. The file is ScenarioTemplate/ScenarioTemplate.xlsx.
+   `ghg-scenario.py` generates excel sheet for each land use  and land
+  use change classes. The file is `<GHGInventoryDirectory>/ScenarioTemplate/ScenarioTemplate.xlsx`.
 
 - -keys: Maintain notation keys. This is boolean argument. That is, if
   not given the notation keys are set to number zero.
@@ -174,14 +174,14 @@ but highly recommended comment part, UID of the time series followed by the time
 - -end: The end year of the scenario inventory
 
 For the sample command line set your working directory to
-*<GHGInventoryDirectory>*. Then, assuming the scenario result files
+`<GHGInventoryDirectory>`. Then, assuming the scenario result files
 are in DGClima directory type the following:
 
 	ghg-scenario.py --files 'DGClima/*.csv' --uid lukeghg/ScenarioTemplate/UIDMatrix.xlsx \
       --scen lukeghg/ScenarioTemplate/ScenarioTemplate.xlsx -m lukeghg/300_500_mappings_1.1.csv \
       -o DGClima.xlsx --start 1990 --end 2018 --keys
 
-The first sheet in the Excel result file *DGClima.xlsx)* lists UID's in
+The first sheet in the Excel result file *DGClima.xlsx* lists UID's in
 UIDMatrix excel file but not in the inventory. Following sheets
 represent scenario results for each land use and land use change
 class. Summation rows are marked yellow. Cells missing data are marked red.
@@ -201,8 +201,8 @@ directory and the output excel file is GHGToDo2019.xlsx.
 	(lukeghg) promt% ghg-todo.py -f1 '2018crf/[KPLU]*.csv' -f2 'crf/[KPLU]*.csv' -x PartyProfile/PartyProfile_FIN_2021_1.xml -o GHGToDo2019.xlsx -m lukeghg/300_500_mappings_1.1.csv -y 2019
 
 Also, `ghg-todo.py` is a quick fix to help to bring together scenario predictions for
-further analysis. Give all scenario result files for argument -f1 and let 
-the -f2 be a listing that produces no files. For example:
+further analysis. Give all scenario result files for argument `-f1` and let 
+the `-f2` be a listing that produces no files. For example:
 
 	(lukeghg) promt% ghg-todo.py -f1 'scen/[KPLU]*.csv' -f2 'scen/[KPLU]*.txt' -x PartyProfile/PartyProfile_FIN_2021_1.xml -o GHGToDo2019.xlsx -m lukeghg/300_500_mappings_1.1.csv -y 2019
 
