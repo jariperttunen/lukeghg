@@ -57,16 +57,16 @@ See item F Version control at the end.
 of your choice for the working directory.
 
 1.1 Clone lukeghg from GitHub for example to `/data/shared/<user>`
-(lukeghg) prompt% `cd /data/shared/<user>`
-(lukeghg) prompt% `mkdir <GHGInventoryDirectory>`
-(lukeghg) prompt% `cd <GHGInventoryDirectory>`
-(lukeghg) prompt% `git clone https://github.com/jariperttunen/lukeghg.git`
++ lukeghg) prompt% `cd /data/shared/<user>`
++ (lukeghg) prompt% `mkdir <GHGInventoryDirectory>`
++ (lukeghg) prompt% `cd <GHGInventoryDirectory>`
++ (lukeghg) prompt% `git clone https://github.com/jariperttunen/lukeghg.git`
 
 1.2 Create the wheel package for lukeghg and install it 
 
-(lukeghg) prompt% `cd <GHGInventoryDirectory>/lukeghg/lukeghg`
-(lukeghg) prompt% `python3 setup.py sdist bdist_wheel`
-(lukeghg) prompt% `python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl`
++ (lukeghg) prompt% `cd <GHGInventoryDirectory>/lukeghg/lukeghg`
++ (lukeghg) prompt% `python3 setup.py sdist bdist_wheel`
++ (lukeghg) prompt% `python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl`
 
 C Update lukeghg python package
 -----------------------------
@@ -89,9 +89,9 @@ the lukeghg package and then upgrade lukeghg and its dependencies.
 Make sure you are in <GHGInventoryDirectory>/lukeghg/lukeghg where you
 can see the `setup.py` file.
 
-(lukeghg) prompt%: `python3 setup.py sdist bdist_wheel`
-(lukeghg) prompt%: `python3 -m pip uninstall lukeghg`
-(lukeghg) prompt%: `python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl`
++ (lukeghg) prompt%: `python3 setup.py sdist bdist_wheel`
++ (lukeghg) prompt%: `python3 -m pip uninstall lukeghg`
++ (lukeghg) prompt%: `python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl`
 
 The `pip`command line allows other ways to achieve the same thing but
 this seems to be straightforward.
