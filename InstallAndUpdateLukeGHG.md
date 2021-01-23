@@ -37,14 +37,14 @@ Note the *'(lukeghg)'* appearing in front of your command prompt.
 The manual for the sorvi server has good instructions but in short you do the
 following two commands:
 
-(lukeghg) prompt% `ssh-keygen -t rsa -b 4096`
-(lukeghg) prompt% `ssh-copy-id <username>@hirsi.in.metla.fi`
+	(lukeghg) prompt% `ssh-keygen -t rsa -b 4096`
+	(lukeghg) prompt% `ssh-copy-id <username>@hirsi.in.metla.fi`
 
 Now you should be able to login to hirsi.in.metla.fi with ssh (without
 password). Check that this is possible. You will need this when
 generating lulucf-table-612.py:
 
-(lukeghg) prompt% ssh  hirsi.in.metla.fi
+(lukeghg) prompt% `ssh  hirsi.in.metla.fi`
 
 
 B Install 'lukeghg' python package
