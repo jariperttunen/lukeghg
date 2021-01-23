@@ -19,32 +19,32 @@ A Setup your working environment
 
 (The *prompt%* denotes your terminal command line prompt).
 
-prompt% `/usr/bin/python3 -m venv lukeghg`
+	prompt% /usr/bin/python3 -m venv lukeghg
 
 2. Activate the virtual environment
 
-prompt% `source lukeghg/bin/activate`
-(lukeghg) prompt%
+	prompt% source lukeghg/bin/activate
+	(lukeghg) prompt%
 
 Note the *'(lukeghg)'* appearing in front of your command prompt.
 
 3. Check you have the latest versions of setuptools and wheel 
 
-(lukeghg) prompt% `python3 -m pip install --upgrade setuptools wheel`
+	(lukeghg) prompt% python3 -m pip install --upgrade setuptools wheel
 
 4. Create public private keys for ssh login to hirsi
 
 The manual for the sorvi server has good instructions but in short you do the
 following two commands:
 
-	(lukeghg) prompt% `ssh-keygen -t rsa -b 4096`
-	(lukeghg) prompt% `ssh-copy-id <username>@hirsi.in.metla.fi`
+	(lukeghg) prompt% ssh-keygen -t rsa -b 4096
+	(lukeghg) prompt% ssh-copy-id <username>@hirsi.in.metla.fi
 
 Now you should be able to login to hirsi.in.metla.fi with ssh (without
 password). Check that this is possible. You will need this when
 generating lulucf-table-612.py:
 
-(lukeghg) prompt% `ssh  hirsi.in.metla.fi`
+	(lukeghg) prompt% ssh  hirsi.in.metla.fi
 
 
 B Install 'lukeghg' python package
