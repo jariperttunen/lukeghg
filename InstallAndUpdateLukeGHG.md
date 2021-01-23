@@ -112,7 +112,7 @@ directory. Edit the following command options if needed:
 - -i Location of the Comment files
 - -y Inventory year (the last year in CRFReporter)
 
-Note in addition that the options -b, -k,-l and -m refer to ubiquitous configuration
+Practical note: the options -b, -k,-l and -m refer to ubiquitous configuration
 files. They come with the lukeghg package. Thus after downloading
 lukeghg from GitHub create *crf* and *PartyProfile* directories in
 `<GHGInventoryDirectory>` and run the `run-ghg-master.sh` script 
@@ -126,7 +126,8 @@ in `<GHGInventoryDirectory>`. Copy GHG inventory files to crf directory:
 If needed download PartyProfile xml from CRFReporter and copy it to *PartyProfile*
 directory. Rename as denoted by the `-p` option in `run-ghg-master.sh`. 
 
- To produce xml with inventory results type the two commands 
+ To produce xml to be imported to CRFReporter (the option `-x` for
+ `run-ghg-master.sh`) with inventory results type the two commands:
 
 	(lukeghg) prompt%: python3 -m lukeghg.utility.convertutf8 -f crf/'*.csv'
 	(lukeghg) prompt%: run-ghg-master.sh > Import.log 2> Error.log
