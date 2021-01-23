@@ -52,7 +52,7 @@ generating lulucf-table-612.py:
 For GitHub you need to have *.gitconfig* in your home directory.
 See item F Version control at the end.
 
-Clone lukeghg from GitHub for example to */data/shared/<user>*
+Clone lukeghg from GitHub for example to */data/shared/<user>*.
 *<user>* denotes your user name and *<GHGInventoryDirectory>* the name
 of your choice for the working directory.
 
