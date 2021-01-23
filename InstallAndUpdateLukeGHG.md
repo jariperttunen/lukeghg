@@ -87,7 +87,7 @@ prompt% `source ~/lukeghg/bin/activate`
 As with the first install recreate the wheel package, but now first remove
 the lukeghg package and then upgrade lukeghg and its dependencies.
 Make sure you are in <GHGInventoryDirectory>/lukeghg/lukeghg where you
-can see setup.py file.
+can see the `setup.py` file.
 
 (lukeghg) prompt%: `python3 setup.py sdist bdist_wheel`
 (lukeghg) prompt%: `python3 -m pip uninstall lukeghg`
@@ -116,7 +116,7 @@ directory. Edit the following command options if needed:
 files. They come with the lukeghg package. Thus after downloading
 lukeghg from GitHub create `crf` and `PartyProfile` directories in
 `<GHGInventoryDirectory>` and run the `run-ghg-master.sh` script 
-in <GHGInventoryDirectory>. 
+in `<GHGInventoryDirectory>`. 
 
 The xml for CRFReporter can be produced as follows. Make sure you are
 in <GHGInventoryDirectory>.
