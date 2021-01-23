@@ -1,7 +1,6 @@
-##Arkistoon##
+## Arkistoon ##
 
-Tässä ovat KHK-laskennassa käytetyt tiedostot.
-Mukana listauksessa ovat laskennan tulosten tarkistuksissa,
+Mukana tiedostojen listauksessa ovat laskennan tulosten tarkistuksissa,
 CRFReporter xml tiedoston luonnissa ja NIR-taulukoiden
 teossa tarvittavat tiedostot ja ohjelmat.
 
