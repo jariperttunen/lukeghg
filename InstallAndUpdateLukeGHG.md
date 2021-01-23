@@ -72,7 +72,8 @@ Create the wheel package for lukeghg and install it to your virtual environment
 You need to update lukeghg package from GitHub whenever someone has made changes
 and pushed the work there. Otherwise changes will not appear available in the virtual environment,
 
-Remember to activate the virtual environment (check your prompt). 
+Remember to activate the virtual environment if needed (check your
+prompt). the `~` character refers to your home directory. 
 
 		prompt% source ~/lukeghg/bin/activate
 		(lukeghg) prompt%
@@ -82,18 +83,17 @@ Update lukeghg package from GitHub. Make sure you are in
 
 		(lukeghg) prompt% git pull
 
-Update your lukeghg virtual environment:
-
-As with the first install recreate the wheel package, but now first remove
-the lukeghg package and then upgrade lukeghg and its dependencies.
-Make sure you are in <GHGInventoryDirectory>/lukeghg/lukeghg where you
+Update your lukeghg virtual environment next. As with the installation
+recreate the wheel package, but now first remove the lukeghg package
+and then upgrade lukeghg and its dependencies.
+Make sure you are in `<GHGInventoryDirectory>/lukeghg/lukeghg` where you
 can see the *setup.py*  file.
 
 	(lukeghg) prompt%: python3 setup.py sdist bdist_wheel
 	(lukeghg) prompt%: python3 -m pip uninstall lukeghg
 	(lukeghg) prompt%: python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
 
-The `pip`command line allows other ways to achieve the same thing but
+The `pip`command line allows other ways to achieve the same result but
 this seems to be straightforward.
 
 ## D. GHG inventory to CRFReporter xml file
@@ -109,7 +109,7 @@ directory. Edit the following command options if needed:
 - -x Location of the PartyProfile result file to be imported to CRFReporter
 - -n Location of the specific NIR files
 - -i Location of the Comment files
-- -y Inventory year (last year in CRFReporter)
+- -y Inventory year (the last year in CRFReporter)
 
 Note in addition that the options -b, -k,-l and -m refer to ubiquitous configuration
 files. They come with the lukeghg package. Thus after downloading
@@ -131,7 +131,7 @@ directory. Rename as denoted by the `-p` option in `run-ghg-master.sh`.
 	(lukeghg) prompt%: run-ghg-master.sh > Import.log 2> Error.log
 
 The GHG inventory result files (csv files) seem to use different encoding systems.
-convertutf8 converts them to utf8 (this is why they need to be copied with scp to crf directory first). 
+convertutf8 converts them to utf8 (this is why they need to be copied with scp to *crf* directory first). 
 
 The script `run-ghg-master.sh` will run few minutes at most. 
 The `>`character redirects standard out terminal output to *Import.log* file 
@@ -182,7 +182,7 @@ are in DGClima directory type the following:
       -o DGClima.xlsx --start 1990 --end 2018 --keys
 
 The first sheet in the Excel result file *DGClima.xlsx* lists UID's in
-UIDMatrix excel file but not in the inventory. Following sheets
+UIDMatrix excel file but not found in the inventory. Following sheets
 represent scenario results for each land use and land use change
 class. Summation rows are marked yellow. Cells missing data are marked red.
 
