@@ -132,7 +132,7 @@ directory. Rename as denoted by the `-p` option in `run-ghg-master.sh`.
 	(lukeghg) prompt%: run-ghg-master.sh > Import.log 2> Error.log
 
 The GHG inventory result files (csv files) seem to use different encoding systems.
-convertutf8 converts them to utf8 (this is why they need to be copied with scp to *crf* directory first). 
+`convertutf8` converts them to utf8 (this is why they need to be copied with `scp` to *crf* directory first). 
 
 The script `run-ghg-master.sh` will run few minutes at most. 
 The `>`character redirects standard out terminal output to *Import.log* file 
