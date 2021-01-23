@@ -1,5 +1,8 @@
-When new inventory is created in CRFREporter (in fall) some manual work is needed before all is set.
-1. Natural disturbances
+Manual work after each new inventory in CRFReporter.
+=====================================
+
+Natural disturbances
+-----------------
 Item: P.B Article 3.4 Activities -> KP.B.1 Forest Management -> Carbon stock change -> 
 Emissions and removals from natural disturbances -> Total natural disturbances
 ToDo: Each year new element must be created manually. 
@@ -7,7 +10,8 @@ The UID identifier or each item of the element must be retrieved from CRFReporte
 Tips: write nonsense values (for easy UID recover) for 1990 only, export simple xml and find the nonsense
 values in the xml. This guides close to the UIDs needed.
 
-2. HWP Activity data
+HWP Activity data
+---------------
 ToDo: The years starting from 1961 miss the current inventory year. It is not automatically added.
 The current inventory year must be manually inserted. 
 
