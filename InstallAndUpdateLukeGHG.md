@@ -11,8 +11,8 @@
 + Notes on hirsi server
 + References
 
-The instructions are for bash shell in sorvi.  Your default shell
-might be for example `tcsh` and you must e.g. adjust hyphens
+The instructions are for `bash` shell in sorvi.  Your default shell
+might be for example `tcsh` and you must for example adjust hyphens
 in command lines containing wild card searches accordingly.
 
 ## A Setup your working environment
@@ -73,7 +73,7 @@ You need to update lukeghg package from GitHub whenever someone has made changes
 and pushed the work there. Otherwise changes will not appear available in the virtual environment,
 
 Remember to activate the virtual environment if needed (check your
-prompt). the `~` character refers to your home directory. 
+prompt). The `~` character refers to your home directory. 
 
 		prompt% source ~/lukeghg/bin/activate
 		(lukeghg) prompt%
