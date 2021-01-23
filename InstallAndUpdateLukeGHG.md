@@ -1,4 +1,4 @@
-# Install and update lukeghg python package, sorvi
+# Install and update lukeghg python package in sorvi server
 
 ## Contents
 
@@ -6,8 +6,9 @@
 + B Install *lukeghg* python package
 + C Update  *lukeghg* python package
 + D GHG inventory to CRFReporter xml file
-+ E Some other useful programs
-+ F Version control
++ E GHG Scenarios
++ F Some other useful programs
++ G Version control
 + Notes on hirsi server
 + References
 
@@ -50,7 +51,7 @@ generating lulucf-table-612.py:
 ## B Install the lukeghg python package
 
 For GitHub you need to have *.gitconfig* in your home directory.
-See item F Version control at the end.
+See item G Version control at the end.
 
 Clone lukeghg from GitHub for example to `/data/shared/<user>`.
 `<user>` denotes your user name and `<GHGInventoryDirectory>` the name
@@ -98,7 +99,7 @@ this seems to be straightforward.
 
 ## D. GHG inventory to CRFReporter xml file
 
-`run-ghg-master.sh` is a script that sets directories and files
+Probably the most important part in this manual. `run-ghg-master.sh` is a script that sets directories and files
 for the current ghg inventory and inserts inventory results to PartyProfile xml.
 
 The `run-ghg-master.sh`is located in `<GHGInventoryDirectory>/lukeghg/lukeghg/lukeghg/bin`
