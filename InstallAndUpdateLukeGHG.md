@@ -1,21 +1,21 @@
-#Install and update lukeghg python package, sorvi
+# Install and update lukeghg python package, sorvi
 
-##Contents
+## Contents
 
-###A Setup your working environment
-###B Install *lukeghg* python package
-###C Update  *lukeghg* python package
-###D GHG inventory to CRFReporter xml file
-###E Some other useful programs
-###F Version control
-###Notes on hirsi server
-###References
+### A Setup your working environment
+### B Install *lukeghg* python package
+### C Update  *lukeghg* python package
+### D GHG inventory to CRFReporter xml file
+### E Some other useful programs
+### F Version control
+### Notes on hirsi server
+### References
 
 The instructions are for bash shell in sorvi.  Your default shell
 might be for example *tcsh* and you must e.g. adjust hyphens
 in command lines including wild card searches accordingly.
 
-##A Setup your working environment
+## A Setup your working environment
 
 Create python virtual environment (called e.g. lukeghg) in your home directory
 (The *prompt%* denotes your terminal command line prompt):
@@ -47,7 +47,7 @@ generating lulucf-table-612.py:
 
 	(lukeghg) prompt% ssh  hirsi.in.metla.fi
 
-##B Install the lukeghg python package
+## B Install the lukeghg python package
 
 For GitHub you need to have ".gitconfig" in your home directory.
 See item F Version control at the end.
@@ -67,7 +67,7 @@ Create the wheel package for lukeghg and install it to your virtual environment
 	(lukeghg) prompt% python3 setup.py sdist bdist_wheel
 	(lukeghg) prompt% python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
 
-##C Update lukeghg python package
+## C Update lukeghg python package
 
 You need to update lukeghg package from GitHub whenever someone has made changes
 and pushed the work the  there. Otherwise changes will not appear available in the virtual environment,
@@ -95,7 +95,7 @@ can see the `setup.py` file.
 The `pip`command line allows other ways to achieve the same thing but
 this seems to be straightforward.
 
-##D. GHG inventory to CRFReporter xml file
+## D. GHG inventory to CRFReporter xml file
 
 `run-ghg-master.sh` is a script that sets directories and files
 for the current ghg inventory and inserts inventory results to PartyProfile xml.
@@ -144,7 +144,7 @@ concerns KPLULUCF files only (LULUCF files are not missing by accident).
 xml matches the CRFReporter version. Each CRFReporter update requires new
 PartyProfile xml from CRFReporter.
 
-##E GHG Scenarios
+## E GHG Scenarios
 
 `ghg-scenario.py` can generate excel file for ghg scenario calculations.
 The command line is as follows:
@@ -186,13 +186,13 @@ UIDMatrix excel file but not in the inventory. Following sheets
 represent scenario results for each land use and land use change
 class. Summation rows are marked yellow. Cells missing data are marked red.
 
-##F Some other useful programs
+## F Some other useful programs
 
 lukeghg package contains useful scripts for checks during the inventory 
 and to generate some ubiquitous tables for NIR. Each one has -h (help) option
 that should print explanation for each command line option.
 
-###ghg-todo.py: 
+### ghg-todo.py: 
 Compare two inventories and list missing time series and UIDs not
 found. This sample command assumes that 2018 inventory is in 2018crf
 directory and the output excel file is GHGToDo2019.xlsx.
@@ -210,7 +210,7 @@ This assumes that the scenario files are in `scen` directory and `-f2 scen/[KPLU
 Better solution for scenario projects is under construction (E GHG Scenarios).
 
 
-###lulucf-table-612.py:
+### lulucf-table-612.py:
 Produce Table 6-1.2 in LuluTable6-1.2.xlsx. In the command line example inventory files are in 'crf' directory. 
 
 	(lukeghg) prompt% lulucf-table-612.py -s 1990 -e 2019 -o LuluTable6-1.2.xlsx -d crf/
@@ -219,31 +219,31 @@ Please note you must have set up public private key for
 `ssh`. lulucf-table-612.py  will fetch biomasses (first two rows in the table) from
 hirsi for the current inventory year.
 
-###kptable-appendix11b.py:
+### kptable-appendix11b.py:
 Produce Table Appendix11b in KPTable_Appendix11b.txt. Read it to excel with '#' as a column separator.
 In the command line example inventory files are in 'crf' directory. 
 
 	(lukeghg) prompt%  kptable-appendix11b.py -s 1990 -e 2019 -o KPTable_Appendix11b.txt -d crf/
 
-###kptable-appendix11c.py:
+### kptable-appendix11c.py:
 Produce Table Appendix11c in KPTable_Appendix11c.txt. Read it to excel with '#' as a column separator
 In the command line example inventory files are in 'crf' directory. 
 
 	(lukeghg) prompt%  kptable-appendix11c.py -s 1990 -e 2019 -o KPTable_Appendix11c.txt -d crf/
 
 
-##G Version control
+## G Version control
 
 Currently lukeghg is in GitHub. Sample gitgonfig for git is available
 in Git directory. Edit email and your name and install it as `.gitconfig` in your home directory. 
 
-##Notes on hirsi-server
+## Notes on hirsi-server
 
 hirsi server will be phased out in the near future (winter, spring 2021).
 The parts of the manual refering to hirsi are due to change to reflect  the fact
 the GHG inventory will be done in sorvi completely.
 
-##References
+## References
 
 https://sorvi-int1.ns.luke.fi/sorvi-guides/ug/
 https://docs.python.org/3/library/venv.html
