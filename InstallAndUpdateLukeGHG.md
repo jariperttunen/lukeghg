@@ -2,14 +2,14 @@
 
 ## Contents
 
-### A Setup your working environment
-### B Install *lukeghg* python package
-### C Update  *lukeghg* python package
-### D GHG inventory to CRFReporter xml file
-### E Some other useful programs
-### F Version control
-### Notes on hirsi server
-### References
++ A Setup your working environment
++ B Install *lukeghg* python package
++ C Update  *lukeghg* python package
++ D GHG inventory to CRFReporter xml file
++ E Some other useful programs
++ F Version control
++ Notes on hirsi server
++ References
 
 The instructions are for bash shell in sorvi.  Your default shell
 might be for example *tcsh* and you must e.g. adjust hyphens
@@ -49,10 +49,10 @@ generating lulucf-table-612.py:
 
 ## B Install the lukeghg python package
 
-For GitHub you need to have ".gitconfig" in your home directory.
+For GitHub you need to have *.gitconfig* in your home directory.
 See item F Version control at the end.
 
-Clone lukeghg from GitHub for example to `/data/shared/<user>`
+Clone lukeghg from GitHub for example to */data/shared/<user>*
 *<user>* denotes your user name and *<GHGInventoryDirectory>* the name
 of your choice for the working directory.
 
@@ -77,7 +77,8 @@ Remember to activate the virtual environment (check your prompt).
 		prompt% source ~/lukeghg/bin/activate
 		(lukeghg) prompt%
 
-Update lukeghg package from GitHub. Make sure you are in <GHGInventoryDirectory>/lukeghg/
+Update lukeghg package from GitHub. Make sure you are in
+*<GHGInventoryDirectory>/lukeghg/* directory:
 
 		(lukeghg) prompt% git pull
 
@@ -86,11 +87,11 @@ Update lukeghg virtual environment
 As with the first install recreate the wheel package, but now first remove
 the lukeghg package and then upgrade lukeghg and its dependencies.
 Make sure you are in <GHGInventoryDirectory>/lukeghg/lukeghg where you
-can see the `setup.py` file.
+can see the *setup.py*  file.
 
-	(lukeghg) prompt%: `python3 setup.py sdist bdist_wheel`
-	(lukeghg) prompt%: `python3 -m pip uninstall lukeghg`
-	(lukeghg) prompt%: `python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl`
+	(lukeghg) prompt%: python3 setup.py sdist bdist_wheel
+	(lukeghg) prompt%: python3 -m pip uninstall lukeghg
+	(lukeghg) prompt%: python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
 
 The `pip`command line allows other ways to achieve the same thing but
 this seems to be straightforward.
@@ -100,7 +101,7 @@ this seems to be straightforward.
 `run-ghg-master.sh` is a script that sets directories and files
 for the current ghg inventory and inserts inventory results to PartyProfile xml.
 
-The `run-ghg-master.sh`is located in `<GHGInventoryDirectory>/lukeghg/lukeghg/lukeghg/bin`
+The `run-ghg-master.sh`is located in *<GHGInventoryDirectory>/lukeghg/lukeghg/lukeghg/bin*
 directory. Edit the following command options if needed:
 
 - -c Location of the GHG inventory files
@@ -112,19 +113,17 @@ directory. Edit the following command options if needed:
 
 Note in addition that the options -b, -k,-l and -m refer to ubiquitous configuration
 files. They come with the lukeghg package. Thus after downloading
-lukeghg from GitHub create `crf` and `PartyProfile` directories in
-`<GHGInventoryDirectory>` and run the `run-ghg-master.sh` script 
-in `<GHGInventoryDirectory>`. 
+lukeghg from GitHub create *crf* and *PartyProfile* directories in
+*<GHGInventoryDirectory>* and run the `run-ghg-master.sh` script 
+in *<GHGInventoryDirectory>*. 
 
 The xml for CRFReporter can be produced as follows. Make sure you are
-in <GHGInventoryDirectory>.
-
-Copy GHG inventory files to crf directory:
+in *<GHGInventoryDirectory>*. Copy GHG inventory files to crf directory:
 
 	(lukeghg) prompt%: scp <user>@hirsi.in.metla.fi:/hsan2/khk/ghg/2019/crf/*.csv crf/
 
-If needed download PartyProfile xml from CRFReporter and copy it to PartyProfile
-directory. Rename as denoted by the -p option in run-ghg-master.sh. 
+If needed download PartyProfile xml from CRFReporter and copy it to *PartyProfile*
+directory. Rename as denoted by the `-p` option in `run-ghg-master.sh`. 
 
  To produce xml with inventory results type the two commands 
 
@@ -133,9 +132,10 @@ directory. Rename as denoted by the -p option in run-ghg-master.sh.
 
 The GHG inventory result files (csv files) seem to use different encoding systems.
 convertutf8 converts them to utf8 (this is why they need to be copied with scp to crf directory first). 
+
 The script run-ghg-master.sh will run few minutes at most. 
-The `>`character redirects standard out terminal output to `Import.log` file 
-and `2>` redirects standard error terminal output to `Error.log` file.
+The `>`character redirects standard out terminal output to *Import.log* file 
+and `2>` redirects standard error terminal output to *Error.log* file.
 
 For EU529 there is similar `run-eu529-ghg-master.sh` script. Note EU529
 concerns KPLULUCF files only (LULUCF files are not missing by accident).
@@ -174,14 +174,14 @@ but highly recommended comment part, UID of the time series followed by the time
 - -end: The end year of the scenario inventory
 
 For the sample command line set your working directory to
-`<GHGInventoryDirectory>`. Then, assuming the scenario result files
+*<GHGInventoryDirectory>*. Then, assuming the scenario result files
 are in DGClima directory type the following:
 
 	ghg-scenario.py --files 'DGClima/*.csv' --uid lukeghg/ScenarioTemplate/UIDMatrix.xlsx \
       --scen lukeghg/ScenarioTemplate/ScenarioTemplate.xlsx -m lukeghg/300_500_mappings_1.1.csv \
       -o DGClima.xlsx --start 1990 --end 2018 --keys
 
-The first sheet in the Excel result file (DGClima.xlsx) lists UID's in
+The first sheet in the Excel result file *DGClima.xlsx)* lists UID's in
 UIDMatrix excel file but not in the inventory. Following sheets
 represent scenario results for each land use and land use change
 class. Summation rows are marked yellow. Cells missing data are marked red.
@@ -200,42 +200,41 @@ directory and the output excel file is GHGToDo2019.xlsx.
 
 	(lukeghg) promt% ghg-todo.py -f1 '2018crf/[KPLU]*.csv' -f2 'crf/[KPLU]*.csv' -x PartyProfile/PartyProfile_FIN_2021_1.xml -o GHGToDo2019.xlsx -m lukeghg/300_500_mappings_1.1.csv -y 2019
 
-Also, ghg-todo.py is a quick fix to help to bring together scenario predictions for
+Also, `ghg-todo.py` is a quick fix to help to bring together scenario predictions for
 further analysis. Give all scenario result files for argument -f1 and let 
 the -f2 be a listing that produces no files. For example:
 
 	(lukeghg) promt% ghg-todo.py -f1 'scen/[KPLU]*.csv' -f2 'scen/[KPLU]*.txt' -x PartyProfile/PartyProfile_FIN_2021_1.xml -o GHGToDo2019.xlsx -m lukeghg/300_500_mappings_1.1.csv -y 2019
 
-This assumes that the scenario files are in `scen` directory and `-f2 scen/[KPLU]*.txt` produces empty list of files.
+This assumes that the scenario files are in *scen* directory and `-f2 scen/[KPLU]*.txt` produces empty list of files.
 Better solution for scenario projects is under construction (E GHG Scenarios).
 
 
 ### lulucf-table-612.py:
-Produce Table 6-1.2 in LuluTable6-1.2.xlsx. In the command line example inventory files are in 'crf' directory. 
+Produce Table 6-1.2 in LuluTable6-1.2.xlsx. In the command line example inventory files are in *crf* directory. 
 
 	(lukeghg) prompt% lulucf-table-612.py -s 1990 -e 2019 -o LuluTable6-1.2.xlsx -d crf/
 
 Please note you must have set up public private key for
-`ssh`. lulucf-table-612.py  will fetch biomasses (first two rows in the table) from
+`ssh`. `lulucf-table-612.py`  will fetch biomasses (first two rows in the table) from
 hirsi for the current inventory year.
 
 ### kptable-appendix11b.py:
-Produce Table Appendix11b in KPTable_Appendix11b.txt. Read it to excel with '#' as a column separator.
-In the command line example inventory files are in 'crf' directory. 
+Produce Table Appendix11b in KPTable_Appendix11b.txt. Read it to excel with *#* as a column separator.
+In the command line example inventory files are in *crf* directory. 
 
 	(lukeghg) prompt%  kptable-appendix11b.py -s 1990 -e 2019 -o KPTable_Appendix11b.txt -d crf/
 
 ### kptable-appendix11c.py:
-Produce Table Appendix11c in KPTable_Appendix11c.txt. Read it to excel with '#' as a column separator
+Produce Table Appendix11c in KPTable_Appendix11c.txt. Read it to excel with *#* as a column separator
 In the command line example inventory files are in 'crf' directory. 
 
 	(lukeghg) prompt%  kptable-appendix11c.py -s 1990 -e 2019 -o KPTable_Appendix11c.txt -d crf/
 
-
 ## G Version control
 
 Currently lukeghg is in GitHub. Sample gitgonfig for git is available
-in Git directory. Edit email and your name and install it as `.gitconfig` in your home directory. 
+in Git directory. Edit email and your name and install it as *.gitconfig* in your home directory. 
 
 ## Notes on hirsi-server
 
@@ -245,7 +244,7 @@ the GHG inventory will be done in sorvi completely.
 
 ## References
 
-https://sorvi-int1.ns.luke.fi/sorvi-guides/ug/
-https://docs.python.org/3/library/venv.html
-https://docs.python.org/3/distutils/index.html
-https://docs.python.org/3/distutils/setupscript.html
++ https://sorvi-int1.ns.luke.fi/sorvi-guides/ug/
++ https://docs.python.org/3/library/venv.html
++ https://docs.python.org/3/distutils/index.html
++ https://docs.python.org/3/distutils/setupscript.html
