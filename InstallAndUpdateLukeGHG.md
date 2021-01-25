@@ -108,8 +108,8 @@ directory. Edit the following command options if needed:
 - -c Location of the GHG inventory files
 - -p Location of the empty (i.e. no inventory data) PartyProfile xml from CRFReporter
 - -x Location of the PartyProfile result file to be imported to CRFReporter
-- -n Location of the specific NIR files
-- -i Location of the Comment files
+- -n Location of the specific CRFReporter NIR files
+- -i Location of the CRFReporter Comment files
 - -y Inventory year (the last year in CRFReporter)
 
 Practical note: the options -b, -k,-l and -m refer to ubiquitous configuration
