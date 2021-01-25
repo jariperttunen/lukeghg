@@ -3,7 +3,7 @@ Manual work after each new inventory in CRFReporter.
 
 Natural disturbances
 -----------------
-`P.B Article 3.4 Activities -> KP.B.1 Forest Management -> Carbon stock change -> 
+`KP.B Article 3.4 Activities -> KP.B.1 Forest Management -> Carbon stock change -> 
 Emissions and removals from natural disturbances -> Total natural disturbances`
 
 Each year new element must be created manually. 

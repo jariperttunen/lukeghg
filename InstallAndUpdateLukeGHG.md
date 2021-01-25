@@ -3,8 +3,8 @@
 ## Contents
 
 + A Setup your working environment
-+ B Install *lukeghg* python package
-+ C Update  *lukeghg* python package
++ B Install lukeghg python package
++ C Update  lukeghg python package
 + D GHG inventory to CRFReporter xml file
 + E GHG Scenarios
 + F Some other useful programs
@@ -151,7 +151,7 @@ PartyProfile xml from CRFReporter.
 `ghg-scenario.py` can generate excel file for ghg scenario calculations.
 The command line is as follows:
 
-	ghg-scenario.py [-h] [--files FILES] [--uid UID] [--scen SCEN]
+	ghg-scenario.py [-h] [--files FILES] [--uid UID] [--scen SCEN] \
     [--keys] [-m M] [-o O] [--start START] [--end END]
 
 - -files: Give scenario csv files as wild card search. The format of
@@ -179,7 +179,7 @@ For the sample command line set your working directory to
 `<GHGInventoryDirectory>`. Then, assuming the scenario result files
 are in DGClima directory type the following:
 
-	ghg-scenario.py --files 'DGClima/*.csv' --uid lukeghg/ScenarioTemplate/UIDMatrix.xlsx \
+	(lukeghg) ghg-scenario.py --files 'DGClima/*.csv' --uid lukeghg/ScenarioTemplate/UIDMatrix.xlsx \
       --scen lukeghg/ScenarioTemplate/ScenarioTemplate.xlsx -m lukeghg/300_500_mappings_1.1.csv \
       -o DGClima.xlsx --start 1990 --end 2018 --keys
 
@@ -200,13 +200,15 @@ found. This sample command assumes that 2018 inventory is in 2018crf
 directory and the output excel file is GHGToDo2019.xlsx.
 
 
-	(lukeghg) promt% ghg-todo.py -f1 '2018crf/[KPLU]*.csv' -f2 'crf/[KPLU]*.csv' -x PartyProfile/PartyProfile_FIN_2021_1.xml -o GHGToDo2019.xlsx -m lukeghg/300_500_mappings_1.1.csv -y 2019
+	(lukeghg) promt% ghg-todo.py -f1 '2018crf/[KPLU]*.csv' -f2 'crf/[KPLU]*.csv' -x PartyProfile/PartyProfile_FIN_2021_1.xml \
+	  -o GHGToDo2019.xlsx -m lukeghg/300_500_mappings_1.1.csv -y 2019
 
 Also, `ghg-todo.py` is a quick fix to help to bring together scenario predictions for
 further analysis. Give all scenario result files for argument `-f1` and let 
 the `-f2` be a listing that produces no files. For example:
 
-	(lukeghg) promt% ghg-todo.py -f1 'scen/[KPLU]*.csv' -f2 'scen/[KPLU]*.txt' -x PartyProfile/PartyProfile_FIN_2021_1.xml -o GHGToDo2019.xlsx -m lukeghg/300_500_mappings_1.1.csv -y 2019
+	(lukeghg) promt% ghg-todo.py -f1 'scen/[KPLU]*.csv' -f2 'scen/[KPLU]*.txt' -x PartyProfile/PartyProfile_FIN_2021_1.xml \
+	   -o GHGToDo2019.xlsx -m lukeghg/300_500_mappings_1.1.csv -y 2019
 
 This assumes that the scenario files are in *scen* directory and `-f2 scen/[KPLU]*.txt` produces empty list of files.
 Better solution for scenario projects is under construction (E GHG Scenarios).
