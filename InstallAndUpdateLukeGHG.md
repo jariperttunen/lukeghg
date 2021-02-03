@@ -112,9 +112,9 @@ directory. Edit the following command options if needed:
 - -i Location of the CRFReporter Comment files
 - -y Inventory year (the last year in CRFReporter)
 
-Practical note: the options -b, -k,-l and -m refer to ubiquitous configuration
-files. They come with the lukeghg package. Thus after downloading
-lukeghg from GitHub create *crf* and *PartyProfile* directories in
+Practical note: the options -b, -k,-l and -m (`run-ghg-master.sh`, not shown here) 
+in refer to ubiquitous configuration files. They come with the lukeghg package. 
+Thus after downloading lukeghg from GitHub create *crf* and *PartyProfile* directories in
 `<GHGInventoryDirectory>` and run the `run-ghg-master.sh` script 
 in `<GHGInventoryDirectory>`. 
 
