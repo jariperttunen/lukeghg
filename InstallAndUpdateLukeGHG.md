@@ -13,7 +13,7 @@
 + References
 
 The instructions are for `bash` shell in sorvi.  Your default shell
-might be for example `tcsh` and you must for example adjust hyphens
+might be for example `tcsh` and you must for instance adjust hyphens
 in command lines containing wild card searches accordingly.
 
 ## A Setup your working environment
