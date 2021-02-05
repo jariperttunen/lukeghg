@@ -25,14 +25,14 @@ Create python virtual environment (called e.g. lukeghg) in your home directory
 
 Activate the virtual environment:
 
-		prompt% source lukeghg/bin/activate
-		(lukeghg) prompt%
+	prompt% source lukeghg/bin/activate
+	(lukeghg) prompt%
 
 Note the *(lukeghg)* appearing in front of your command prompt.
 
 Check you have the latest versions of setuptools and wheel:
 
-	    (lukeghg) prompt% python3 -m pip install --upgrade setuptools wheel
+	(lukeghg) prompt% python3 -m pip install --upgrade setuptools wheel
 
 Create public private keys for ssh login to hirsi:
 
