@@ -76,13 +76,13 @@ and pushed the work there. Otherwise changes will not appear available in the vi
 Remember to activate the virtual environment if needed (check your
 prompt). The `~` character refers to your home directory. 
 
-		prompt% source ~/lukeghg/bin/activate
-		(lukeghg) prompt%
+	prompt% source ~/lukeghg/bin/activate
+	(lukeghg) prompt%
 
 Update lukeghg package from GitHub. Make sure you are in
 `<GHGInventoryDirectory>/lukeghg/` directory:
 
-		(lukeghg) prompt% git pull
+	(lukeghg) prompt% git pull
 
 Update your lukeghg virtual environment next. As with the installation
 recreate the wheel package, but now first remove the lukeghg package
