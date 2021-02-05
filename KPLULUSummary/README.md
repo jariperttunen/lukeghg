@@ -6,7 +6,7 @@ double UID exists in inventory for these cases.
 For the summation "kp-summary.py" can read file where
 each line is of format
 
-  #comment# UID_TO UID1_FROM [UID2_FROM .... UIDN_FROM]
+    #comment# UID_TO UID1_FROM [UID2_FROM .... UIDN_FROM]
 
 where UID_TO is the CRFReporter UID where the sums of 
 UID1_FROM ... UIDN_FROM are calculated. Usually there
@@ -16,5 +16,5 @@ and also UID_TO is usually the same as UID_FROM.
 In practice this is the last phase when importing data.
 Please insert the data (UID) to following two files:
     
-KPSummary.csv: UID's from KPLULUCF 
-LUSummary.csv: UID's from LULUCF
++ KPSummary.csv: UID's from KPLULUCF 
++ LUSummary.csv: UID's from LULUCF
