@@ -4,17 +4,17 @@ Mukana tiedostojen listauksessa ovat laskennan tulosten tarkistuksissa,
 CRFReporter xml tiedoston luonnissa ja NIR-taulukoiden
 teossa tarvittavat tiedostot ja ohjelmat.
 
-1. Käyttöohje:
+1. KÃ¤yttÃ¶ohje:
 + ./InstallAndUpdateLukeGHG.md
 
 2. Konfigurointitiedostot:
 + ./KPLULU1990/KP_CM_GM_RV_WDR_UID_notaatioavain.csv
-+ ./KPLULU1990/README.txt
++ ./KPLULU1990/README.md
 + ./KPLULUSummary/LUSummary.csv
 + ./KPLULUSummary/KPSummary.csv
-+ ./KPLULUSummary/README.txt
++ ./KPLULUSummary/README.md
 + ./CRFReporterMappings/300_500_mappings_1.1.csv
-+ ./CRFReporterMappings/README.txt
++ ./CRFReporterMappings/README.md
 
 3. Python ohjelmat:
 + ./lukeghg/lukeghg/__init__.py
