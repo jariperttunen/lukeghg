@@ -19,15 +19,15 @@ if options.f3 is None:
     print("No output file")
     quit()
 columnls=['Mineral','Undrained','Herb-rich type (Rhtg)','Vaccinium myrtillus type (Mtkg)','Vaccinium vitis-idaea type (Ptkg)',
-          'Dwarf shrub type (Vatkg)','Caldina type (Jätkg)']
+          'Dwarf shrub type (Vatkg)','Caldina type (JÃ¤tkg)']
 df_title=pd.DataFrame(['Table 6.4-1 Areas of organic soils (peatlands) of forest land remaining forest land by site type (1 000 ha)']).transpose()
 df = pd.read_table(options.f1,sep=',',names=columnls,usecols=range(1,8),skiprows=1)
 df.index=list(range(1990,int(options.f2)+1))
-df['Drained organic']=df['Herb-rich type (Rhtg)']+df['Vaccinium myrtillus type (Mtkg)']+df['Vaccinium vitis-idaea type (Ptkg)']+df['Dwarf shrub type (Vatkg)']+df['Caldina type (Jätkg)']
+df['Drained organic']=df['Herb-rich type (Rhtg)']+df['Vaccinium myrtillus type (Mtkg)']+df['Vaccinium vitis-idaea type (Ptkg)']+df['Dwarf shrub type (Vatkg)']+df['Caldina type (JÃ¤tkg)']
 df['Organic']=df['Drained organic']+df['Undrained']
 df['Total (Mineral+Organic)']=df['Mineral']+df['Organic']
 
-df_explain1=pd.DataFrame(['Drained organic = Herb-rich type (Rhtg)+Vaccinium myrtillus type (Mtkg)+Vaccinium vitis-idaea type (Ptkg)+Drwarf shrub type(Vatkg)+Caldina type (Jätkg)']).transpose()
+df_explain1=pd.DataFrame(['Drained organic = Herb-rich type (Rhtg)+Vaccinium myrtillus type (Mtkg)+Vaccinium vitis-idaea type (Ptkg)+Drwarf shrub type(Vatkg)+Caldina type (JÃ¤tkg)']).transpose()
 df_explain2=pd.DataFrame(['Organic  = Drained organic+Undrained']).transpose()
 df_explain3=pd.DataFrame(['Total (Mineral+Organic) = Mineral+Organic']).transpose()
 df_datafrom=pd.DataFrame(['Data from: '+options.f1])
