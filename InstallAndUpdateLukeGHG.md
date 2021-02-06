@@ -190,9 +190,9 @@ class. Summation rows are marked yellow. Cells missing data are marked red.
 
 ## F Some other useful programs
 
-lukeghg package contains useful scripts for checks during the inventory 
-and to generate some ubiquitous tables for NIR. Each one has -h (help) option
-that should print explanation for each command line option.
+lukeghg package contains useful scripts for checks for the inventory 
+and to generate some ubiquitous tables to appear in NIR. Standard python -h (help) option
+prints short explanation for each command line option.
 
 ### ghg-todo.py: 
 Compare two inventories and list missing time series and UIDs not
