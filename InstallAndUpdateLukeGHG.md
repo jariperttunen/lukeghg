@@ -129,7 +129,7 @@ directory. Rename as denoted by the `-p` option in `run-ghg-master.sh`.
  To produce xml to be imported to CRFReporter (the option `-x` for
  `run-ghg-master.sh`) with inventory results type the two commands:
 
-	(lukeghg) prompt%: python3 -m lukeghg.utility.convertutf8 -f crf/'*.csv'
+	(lukeghg) prompt%: convertutf8 -f crf/'*.csv'
 	(lukeghg) prompt%: run-ghg-master.sh > Import.log 2> Error.log
 
 The GHG inventory result files (csv files) seem to use different encoding systems.
@@ -200,7 +200,7 @@ found. This sample command assumes that 2018 inventory is in 2018crf
 directory and the output excel file is GHGToDo2019.xlsx.
 
 
-	(lukeghg) promt% ghg-todo.py -f1 '2018crf/[KPLU]*.csv' -f2 'crf/[KPLU]*.csv' -x PartyProfile/PartyProfile_FIN_2021_1.xml \
+	(lukeghg) prompt% ghg-todo.py -f1 '2018crf/[KPLU]*.csv' -f2 'crf/[KPLU]*.csv' -x PartyProfile/PartyProfile_FIN_2021_1.xml \
 	  -o GHGToDo2019.xlsx -m lukeghg/300_500_mappings_1.1.csv -y 2019
 
 Also, `ghg-todo.py` is a quick fix to help to bring together scenario predictions for
@@ -213,15 +213,28 @@ the `-f2` be a listing that produces no files. For example:
 This assumes that the scenario files are in *scen* directory and `-f2 scen/[KPLU]*.txt` produces empty list of files.
 Better solution for scenario projects is under construction (E GHG Scenarios).
 
+### checkinventoryvalues.py:
+Compare two inventories and check for 1) too large differences in inventory values, 2) changes in notation keys and 
+3) missing UID's.
+
+The sample command line assumes 2018 inventory  is in 2018crf directory and 2019 inventory in crf directory.
+Output file is GHGComparison.txt.
+
+	(lukeghg) prompt% compareinventoryvalues.py -p '2018crf/[KPLU]*.csv' -c crf/[KPLU]*.csv -m crf/lukeghg/300_500_mappings_1.1.csv \
+	  -f GHGComparison.tx -t 20
+	  
+The `-t` option defines that values more that 20% will be accounted for. More precisely, if any two values in a time series
+from the two inventories differ more that this threshold value, the two time series will be printed out. 
+Excel file of the same name (GHGComparison.xlsx) will also be generated. 
+	
 
 ### lulucf-table-612.py:
 Produce Table 6-1.2 in LuluTable6-1.2.xlsx. In the command line example inventory files are in *crf* directory. 
 
 	(lukeghg) prompt% lulucf-table-612.py -s 1990 -e 2019 -o LuluTable6-1.2.xlsx -d crf/
-
-Please note you must have set up public private key for
-`ssh`. `lulucf-table-612.py`  will fetch biomasses (first two rows in the table) from
-hirsi for the current inventory year.
+	  
+Please note you must have set up public private key for `ssh`. `lulucf-table-612.py`  will fetch biomasses 
+first two rows in the table) from hirsi server for the current inventory year.
 
 ### kptable-appendix11b.py:
 Produce Table Appendix11b in KPTable_Appendix11b.txt. Read it to excel with *#* as a column separator.
