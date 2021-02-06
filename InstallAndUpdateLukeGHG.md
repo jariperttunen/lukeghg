@@ -221,7 +221,7 @@ The sample command line assumes 2018 inventory  is in 2018crf directory and 2019
 Output file is GHGComparison.txt.
 
 	(lukeghg) prompt% compareinventoryvalues.py -p '2018crf/[KPLU]*.csv' -c crf/[KPLU]*.csv -m crf/lukeghg/300_500_mappings_1.1.csv \
-	  -f GHGComparison.tx -t 20
+	  -f GHGComparison.txt -t 20
 	  
 The `-t` option defines that values more that 20% will be accounted for. More precisely, if any two values in a time series
 from the two inventories differ more that this threshold value, the two time series will be printed out. 
