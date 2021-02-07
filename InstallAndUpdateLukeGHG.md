@@ -151,7 +151,7 @@ PartyProfile xml from CRFReporter.
 `ghg-scenario.py` can generate excel file for ghg scenario calculations.
 The command line is as follows:
 
-	(lukeghg) ghg-scenario.py [-h] [--files FILES] [--uid UID] [--scen SCEN] \
+	(lukeghg) prompt%: ghg-scenario.py [-h] [--files FILES] [--uid UID] [--scen SCEN] \
     [--keys] [-m M] [-o O] [--start START] [--end END]
 
 - -files: Give scenario csv files as wild card search. The format of
