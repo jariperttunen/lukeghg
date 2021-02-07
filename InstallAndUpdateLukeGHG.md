@@ -90,9 +90,9 @@ and then upgrade lukeghg and its dependencies.
 Make sure you are in `<GHGInventoryDirectory>/lukeghg/lukeghg` where you
 can see the *setup.py*  file.
 
-	(lukeghg) prompt%: python3 setup.py sdist bdist_wheel
-	(lukeghg) prompt%: python3 -m pip uninstall lukeghg
-	(lukeghg) prompt%: python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
+	(lukeghg) prompt% python3 setup.py sdist bdist_wheel
+	(lukeghg) prompt% python3 -m pip uninstall lukeghg
+	(lukeghg) prompt% python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
 
 The `pip`command line allows other ways to achieve the same result but
 this seems to be straightforward.
@@ -121,7 +121,7 @@ in `<GHGInventoryDirectory>`.
 The xml for CRFReporter can be produced as follows. Make sure you are
 in `<GHGInventoryDirectory>`. Copy GHG inventory files to crf directory:
 
-	(lukeghg) prompt%: scp <user>@hirsi.in.metla.fi:/hsan2/khk/ghg/2019/crf/*.csv crf/
+	(lukeghg) prompt% scp <user>@hirsi.in.metla.fi:/hsan2/khk/ghg/2019/crf/*.csv crf/
 
 If needed download PartyProfile xml from CRFReporter and copy it to *PartyProfile*
 directory. Rename as denoted by the `-p` option in `run-ghg-master.sh`. 
@@ -129,8 +129,8 @@ directory. Rename as denoted by the `-p` option in `run-ghg-master.sh`.
  To produce xml to be imported to CRFReporter (the option `-x` for
  `run-ghg-master.sh`) with inventory results type the two commands:
 
-	(lukeghg) prompt%: convertutf8 -f crf/'*.csv'
-	(lukeghg) prompt%: run-ghg-master.sh > Import.log 2> Error.log
+	(lukeghg) prompt% convertutf8 -f crf/'*.csv'
+	(lukeghg) prompt% run-ghg-master.sh > Import.log 2> Error.log
 
 The GHG inventory result files (csv files) seem to use different encoding systems.
 `convertutf8` converts them to utf8 (this is why they need to be copied with `scp` to *crf* directory first). 
@@ -151,7 +151,7 @@ PartyProfile xml from CRFReporter.
 `ghg-scenario.py` can generate excel file for ghg scenario calculations.
 The command line is as follows:
 
-	(lukeghg) prompt%: ghg-scenario.py [-h] [--files FILES] [--uid UID] [--scen SCEN] \
+	(lukeghg) prompt% ghg-scenario.py [-h] [--files FILES] [--uid UID] [--scen SCEN] \
     [--keys] [-m M] [-o O] [--start START] [--end END]
 
 - -files: Give scenario csv files as wild card search. The format of
@@ -179,7 +179,7 @@ For the sample command line set your working directory to
 `<GHGInventoryDirectory>`. Then, assuming the scenario result files
 are in DGClima directory type the following:
 
-	(lukeghg) ghg-scenario.py --files 'DGClima/*.csv' --uid lukeghg/ScenarioTemplate/UIDMatrix.xlsx \
+	(lukeghg) prompt% ghg-scenario.py --files 'DGClima/*.csv' --uid lukeghg/ScenarioTemplate/UIDMatrix.xlsx \
       --scen lukeghg/ScenarioTemplate/ScenarioTemplate.xlsx -m lukeghg/300_500_mappings_1.1.csv \
       -o DGClima.xlsx --start 1990 --end 2018 --keys
 
@@ -207,7 +207,7 @@ Also, `ghg-todo.py` is a quick fix to help to bring together scenario prediction
 further analysis. Give all scenario result files for argument `-f1` and let 
 the `-f2` be a listing that produces no files. For example:
 
-	(lukeghg) promt% ghg-todo.py -f1 'scen/[KPLU]*.csv' -f2 'scen/[KPLU]*.txt' -x PartyProfile/PartyProfile_FIN_2021_1.xml \
+	(lukeghg) prompt% ghg-todo.py -f1 'scen/[KPLU]*.csv' -f2 'scen/[KPLU]*.txt' -x PartyProfile/PartyProfile_FIN_2021_1.xml \
 	   -o GHGToDo2019.xlsx -m lukeghg/300_500_mappings_1.1.csv -y 2019
 
 This assumes that the scenario files are in *scen* directory and `-f2 scen/[KPLU]*.txt` produces empty list of files.
@@ -220,7 +220,7 @@ Compare two inventories and check for 1) too large differences in inventory valu
 The sample command line assumes 2018 inventory  is in *2018crf* directory and 2019 inventory in *crf* directory.
 Output file is *GHGComparison.txt*. Excel file of the same name (*GHGComparison.xlsx*) will also be generated. 
 
-	(lukeghg) prompt% compareinventoryvalues.py -p '2018crf/[KPLU]*.csv' -c crf/[KPLU]*.csv -m crf/lukeghg/300_500_mappings_1.1.csv \
+	(lukeghg) prompt% checkinventoryvalues.py -p '2018crf/[KPLU]*.csv' -c crf/[KPLU]*.csv -m crf/lukeghg/300_500_mappings_1.1.csv \
 	  -f GHGComparison.txt -t 20
 	  
 The `-t` option defines that values that disagree 20% or more will be accounted for. More precisely, if two values for some 
@@ -246,7 +246,7 @@ In the command line example inventory files are in *crf* directory.
 Produce Table Appendix11c in KPTable_Appendix11c.txt. Read it to excel with *#* as a column separator
 In the command line example inventory files are in 'crf' directory. 
 
-	(lukeghg) prompt%  kptable-appendix11c.py -s 1990 -e 2019 -o KPTable_Appendix11c.txt -d crf/
+	(lukeghg) prompt%:  kptable-appendix11c.py -s 1990 -e 2019 -o KPTable_Appendix11c.txt -d crf/
 
 ## G Version control
 
