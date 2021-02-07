@@ -151,7 +151,7 @@ PartyProfile xml from CRFReporter.
 `ghg-scenario.py` can generate excel file for ghg scenario calculations.
 The command line is as follows:
 
-	ghg-scenario.py [-h] [--files FILES] [--uid UID] [--scen SCEN] \
+	(lukeghg) ghg-scenario.py [-h] [--files FILES] [--uid UID] [--scen SCEN] \
     [--keys] [-m M] [-o O] [--start START] [--end END]
 
 - -files: Give scenario csv files as wild card search. The format of
@@ -250,7 +250,7 @@ In the command line example inventory files are in 'crf' directory.
 
 ## G Version control
 
-Currently lukeghg is in GitHub. Sample gitgonfig for git is available
+Currently *lukeghg* is in GitHub. Sample gitgonfig for git is available
 in Git directory. Edit email and your name and install it as *.gitconfig* in your home directory. 
 
 ## Notes on hirsi-server
