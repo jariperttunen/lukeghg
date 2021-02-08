@@ -8,7 +8,7 @@
 + D GHG inventory to CRFReporter xml file
 + E GHG Scenarios
 + F Some other useful programs
-+ G Version control
++ Version control
 + Notes on hirsi server
 + References
 
@@ -248,7 +248,7 @@ In the command line example inventory files are in 'crf' directory.
 
 	(lukeghg) prompt%:  kptable-appendix11c.py -s 1990 -e 2019 -o KPTable_Appendix11c.txt -d crf/
 
-## G Version control
+## Version control
 
 Currently *lukeghg* is in GitHub. Sample gitgonfig file for git is available
 in Git directory. Edit email and your name and install it as *.gitconfig* in your home directory. 
