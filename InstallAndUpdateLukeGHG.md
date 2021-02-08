@@ -126,7 +126,7 @@ in `<GHGInventoryDirectory>`. Copy GHG inventory files to crf directory:
 If needed download PartyProfile xml from CRFReporter and copy it to *PartyProfile*
 directory. Rename as denoted by the `-p` option in `run-ghg-master.sh`. 
 
- To produce xml filled with inventory results to be imported to CRFReporter (the option `-x` for
+ To produce xml file filled with inventory results to be imported to CRFReporter (the option `-x` for
  `run-ghg-master.sh`) type the two commands:
 
 	(lukeghg) prompt% convertutf8 -f crf/'*.csv'
