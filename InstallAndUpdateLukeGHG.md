@@ -234,7 +234,7 @@ Produce Table 6-1.2 in LuluTable6-1.2.xlsx. In the command line example inventor
 	(lukeghg) prompt% lulucf-table-612.py -s 1990 -e 2019 -o LuluTable6-1.2.xlsx -d crf/
 	  
 Please note you must have set up public private key for `ssh`. `lulucf-table-612.py`  will fetch biomasses 
-first two rows in the table) from hirsi server for the current inventory year.
+(the first two rows in the table) from hirsi server for the current inventory year.
 
 ### kptable-appendix11b.py:
 Produce Table Appendix11b in KPTable_Appendix11b.txt. Read it to excel with *#* as a column separator.
