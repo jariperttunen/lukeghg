@@ -126,14 +126,14 @@ in `<GHGInventoryDirectory>`. Copy GHG inventory files to crf directory:
 If needed download PartyProfile xml from CRFReporter and copy it to *PartyProfile*
 directory. Rename as denoted by the `-p` option in `run-ghg-master.sh`. 
 
- To produce xml to be imported to CRFReporter (the option `-x` for
- `run-ghg-master.sh`) with inventory results type the two commands:
+ To produce xml filled with inventory results to be imported to CRFReporter (the option `-x` for
+ `run-ghg-master.sh`) type the two commands:
 
 	(lukeghg) prompt% convertutf8 -f crf/'*.csv'
 	(lukeghg) prompt% run-ghg-master.sh > Import.log 2> Error.log
 
 The GHG inventory result files (csv files) seem to use different encoding systems.
-`convertutf8` converts them to utf8 (this is why they need to be copied with `scp` to *crf* directory first). 
+`convertutf8` converts them to utf8 if needed (this is why they need to be copied with `scp` to *crf* directory first). 
 
 The script `run-ghg-master.sh` will run few minutes at most. 
 The `>`character redirects standard out terminal output to *Import.log* file 
