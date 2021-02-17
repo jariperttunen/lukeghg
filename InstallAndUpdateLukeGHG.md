@@ -177,7 +177,8 @@ but highly recommended comment part, UID of the time series followed by the time
 
 For the sample command line set your working directory to
 `<GHGInventoryDirectory>`. Then, assuming the scenario result files
-are in DGClima directory type the following:
+are in DGClima directory type the following. In `bash`the `\` character denotes the
+command line continues to the next line.:
 
 	(lukeghg) prompt% ghg-scenario.py --files 'DGClima/*.csv' --uid lukeghg/ScenarioTemplate/UIDMatrix.xlsx \
       --scen lukeghg/ScenarioTemplate/ScenarioTemplate.xlsx -m lukeghg/300_500_mappings_1.1.csv \
