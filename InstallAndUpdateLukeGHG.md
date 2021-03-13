@@ -155,7 +155,7 @@ PartyProfile xml from CRFReporter.
 The command line is as follows:
 
 	(lukeghg) prompt% ghg-scenario.py [-h] [--files FILES] [--uid UID] [--scen SCEN] \
-    [--keys] [-m M] [-o O] [--start START] [--end END]
+    [--keys] [-m M] [-o O] [--start START] [--end END] --GWP
 
 - -files: Give scenario csv files as wild card search. The format of
 the files is the  same as in ghg inventory. A row consists of optional
@@ -177,6 +177,8 @@ but highly recommended comment part, UID of the time series followed by the time
 
 - -start: The start year of the scenario inventory
 - -end: The end year of the scenario inventory
+
+- -GWP: Global warming potential, possible values AR4 (GHG inventory) or AR5
 
 For the sample command line set your working directory to
 `<GHGInventoryDirectory>`. Then, assuming the scenario result files
