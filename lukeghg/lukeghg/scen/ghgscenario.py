@@ -130,6 +130,14 @@ def add_data_series(df_scen,new_row_ls,row_number:int):
     return df_scen
 
 def write_co2sum_formula(sheet,start_col,ncols,result_row,row_number_ls,color,scale=1):
+    """
+    start_col:start column of the time series
+    ncols: number of columns (i.e. length) in the time series
+    result_row: the row number of the sum
+    row_number_ls: the rows to be added.
+    color: background color
+    scale: the final unit (e.g. Mt CO2 eq if needed)
+    """
     for i in range(start_col,ncols):
         cell = openpyxl.cell.cell.Cell(sheet,result_row,i)
         cell_coordinate = cell.coordinate
@@ -156,7 +164,7 @@ def write_co2sum_formula(sheet,start_col,ncols,result_row,row_number_ls,color,sc
     return sheet
 
 def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,uid_excel_file:str,scen_template_file:str,uid_300_500_file:str,
-                          start_year,end_year,keys:bool=False):
+                          start_year,end_year,keys,ch4co2eq,n2oco2eq):
     missing_uid_dict = dict()
     writer = pd.ExcelWriter(scen_excel_file,engine='openpyxl')
     #Read inventory to dictionary: UID:time series
@@ -195,7 +203,7 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,uid_excel_
         column_ls = ["Number","Source","Unit"]+list(range(start_year,start_year+len(year_ls)-1))
         df_scen_new.columns = column_ls
         df_scen_new.to_excel(writer,sheet_name=class_name)
-        #Add sum rows
+        #2.Add sum rows
         sheets = writer.sheets
         sheet = sheets[class_name]
         #1 Biomass Net change
@@ -215,133 +223,122 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,uid_excel_
         #Biomass burning total N2O
         write_co2sum_formula(sheet,5,end_year-start_year+1+5,56,[46,51],summary_color,1)
         #5 HWP
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,63,range(60,62+1),summary_color,1)
-        #----------------
+        #1 Sawnwood total
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,62,[60,61],summary_color,1)
+        #2 Wood panels
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,65,[63,64],summary_color,1)
+        #3 Paper and paperboard
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,68,[66,67],summary_color,1)
+        #4 HWP Total
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,69,[62,65,68],summary_color,1)
+        #3. ---------- Grand totals MtCO2 eq. ----------------
         #1 Biomass MtCO2 eq.
+        #If more grained classification above is needed this MtCO2 eq set is rather easily moved downwards
+        #by changing the the  MtCO2eq_start for Gains to right row.
+        MtCO2eq_start_row=76
         #Gains
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,71,[7],summary_color,(crfc.ctoco2)/1000.0)
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row,[7],summary_color,(crfc.ctoco2)/1000.0)
         #Losses
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,72,[8],summary_color,(crfc.ctoco2)/1000.0)
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+1,[8],summary_color,(crfc.ctoco2)/1000.0)
         #Net change
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,73,[71,72],summary_color,1)
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+2,[MtCO2eq_start_row,MtCO2eq_start_row+1],summary_color,1)
         #Dead wood
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,74,[10],summary_color,(crfc.ctoco2)/1000.0)
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+3,[10],summary_color,(crfc.ctoco2)/1000.0)
         #Litter
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,75,[11],summary_color,(crfc.ctoco2)/1000.0)
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+4,[11],summary_color,(crfc.ctoco2)/1000.0)
         #Mineral soil
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,76,[12],summary_color,(crfc.ctoco2)/1000.0)
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+5,[12],summary_color,(crfc.ctoco2)/1000.0)
         #Organic soil
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,77,[13],summary_color,(crfc.ctoco2)/1000.0)
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+6,[13],summary_color,(crfc.ctoco2)/1000.0)
         #Total
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,78,range(73,77+1),summary_color,1)
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+7,range(MtCO2eq_start_row+2,MtCO2eq_start_row+6+1),
+                             summary_color,1)
         #2 Direct N20 emissions from N fertilization
         #Inorganic
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,81,[17],summary_color,(crfc.n2oco2eq)/1000.0)
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+10,[17],summary_color,n2oco2eq/1000.0)
         #Organic
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,82,[18],summary_color,(crfc.n2oco2eq)/1000.0)
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+11,[18],summary_color,n2oco2eq/1000.0)
         #Total
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,83,[81,82],summary_color,1)
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+12,[MtCO2eq_start_row+10,MtCO2eq_start_row+11],
+                             summary_color,1)
         #3 Drainage and rewetting
-        #Drained organing N2O
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,86,[22],summary_color,(crfc.n2oco2eq)/1000.0)
-        #Drained organic CH4
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,87,[23],summary_color,(crfc.ch4co2eq)/1000.0)
-        #Total
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,88,[86,87],summary_color,1)
-        #4 Drainage and rewetting
-        #Rewetted organing N2O
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,89,[25],summary_color,(crfc.n2oco2eq)/1000.0)
-        #Rewetted organing CH4
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,90,[26],summary_color,(crfc.ch4co2eq)/1000.0)
-        #Total
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,91,[89,90],summary_color,1)
-        #Drained mineral N20
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,92,[28],summary_color,(crfc.n2oco2eq)/1000.0)
-        #Drained mineral CH4
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,93,[29],summary_color,(crfc.ch4co2eq)/1000.0)
-        #Total
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,94,[92,93],summary_color,1)
-        #Rewetted mineral N20
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,95,[31],summary_color,(crfc.n2oco2eq)/1000.0)
-        #Rewetted mineral CH4
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,96,[32],summary_color,(crfc.ch4co2eq)/1000.0)
-        #Total
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,97,[95,96],summary_color,1)
-        #5 Mineralization
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,100,[36],summary_color,(crfc.n2oco2eq)/1000.0)
-        #6 Indirect N2O managed soils
-        #Atmospheric deposition N2O
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,103,[39],summary_color,(crfc.n2oco2eq)/1000.0)
-        #Nitrogen leaching and run-off N2O
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,104,[40],summary_color,(crfc.n2oco2eq)/1000.0)
-        #Total
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,105,[103,104],summary_color,1)
+        #3.1 Drained organing N2O
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+15,[22],summary_color,n2oco2eq/1000.0)
+        #3.2 Drained organic CH4
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+16,[23],summary_color,ch4co2eq/1000.0)
+        #Drained organic total
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+17,[MtCO2eq_start_row+15,MtCO2eq_start_row+16],
+                             summary_color,1)
+        #3.3 Rewetted organing N2O
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+18,[25],summary_color,n2oco2eq/1000.0)
+        #3.4 Rewetted organing CH4
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+19,[26],summary_color,ch4co2eq/1000.0)
+        #Rewetted organic total
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+20,[MtCO2eq_start_row+18,MtCO2eq_start_row+19],summary_color,1)
+        #3.5 Drained mineral N20
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+21,[28],summary_color,n2oco2eq/1000.0)
+        #3.6 Drained mineral CH4
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+22,[29],summary_color,ch4co2eq/1000.0)
+        #Drained mineral total
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+23,[MtCO2eq_start_row+21,MtCO2eq_start_row+22],summary_color,1)
+        #3.7 Rewetted mineral N20
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+24,[31],summary_color,n2oco2eq/1000.0)
+        #3.8 Rewetted mineral CH4
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+25,[32],summary_color,ch4co2eq/1000.0)
+        #Rewetted mineral total
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+26,[MtCO2eq_start_row+24,MtCO2eq_start_row+25],summary_color,1)
+        #4 Direct N2O emissions mineralization (total)
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+29,[36],summary_color,n2oco2eq/1000.0)
+        #5 Indirect N2O emissions managed soils
+        #5.1 Atmospheric deposition N2O
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+32,[39],summary_color,n2oco2eq/1000.0)
+        #5.2 Nitrogen leaching and run-off N2O
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+33,[40],summary_color,n2oco2eq/1000.0)
+        #Indirect N2O managed soils total
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+34,[MtCO2eq_start_row+32,MtCO2eq_start_row+33],summary_color,1)
+        #6 Biomass burning
         #Controlled burning CO2
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,108,[44],summary_color,(crfc.ctoco2)/1000.0)
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+37,[44],summary_color,(crfc.ctoco2)/1000.0)
         #Controlled burning CH4
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,109,[45],summary_color,(crfc.ch4co2eq)/1000.0)
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+38,[45],summary_color,ch4co2eq/1000.0)
         #Controlled burning N2O
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,110,[46],summary_color,(crfc.n2oco2eq)/1000.0)
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+39,[46],summary_color,n2oco2eq/1000.0)
         #Total
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,111,[108,109,110],summary_color,1)
-        #7 Biomass burning
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+40,
+                             [MtCO2eq_start_row+37,MtCO2eq_start_row+38,MtCO2eq_start_row+39],summary_color,1)
         #Wildfires CO2
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,113,[49],summary_color,(crfc.ctoco2)/1000.0)
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+42,[49],summary_color,(crfc.ctoco2)/1000.0)
         #Wildfires CH4
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,114,[50],summary_color,(crfc.ch4co2eq)/1000.0)
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+43,[50],summary_color,ch4co2eq/1000.0)
         #Wildfires N2O
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,115,[51],summary_color,(crfc.n2oco2eq)/1000.0)
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+44,[51],summary_color,n2oco2eq/1000.0)
         #Total
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,116,[113,114,115],summary_color,1)
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+45,
+                             [MtCO2eq_start_row+42,MtCO2eq_start_row+43,MtCO2eq_start_row+44],summary_color,1)
         #8 HWP
         #Sawnwood
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,119,[60],summary_color,(crfc.ctoco2)/1000.0)
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+48,[62],summary_color,(crfc.ctoco2)/1000.0)
         #Wood panels
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,120,[61],summary_color,(crfc.ctoco2)/1000.0)
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+49,[65],summary_color,(crfc.ctoco2)/1000.0)
         #Paper and paper board
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,121,[62],summary_color,(crfc.ctoco2)/1000.0)
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+50,[68],summary_color,(crfc.ctoco2)/1000.0)
         #Total
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,122,[119,120,121],summary_color,1)
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+51,
+                             [MtCO2eq_start_row+48,MtCO2eq_start_row+49,MtCO2eq_start_row+50],summary_color,1)
         #GRAND TOTAL MtCO2eq
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,124,[78,83,88,91,94,97,100,105,111,116,122],summary_color,1)
+        write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+53,
+                             [MtCO2eq_start_row+7,MtCO2eq_start_row+12,MtCO2eq_start_row+17,MtCO2eq_start_row+20,
+                              MtCO2eq_start_row+23,MtCO2eq_start_row+26,MtCO2eq_start_row+29,MtCO2eq_start_row+34,
+                              MtCO2eq_start_row+40,MtCO2eq_start_row+45,MtCO2eq_start_row+51],summary_color,1)
     missing_uid_df = pd.DataFrame.from_dict(missing_uid_dict,orient='index')
     sheet_name="UIDMatrix UID not in Inventory"
     missing_uid_df.to_excel(writer,sheet_name=sheet_name)
+    ls = [['CO2','CH4','N2O'],[1,ch4co2eq,n2oco2eq]]
+    df = pd.DataFrame(ls)
+    gwp_sheet="GWP"
+    df.to_excel(writer,sheet_name=gwp_sheet)
     workbook = writer.book
+    workbook.move_sheet(gwp_sheet,-(len(workbook.sheetnames)-1))
     workbook.move_sheet(sheet_name,-(len(workbook.sheetnames)-1))
     return writer
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--files',type=str,dest='files',help='Scenario files (reqular expression)')
-    parser.add_argument('--uid',type=str,dest='uid',help='UID matrix excel file')
-    parser.add_argument('--scen',type=str,dest='scen',help='Scenario excel template file')
-    parser.add_argument('--keys',dest='keys',action='store_false',help='Maintain notation keys')
-    parser.add_argument('-m',type=str,dest='m',help='UID 300->500 mapping file (CRFReporter)')
-    parser.add_argument('-o',type=str,dest='o',help='Scenario results excel output file')
-    parser.add_argument('--start',type=int,dest='start',help="Start year (1990)")
-    parser.add_argument('--end',type=int,dest='end',help="End year")
-    args = parser.parse_args()
-    if args.files == None:
-        print("No input files")
-    if args.uid == None:
-        print("No UID matrix excel file")
-    if args.scen == None:
-        print("No Scenario excel template file")
-    if args.m == None:
-        print("No UID 300->500 mapping file (CRFReporter)")
-    if args.o == None:
-        print("No Scenario results excel output file")
-    if args.start == None:
-        print("No Start year (1990)")
-    if args.end == None:
-        print("No End year")
-    result = args.files and args.uid and args.scen and args.m and args.o and args.start and args.end
-    if result == None:
-        quit()
-    try:
-        excel_writer = create_scenario_excel(args.o,args.files,args.uid,args.scen,args.m,args.start,args.end,args.keys)
-        excel_writer.save()
-        excel_writer.close()
-    except NoInventoryFiles:
-        print("No scenario inventory files")
