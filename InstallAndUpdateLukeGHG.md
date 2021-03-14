@@ -192,7 +192,7 @@ command line continues to the next line.:
       -o DGClima.xlsx --start 1990 --end 2018 --keys
 
 The first sheet in the Excel result file *DGClima.xlsx* lists UID's in
-UIDMatrix excel file but not found in the inventory. Following sheets
+UIDMatrix excel file but not found in the inventory. The second sheet the GWP's used. Following sheets
 represent scenario results for each land use and land use change
 class. Summation rows are marked yellow. Cells missing data are marked red.
 
