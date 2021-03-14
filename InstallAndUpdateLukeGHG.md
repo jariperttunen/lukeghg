@@ -103,7 +103,7 @@ this seems to be straightforward.
 ## D. GHG inventory to CRFReporter xml file
 
 Probably the most important part in this manual. `run-ghg-master.sh` is a script that sets directories and files
-for the current ghg inventory and inserts inventory results to CRFRe	porter PartyProfile xml.
+for the current ghg inventory and inserts inventory results to CRFReporter PartyProfile xml.
 
 The `run-ghg-master.sh`is located in `<GHGInventoryDirectory>/lukeghg/lukeghg/lukeghg/bin`
 directory. Edit the following command options if needed:
@@ -143,6 +143,8 @@ The GHG inventory result files (csv files) seem to use different encoding system
 The script `run-ghg-master.sh` will run few minutes at most. 
 The `>`character redirects standard out terminal output to *Import.log* file 
 and `2>` redirects standard error terminal output to *Error.log* file.
+
+The final step is to import the PartyProfile result file (-x option) to CRFReporter.
 
 For EU529 there is similar `run-eu529-ghg-master.sh` script. Note EU529
 concerns KPLULUCF files only (LULUCF files are not missing by accident).
