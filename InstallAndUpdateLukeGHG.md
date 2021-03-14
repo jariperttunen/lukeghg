@@ -124,11 +124,11 @@ Thus after downloading lukeghg from GitHub create *crf* and *PartyProfile* direc
 in `<GHGInventoryDirectory>`. 
 
 The xml for CRFReporter can be produced as follows. Make sure you are
-in `<GHGInventoryDirectory>`. Copy GHG inventory files to crf directory:
+in `<GHGInventoryDirectory>`. First, copy GHG inventory files to crf directory:
 
 	(lukeghg) prompt% scp <user>@hirsi.in.metla.fi:/hsan2/khk/ghg/2019/crf/*.csv crf/
 
-If needed download PartyProfile xml from CRFReporter and copy it to *PartyProfile*
+Then, if needed, download PartyProfile xml from CRFReporter and copy it to *PartyProfile*
 directory. Rename as denoted by the `-p` option in `run-ghg-master.sh`. 
 
  To produce xml file filled with inventory results to be imported to CRFReporter (the option `-x` for
