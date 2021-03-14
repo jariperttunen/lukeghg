@@ -237,7 +237,7 @@ the two time series will appear in the result file.
 	
 
 ### lulucf-table-612.py:
-Produce Table 6-1.2 in LuluTable6-1.2.xlsx. In the command line example inventory files are in *crf* directory. 
+Produce NIR Table 6-1.2 in LuluTable6-1.2.xlsx. In the command line example inventory files are in *crf* directory. 
 
 	(lukeghg) prompt% lulucf-table-612.py -s 1990 -e 2019 -o LuluTable6-1.2.xlsx -d crf/
 	  
@@ -245,13 +245,13 @@ Please note you must have set up public private key for `ssh`. `lulucf-table-612
 (the first two rows in the table) from hirsi server for the current inventory year.
 
 ### kptable-appendix11b.py:
-Produce Table Appendix11b in KPTable_Appendix11b.txt. Read it to excel with *#* as a column separator.
+Produce NIR Table Appendix11b in KPTable_Appendix11b.txt. Read it to excel with *#* as a column separator.
 In the command line example inventory files are in *crf* directory. 
 
 	(lukeghg) prompt%  kptable-appendix11b.py -s 1990 -e 2019 -o KPTable_Appendix11b.txt -d crf/
 
 ### kptable-appendix11c.py:
-Produce Table Appendix11c in KPTable_Appendix11c.txt. Read it to excel with *#* as a column separator
+Produce NIR Table Appendix11c in KPTable_Appendix11c.txt. Read it to excel with *#* as a column separator
 In the command line example inventory files are in 'crf' directory. 
 
 	(lukeghg) prompt%:  kptable-appendix11c.py -s 1990 -e 2019 -o KPTable_Appendix11c.txt -d crf/
