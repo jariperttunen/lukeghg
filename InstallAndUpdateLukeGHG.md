@@ -142,7 +142,7 @@ The script `run-ghg-master.sh` will run few minutes at most.
 The `>`character redirects standard out terminal output to *Import.log* file 
 and `2>` redirects standard error terminal output to *Error.log* file.
 
-The final step is to import the PartyProfile result file to CRFReporter.
+The final step is to import the PartyProfile result file from CRFReporter.
 
 For EU529 there is similar `run-eu529-ghg-master.sh` script. Note EU529
 concerns KPLULUCF files only (LULUCF files are not missing by accident).
