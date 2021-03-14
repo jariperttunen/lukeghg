@@ -128,9 +128,10 @@ in `<GHGInventoryDirectory>`. First, copy GHG inventory files to crf directory:
 
 	(lukeghg) prompt% scp <user>@hirsi.in.metla.fi:/hsan2/khk/ghg/2019/crf/*.csv crf/
 
-Then, if needed, download PartyProfile xml from CRFReporter and copy it to *PartyProfile*
-directory. Rename as denoted by the `-p` option in `run-ghg-master.sh`. To produce the PartyProfile 
-result file  filled with the GHG inventory results (the option `-x`) type the two commands:
+Be sure the read right to the files exists. Then, if needed, download PartyProfile xml 
+from CRFReporter and copy it to *PartyProfile* directory. Rename as denoted by the `-p` 
+option in `run-ghg-master.sh`. To produce the PartyProfile  result file  filled with the 
+GHG inventory results (the option `-x`) type the two commands:
 
 	(lukeghg) prompt% convertutf8 -f crf/'*.csv'
 	(lukeghg) prompt% run-ghg-master.sh > Import.log 2> Error.log
@@ -147,7 +148,7 @@ The final step is to import the PartyProfile result file from CRFReporter.
 For EU529 there is similar `run-eu529-ghg-master.sh` script. Note EU529
 concerns KPLULUCF files only (LULUCF files are not missing by accident).
 
-**Please note:** CRFReporter checks that the version number of the PartyProfile 
+**NB:** CRFReporter checks that the version number of the PartyProfile 
 xml matches the CRFReporter version. Each CRFReporter version update requires new
 PartyProfile xml from CRFReporter.
 
