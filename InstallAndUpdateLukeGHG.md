@@ -109,11 +109,13 @@ The `run-ghg-master.sh`is located in `<GHGInventoryDirectory>/lukeghg/lukeghg/lu
 directory. Edit the following command options if needed:
 
 - -c Location of the GHG inventory files
+- -n Location of the GHG iventory files for NIR section in CRFReporter
+- -i Location of the GHG inventory comment files for CRFReporter
 - -p Location of the empty (i.e. no inventory data) PartyProfile xml from CRFReporter
 - -x Location of the PartyProfile result file to be imported to CRFReporter
-- -n Location of the specific CRFReporter NIR files
-- -i Location of the CRFReporter Comment files
 - -y Inventory year (the last year in CRFReporter)
+
+It has been practice that all GHG inventory files are in the same *crf* directory.
 
 Practical note: the options -b, -k,-l and -m (in `run-ghg-master.sh`, not shown here) 
 refer to ubiquitous configuration files that come with the lukeghg package. 
