@@ -148,7 +148,7 @@ For EU529 there is similar `run-eu529-ghg-master.sh` script. Note EU529
 concerns KPLULUCF files only (LULUCF files are not missing by accident).
 
 **Please note:** CRFReporter checks that the version number of the PartyProfile 
-xml matches the CRFReporter version. Each CRFReporter update requires new
+xml matches the CRFReporter version. Each CRFReporter version update requires new
 PartyProfile xml from CRFReporter.
 
 ## E GHG Scenarios
