@@ -47,7 +47,7 @@ following two commands:
 
 Now you should be able to login to hirsi.in.metla.fi with ssh (without
 password). Check that this is possible. You will need this when
-generating LULUCF Table 6.1-2 with `lulucf-table-612.py` (F Some other useful programs):
+generating NIR Table 6.1-2 with `lulucf-table-612.py` (F Some other useful programs):
 
 	(lukeghg) prompt% ssh  hirsi.in.metla.fi
 
