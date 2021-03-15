@@ -224,7 +224,7 @@ Better solution for scenario projects is under construction (E GHG Scenarios).
 
 ### checkinventoryvalues.py:
 Compare two inventories and check for 1) too large differences in inventory values, 2) changes in notation keys and 
-3) missing UID's.
+3) missing UID's. These will appear in their respective sections in the output file.
 
 The sample command line assumes 2018 inventory  is in *2018crf* directory and 2019 inventory in *crf* directory.
 Output file is *GHGComparison.txt*. Excel file of the same name (*GHGComparison.xlsx*) will also be generated. 
