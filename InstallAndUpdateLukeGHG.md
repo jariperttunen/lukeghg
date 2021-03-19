@@ -171,8 +171,7 @@ but highly recommended comment part, UID of the time series followed by the time
    `ghg-scenario.py` generates excel sheet for each land use  and land
   use change classes. The file is `<GHGInventoryDirectory>/ScenarioTemplate/ScenarioTemplate.xlsx`.
 
-- -keys: Maintain notation keys. This is boolean argument. That is, if
-  not given the notation keys are set to number zero.
+- -keys: If present maintain notation keys. Default: the notation keys are set to number zero.
 
 - -m: The UID mapping file as in run-ghg-master.sh.
 
