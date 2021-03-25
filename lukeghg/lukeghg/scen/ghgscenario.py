@@ -7,6 +7,11 @@ import lukeghg.utility.xlmanip as xlp
 import lukeghg.crf.ghginventory as ghginv
 import lukeghg.crf.crfxmlconstants as crfc
 
+#Land-FL classes (forestation)
+L_FL = ['CL-FL','GL-FL','WLpeat-FL','WLother-FL','SE-FL']
+#FL_Lands classes (deforestation)
+FL_Lands =['FL-CL','FL-GL','FL-WLpeat','FL-WLflooded','FL-WLother','FL-SE']
+
 summary_color='00FFFF00'
 error_color='00FF0000'
 
@@ -119,14 +124,25 @@ def select_row_number(df_template,id_number):
     number = df_template[df_template[name]==id_number].index[0]
     return number
 
-def add_data_series(df_scen,new_row_ls,row_number:int):
+def set_data_series(df_scen,new_row_ls,start:str,end:str,row_number:int):
     """
     Add/replace scenario template data series
     df_scen: Scenario template sheet
     new_row_ls: scenario data series (from the dictionary)
     row_number: the row where the data series belongs to
     """
-    df_scen.loc[row_number,'1990':str(1990+len(new_row_ls)-1)]=new_row_ls
+    length_row = len(new_row_ls)
+    length_series = int(end)-int(start)+1
+    if length_row < length_series:
+        diff = length_series-length_row
+        #print("PADDING",diff)
+        padding_ls = [0]*diff
+        new_row_ls = new_row_ls+padding_ls
+    #print("COLS",type(start),type(end))
+    #Slicing dataframe with columns as strings or integers is straightforward
+    #but mixing strings and integers will get slicing complicated
+    #print("SET DATA:",len(new_row_ls),new_row_ls)
+    df_scen.loc[row_number,start:end]=new_row_ls
     return df_scen
 
 def write_co2sum_formula(sheet,start_col,ncols,result_row,row_number_ls,color,scale=1):
@@ -164,7 +180,7 @@ def write_co2sum_formula(sheet,start_col,ncols,result_row,row_number_ls,color,sc
     return sheet
 
 def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,uid_excel_file:str,scen_template_file:str,uid_300_500_file:str,
-                          start_year,end_year,keys,ch4co2eq,n2oco2eq):
+                          start_year:int,end_year:int,keys,ch4co2eq,n2oco2eq):
     missing_uid_dict = dict()
     writer = pd.ExcelWriter(scen_excel_file,engine='openpyxl')
     #Read inventory to dictionary: UID:time series
@@ -177,27 +193,30 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,uid_excel_
     for class_name in ls:
         print("LAND USE",class_name)
         #Initialize missing uid list
-        missing_uid_dict[class_name]=[]
+        missing_uid_dict[class_name]=[np.NaN]
         #Return for three columns from the UIDMatrix: Number, stock change/emission type, class_name
         df_uid_class=land_use_class_uid_df(df_uid,class_name)
         #Make a list of uids in class_name column
         uid_ls = land_use_class_uid_ls(df_uid_class,class_name)
         df_scen_new = df_scen_template.copy()
-        len_current_data_series_ls=0
+        column_ls = df_scen_new.columns
+        #len_current_data_series_ls=0
         #1.Add time series to dataframe
         for uid in uid_ls:
             (name,id_number) = stock_change_name_id_number(df_uid,class_name,uid)
             #print("UID",uid,"ID",id_number,"NAME",name)
             if uid in d:
                 data_series_ls = d[uid]
-                len_current_data_series_ls = len(data_series_ls)
+                #len_current_data_series_ls = len(data_series_ls)
                 #print("DATA",data_series_ls)
                 #print("DIM",np.shape(df_scen_new))
                 row_number = select_row_number(df_scen_template,id_number)
                 #print("ROW",row_number)
-                df_scen_new = add_data_series(df_scen_new,data_series_ls,row_number)
+                df_scen_new = set_data_series(df_scen_new,data_series_ls,str(start_year),str(end_year),row_number)
             else:
+                print("MISSING",class_name,uid)
                 missing_uid_dict[class_name].append(uid)
+        #Make years numbers for excel (no alerts in excel)
         column_ls = df_scen_new.columns
         year_ls = column_ls[2:]
         column_ls = ["Number","Source","Unit"]+list(range(start_year,start_year+len(year_ls)-1))
@@ -233,8 +252,9 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,uid_excel_
         write_co2sum_formula(sheet,5,end_year-start_year+1+5,69,[62,65,68],summary_color,1)
         #3. ---------- Grand totals MtCO2 eq. ----------------
         #1 Biomass MtCO2 eq.
-        #If more grained classification above is needed this MtCO2 eq set is rather easily moved downwards
-        #by changing the the  MtCO2eq_start for Gains to right row.
+        #If more detailed classification above is needed this MtCO2 eq part is rather easily moved downwards
+        #as a single block by changing the value of  MtCO2eq_start_row for Biomass Gains to the right row.
+        #The work needed is to check and correct the lists of rows for each case to be summed and converted to MtCO2eq 
         MtCO2eq_start_row=76
         #Gains
         write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row,[7],summary_color,(crfc.ctoco2)/1000.0)
@@ -333,8 +353,8 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,uid_excel_
     #Excel sheet for missing values
     missing_uid_df = pd.DataFrame.from_dict(missing_uid_dict,orient='index')
     missing_uid_df = missing_uid_df.dropna()
-    sheet_name="UIDMatrix UID not in Inventory"
-    missing_uid_df.to_excel(writer,sheet_name=sheet_name)
+    uid_sheet_name="UIDMatrix UID not in Inventory"
+    missing_uid_df.to_excel(writer,sheet_name=uid_sheet_name)
     #Excel sheet for GWP
     ls = [['CO2','CH4','N2O'],[1,ch4co2eq,n2oco2eq]]
     df = pd.DataFrame(ls)
@@ -342,6 +362,17 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,uid_excel_
     df.to_excel(writer,sheet_name=gwp_sheet)
     workbook = writer.book
     workbook.move_sheet(gwp_sheet,-(len(workbook.sheetnames)-1))
-    workbook.move_sheet(sheet_name,-(len(workbook.sheetnames)-1))
+    workbook.move_sheet(uid_sheet_name,-(len(workbook.sheetnames)-1))
     return writer
 
+def land_change_summary(excel_writer,sheet_name,land_change_classes_ls):
+    sheets = excel_writer.sheets
+    first_sheet = sheets[land_change_classes_ls[0]]
+    df_first_sheet = pd.DataFrame(first_sheet.values)
+    for land_change_name in land_change_classes_ls[1:]:
+        sheet = sheets[land_change_name]
+        df = pd.DataFrame(sheet.values)
+        print(df.columns)
+        print(df.loc[:,3:])
+        df_first_sheet.loc[:,3:] = df_first_sheet.loc[:,3:] + df.loc[:,3:]
+    return df_first_sheet
