@@ -373,7 +373,7 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,uid_excel_
                               MtCO2eq_start_row+40,MtCO2eq_start_row+45,MtCO2eq_start_row+51],summary_color,1)
     #Excel sheet for missing values
     missing_uid_df = pd.DataFrame.from_dict(missing_uid_dict,orient='index')
-    missing_uid_df = missing_uid_df.dropna()
+    #missing_uid_df = missing_uid_df.dropna()
     uid_sheet_name="UIDMatrix UID not in Inventory"
     missing_uid_df.to_excel(writer,sheet_name=uid_sheet_name)
     #Excel sheet for GWP
