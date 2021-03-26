@@ -155,33 +155,34 @@ PartyProfile xml from CRFReporter.
 ## E GHG Scenarios
 
 `ghg-scenario.py` can generate excel file for ghg scenario calculations.
-The command line is as follows:
+The command line is as follows. The `[]` denotes optional arguments:
 
 	(lukeghg) prompt% ghg-scenario.py [-h] --files FILES --uid UID --scen SCEN \
-     [--keys] -m M -o O --start START --end END [--GWP GWP]
-
-- -files: Give scenario csv files as wild card search. The format of
+     -m M -o O --start START --end END [--keys] [--GWP GWP]
+     
+- -h: python help
+- --files: Give scenario csv files as wild card search. The format of
 the files is the  same as in ghg inventory. A row consists of optional
 but highly recommended comment part, UID of the time series followed by the time series.
 
-- -uid: The UIDMatrix excel file containing the UID for each
+- --uid: The UIDMatrix excel file containing the UID for each
   time series. The file is  `<GHGInventoryDirectory>/ScenarioTemplate/UIDMatrix.xlsx`.
 
-- -scen: The template excel for results. Using  this template
+- --scen: The template excel for results. Using  this template
    `ghg-scenario.py` generates excel sheet for each land use  and land
   use change classes. The file is `<GHGInventoryDirectory>/ScenarioTemplate/ScenarioTemplate.xlsx`.
-
-- -keys: Maintain notation keys. This is boolean argument. That is, if
-  not given the notation keys are set to number zero.
 
 - -m: The UID mapping file as in run-ghg-master.sh.
 
 - -o: Excel output file
 
-- -start: The start year of the scenario inventory
-- -end: The end year of the scenario inventory
+- --start: The start year of the scenario inventory
 
-- -GWP: Global warming potential for CH4 and N2O, possible values AR4 (GHG inventory) or AR5 (default)
+- --end: The end year of the scenario inventory
+
+- --keys: If present maintain notation keys. Default: the notation keys are set to number zero.
+
+- --GWP: Global warming potential for CH4 and N2O, possible values AR4 (GHG inventory) or AR5 (default)
 
 For the sample command line set your working directory to
 `<GHGInventoryDirectory>`. Then, assuming the scenario result files
@@ -224,7 +225,7 @@ Better solution for scenario projects is under construction (E GHG Scenarios).
 
 ### checkinventoryvalues.py:
 Compare two inventories and check for 1) too large differences in inventory values, 2) changes in notation keys and 
-3) missing UID's.
+3) missing UID's. These will appear in their respective sections in the output file.
 
 The sample command line assumes 2018 inventory  is in *2018crf* directory and 2019 inventory in *crf* directory.
 Output file is *GHGComparison.txt*. Excel file of the same name (*GHGComparison.xlsx*) will also be generated. 
