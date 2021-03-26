@@ -191,7 +191,7 @@ command line continues to the next line.:
 
 	(lukeghg) prompt% ghg-scenario.py --files 'DGClima/*.csv' --uid lukeghg/ScenarioTemplate/UIDMatrix.xlsx \
       --scen lukeghg/ScenarioTemplate/ScenarioTemplate.xlsx -m lukeghg/300_500_mappings_1.1.csv \
-      -o DGClima.xlsx --start 1990 --end 2018 --keys
+      -o DGClima.xlsx --start 1990 --end 2050 --keys
 
 The first sheet in the Excel result file *DGClima.xlsx* lists UID's in
 UIDMatrix excel file but not found in the inventory. The second sheet shows the GWP's used. Following sheets
