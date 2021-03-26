@@ -124,11 +124,32 @@ def select_row_number(df_template,id_number):
     number = df_template[df_template[name]==id_number].index[0]
     return number
 
+def add_data_series(df_scen,new_row_ls,start:str,end:str,row_number:int):
+    """
+    Add scenario template data series to summary data frame (eventually excel sheet)
+    df_scen: Scenario template sheet
+    new_row_ls: scenario data series to be added to total
+    row_number: the row where the data series belongs to
+    """
+    length_row = len(new_row_ls)
+    length_series = int(end)-int(start)+1
+    if length_row < length_series:
+        diff = length_series-length_row
+        #print("PADDING",diff)
+        padding_ls = [0]*diff
+        new_row_ls = new_row_ls+padding_ls
+    #print("COLS",type(start),type(end))
+    #Slicing dataframe with columns as strings or integers is straightforward
+    #but mixing strings and integers will get slicing complicated
+    #print("ADD DATA:",len(new_row_ls),new_row_ls)
+    df_scen.loc[row_number,start:end]=df_scen.loc[row_number,start:end]+new_row_ls
+    return df_scen
+
 def set_data_series(df_scen,new_row_ls,start:str,end:str,row_number:int):
     """
-    Add/replace scenario template data series
+    Set scenario template data series
     df_scen: Scenario template sheet
-    new_row_ls: scenario data series (from the dictionary)
+    new_row_ls: scenario data series
     row_number: the row where the data series belongs to
     """
     length_row = len(new_row_ls)
@@ -150,7 +171,7 @@ def write_co2sum_formula(sheet,start_col,ncols,result_row,row_number_ls,color,sc
     start_col:start column of the time series
     ncols: number of columns (i.e. length) in the time series
     result_row: the row number of the sum
-    row_number_ls: the rows to be added.
+    row_number_ls: the rows to be added to total.
     color: background color
     scale: the final unit (e.g. Mt CO2 eq if needed)
     """
@@ -365,14 +386,3 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,uid_excel_
     workbook.move_sheet(uid_sheet_name,-(len(workbook.sheetnames)-1))
     return writer
 
-def land_change_summary(excel_writer,sheet_name,land_change_classes_ls):
-    sheets = excel_writer.sheets
-    first_sheet = sheets[land_change_classes_ls[0]]
-    df_first_sheet = pd.DataFrame(first_sheet.values)
-    for land_change_name in land_change_classes_ls[1:]:
-        sheet = sheets[land_change_name]
-        df = pd.DataFrame(sheet.values)
-        print(df.columns)
-        print(df.loc[:,3:])
-        df_first_sheet.loc[:,3:] = df_first_sheet.loc[:,3:] + df.loc[:,3:]
-    return df_first_sheet
