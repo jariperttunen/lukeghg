@@ -7,8 +7,8 @@ import lukeghg.utility.xlmanip as xlp
 import lukeghg.crf.ghginventory as ghginv
 import lukeghg.crf.crfxmlconstants as crfc
 
-#Land-FL classes (forestation)
-L_FL = ['CL-FL','GL-FL','WLpeat-FL','WLother-FL','SE-FL']
+#Land_FL classes (forestation)
+Lands_FL = ['CL-FL','GL-FL','WLpeat-FL','WLother-FL','SE-FL']
 #FL_Lands classes (deforestation)
 FL_Lands =['FL-CL','FL-GL','FL-WLpeat','FL-WLflooded','FL-WLother','FL-SE']
 
@@ -200,6 +200,38 @@ def write_co2sum_formula(sheet,start_col,ncols,result_row,row_number_ls,color,sc
         sheet[cell_coordinate].fill = openpyxl.styles.PatternFill(start_color=color, end_color=color,fill_type = "solid")
     return sheet
 
+def make_zeros(x,index):
+    x[index:]=0.0
+    return x
+
+def create_sum_rows(sheet,start_year,end_year):
+    #1 Biomass Net change
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,9,[7,8],summary_color,1)
+    #2 Biomass Total
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,14,range(9,13+1),summary_color,1)
+    #3 Direct N2O emissions from N fertilization
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,19,[17,18],summary_color,1)
+    #4 Indirect N20 emissions from managed soils
+    #Total
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,41,[39,40],summary_color,1)
+    #5 Biomass burning
+    #Biomass burning total CO2
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,54,[44,49],summary_color,1)
+    #Biomass burning total CH4
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,55,[45,50],summary_color,1)
+    #Biomass burning total N2O
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,56,[46,51],summary_color,1)
+    #5 HWP
+    #1 Sawnwood total
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,62,[60,61],summary_color,1)
+    #2 Wood panels
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,65,[63,64],summary_color,1)
+    #3 Paper and paperboard
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,68,[66,67],summary_color,1)
+    #4 HWP Total
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,69,[62,65,68],summary_color,1)
+    return sheet
+
 def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,uid_excel_file:str,scen_template_file:str,uid_300_500_file:str,
                           start_year:int,end_year:int,keys,ch4co2eq,n2oco2eq):
     missing_uid_dict = dict()
@@ -210,7 +242,14 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,uid_excel_
     #Column values, i.e. land use classes from UIDMatrix
     ls = land_use_classes(df_uid)
     df_scen_template = read_scenario_template_file(scen_template_file)
-    #print("CLASSES",ls)
+    df_lfl = df_scen_template.copy()
+    #This simply initializes the emission time series to 0 for Land->Forestland
+    df_lfl[df_lfl[df_lfl.columns[0]].astype(str).str.isnumeric()]=df_lfl[df_lfl[df_lfl.columns[0]].astype(str).str.isnumeric()].apply(lambda x: make_zeros(x,3),axis=1)
+    #df_lfl.iloc[:,3:]=0.0
+    df_fll = df_scen_template.copy()
+    #This simply initializes the emission time series to 0 for Forestland->Land
+    df_fll[df_fll[df_lfl.columns[0]].astype(str).str.isnumeric()]=df_fll[df_fll[df_fll.columns[0]].astype(str).str.isnumeric()].apply(lambda x: make_zeros(x,3),axis=1)
+    #df_fll.iloc[:,3:]=0.0
     for class_name in ls:
         print("LAND USE",class_name)
         #Initialize missing uid list
@@ -220,20 +259,17 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,uid_excel_
         #Make a list of uids in class_name column
         uid_ls = land_use_class_uid_ls(df_uid_class,class_name)
         df_scen_new = df_scen_template.copy()
-        column_ls = df_scen_new.columns
-        #len_current_data_series_ls=0
         #1.Add time series to dataframe
         for uid in uid_ls:
             (name,id_number) = stock_change_name_id_number(df_uid,class_name,uid)
-            #print("UID",uid,"ID",id_number,"NAME",name)
             if uid in d:
                 data_series_ls = d[uid]
-                #len_current_data_series_ls = len(data_series_ls)
-                #print("DATA",data_series_ls)
-                #print("DIM",np.shape(df_scen_new))
                 row_number = select_row_number(df_scen_template,id_number)
-                #print("ROW",row_number)
                 df_scen_new = set_data_series(df_scen_new,data_series_ls,str(start_year),str(end_year),row_number)
+                if class_name in Lands_FL:
+                    df_lfl=add_data_series(df_lfl,data_series_ls,str(start_year),str(end_year),row_number)
+                if class_name in FL_Lands:
+                    df_fll=add_data_series(df_fll,data_series_ls,str(start_year),str(end_year),row_number)
             else:
                 print("MISSING",class_name,uid)
                 missing_uid_dict[class_name].append(uid)
@@ -246,31 +282,7 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,uid_excel_
         #2.Add sum rows
         sheets = writer.sheets
         sheet = sheets[class_name]
-        #1 Biomass Net change
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,9,[7,8],summary_color,1)
-        #2 Biomass Total
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,14,range(9,13+1),summary_color,1)
-        #3 Direct N2O emissions from N fertilization
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,19,[17,18],summary_color,1)
-        #4 Indirect N20 emissions from managed soils
-        #Total
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,41,[39,40],summary_color,1)
-        #5 Biomass burning
-        #Biomass burning total CO2
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,54,[44,49],summary_color,1)
-        #Biomass burning total CH4
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,55,[45,50],summary_color,1)
-        #Biomass burning total N2O
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,56,[46,51],summary_color,1)
-        #5 HWP
-        #1 Sawnwood total
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,62,[60,61],summary_color,1)
-        #2 Wood panels
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,65,[63,64],summary_color,1)
-        #3 Paper and paperboard
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,68,[66,67],summary_color,1)
-        #4 HWP Total
-        write_co2sum_formula(sheet,5,end_year-start_year+1+5,69,[62,65,68],summary_color,1)
+        sheet = create_sum_rows(sheet,start_year,end_year)
         #3. ---------- Grand totals MtCO2 eq. ----------------
         #1 Biomass MtCO2 eq.
         #If more detailed classification above is needed this MtCO2 eq part is rather easily moved downwards
@@ -381,8 +393,23 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,uid_excel_
     df = pd.DataFrame(ls)
     gwp_sheet="GWP"
     df.to_excel(writer,sheet_name=gwp_sheet)
+    column_ls = df_lfl.columns
+    year_ls = column_ls[2:]
+    column_ls = ["Number","Source","Unit"]+list(range(start_year,start_year+len(year_ls)-1))
+    df_lfl.columns = column_ls
+    df_fll.columns = column_ls
+    df_fll.to_excel(writer,sheet_name='FL_Lands')
+    df_lfl.to_excel(writer,sheet_name='Lands_FL')
+    sheets = writer.sheets
+    sheet_fll = sheets['FL_Lands']
+    sheet_lfl = sheets['Lands_FL']
+    sheet_fll = create_sum_rows(sheet_fll,start_year,end_year)
+    sheet_lfl = create_sum_rows(sheet_lfl,start_year,end_year)
     workbook = writer.book
+    workbook.move_sheet('Lands_FL',-(len(workbook.sheetnames)-1))
+    workbook.move_sheet('FL_Lands',-(len(workbook.sheetnames)-1))
     workbook.move_sheet(gwp_sheet,-(len(workbook.sheetnames)-1))
     workbook.move_sheet(uid_sheet_name,-(len(workbook.sheetnames)-1))
+    
     return writer
 
