@@ -7,7 +7,7 @@ setup(name='lukeghg',
       author='Jari Perttunen',
       author_email='jari.perttunen@luke.fi',
       license='LUKE',
-      install_requires=['numpy','pandas','xlsxwriter','xlrd','paramiko','openpyxl'],
+      install_requires=['numpy','pandas==1.1.5','xlsxwriter','xlrd','paramiko','openpyxl'],
       packages=setuptools.find_packages(),
       scripts=glob.glob('lukeghg/bin/[A-Za-z]*.py')+glob.glob('lukeghg/bin/[A-Za-z]*.sh')+['lukeghg/check/checkinventoryvalues.py','lukeghg/utility/convertutf8.py']
       )
