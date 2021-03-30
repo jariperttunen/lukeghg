@@ -161,7 +161,7 @@ The command line is as follows. The `[]` denotes optional arguments:
      -m M -o O --start START --end END [--keys] [--GWP GWP]
      
 - -h: python help
-- --files: Give scenario csv files as wild card search. The format of
+- --files: Give scenario csv files (wild card search). The format of
 the files is the  same as in ghg inventory. A row consists of optional
 but highly recommended comment part, UID of the time series followed by the time series.
 
@@ -189,7 +189,7 @@ For the sample command line set your working directory to
 are in DGClima directory type the following. In `bash`the `\` character denotes the
 command line continues to the next line.:
 
-	(lukeghg) prompt% ghg-scenario.py --files 'DGClima/*.csv' --uid lukeghg/ScenarioTemplate/UIDMatrix.xlsx \
+	(lukeghg) prompt% ghg-scenario.py --files 'DGClima/LU*.csv' --uid lukeghg/ScenarioTemplate/UIDMatrix.xlsx \
       --scen lukeghg/ScenarioTemplate/ScenarioTemplate.xlsx -m lukeghg/300_500_mappings_1.1.csv \
       -o DGClima.xlsx --start 1990 --end 2050 --keys
 
