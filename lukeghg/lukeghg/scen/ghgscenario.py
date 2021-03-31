@@ -237,7 +237,8 @@ def create_MtCO2eq_rows(sheet,MtCO2eq_start_row,start_year,end_year,ch4co2eq,n2o
     ---------- Grand totals MtCO2 eq. ----------------
     Create excel formulas for emissions summary as MtCO2eq. 
     MtCO2eq_start_row: The block of MtCO2eq summaries should move correctly as a single block given the start row  
-    start_year,end_year: scenario start and end years
+    start_year,end_year: scenario start and end years 
+    ch4co2eq,n2oco2eq: GWP, either AR4 (GHG inventory) or AR5 (scenarios, usually)
     """
     #1 Biomass MtCO2 eq.
     #If more detailed classification above is needed this MtCO2 eq part is rather easily moved downwards
@@ -412,11 +413,13 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,uid_excel_
     sheets = writer.sheets
     sheet_fll = sheets['FL_Lands']
     sheet_lfl = sheets['Lands_FL']
+    #Summation for FL_Lands and Lands_FL
     sheet_fll = create_sum_rows(sheet_fll,start_year,end_year)
     sheet_fll = create_MtCO2eq_rows(sheet_fll,76,start_year,end_year,ch4co2eq,n2oco2eq)
     sheet_lfl = create_sum_rows(sheet_lfl,start_year,end_year)
     sheet_lfl = create_MtCO2eq_rows(sheet_lfl,76,start_year,end_year,ch4co2eq,n2oco2eq)
     workbook = writer.book
+    #Rotate sheets from the end to the beginning
     workbook.move_sheet('Lands_FL',-(len(workbook.sheetnames)-1))
     workbook.move_sheet('FL_Lands',-(len(workbook.sheetnames)-1))
     workbook.move_sheet(gwp_sheet,-(len(workbook.sheetnames)-1))
