@@ -7,10 +7,14 @@ import lukeghg.utility.xlmanip as xlp
 import lukeghg.crf.ghginventory as ghginv
 import lukeghg.crf.crfxmlconstants as crfc
 
-#Land_FL classes (forestation)
+#Lands_FL classes (forestation)
 Lands_FL = ['CL-FL','GL-FL','WLpeat-FL','WLother-FL','SE-FL']
 #FL_Lands classes (deforestation)
 FL_Lands =['FL-CL','FL-GL','FL-WLpeat','FL-WLflooded','FL-WLother','FL-SE']
+#Lands_CL classes
+Lands_CL = ['FL-CL','GL-CL','WLpeat-CL','WLother-CL','SE-CL']
+#Lands_GL classes
+Lands_GL = ['FL-GL','CL-GL','WLpeat-GL','WLother-GL','SE-GL']
 
 summary_color='00FFFF00'
 error_color='00FF0000'
@@ -356,8 +360,12 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
     #df_lfl.iloc[:,3:]=0.0
     df_fll = df_scen_template.copy()
     #This simply initializes the emission time series to 0 for Forestland->Land
-    df_fll[df_fll[df_lfl.columns[0]].astype(str).str.isnumeric()]=df_fll[df_fll[df_fll.columns[0]].astype(str).str.isnumeric()].apply(lambda x: make_zeros(x,3),axis=1)
+    df_fll[df_fll[df_fll.columns[0]].astype(str).str.isnumeric()]=df_fll[df_fll[df_fll.columns[0]].astype(str).str.isnumeric()].apply(lambda x: make_zeros(x,3),axis=1)
     #df_fll.iloc[:,3:]=0.0
+    df_lcl =  df_scen_template.copy()
+    df_lcl[df_lcl[df_lcl.columns[0]].astype(str).str.isnumeric()]=df_lcl[df_lcl[df_lcl.columns[0]].astype(str).str.isnumeric()].apply(lambda x: make_zeros(x,3),axis=1)
+    df_lgl =  df_scen_template.copy()
+    df_lgl[df_lgl[df_lgl.columns[0]].astype(str).str.isnumeric()]=df_lgl[df_lgl[df_lgl.columns[0]].astype(str).str.isnumeric()].apply(lambda x: make_zeros(x,3),axis=1)
     for class_name in ls:
         print("LAND USE",class_name)
         #Initialize missing uid list
@@ -376,8 +384,14 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
                 df_scen_new = set_data_series(df_scen_new,data_series_ls,str(start_year),str(end_year),row_number)
                 if class_name in Lands_FL:
                     df_lfl=add_data_series(df_lfl,data_series_ls,str(start_year),str(end_year),row_number)
-                if class_name in FL_Lands:
+                elif class_name in FL_Lands:
                     df_fll=add_data_series(df_fll,data_series_ls,str(start_year),str(end_year),row_number)
+                elif class_name in Lands_CL:
+                    df_lcl = add_data_series(df_lcl,data_series_ls,str(start_year),str(end_year),row_number)
+                elif class_name in Lands_GL:
+                    df_lgl = add_data_series(df_lgl,data_series_ls,str(start_year),str(end_year),row_number)
+                else:
+                    pass
             else:
                 print("MISSING",class_name,uid)
                 missing_uid_dict[class_name].append(uid)
@@ -408,18 +422,30 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
     column_ls = ["Number","Source","Unit"]+list(range(start_year,start_year+len(year_ls)-1))
     df_lfl.columns = column_ls
     df_fll.columns = column_ls
+    df_lcl.columns = column_ls
+    df_lgl.columns = column_ls
     df_fll.to_excel(writer,sheet_name='FL_Lands')
     df_lfl.to_excel(writer,sheet_name='Lands_FL')
+    df_lcl.to_excel(writer,sheet_name='Lands_CL')
+    df_lcl.to_excel(writer,sheet_name='Lands_GL')
     sheets = writer.sheets
     sheet_fll = sheets['FL_Lands']
     sheet_lfl = sheets['Lands_FL']
-    #Summation for FL_Lands and Lands_FL
+    sheet_lcl = sheets['Lands_CL']
+    sheet_lgl = sheets['Lands_GL']
+    #Summation for land chajnge classes, FL_Lands, Lands_FL etc.
     sheet_fll = create_sum_rows(sheet_fll,start_year,end_year)
     sheet_fll = create_MtCO2eq_rows(sheet_fll,76,start_year,end_year,ch4co2eq,n2oco2eq)
     sheet_lfl = create_sum_rows(sheet_lfl,start_year,end_year)
     sheet_lfl = create_MtCO2eq_rows(sheet_lfl,76,start_year,end_year,ch4co2eq,n2oco2eq)
+    sheet_lcl = create_sum_rows(sheet_lcl,start_year,end_year)
+    sheet_lcl = create_MtCO2eq_rows(sheet_lcl,76,start_year,end_year,ch4co2eq,n2oco2eq)
+    sheet_lcl = create_sum_rows(sheet_lgl,start_year,end_year)
+    sheet_lcl = create_MtCO2eq_rows(sheet_lgl,76,start_year,end_year,ch4co2eq,n2oco2eq)
     workbook = writer.book
     #Rotate sheets from the end to the beginning
+    workbook.move_sheet('Lands_GL',-(len(workbook.sheetnames)-1))
+    workbook.move_sheet('Lands_CL',-(len(workbook.sheetnames)-1))
     workbook.move_sheet('Lands_FL',-(len(workbook.sheetnames)-1))
     workbook.move_sheet('FL_Lands',-(len(workbook.sheetnames)-1))
     workbook.move_sheet(gwp_sheet,-(len(workbook.sheetnames)-1))
