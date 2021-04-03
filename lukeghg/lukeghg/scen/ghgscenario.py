@@ -340,13 +340,13 @@ def create_MtCO2eq_rows(sheet,MtCO2eq_start_row,start_year,end_year,ch4co2eq,n2o
                           MtCO2eq_start_row+40,MtCO2eq_start_row+45,MtCO2eq_start_row+51],summary_color,1)
     return sheet
 
-def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,uid_excel_file:str,scen_template_file:str,uid_300_500_file:str,
+def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_template_file:str,uid_300_500_file:str,
                           start_year:int,end_year:int,keys,ch4co2eq,n2oco2eq):
     missing_uid_dict = dict()
     writer = pd.ExcelWriter(scen_excel_file,engine='openpyxl')
     #Read inventory to dictionary: UID:time series
     d = create_ghg_file_dictionary(scen_files_reg_expr,uid_300_500_file,keys)
-    df_uid = read_uid_matrix_file(uid_excel_file)
+    df_uid = read_uid_matrix_file(scen_template_file)
     #Column values, i.e. land use classes from UIDMatrix
     ls = land_use_classes(df_uid)
     df_scen_template = read_scenario_template_file(scen_template_file)

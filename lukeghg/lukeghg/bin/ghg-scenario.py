@@ -6,7 +6,6 @@ import lukeghg.scen.ghgscenario as ghgscen
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--files',type=str,dest='files',required=True,help='Scenario files (reqular expression)')
-    parser.add_argument('--uid',type=str,dest='uid',required=True,help='UID matrix excel file')
     parser.add_argument('--scen',type=str,dest='scen',required=True,help='Scenario excel template file')
     parser.add_argument('--keys',dest='keys',action='store_false',help='Maintain notation keys')
     parser.add_argument('-m',type=str,dest='m',required=True,help='UID 300->500 mapping file (CRFReporter)')
@@ -15,10 +14,7 @@ if __name__ == "__main__":
     parser.add_argument('--end',type=int,dest='end',required=True,help="End year")
     parser.add_argument('--GWP',type=str,dest='gwp',default="AR5",help="Global warming potential, AR4 (GHG inventory) or AR5 (default)")
     args = parser.parse_args()
-    result = args.files and args.uid and args.scen and args.m and args.o and args.start and args.end
         
-    if result == None:
-        quit()
     #Default GWP AR5
     ch4co2eq = 28
     n2oco2eq = 265
@@ -26,7 +22,7 @@ if __name__ == "__main__":
        ch4co2eq = 25
        n2oco2eq = 298
     try:
-        excel_writer = ghgscen.create_scenario_excel(args.o,args.files,args.uid,args.scen,args.m,args.start,args.end,args.keys,ch4co2eq,n2oco2eq)
+        excel_writer = ghgscen.create_scenario_excel(args.o,args.files,args.scen,args.m,args.start,args.end,args.keys,ch4co2eq,n2oco2eq)
         #The three lines demonstrating bug(?) in pandas 1.2.0 and above with openpyxl
         #writing files Excel considers having erroneous format
         #1 excel_writer = pd.ExcelWriter('Test.xlsx',engine='openpyxl')
