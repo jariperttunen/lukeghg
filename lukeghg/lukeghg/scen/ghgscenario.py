@@ -25,8 +25,11 @@ Lands_WLother = ['FL-WLother','CL-WLother','GL-WLother']
 Lands_WL = ['Land-WLpeat','Land-WLflooded','Land-WLother']
 #Lands_SE classes
 Lands_SE = ['FL_SE','CL-SE','GL-SE','WLpeat-SE','WLother-SE']
+
+#Some colors
 summary_color='00FFFF00'
 error_color='00FF0000'
+white_color='FFFFFF'
 
 class NoInventoryFiles(Exception):
     pass
@@ -70,6 +73,10 @@ def read_scenario_template_file(excel_file:str,skip_rows=2):
                        header=0,engine='openpyxl')
     #Change column names to strings, easier to index and slice
     df.columns = [str(x) for x in list(df.columns)]
+    return df
+
+def read_scenario_lulucf_file(excel_file:str):
+    df = pd.read_excel(excel_file,sheet_name="LULUCF",engine='openpyxl')
     return df
 
 def land_use_classes(df_uid_matrix,index:int=2):
@@ -179,14 +186,27 @@ def set_data_series(df_scen,new_row_ls,start:str,end:str,row_number:int):
     df_scen.loc[row_number,start:end]=new_row_ls
     return df_scen
 
-def write_co2sum_formula(sheet,start_col,ncols,result_row,row_number_ls,color,scale=1):
+def write_subtract_formula(sheet,start_col,ncols,result_row,subtract_row):
+    """Subract cell from existing formula"""
+    for i in range(start_col,ncols):
+        cell = openpyxl.cell.cell.Cell(sheet,result_row,i)
+        cell_subtract = openpyxl.cell.cell.Cell(sheet,subtract_row,i)
+        cell_coordinate = cell.coordinate
+        cell_subtract_coordinate = cell_subtract.coordinate
+        cell_formula=sheet[cell_coordinate].value
+        cell_formula=cell_formula+'-'+cell_subtract_coordinate
+        sheet[cell_coordinate]=cell_formula
+    return sheet
+    
+def write_co2sum_formula(sheet,start_col,ncols,result_row,row_number_ls,color,scale=1,sheet_ref=""):
     """
-    start_col:start column of the time series
+    start_col: start column of the time series
     ncols: number of columns (i.e. length) in the time series
     result_row: the row number of the sum
     row_number_ls: the rows to be added to total.
     color: background color
-    scale: the final unit (e.g. Mt CO2 eq if needed)
+    scale: the final unit (e.g. scale ktC to Mt CO2 eq if needed)
+    sheet_ref:refer to another sheet (e.g. sheet_ref="FL-FL!") if needed 
     """
     for i in range(start_col,ncols):
         cell = openpyxl.cell.cell.Cell(sheet,result_row,i)
@@ -203,7 +223,7 @@ def write_co2sum_formula(sheet,start_col,ncols,result_row,row_number_ls,color,sc
         #Create the excel SUM formula
         formula = '=SUM('
         for cell_name in cell_ls:
-            formula = formula+cell_name+','
+            formula = formula+sheet_ref+cell_name+','
         #replace last ',' with ')
         formula = formula[:len(formula)-1]
         formula = formula+')'+'*'+str(scale)
@@ -245,11 +265,58 @@ def create_sum_rows(sheet,start_year,end_year):
     write_co2sum_formula(sheet,5,end_year-start_year+1+5,69,[62,65,68],summary_color,1)
     return sheet
 
+def create_lulucf_sum_rows(sheet,start_year,end_year):
+    #Total LULUCF
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,2,[3,6,9,12,15,18],summary_color,1)
+    #Forest land
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,3,[4,5],summary_color,1)
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,4,[129],white_color,1,"'FL-FL'!")
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,5,[129],white_color,1,"'Lands_FL'!")
+    #Cropland
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,6,[7,8],summary_color,1)
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,7,[129],white_color,1,"'CL-CL'!")
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,8,[129],white_color,1,"'Lands_CL'!")
+    #Grassland
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,9,[10,11],summary_color,1)
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,10,[129],white_color,1,"'GL-GL'!")
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,11,[129],white_color,1,"'Lands_GL'!")
+    #Wetlands
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,14,[129],white_color,1,"'Lands_WL'!")
+    #Settlements
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,15,[16,17],summary_color,1)
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,16,[129],white_color,1,"'SE-SE'!")
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,17,[129],white_color,1,"'Lands_SE'!")
+    #HWP from FL-FL sheet
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,18,[127],summary_color,1,"'FL-FL'!")
+    #Deforestation
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,19,[129],summary_color,1,"'FL_Lands'!")
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,20,[129],white_color,1,"'FL-CL'!")
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,21,[129],white_color,1,"'FL-GL'!")
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,22,[129],white_color,1,"'FL-WLpeat'!")
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,23,[129],white_color,1,"'FL-WLflooded'!")
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,24,[129],white_color,1,"'FL-WLother'!")
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,25,[129],white_color,1,"'FL-SE'!")
+    #Check row
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,26,[20,21,22,23,24,25],white_color,1)
+    write_subtract_formula(sheet,5,end_year-start_year+1+5,26,19)
+    #Afforestation
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,27,[129],summary_color,1,"'Lands_FL'!")
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,28,[129],white_color,1,"'CL-FL'!")
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,29,[129],white_color,1,"'GL-FL'!")
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,30,[129],white_color,1,"'WLpeat-FL'!")
+    #write_co2sum_formula(sheet,5,end_year-start_year+1+5,31,[129],white_color,1,"'WLflooded-FL'!")
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,32,[129],white_color,1,"'WLother-FL'!")
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,33,[129],white_color,1,"'SE-FL'!")
+    #Check row
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,34,[28,29,30,31,32,33],white_color,1)
+    write_subtract_formula(sheet,5,end_year-start_year+1+5,34,27)
+    return sheet
+
 def create_MtCO2eq_rows(sheet,MtCO2eq_start_row,start_year,end_year,ch4co2eq,n2oco2eq):
     """
     ---------- Grand totals MtCO2 eq. ----------------
     Create excel formulas for emissions summary as MtCO2eq. 
-    MtCO2eq_start_row: The block of MtCO2eq summaries should move correctly as a single block given the start row  
+    MtCO2eq_start_row: Given the start row the block of MtCO2eq summaries should move correctly as a single block
     start_year,end_year: scenario start and end years 
     ch4co2eq,n2oco2eq: GWP, either AR4 (GHG inventory) or AR5 (scenarios, usually)
     """
@@ -362,12 +429,16 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
     df_uid = read_uid_matrix_file(scen_template_file)
     #Column values, i.e. land use classes from UIDMatrix
     ls = land_use_classes(df_uid)
+    #LULUCF summary sheet
+    df_lulucf = read_scenario_lulucf_file(scen_template_file)
     df_scen_template = read_scenario_template_file(scen_template_file)
+    #Land-Forestland transition (afforestation)
     df_lfl = df_scen_template.copy()
     #This simply initializes the emission time series to 0 for Land->Forestland
     df_lfl[df_lfl[df_lfl.columns[0]].astype(str).str.isnumeric()]=\
     df_lfl[df_lfl[df_lfl.columns[0]].astype(str).str.isnumeric()].apply(lambda x: make_zeros(x,3),axis=1)
     #df_lfl.iloc[:,3:]=0.0
+    #Forestland-Land transition (deforeastation)
     df_fll = df_scen_template.copy()
     #This simply initializes the emission time series to 0 for Forestland->Land
     df_fll[df_fll[df_fll.columns[0]].astype(str).str.isnumeric()]=\
@@ -454,7 +525,7 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
         sheet = create_sum_rows(sheet,start_year,end_year)
         #3. ---------- Grand totals MtCO2 eq. ----------------
         sheet = create_MtCO2eq_rows(sheet,76,start_year,end_year,ch4co2eq,n2oco2eq)
-    #Excel sheet for missing values
+    #Excel sheet for missing UID values
     missing_uid_df = pd.DataFrame.from_dict(missing_uid_dict,orient='index')
     #missing_uid_df = missing_uid_df.dropna()
     uid_sheet_name="UIDMatrix UID not in Inventory"
@@ -464,6 +535,7 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
     df = pd.DataFrame(ls)
     gwp_sheet="GWP"
     df.to_excel(writer,sheet_name=gwp_sheet)
+    df_lulucf.to_excel(writer,sheet_name='LULUCF')
     column_ls = df_lfl.columns
     year_ls = column_ls[2:]
     column_ls = ["Number","Source","Unit"]+list(range(start_year,start_year+len(year_ls)-1))
@@ -494,7 +566,8 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
     sheet_lwlother = sheets['Lands_WLother']
     sheet_lwl = sheets['Lands_WL']
     sheet_lse = sheets['Lands_SE']
-    #Summation for land chajnge classes, FL_Lands, Lands_FL etc.
+    sheet_lulucf = sheets['LULUCF']
+    #Summation for LULUCF and land change classes: FL_Lands, Lands_FL etc.
     sheet_fll = create_sum_rows(sheet_fll,start_year,end_year)
     sheet_fll = create_MtCO2eq_rows(sheet_fll,76,start_year,end_year,ch4co2eq,n2oco2eq)
     sheet_lfl = create_sum_rows(sheet_lfl,start_year,end_year)
@@ -513,6 +586,7 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
     sheet_lwl = create_MtCO2eq_rows(sheet_lwl,76,start_year,end_year,ch4co2eq,n2oco2eq)
     sheet_lse = create_sum_rows(sheet_lse,start_year,end_year)
     sheet_lse = create_MtCO2eq_rows(sheet_lse,76,start_year,end_year,ch4co2eq,n2oco2eq)
+    sheet_lulucf = create_lulucf_sum_rows(sheet_lulucf,start_year,end_year)
     #Rotate sheets from the end to the beginning
     workbook = writer.book
     workbook.move_sheet('Lands_WLother',-(len(workbook.sheetnames)-1))
@@ -524,6 +598,7 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
     workbook.move_sheet('Lands_CL',-(len(workbook.sheetnames)-1))
     workbook.move_sheet('Lands_FL',-(len(workbook.sheetnames)-1))
     workbook.move_sheet('FL_Lands',-(len(workbook.sheetnames)-1))
+    workbook.move_sheet('LULUCF',-(len(workbook.sheetnames)-1))
     workbook.move_sheet(gwp_sheet,-(len(workbook.sheetnames)-1))
     workbook.move_sheet(uid_sheet_name,-(len(workbook.sheetnames)-1))
     workbook.active=0
