@@ -4,7 +4,7 @@ Mukana tiedostojen listauksessa ovat laskennan tulosten tarkistuksissa,
 CRFReporter xml tiedoston luonnissa ja NIR-taulukoiden
 teossa tarvittavat tiedostot ja ohjelmat.
 
-1. KÃ¤yttÃ¶ohje:
+1. Käyttöohe:
 + ./InstallAndUpdateLukeGHG.md
 
 2. Konfigurointitiedostot:
