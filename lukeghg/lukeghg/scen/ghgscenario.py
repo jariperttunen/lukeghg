@@ -25,6 +25,8 @@ Lands_WLother = ['FL-WLother','CL-WLother','GL-WLother']
 Lands_WL = ['Land-WLpeat','Land-WLflooded','Land-WLother']
 #Lands_SE classes
 Lands_SE = ['FL_SE','CL-SE','GL-SE','WLpeat-SE','WLother-SE']
+#WL-WL class
+WL_WL = ['WL-WL(peatextraction)','WLother-WLpeat','WL-WL(flooded)','WL-WL(other)','WLpeat-WLother']
 
 #Some colors
 summary_color='00FFFF00'
@@ -281,6 +283,8 @@ def create_lulucf_sum_rows(sheet,start_year,end_year):
     write_co2sum_formula(sheet,5,end_year-start_year+1+5,10,[129],white_color,1,"'GL-GL'!")
     write_co2sum_formula(sheet,5,end_year-start_year+1+5,11,[129],white_color,1,"'Lands_GL'!")
     #Wetlands
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,12,[13,14],summary_color,1)
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,13,[129],white_color,1,"'WL_WL'!")
     write_co2sum_formula(sheet,5,end_year-start_year+1+5,14,[129],white_color,1,"'Lands_WL'!")
     #Settlements
     write_co2sum_formula(sheet,5,end_year-start_year+1+5,15,[16,17],summary_color,1)
@@ -413,11 +417,11 @@ def create_MtCO2eq_rows(sheet,MtCO2eq_start_row,start_year,end_year,ch4co2eq,n2o
     #Total
     write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+51,
                          [MtCO2eq_start_row+48,MtCO2eq_start_row+49,MtCO2eq_start_row+50],summary_color,1)
-    #GRAND TOTAL MtCO2eq
+    #GRAND TOTAL MtCO2eq, HWP Total NOT included 
     write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+53,
                          [MtCO2eq_start_row+7,MtCO2eq_start_row+12,MtCO2eq_start_row+17,MtCO2eq_start_row+20,
                           MtCO2eq_start_row+23,MtCO2eq_start_row+26,MtCO2eq_start_row+29,MtCO2eq_start_row+34,
-                          MtCO2eq_start_row+40,MtCO2eq_start_row+45,MtCO2eq_start_row+51],summary_color,1)
+                          MtCO2eq_start_row+40,MtCO2eq_start_row+45],summary_color,1)
     return sheet
 
 def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_template_file:str,uid_300_500_file:str,
@@ -472,6 +476,10 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
     df_lse =  df_scen_template.copy()
     df_lse[df_lse[df_lse.columns[0]].astype(str).str.isnumeric()]=\
     df_lse[df_lse[df_lse.columns[0]].astype(str).str.isnumeric()].apply(lambda x: make_zeros(x,3),axis=1)
+    #WL to WL
+    df_wlwl =  df_scen_template.copy()
+    df_wlwl[df_wlwl[df_wlwl.columns[0]].astype(str).str.isnumeric()]=\
+    df_wlwl[df_wlwl[df_wlwl.columns[0]].astype(str).str.isnumeric()].apply(lambda x: make_zeros(x,3),axis=1)
     for class_name in ls:
         print("LAND USE",class_name)
         #Initialize missing uid list
@@ -508,6 +516,9 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
                     df_lwl = add_data_series(df_lwl,data_series_ls,str(start_year),str(end_year),row_number)
                 elif class_name in Lands_SE:
                     df_lse = add_data_series(df_lse,data_series_ls,str(start_year),str(end_year),row_number)
+                elif class_name in WL_WL:
+                    print("WL_WL",class_name)
+                    df_wlwl = add_data_series(df_wlwl,data_series_ls,str(start_year),str(end_year),row_number)
                 else:
                     pass
             else:
@@ -543,6 +554,7 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
     df_fll.columns = column_ls
     df_lcl.columns = column_ls
     df_lgl.columns = column_ls
+    df_wlwl.columns = column_ls
     df_lwlpeat.columns = column_ls
     df_lwlflooded.columns = column_ls
     df_lwlother.columns = column_ls
@@ -553,6 +565,7 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
     df_lgl.to_excel(writer,sheet_name='Lands_GL')
     df_lse.to_excel(writer,sheet_name='Lands_SE')
     df_lwl.to_excel(writer,sheet_name='Lands_WL')
+    df_wlwl.to_excel(writer,sheet_name='WL_WL')
     df_lwlpeat.to_excel(writer,sheet_name='Lands_WLpeat')
     df_lwlflooded.to_excel(writer,sheet_name='Lands_WLflooded')
     df_lwlother.to_excel(writer,sheet_name='Lands_WLother')
@@ -565,6 +578,7 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
     sheet_lwlflooded = sheets['Lands_WLflooded']
     sheet_lwlother = sheets['Lands_WLother']
     sheet_lwl = sheets['Lands_WL']
+    sheet_wlwl = sheets['WL_WL']
     sheet_lse = sheets['Lands_SE']
     sheet_lulucf = sheets['LULUCF']
     #Summation for LULUCF and land change classes: FL_Lands, Lands_FL etc.
@@ -584,6 +598,8 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
     sheet_lwlother = create_MtCO2eq_rows(sheet_lwlother,76,start_year,end_year,ch4co2eq,n2oco2eq)
     sheet_lwl = create_sum_rows(sheet_lwl,start_year,end_year)
     sheet_lwl = create_MtCO2eq_rows(sheet_lwl,76,start_year,end_year,ch4co2eq,n2oco2eq)
+    sheet_wlwl = create_sum_rows(sheet_wlwl,start_year,end_year)
+    sheet_wlwl = create_MtCO2eq_rows(sheet_wlwl,76,start_year,end_year,ch4co2eq,n2oco2eq)
     sheet_lse = create_sum_rows(sheet_lse,start_year,end_year)
     sheet_lse = create_MtCO2eq_rows(sheet_lse,76,start_year,end_year,ch4co2eq,n2oco2eq)
     sheet_lulucf = create_lulucf_sum_rows(sheet_lulucf,start_year,end_year)
@@ -592,6 +608,7 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
     workbook.move_sheet('Lands_WLother',-(len(workbook.sheetnames)-1))
     workbook.move_sheet('Lands_WLflooded',-(len(workbook.sheetnames)-1))
     workbook.move_sheet('Lands_WLpeat',-(len(workbook.sheetnames)-1))
+    workbook.move_sheet('WL_WL',-(len(workbook.sheetnames)-1))
     workbook.move_sheet('Lands_WL',-(len(workbook.sheetnames)-1))
     workbook.move_sheet('Lands_SE',-(len(workbook.sheetnames)-1))
     workbook.move_sheet('Lands_GL',-(len(workbook.sheetnames)-1))
