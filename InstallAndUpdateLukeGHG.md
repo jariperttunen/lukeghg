@@ -56,9 +56,8 @@ generating NIR Table 6.1-2 with `lulucf-table-612.py` (F Some other useful progr
 For GitHub you need to have *.gitconfig* in your home directory.
 See item G Version control at the end.
 
-Clone lukeghg from GitHub for example to `/data/shared/<user>`.
-`<user>` denotes your user name and `<GHGInventoryDirectory>` the name
-of your choice for the working directory.
+In what follows `<GHGInventoryDirectory>` denotes the working directory and `<user>`
+the user name. Clone lukeghg from GitHub for example to `/data/shared/<user>/<GHGInventoryDirectory>`.
 
 	(lukeghg) prompt% cd /data/shared/<user>
 	(lukeghg) prompt% mkdir <GHGInventoryDirectory>
