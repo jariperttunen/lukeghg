@@ -166,9 +166,9 @@ but highly recommended comment part, UID of the time series followed by the time
 
 - --scen: The template excel for results. The file is `<GHGInventoryDirectory>/ScenarioTemplate/ScenarioTemplate.xlsx`.
   It contains three sheets:
-  - 1 UIDMatrix: contains  UIDs  identifying times series.
-  - 2 LandUse: template for results for land use and land use change.
-  - 3 LULUCF: template for collecting LULUCF totals from land use and land use change. 
+  - UIDMatrix: contains  UIDs  identifying times series.
+  - LandUse: template for results for land use and land use change.
+  - LULUCF: template for collecting LULUCF totals from land use and land use change. 
 
 - -m: The UID mapping file as in run-ghg-master.sh.
 
