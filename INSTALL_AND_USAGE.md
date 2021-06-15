@@ -156,7 +156,7 @@ PartyProfile xml from CRFReporter.
 `ghg-scenario.py` can generate excel file for ghg scenario calculations.
 The command line is as follows. The `[]` denotes optional arguments:
 
-	(lukeghg) prompt% ghg-scenario.py [-h] --files FILES --uid UID --scen SCEN \
+	(lukeghg) prompt% ghg-scenario.py [-h] --files FILES  --scen SCEN \
      -m M -o O --start START --end END [--keys] [--GWP GWP]
      
 - -h: python help
@@ -164,12 +164,11 @@ The command line is as follows. The `[]` denotes optional arguments:
 the files is the  same as in ghg inventory. A row consists of optional
 but highly recommended comment part, UID of the time series followed by the time series.
 
-- --uid: The UIDMatrix excel file containing the UID for each
-  time series. The file is  `<GHGInventoryDirectory>/ScenarioTemplate/UIDMatrix.xlsx`.
-
-- --scen: The template excel for results. Using  this template
-   `ghg-scenario.py` generates excel sheet for each land use  and land
-  use change classes. The file is `<GHGInventoryDirectory>/ScenarioTemplate/ScenarioTemplate.xlsx`.
+- --scen: The template excel for results. The file is `<GHGInventoryDirectory>/ScenarioTemplate/ScenarioTemplate.xlsx`.
+  It contains three sheets.
+  -1. UIDMatrix: contains  UIDs  identifying times series,
+  -2. LandUse: template for results for land use and land use change classes
+  -3. LULUCF: template for collecting totals for LULUCF results 
 
 - -m: The UID mapping file as in run-ghg-master.sh.
 
