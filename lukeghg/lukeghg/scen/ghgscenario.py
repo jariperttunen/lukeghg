@@ -329,19 +329,20 @@ def create_MtCO2eq_rows(sheet,MtCO2eq_start_row,start_year,end_year,ch4co2eq,n2o
     #as a single block by changing the value of  MtCO2eq_start_row for Biomass Gains to the right row.
     #The work needed is to check and correct the lists of rows for each case to be summed and converted to MtCO2eq 
     #Gains
-    write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row,[7],summary_color,(crfc.ctoco2)/1000.0)
+    #C as CO2 for biomass changes sign (atmosphere removal is a positive thing)
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row,[7],summary_color,-1.0*(crfc.ctoco2)/1000.0)
     #Losses
-    write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+1,[8],summary_color,(crfc.ctoco2)/1000.0)
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+1,[8],summary_color,-1.0*(crfc.ctoco2)/1000.0)
     #Net change
     write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+2,[MtCO2eq_start_row,MtCO2eq_start_row+1],summary_color,1)
     #Dead wood
-    write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+3,[10],summary_color,(crfc.ctoco2)/1000.0)
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+3,[10],summary_color,-1.0*(crfc.ctoco2)/1000.0)
     #Litter
-    write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+4,[11],summary_color,(crfc.ctoco2)/1000.0)
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+4,[11],summary_color,-1.0*(crfc.ctoco2)/1000.0)
     #Mineral soil
-    write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+5,[12],summary_color,(crfc.ctoco2)/1000.0)
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+5,[12],summary_color,-1.0*(crfc.ctoco2)/1000.0)
     #Organic soil
-    write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+6,[13],summary_color,(crfc.ctoco2)/1000.0)
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+6,[13],summary_color,-1.0*(crfc.ctoco2)/1000.0)
     #Total
     write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+7,range(MtCO2eq_start_row+2,MtCO2eq_start_row+6+1),
                          summary_color,1)
@@ -409,11 +410,11 @@ def create_MtCO2eq_rows(sheet,MtCO2eq_start_row,start_year,end_year,ch4co2eq,n2o
                          [MtCO2eq_start_row+42,MtCO2eq_start_row+43,MtCO2eq_start_row+44],summary_color,1)
     #8 HWP
     #Sawnwood
-    write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+48,[62],summary_color,(crfc.ctoco2)/1000.0)
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+48,[62],summary_color,-1.0*(crfc.ctoco2)/1000.0)
     #Wood panels
-    write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+49,[65],summary_color,(crfc.ctoco2)/1000.0)
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+49,[65],summary_color,-1.0*(crfc.ctoco2)/1000.0)
     #Paper and paper board
-    write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+50,[68],summary_color,(crfc.ctoco2)/1000.0)
+    write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+50,[68],summary_color,-1.0*(crfc.ctoco2)/1000.0)
     #Total
     write_co2sum_formula(sheet,5,end_year-start_year+1+5,MtCO2eq_start_row+51,
                          [MtCO2eq_start_row+48,MtCO2eq_start_row+49,MtCO2eq_start_row+50],summary_color,1)
