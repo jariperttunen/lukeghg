@@ -1,5 +1,4 @@
-# lukeghg python package in sorvi server
-## Install and usage
+# lukeghg python package: Installation and usage in sorvi server
 The *lukeghg* package contains tools to generate CRFReporter xml file from GHG inventory results for CRFReporter import, 
 check missing work, compare results with previous year and generate some ubiquitous NIR tables.
 
