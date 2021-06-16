@@ -24,7 +24,7 @@ Lands_WLother = ['FL-WLother','CL-WLother','GL-WLother']
 #Lands_WL classes, all three above
 Lands_WL = ['Land-WLpeat','Land-WLflooded','Land-WLother']
 #Lands_SE classes
-Lands_SE = ['FL_SE','CL-SE','GL-SE','WLpeat-SE','WLother-SE']
+Lands_SE = ['FL-SE','CL-SE','GL-SE','WLpeat-SE','WLother-SE']
 #WL-WL class
 WL_WL = ['WL-WL(peatextraction)','WLother-WLpeat','WL-WL(flooded)','WL-WL(other)','WLpeat-WLother']
 
@@ -499,26 +499,26 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
                 df_scen_new = set_data_series(df_scen_new,data_series_ls,str(start_year),str(end_year),row_number)
                 if class_name in Lands_FL:
                     df_lfl=add_data_series(df_lfl,data_series_ls,str(start_year),str(end_year),row_number)
-                elif class_name in FL_Lands:
-                    df_fll=add_data_series(df_fll,data_series_ls,str(start_year),str(end_year),row_number)
-                elif class_name in Lands_CL:
+                if class_name in FL_Lands:
+                     df_fll=add_data_series(df_fll,data_series_ls,str(start_year),str(end_year),row_number)
+                if class_name in Lands_CL:
                     df_lcl = add_data_series(df_lcl,data_series_ls,str(start_year),str(end_year),row_number)
-                elif class_name in Lands_GL:
+                if class_name in Lands_GL:
                     df_lgl = add_data_series(df_lgl,data_series_ls,str(start_year),str(end_year),row_number)
-                elif class_name in Lands_WLpeat:
+                if class_name in Lands_WLpeat:
                     df_lwlpeat = add_data_series(df_lwlpeat,data_series_ls,str(start_year),str(end_year),row_number)
                     #Land to WL,df_lwl, includes all three cases: peat, flooded and other
                     df_lwl = add_data_series(df_lwl,data_series_ls,str(start_year),str(end_year),row_number)
-                elif class_name in Lands_WLflooded:
+                if class_name in Lands_WLflooded:
                     df_lwlflooded = add_data_series(df_lwlflooded,data_series_ls,str(start_year),str(end_year),row_number)
                     df_lwl = add_data_series(df_lwl,data_series_ls,str(start_year),str(end_year),row_number)
-                elif class_name in Lands_WLother:
+                if class_name in Lands_WLother:
                     df_lwlother = add_data_series(df_lwlother,data_series_ls,str(start_year),str(end_year),row_number)
                     df_lwl = add_data_series(df_lwl,data_series_ls,str(start_year),str(end_year),row_number)
-                elif class_name in Lands_SE:
+                if class_name in Lands_SE:
                     df_lse = add_data_series(df_lse,data_series_ls,str(start_year),str(end_year),row_number)
-                elif class_name in WL_WL:
-                    print("WL_WL",class_name)
+                if class_name in WL_WL:
+                    #print("WL_WL",class_name)
                     df_wlwl = add_data_series(df_wlwl,data_series_ls,str(start_year),str(end_year),row_number)
                 else:
                     pass
