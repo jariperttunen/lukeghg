@@ -157,7 +157,7 @@ PartyProfile xml from CRFReporter.
 The command line is as follows. The `[]` denotes optional arguments:
 
 	(lukeghg) prompt% ghg-scenario.py [-h] --files FILES  --scen SCEN \
-     -m M -o O --start START --end END [--keys] [--GWP GWP]
+     -m M -o O --start START --end END [--GWP GWP]
      
 - -h: python help
 - --files: Give scenario csv files (wild card search). The format of
