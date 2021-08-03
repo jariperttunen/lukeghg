@@ -36,23 +36,23 @@ white_color='FFFFFF'
 class NoInventoryFiles(Exception):
     pass
 
-def convert_to_float(x:str, keys:bool=True):
+def convert_to_float(x:str, keys_to_zero:bool=True):
     """
-    keys: maintain notation keys
+    keys_to_zero: if False maintain notation keys 
     """
     try:
         return float(x)
     except:
-        if keys:
+        if keys_to_zero:
             return 0
         else:
             return x
 
-def insert_ghg_file_to_dictionary(d:dict,fname:str,uid_mapping_file:str,keys:bool=False):
+def insert_ghg_file_to_dictionary(d:dict,fname:str,uid_mapping_file:str,keys_to_zero:bool=True):
     datalss = ghginv.ParseGHGInventoryFile(fname,uid_mapping_file)
     for datals in datalss:
         uid=datals.pop(0)
-        datals=[convert_to_float(x,keys) for x in datals]
+        datals=[convert_to_float(x,keys_to_zero) for x in datals]
         d[uid] = datals
     return d
 
@@ -163,7 +163,6 @@ def add_data_series(df_scen,new_row_ls,start:str,end:str,row_number:int):
     #print("COLS",type(start),type(end))
     #Slicing dataframe with columns as strings or integers is straightforward
     #but mixing strings and integers will get slicing complicated
-    #print("ADD DATA:",len(new_row_ls),new_row_ls)
     df_scen.loc[row_number,start:end]=df_scen.loc[row_number,start:end]+new_row_ls
     return df_scen
 
@@ -426,11 +425,11 @@ def create_MtCO2eq_rows(sheet,MtCO2eq_start_row,start_year,end_year,ch4co2eq,n2o
     return sheet
 
 def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_template_file:str,uid_300_500_file:str,
-                          start_year:int,end_year:int,keys,ch4co2eq,n2oco2eq):
+                          start_year:int,end_year:int,ch4co2eq,n2oco2eq):
     missing_uid_dict = dict()
     writer = pd.ExcelWriter(scen_excel_file,engine='openpyxl')
     #Read inventory to dictionary: UID:time series
-    d = create_ghg_file_dictionary(scen_files_reg_expr,uid_300_500_file,keys)
+    d = create_ghg_file_dictionary(scen_files_reg_expr,uid_300_500_file,True)
     df_uid = read_uid_matrix_file(scen_template_file)
     #Column values, i.e. land use classes from UIDMatrix
     ls = land_use_classes(df_uid)
