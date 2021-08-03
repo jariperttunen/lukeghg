@@ -56,11 +56,11 @@ def insert_ghg_file_to_dictionary(d:dict,fname:str,uid_mapping_file:str,keys_to_
         d[uid] = datals
     return d
 
-def create_ghg_file_dictionary(reg_expr:str,uid_mapping_file:str,keys:bool=False):
+def create_ghg_file_dictionary(reg_expr:str,uid_mapping_file:str,keys_to_zero:bool=True):
     filels = glob.glob(reg_expr)
     d=dict()
     for fname in filels:
-        d=insert_ghg_file_to_dictionary(d,fname,uid_mapping_file,keys)
+        d=insert_ghg_file_to_dictionary(d,fname,uid_mapping_file,keys_to_zero)
     if not d:
         raise NoInventoryFiles
     return d
