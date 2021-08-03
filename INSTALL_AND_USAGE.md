@@ -96,7 +96,8 @@ can see the *setup.py*  file.
 	(lukeghg) prompt% python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
 
 The `pip`command line allows other ways to achieve the same result but
-this seems to be straightforward.
+this seems to be straightforward. Note that if `pip` is upgraded then `setuptools` 
+and `wheel` must be upgraded too as in section **A Setup your working environment**.  
 
 ## D. GHG inventory to CRFReporter xml file
 
@@ -177,8 +178,6 @@ but highly recommended comment part, UID of the time series followed by the time
 
 - --end: The end year of the scenario inventory
 
-- --keys: If present maintain notation keys. Default: the notation keys are set to number zero.
-
 - --GWP: Global warming potential for CH4 and N2O, possible values AR4 (GHG inventory) or AR5 (default)
 
 For the sample command line set your working directory to
@@ -187,7 +186,7 @@ are in DGClima directory type the following. In `bash`the `\` character denotes 
 command line continues to the next line.:
 
 	(lukeghg) prompt% ghg-scenario.py --files 'hiisi/wem/crf/LU*.csv' --scen lukeghg/ScenarioTemplate/ScenarioTemplate.xlsx -m lukeghg/300_500_mappings_1.1.csv \
-      -o Hiisi.xlsx --start 1990 --end 2050 --keys
+      -o Hiisi.xlsx --start 1990 --end 2050
 
 The first sheet in the Excel result file *DGClima.xlsx* lists UID's in
 UIDMatrix excel file but not found in the inventory. The second sheet shows the GWP's used. Following sheets
