@@ -191,7 +191,10 @@ command line continues to the next line.:
 The first sheet in the Excel result file *DGClima.xlsx* lists UID's in
 UIDMatrix excel file but not found in the inventory. The second sheet shows the GWP's used. Following sheets
 represent scenario results for each land use and land use change
-class. Summation rows are marked yellow. Cells missing data are marked red. The latter is not necessarily an error. Short time series are padded with zeros to include years required.
+class. Summation rows are marked yellow. Cells missing data are marked red. The latter is not necessarily an error.
+Short time series are padded with zeros to include years required.
+
+For further details see [GHG_SCENARIO](GHG_SCENARIO.md).
 
 ## F Some other useful programs
 

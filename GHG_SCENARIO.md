@@ -50,10 +50,11 @@ groupings.
 
 ## Excel result file ##
 
-`ghg-scenario.py` produces excel file for scenarios in three parts: 1) excel sheets for
-land use classes, 2) excel summary sheets for land use groupings and 3) LULUCF summary
-sheet covering the whole inventory. In addition the first sheet lists UIDs in the UIDMatrix
-sheet that are not found in inventory input files.
+`ghg-scenario.py` produces excel file for scenarios in three parts: 1) LULUCF summary
+sheet covering the whole inventory, 2) excel summary sheets for land use groupings and
+3) excel sheets for land use and land use change classes. In addition the first
+sheet lists UIDs in the UIDMatrix sheet that are not found in inventory input files.
+The second sheets contains GWPs used.
 
 The land use grouping sheets are defined as follows:
 
@@ -61,12 +62,48 @@ The land use grouping sheets are defined as follows:
  + FL_Lands = FL-CL + FL-GL + FL-WLpeat + FL-WLflooded + FL-WLother
  + Lands_CL = FL-CL + GL-CL + WLpeat-CL + WLother-CL + SE-CL
  + Lands_GL = FL-GL + CL-GL + WLpeat-GL + WLother-Gl + SE-GL
+ + Lands_SE = FL-SE + CL-SE + GL-SE + WLpeat-SE + WLother-SE
  + Lands_WLpeat = FL-WLpeat + CL-WLpeat + GL-WLpeat
  + Lands_WLflooded = FL-WLflooded + CL-WLflooded + GL-WLflooded + SE-WLflooded + OL-WLflooded
  + Lands_WLother = FL-WLother + CL-WLother + GL-WLother
  + Lands_WL = Lands_WLpeat + Lands_WLflooded + Lands_WLother
  + WL_WL = WL-WL(peatextraction) + WLother-WLpeat + WL-WL(flooded) + WL-WL(other) + WLpeat-WLother
- + Lands_SE = FL-SE + CL-SE + GL-SE + WLpeat-SE + WLother-SE
+ 
 
 The undescore ('_') denotes lands use grouping (summary) and hyphen ('-') change in land use,
-for example CL-FL means cropland to forest land. 
+for example CL-FL means cropland to forest land.
+
+### Color coding ###
+
+Yellow color denotes summary rows. Red color denotes missing values. The latter is not necessarily
+an error.
+
+## Usage ##
+
+`ghg-scenario.py` can generate excel file for ghg scenario calculations.
+The command line is as follows. The `[]` denotes optional arguments:
+
+	(lukeghg) prompt% ghg-scenario.py [-h] --files FILES  --scen SCEN \
+     -m M -o O --start START --end END [--GWP GWP]
+     
+- -h: python help
+- --files: Give scenario csv files (wild card search). The format of
+the files is the  same as in ghg inventory. A row consists of optional
+but highly recommended comment part, UID of the time series followed by the time series.
+
+- --scen: The template excel for results. The file is `<GHGInventoryDirectory>/ScenarioTemplate/ScenarioTemplate.xlsx`.
+  It contains three sheets:
+  - UIDMatrix: contains  UIDs  identifying times series.
+  - LandUse: template for results for land use and land use change.
+  - LULUCF: template for collecting LULUCF totals from land use and land use change. 
+
+- -m: The UID mapping file as in run-ghg-master.sh.
+
+- -o: Excel output file
+
+- --start: The start year of the scenario inventory
+
+- --end: The end year of the scenario inventory
+
+- --GWP: Global warming potential for CH4 and N2O, possible values AR4 (GHG inventory) or AR5 (default)
+
