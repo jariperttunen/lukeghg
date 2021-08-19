@@ -57,16 +57,16 @@ sheet that are not found in inventory input files.
 
 The land use grouping sheets are defined as follows:
 
-    + Lands_FL = CL-FL + GL-FL + WLpeat-FL + WLother-FL + SE-FL
-    + FL_Lands = FL-CL + FL-GL + FL-WLpeat + FL-WLflooded + FL-WLother
-    + Lands_CL = FL-CL + GL-CL + WLpeat-CL + WLother-CL + SE-CL
-    + Lands_GL = FL-GL + CL-GL + WLpeat-GL + WLother-Gl + SE-GL
-    + Lands_WLpeat = FL-WLpeat + CL-WLpeat + GL-WLpeat
-    + Lands_WLflooded = FL-WLflooded + CL-WLflooded + GL-WLflooded + SE-WLflooded + OL-WLflooded
-    + Lands_WLother = FL-WLother + CL-WLother + GL-WLother
-    + Lands_WL = Lands_WLpeat + Lands_WLflooded + Lands_WLother
-    + WL_WL = WL-WL(peatextraction) + WLother-WLpeat + WL-WL(flooded) + WL-WL(other) + WLpeat-WLother
-    + Lands_SE = FL-SE + CL-SE + GL-SE + WLpeat-SE + WLother-SE
+ + Lands_FL = CL-FL + GL-FL + WLpeat-FL + WLother-FL + SE-FL
+ + FL_Lands = FL-CL + FL-GL + FL-WLpeat + FL-WLflooded + FL-WLother
+ + Lands_CL = FL-CL + GL-CL + WLpeat-CL + WLother-CL + SE-CL
+ + Lands_GL = FL-GL + CL-GL + WLpeat-GL + WLother-Gl + SE-GL
+ + Lands_WLpeat = FL-WLpeat + CL-WLpeat + GL-WLpeat
+ + Lands_WLflooded = FL-WLflooded + CL-WLflooded + GL-WLflooded + SE-WLflooded + OL-WLflooded
+ + Lands_WLother = FL-WLother + CL-WLother + GL-WLother
+ + Lands_WL = Lands_WLpeat + Lands_WLflooded + Lands_WLother
+ + WL_WL = WL-WL(peatextraction) + WLother-WLpeat + WL-WL(flooded) + WL-WL(other) + WLpeat-WLother
+ + Lands_SE = FL-SE + CL-SE + GL-SE + WLpeat-SE + WLother-SE
 
 The undescore ('_') denotes lands use grouping (summary) and hyphen ('-') change in land use,
 for example CL-FL means cropland to forest land. 
