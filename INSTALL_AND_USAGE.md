@@ -111,7 +111,8 @@ in C Update lukeghg python package:
 - -c Location of the GHG inventory files
 - -n Location of the GHG iventory files for NIR section in CRFReporter
 - -i Location of the GHG inventory comment files for CRFReporter
-- -p Location of the empty (i.e. no inventory data) PartyProfile xml from CRFReporter (see **NB**)
+- -p Location of the empty (i.e. no inventory data) PartyProfile xml from CRFReporter 
+     (see **NB** at the end of chapter)
 - -x Location of the PartyProfile result file to be imported to CRFReporter
 - -y Inventory year (the last year in CRFReporter)
 
@@ -145,8 +146,8 @@ and `2>` redirects standard error terminal output to *Error.log* file.
 
 The final step is to import the PartyProfile result file from CRFReporter.
 
-For EU529 there is similar `run-eu529-ghg-master.sh` script. Note EU529
-concerns KPLULUCF files only (LULUCF files are not missing by accident).
+For EU529 there is similar `run-eu529-ghg-master.sh` script  in [lukeghg/lukeghg/bin](lukeghg/lukeghg/bin)
+directory. Note EU529 concerns KPLULUCF files only (LULUCF files are not missing by accident).
 
 #### GHG inventory files
 The files are text (csv) files with white space as separator. Each line
