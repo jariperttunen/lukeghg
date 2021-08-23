@@ -114,8 +114,6 @@ directory. Edit the following command options if needed:
 - -x Location of the PartyProfile result file to be imported to CRFReporter
 - -y Inventory year (the last year in CRFReporter)
 
-It has been practice that all GHG inventory files are in the same *crf* directory.
-
 Practical note: the options -b, -k,-l and -m (in `run-ghg-master.sh`, not shown here) 
 refer to ubiquitous configuration files that come with the lukeghg package. 
 Thus after downloading lukeghg from GitHub create *crf* and *PartyProfile* directories in
@@ -127,6 +125,7 @@ in `<GHGInventoryDirectory>`. First, copy GHG inventory files to crf directory:
 
 	(lukeghg) prompt% scp <user>@hirsi.in.metla.fi:/hsan2/khk/ghg/2019/crf/*.csv crf/
 
+It has been practice that all GHG inventory files are in the same *crf* directory.
 Be sure the read rights to the files exists. Then, if needed, download PartyProfile xml 
 from CRFReporter and copy it to *PartyProfile* directory. Rename as denoted by the `-p` 
 option in `run-ghg-master.sh`. To produce the PartyProfile  result file  filled with the 
@@ -136,7 +135,8 @@ GHG inventory results (the option `-x`) type the two commands:
 	(lukeghg) prompt% run-ghg-master.sh > Import.log 2> Error.log
 
 The GHG inventory result files (csv files) seem to use different encoding systems.
-`convertutf8` converts them to utf8 if needed (this is why they need to be copied with `scp` to *crf* directory first). 
+`convertutf8` converts them to utf8 if needed (this is why they need to be copied 
+with `scp` to *crf* directory first). 
 
 The script `run-ghg-master.sh` will run few minutes at most. 
 The `>`character redirects standard out terminal output to *Import.log* file 
