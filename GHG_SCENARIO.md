@@ -91,7 +91,7 @@ The command line is as follows. The `[]` denotes optional arguments:
 the files is the  same as in ghg inventory. A row consists of optional
 but highly recommended comment part, UID of the time series followed by the time series.
 
-- --scen: The template excel for results. The file is in [ScenarioTemplate](`ScenarioTemplate/ScenarioTemplate.xlsx`).
+- --scen: The template excel for results. The file is in [ScenarioTemplate](ScenarioTemplate).
   It contains three sheets:
   - UIDMatrix: contains  UIDs  identifying times series.
   - LandUse: template for results for land use and land use change.
