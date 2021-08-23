@@ -2,7 +2,7 @@ This directory contains two tempalate excel files for
 GHG scenarios. The python program is ghgscenario.py.
 For instructions see InstallAndUpdateLukeGHG.
 
-+ UIDMatrix.xlsx: UID or other identification tag for each time series
++ UIDMatrix.xlsx: Now part of ScenarioTemplate.xlsx (will be removed)
 + ScenarioTemplate.xlsx: Defines the template Excel sheet for output.
    One sheet will be created for each land use and land use change class.
 
