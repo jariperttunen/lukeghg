@@ -106,7 +106,7 @@ for the current ghg inventory and inserts inventory results to CRFReporter Party
 
 The `run-ghg-master.sh`is located in [lukeghg/lukeghg/bin](lukeghg/lukeghg/bin)
 directory. Edit the following command options if needed and update *lukeghg* as 
-in C Update lukeghg python package:
+in *C Update lukeghg python package*:
 
 - -c Location of the GHG inventory files
 - -n Location of the GHG iventory files for NIR section in CRFReporter
