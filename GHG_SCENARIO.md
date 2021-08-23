@@ -54,7 +54,7 @@ groupings.
 sheet covering the whole inventory, 2) excel summary sheets for land use groupings and
 3) excel sheets for land use and land use change classes. In addition the first
 sheet lists UIDs in the UIDMatrix sheet that are not found in inventory input files.
-The second sheets contains GWPs used.
+The second sheet contains GWPs used.
 
 The land use grouping sheets are defined as follows:
 
