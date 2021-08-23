@@ -104,7 +104,7 @@ and `wheel` must be upgraded too as in section **A Setup your working environmen
 Probably the most important part in this manual. `run-ghg-master.sh` is a script that sets directories and files
 for the current ghg inventory and inserts inventory results to CRFReporter PartyProfile xml.
 
-The `run-ghg-master.sh`is located in [lukeghg/lukeghg/bin](lukeghg/lukeghg/lukeghg/bin)
+The `run-ghg-master.sh`is located in [lukeghg/lukeghg/lukeghg/bin](lukeghg/lukeghg/lukeghg/bin)
 directory. Edit the following command options if needed:
 
 - -c Location of the GHG inventory files
