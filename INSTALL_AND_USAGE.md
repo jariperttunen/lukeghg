@@ -116,6 +116,16 @@ directory. Edit the following command options if needed:
 
 It has been practice that all GHG inventory files are in the same *crf* directory.
 
+### A note on GHG inventory files
+The files are text (csv) files with white space as separator. Each line
+in the file represent one time series for an emission, some area etc.
+in the CRFReporter. The line begins with optional comment followed by the UID ("unique identifier")
+of the time series and after that the time series itself. For example:
+
+       #fl.to.cl# A4DB34A0-1847-401A-92BA-7CCE37611F1A -29.903 -28.157 -26.926 ... -14.865 -14.865 -14.865
+
+The *#* character denotes the beginning and the end of the comment. The UID (*A4DB3 ...611F1A*) is CRFReporter generated.
+
 Practical note: the options -b, -k,-l and -m (in `run-ghg-master.sh`, not shown here) 
 refer to ubiquitous configuration files that come with the lukeghg package. 
 Thus after downloading lukeghg from GitHub create *crf* and *PartyProfile* directories in
