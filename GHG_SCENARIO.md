@@ -59,7 +59,7 @@ The second sheet contains GWPs used.
 The land use grouping sheets are defined as follows:
 
  + Lands_FL = CL-FL + GL-FL + WLpeat-FL + WLother-FL + SE-FL
- + FL_Lands = FL-CL + FL-GL + FL-WLpeat + FL-WLflooded + FL-WLother
+ + FL_Lands = FL-CL + FL-GL + FL-WLpeat + FL-WLflooded + FL-WLother + FL-SE
  + Lands_CL = FL-CL + GL-CL + WLpeat-CL + WLother-CL + SE-CL
  + Lands_GL = FL-GL + CL-GL + WLpeat-GL + WLother-Gl + SE-GL
  + Lands_SE = FL-SE + CL-SE + GL-SE + WLpeat-SE + WLother-SE
