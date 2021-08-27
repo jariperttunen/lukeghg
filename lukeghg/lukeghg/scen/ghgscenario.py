@@ -27,7 +27,12 @@ Lands_WL = ['Land-WLpeat','Land-WLflooded','Land-WLother']
 Lands_SE = ['FL-SE','CL-SE','GL-SE','WLpeat-SE','WLother-SE']
 #WL-WL class
 WL_WL = ['WL-WL(peatextraction)','WLother-WLpeat','WL-WL(flooded)','WL-WL(other)','WLpeat-WLother']
-
+#These classes will tell emissions from peat production, artificial ponds, wetlands etc.
+#wether remaining or converted.
+WLpeat_summary = ['WL-WL(peatextraction)']+Lands_WLpeat
+WLflooded_summary = ['WL-WL(flooded)']+Lands_WLflooded
+WLother_summary = ['WL-WL(other)']+Lands_WLother
+          
 #Some colors
 summary_color='00FFFF00'
 error_color='00FF0000'
@@ -429,7 +434,7 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
     missing_uid_dict = dict()
     writer = pd.ExcelWriter(scen_excel_file,engine='openpyxl')
     #Read inventory to dictionary: UID:time series
-    d = create_ghg_file_dictionary(scen_files_reg_expr,uid_300_500_file,True)
+    uid_time_series_dictionary = create_ghg_file_dictionary(scen_files_reg_expr,uid_300_500_file,True)
     df_uid = read_uid_matrix_file(scen_template_file)
     #Column values, i.e. land use classes from UIDMatrix
     ls = land_use_classes(df_uid)
@@ -442,7 +447,7 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
     df_lfl[df_lfl[df_lfl.columns[0]].astype(str).str.isnumeric()]=\
     df_lfl[df_lfl[df_lfl.columns[0]].astype(str).str.isnumeric()].apply(lambda x: make_zeros(x,3),axis=1)
     #df_lfl.iloc[:,3:]=0.0
-    #Forestland-Land transition (deforeastation)
+    #Forestland-Land transition (deforestation)
     df_fll = df_scen_template.copy()
     #This simply initializes the emission time series to 0 for Forestland->Land
     df_fll[df_fll[df_fll.columns[0]].astype(str).str.isnumeric()]=\
@@ -480,6 +485,20 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
     df_wlwl =  df_scen_template.copy()
     df_wlwl[df_wlwl[df_wlwl.columns[0]].astype(str).str.isnumeric()]=\
     df_wlwl[df_wlwl[df_wlwl.columns[0]].astype(str).str.isnumeric()].apply(lambda x: make_zeros(x,3),axis=1)
+    #Three new sheets will tell emissions from peat production, artificial ponds, wetlands etc.
+    #wether remaining or converted.
+    #Wetlands peat
+    df_wlpeat_summary =  df_scen_template.copy()
+    df_wlpeat_summary[df_wlpeat_summary[df_wlpeat_summary.columns[0]].astype(str).str.isnumeric()]=\
+    df_wlpeat_summary[df_wlpeat_summary[df_wlpeat_summary.columns[0]].astype(str).str.isnumeric()].apply(lambda x: make_zeros(x,3),axis=1)
+    #Wetlands flooded
+    df_wlflooded_summary = df_scen_template.copy()
+    df_wlflooded_summary[df_wlflooded_summary[df_wlflooded_summary.columns[0]].astype(str).str.isnumeric()]=\
+    df_wlflooded_summary[df_wlflooded_summary[df_wlflooded_summary.columns[0]].astype(str).str.isnumeric()].apply(lambda x: make_zeros(x,3),axis=1)
+    #Wetlands other
+    df_wlother_summary = df_scen_template.copy()
+    df_wlother_summary[df_wlother_summary[df_wlother_summary.columns[0]].astype(str).str.isnumeric()]=\
+    df_wlother_summary[df_wlother_summary[df_wlother_summary.columns[0]].astype(str).str.isnumeric()].apply(lambda x: make_zeros(x,3),axis=1)
     for class_name in ls:
         print("LAND USE",class_name)
         #Initialize missing uid list
@@ -492,35 +511,54 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
         #1.Add time series to dataframe
         for uid in uid_ls:
             (name,id_number) = stock_change_name_id_number(df_uid,class_name,uid)
-            if uid in d:
-                data_series_ls = d[uid]
+            if uid in uid_time_series_dictionary:
+                check_land_class = 0
+                data_series_ls = uid_time_series_dictionary[uid]
                 row_number = select_row_number(df_scen_template,id_number)
                 df_scen_new = set_data_series(df_scen_new,data_series_ls,str(start_year),str(end_year),row_number)
                 if class_name in Lands_FL:
                     df_lfl=add_data_series(df_lfl,data_series_ls,str(start_year),str(end_year),row_number)
+                    check_land_class = 1
                 if class_name in FL_Lands:
                      df_fll=add_data_series(df_fll,data_series_ls,str(start_year),str(end_year),row_number)
+                     check_land_class =1
                 if class_name in Lands_CL:
                     df_lcl = add_data_series(df_lcl,data_series_ls,str(start_year),str(end_year),row_number)
+                    check_land_class = 1
                 if class_name in Lands_GL:
                     df_lgl = add_data_series(df_lgl,data_series_ls,str(start_year),str(end_year),row_number)
+                    check_land_class = 1
                 if class_name in Lands_WLpeat:
                     df_lwlpeat = add_data_series(df_lwlpeat,data_series_ls,str(start_year),str(end_year),row_number)
                     #Land to WL,df_lwl, includes all three cases: peat, flooded and other
                     df_lwl = add_data_series(df_lwl,data_series_ls,str(start_year),str(end_year),row_number)
+                    check_land_class = 1
                 if class_name in Lands_WLflooded:
                     df_lwlflooded = add_data_series(df_lwlflooded,data_series_ls,str(start_year),str(end_year),row_number)
                     df_lwl = add_data_series(df_lwl,data_series_ls,str(start_year),str(end_year),row_number)
+                    check_land_class = 1
                 if class_name in Lands_WLother:
                     df_lwlother = add_data_series(df_lwlother,data_series_ls,str(start_year),str(end_year),row_number)
                     df_lwl = add_data_series(df_lwl,data_series_ls,str(start_year),str(end_year),row_number)
+                    check_land_class = 1
                 if class_name in Lands_SE:
                     df_lse = add_data_series(df_lse,data_series_ls,str(start_year),str(end_year),row_number)
+                    check_land_class = 1
                 if class_name in WL_WL:
                     #print("WL_WL",class_name)
                     df_wlwl = add_data_series(df_wlwl,data_series_ls,str(start_year),str(end_year),row_number)
-                else:
-                    pass
+                    check_land_class = 1
+                if class_name in WLpeat_summary:
+                    df_wlpeat_summary = add_data_series(df_wlpeat_summary,data_series_ls,str(start_year),str(end_year),row_number)
+                    check_land_class = 1
+                if class_name in WLflooded_summary:
+                    df_wlflooded_summary = add_data_series(df_wlflooded_summary,data_series_ls,str(start_year),str(end_year),row_number)
+                    check_land_class = 1
+                if class_name in WLother_summary:
+                    df_wlother_summary = add_data_series(df_wlother_summary,data_series_ls,str(start_year),str(end_year),row_number)
+                    check_land_class = 1
+                if check_land_class == 0:
+                    print("Land class not in summary sheets",uid,class_name)
             else:
                 print("MISSING",class_name,uid)
                 missing_uid_dict[class_name].append(uid)
@@ -550,15 +588,19 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
     column_ls = df_lfl.columns
     year_ls = column_ls[2:]
     column_ls = ["Number","Source","Unit"]+list(range(start_year,start_year+len(year_ls)-1))
-    df_lfl.columns = column_ls
     df_fll.columns = column_ls
+    df_lfl.columns = column_ls
     df_lcl.columns = column_ls
     df_lgl.columns = column_ls
+    df_lse.columns = column_ls
+    df_lwl.columns = column_ls
     df_wlwl.columns = column_ls
     df_lwlpeat.columns = column_ls
     df_lwlflooded.columns = column_ls
     df_lwlother.columns = column_ls
-    df_lse.columns = column_ls
+    df_wlpeat_summary.columns = column_ls
+    df_wlflooded_summary.columns = column_ls
+    df_wlother_summary.columns = column_ls
     df_fll.to_excel(writer,sheet_name='FL_Lands')
     df_lfl.to_excel(writer,sheet_name='Lands_FL')
     df_lcl.to_excel(writer,sheet_name='Lands_CL')
@@ -569,7 +611,13 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
     df_lwlpeat.to_excel(writer,sheet_name='Lands_WLpeat')
     df_lwlflooded.to_excel(writer,sheet_name='Lands_WLflooded')
     df_lwlother.to_excel(writer,sheet_name='Lands_WLother')
+    df_wlpeat_summary.to_excel(writer,sheet_name='WLpeat_summary')
+    df_wlflooded_summary.to_excel(writer,sheet_name='WLflooded_summary')
+    df_wlother_summary.to_excel(writer,sheet_name='WLother_summary')
     sheets = writer.sheets
+    sheet_wlpeat_summary = sheets['WLpeat_summary']
+    sheet_wlflooded_summary = sheets['WLflooded_summary']
+    sheet_wlother_summary = sheets['WLother_summary']
     sheet_fll = sheets['FL_Lands']
     sheet_lfl = sheets['Lands_FL']
     sheet_lcl = sheets['Lands_CL']
@@ -582,6 +630,12 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
     sheet_lse = sheets['Lands_SE']
     sheet_lulucf = sheets['LULUCF']
     #Summation for LULUCF and land change classes: FL_Lands, Lands_FL etc.
+    sheet_wlpeat_summary = create_sum_rows(sheet_wlpeat_summary,start_year,end_year)
+    sheet_wlpeat_summary = create_MtCO2eq_rows(sheet_wlpeat_summary,76,start_year,end_year,ch4co2eq,n2oco2eq)
+    sheet_wlflooded_summary = create_sum_rows(sheet_wlflooded_summary,start_year,end_year)
+    sheet_wlflooded_summary = create_MtCO2eq_rows(sheet_wlflooded_summary,76,start_year,end_year,ch4co2eq,n2oco2eq)
+    sheet_wlother_summary = create_sum_rows(sheet_wlother_summary,start_year,end_year)
+    sheet_wlfother_summary = create_MtCO2eq_rows(sheet_wlother_summary,76,start_year,end_year,ch4co2eq,n2oco2eq)
     sheet_fll = create_sum_rows(sheet_fll,start_year,end_year)
     sheet_fll = create_MtCO2eq_rows(sheet_fll,76,start_year,end_year,ch4co2eq,n2oco2eq)
     sheet_lfl = create_sum_rows(sheet_lfl,start_year,end_year)
@@ -604,20 +658,24 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
     sheet_lse = create_MtCO2eq_rows(sheet_lse,76,start_year,end_year,ch4co2eq,n2oco2eq)
     sheet_lulucf = create_lulucf_sum_rows(sheet_lulucf,start_year,end_year)
     #Rotate sheets from the end to the beginning
+    #ad hoc numbers to get summary sheets first
     workbook = writer.book
-    workbook.move_sheet('Lands_WLother',-(len(workbook.sheetnames)-1))
-    workbook.move_sheet('Lands_WLflooded',-(len(workbook.sheetnames)-1))
-    workbook.move_sheet('Lands_WLpeat',-(len(workbook.sheetnames)-1))
-    workbook.move_sheet('WL_WL',-(len(workbook.sheetnames)-1))
-    workbook.move_sheet('Lands_WL',-(len(workbook.sheetnames)-1))
-    workbook.move_sheet('Lands_SE',-(len(workbook.sheetnames)-1))
-    workbook.move_sheet('Lands_GL',-(len(workbook.sheetnames)-1))
-    workbook.move_sheet('Lands_CL',-(len(workbook.sheetnames)-1))
-    workbook.move_sheet('Lands_FL',-(len(workbook.sheetnames)-1))
-    workbook.move_sheet('FL_Lands',-(len(workbook.sheetnames)-1))
-    workbook.move_sheet('LULUCF',-(len(workbook.sheetnames)-1))
-    workbook.move_sheet(gwp_sheet,-(len(workbook.sheetnames)-1))
-    workbook.move_sheet(uid_sheet_name,-(len(workbook.sheetnames)-1))
+    workbook.move_sheet('WLpeat_summary',-110)
+    workbook.move_sheet('WLflooded_summary',-110)
+    workbook.move_sheet('WLother_summary',-110)
+    workbook.move_sheet('Lands_WLother',-110)
+    workbook.move_sheet('Lands_WLflooded',-110)
+    workbook.move_sheet('Lands_WLpeat',-110)
+    workbook.move_sheet('WL_WL',-110)
+    workbook.move_sheet('Lands_WL',-110)
+    workbook.move_sheet('Lands_SE',-110)
+    workbook.move_sheet('Lands_GL',-110)
+    workbook.move_sheet('Lands_CL',-110)
+    workbook.move_sheet('Lands_FL',-110)
+    workbook.move_sheet('FL_Lands',-110)
+    workbook.move_sheet('LULUCF',-110)
+    workbook.move_sheet(gwp_sheet,-110)
+    workbook.move_sheet(uid_sheet_name,-110)
     workbook.active=0
     return writer
 

@@ -56,7 +56,9 @@ sheet covering the whole inventory, 2) excel summary sheets for land use groupin
 sheet lists UIDs in the UIDMatrix sheet that are not found in inventory input files.
 The second sheets contains GWPs used.
 
-The land use grouping sheets are defined as follows:
+The land use grouping sheets are defined as follows. The undescore ('_') denotes
+lands use grouping (summary) and hyphen ('-') change in land use.
+For example CL-FL means cropland to forest land:
 
  + Lands_FL = CL-FL + GL-FL + WLpeat-FL + WLother-FL + SE-FL
  + FL_Lands = FL-CL + FL-GL + FL-WLpeat + FL-WLflooded + FL-WLother
@@ -68,10 +70,12 @@ The land use grouping sheets are defined as follows:
  + Lands_WLother = FL-WLother + CL-WLother + GL-WLother
  + Lands_WL = Lands_WLpeat + Lands_WLflooded + Lands_WLother
  + WL_WL = WL-WL(peatextraction) + WLother-WLpeat + WL-WL(flooded) + WL-WL(other) + WLpeat-WLother
- 
+ + WLpeat_summary = WL-WL(peatextraction) + Lands_WLpeat
+ + WLflooded_summary = WL-WL(flooded) + Lands_WLflooded
+ + WLother_summary = WL-WL(other) + Lands_WLother
 
-The undescore ('_') denotes lands use grouping (summary) and hyphen ('-') change in land use,
-for example CL-FL means cropland to forest land.
+Wetlands summaries tell emissions from peat productions, artificial lakes, wetlands etc.
+regardless being remaining or converted areas.
 
 ### Color coding ###
 
