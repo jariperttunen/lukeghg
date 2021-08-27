@@ -3,5 +3,5 @@ Tools to generate CRFReporter xml file from GHG inventory results for CRFReporte
 
 + ARKISTOON: Files to store in Luke official archive system (in Finnish).
 + CRFREPORTER_ANNUAL_CHECK: Annual manual work with CRFReporter
-+ INSTALL_AND_USAGE: Install and update `lukeghg` package, User guide for python scripts
++ LUKEGHG_INSTALL_AND_USAGE: Install and update `lukeghg` package, User guide for python scripts
 + GHG_SCENARIO: User guide for GHG Scenario calculation with ghg-scenario.py.
