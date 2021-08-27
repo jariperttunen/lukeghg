@@ -99,22 +99,22 @@ The `pip`command line allows other ways to achieve the same result but
 this seems to be straightforward. Note that if `pip` is upgraded then `setuptools` 
 and `wheel` must be upgraded too as in section **A Setup your working environment**.  
 
-## D. GHG inventory to CRFReporter xml file
+## D GHG inventory to CRFReporter xml file
 
 Probably the most important part in this manual. `run-ghg-master.sh` is a script that sets directories and files
 for the current ghg inventory and inserts inventory results to CRFReporter PartyProfile xml.
 
-The `run-ghg-master.sh`is located in `<GHGInventoryDirectory>/lukeghg/lukeghg/lukeghg/bin`
-directory. Edit the following command options if needed:
+The `run-ghg-master.sh`is located in [lukeghg/lukeghg/bin](lukeghg/lukeghg/bin)
+directory. Edit the following command options if needed and update *lukeghg* as 
+in *C Update lukeghg python package*:
 
 - -c Location of the GHG inventory files
 - -n Location of the GHG iventory files for NIR section in CRFReporter
 - -i Location of the GHG inventory comment files for CRFReporter
-- -p Location of the empty (i.e. no inventory data) PartyProfile xml from CRFReporter
+- -p Location of the empty (i.e. no inventory data) PartyProfile xml from CRFReporter 
+     (see **NB** at the end of chapter)
 - -x Location of the PartyProfile result file to be imported to CRFReporter
 - -y Inventory year (the last year in CRFReporter)
-
-It has been practice that all GHG inventory files are in the same *crf* directory.
 
 Practical note: the options -b, -k,-l and -m (in `run-ghg-master.sh`, not shown here) 
 refer to ubiquitous configuration files that come with the lukeghg package. 
@@ -127,6 +127,7 @@ in `<GHGInventoryDirectory>`. First, copy GHG inventory files to crf directory:
 
 	(lukeghg) prompt% scp <user>@hirsi.in.metla.fi:/hsan2/khk/ghg/2019/crf/*.csv crf/
 
+It has been practice that all GHG inventory files are in the same *crf* directory.
 Be sure the read rights to the files exists. Then, if needed, download PartyProfile xml 
 from CRFReporter and copy it to *PartyProfile* directory. Rename as denoted by the `-p` 
 option in `run-ghg-master.sh`. To produce the PartyProfile  result file  filled with the 
@@ -136,7 +137,8 @@ GHG inventory results (the option `-x`) type the two commands:
 	(lukeghg) prompt% run-ghg-master.sh > Import.log 2> Error.log
 
 The GHG inventory result files (csv files) seem to use different encoding systems.
-`convertutf8` converts them to utf8 if needed (this is why they need to be copied with `scp` to *crf* directory first). 
+`convertutf8` converts them to utf8 if needed (this is why they need to be copied 
+with `scp` to *crf* directory first). 
 
 The script `run-ghg-master.sh` will run few minutes at most. 
 The `>`character redirects standard out terminal output to *Import.log* file 
@@ -144,8 +146,18 @@ and `2>` redirects standard error terminal output to *Error.log* file.
 
 The final step is to import the PartyProfile result file from CRFReporter.
 
-For EU529 there is similar `run-eu529-ghg-master.sh` script. Note EU529
-concerns KPLULUCF files only (LULUCF files are not missing by accident).
+For EU529 there is similar `run-eu529-ghg-master.sh` script  in [lukeghg/lukeghg/bin](lukeghg/lukeghg/bin)
+directory. Note EU529 concerns KPLULUCF files only (LULUCF files are not missing by accident).
+
+#### GHG inventory files
+The files are text (csv) files with white space as separator. Each line
+in the file represent one time series for an emission, some area etc.
+in the CRFReporter. The line begins with optional comment followed by the UID ("unique identifier")
+of the time series and after that the time series itself. For example:
+
+       #fl.to.cl# A4DB34A0-1847-401A-92BA-7CCE37611F1A -29.903 -28.157 -26.926 ... -14.865 -14.865 -14.865
+
+The *#* character denotes the beginning and the end of the comment. The UID (*A4DB3 ...611F1A*) is CRFReporter generated.
 
 **NB:** CRFReporter checks that the version number of the PartyProfile 
 xml matches the CRFReporter version. Each CRFReporter version update requires new

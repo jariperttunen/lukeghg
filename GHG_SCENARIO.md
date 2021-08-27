@@ -13,7 +13,7 @@ of the time series and after that the time series itself. For example:
 
        #fl.to.cl# A4DB34A0-1847-401A-92BA-7CCE37611F1A -29.903 -28.157 -26.926 ... -14.865 -14.865 -14.865
 
-The *#* character denotes the beginning and the end of the comment. The UID is CRFReporter generated or
+The *#* character denotes the beginning and the end of the comment. The UID (*A4DB3 ...611F1A*) is CRFReporter generated or
 user defined. In the latter case the times series used in GHG inventory has been
 divided into two or more parts to provide finer level of detail.
 
@@ -54,14 +54,14 @@ groupings.
 sheet covering the whole inventory, 2) excel summary sheets for land use groupings and
 3) excel sheets for land use and land use change classes. In addition the first
 sheet lists UIDs in the UIDMatrix sheet that are not found in inventory input files.
-The second sheets contains GWPs used.
+The second sheet contains GWPs used.
 
 The land use grouping sheets are defined as follows. The undescore ('_') denotes
 lands use grouping (summary) and hyphen ('-') change in land use.
 For example CL-FL means cropland to forest land:
 
  + Lands_FL = CL-FL + GL-FL + WLpeat-FL + WLother-FL + SE-FL
- + FL_Lands = FL-CL + FL-GL + FL-WLpeat + FL-WLflooded + FL-WLother
+ + FL_Lands = FL-CL + FL-GL + FL-WLpeat + FL-WLflooded + FL-WLother + FL-SE
  + Lands_CL = FL-CL + GL-CL + WLpeat-CL + WLother-CL + SE-CL
  + Lands_GL = FL-GL + CL-GL + WLpeat-GL + WLother-Gl + SE-GL
  + Lands_SE = FL-SE + CL-SE + GL-SE + WLpeat-SE + WLother-SE
@@ -95,7 +95,7 @@ The command line is as follows. The `[]` denotes optional arguments:
 the files is the  same as in ghg inventory. A row consists of optional
 but highly recommended comment part, UID of the time series followed by the time series.
 
-- --scen: The template excel for results. The file is `<GHGInventoryDirectory>/ScenarioTemplate/ScenarioTemplate.xlsx`.
+- --scen: The template excel for results. The file is in [ScenarioTemplate](ScenarioTemplate) directory.
   It contains three sheets:
   - UIDMatrix: contains  UIDs  identifying times series.
   - LandUse: template for results for land use and land use change.
