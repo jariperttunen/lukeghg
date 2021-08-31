@@ -12,19 +12,22 @@ if __name__ == "__main__":
     parser.add_argument('--start',type=int,dest='start',required=True,help="Start year (1990)")
     parser.add_argument('--end',type=int,dest='end',required=True,help="End year")
     parser.add_argument('--GWP',type=str,dest='gwp',default="AR5",help="Global warming potential, AR4 (GHG inventory) or AR5 (default)")
-    parser.add_argument('--formulas',type=bool,dest='formulas',default=True,help="Use excel formulas in summary sheets")
+    parser.add_argument('--noformulas',action="store_true",help="Sum up summary sheets. Default: use excel formulas")
     args = parser.parse_args()
         
     #Default GWP AR5
     ch4co2eq = 28
     n2oco2eq = 265
     gwp_str = "AR5"
+    formulas = True
+    if args.noformulas:
+        formulas=False
     if args.gwp == 'AR4':
        ch4co2eq = 25
        n2oco2eq = 298
        gwp_str="AR4"
     try:
-        excel_writer = ghgscen.create_scenario_excel(args.o,args.files,args.scen,args.m,args.start,args.end,ch4co2eq,n2oco2eq,args.formulas,gwp_str)
+        excel_writer = ghgscen.create_scenario_excel(args.o,args.files,args.scen,args.m,args.start,args.end,ch4co2eq,n2oco2eq,formulas,gwp_str)
         #The three lines demonstrating bug(?) in pandas 1.2.0 and above with openpyxl
         #writing files Excel considers having erroneous format
         #1 excel_writer = pd.ExcelWriter('Test.xlsx',engine='openpyxl')
