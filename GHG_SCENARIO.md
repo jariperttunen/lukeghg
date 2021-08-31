@@ -25,11 +25,13 @@ has three sheets: UIDMatrix, LandUse and LULUCF.
 
 ### UIDMatrix sheet ###
 
-The UIDMatrix sheet represent carbon stock changes and other emissions by gases. The columns
+The *UIDMatrix* sheet represent carbon stock changes and other emissions by gases. The columns
 define land use and land use change classes and rows their respective stock changes and emissions.
 The column A contains numbers (in red) that guide `ghg-scenario.py`to insert the time series
-into the right row (with the same number) in the LandUse template sheet. The sheet cells contain UIDs of the
-time series. For example 4A48C2F0-02C0-4EAB-8547-6A109929DDCD denotes *CL-FL biomass gains*.
+into the right row (with the same number) in the *LandUse* template sheet. 
+
+The sheet cells contain UIDs of the time series. For example 4A48C2F0-02C0-4EAB-8547-6A109929DDCD 
+denotes *CL-FL biomass gains*. **Only those time series having UID entry will appear in result Excel**. 
 Note that not all cells have an UID because those cases simply do not occur.
 
 ### LandUse sheet ###
@@ -80,7 +82,7 @@ regardless being remaining or converted areas.
 ### Color coding ###
 
 Yellow color denotes summary rows. Red color denotes missing values. The latter is not necessarily
-an error.The grey color in summary sheets denote formulas are used in excel cells.
+an error. The grey color in summary sheets denote formulas are used in excel cells.
 
 ## Usage ##
 
@@ -94,21 +96,14 @@ The command line is as follows. The `[]` denotes optional arguments:
 - --files: Give scenario csv files (wild card search). The format of
 the files is the  same as in ghg inventory. A row consists of optional
 but highly recommended comment part, UID of the time series followed by the time series.
-
 - --scen: The template excel for results. The file is in [ScenarioTemplate](ScenarioTemplate) directory.
   It contains three sheets:
   - UIDMatrix: contains  UIDs  identifying times series.
   - LandUse: template for results for land use and land use change.
   - LULUCF: template for collecting LULUCF totals from land use and land use change. 
-
 - -m: The UID mapping file as in run-ghg-master.sh.
-
 - -o: Excel output file
-
 - --start: The start year of the scenario inventory
-
 - --end: The end year of the scenario inventory
-
 - --GWP: Global warming potential for CH4 and N2O, possible values AR4 (GHG inventory) or AR5 (default)
-
 - --formulas: Create excel formulas in summary sheets, default True
