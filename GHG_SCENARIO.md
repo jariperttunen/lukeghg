@@ -90,7 +90,7 @@ an error. The grey color in summary sheets denote formulas are used in excel cel
 The command line is as follows. The `[]` denotes optional arguments:
 
 	(lukeghg) prompt% ghg-scenario.py [-h] --files FILES  --scen SCEN \
-     -m M -o O --start START --end END [--GWP GWP] [--formulas] 
+     -m M -o O --start START --end END [--GWP GWP] [--noformulas] 
      
 - -h: python help
 - --files: Give scenario csv files (wild card search). The format of
@@ -106,4 +106,4 @@ but highly recommended comment part, UID of the time series followed by the time
 - --start: The start year of the scenario inventory
 - --end: The end year of the scenario inventory
 - --GWP: Global warming potential for CH4 and N2O, possible values AR4 (GHG inventory) or AR5 (default)
-- --formulas: Create excel formulas in summary sheets, default True
+- --noformulas: Sum up summary sheets. Default: use excel formulas
