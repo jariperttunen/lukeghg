@@ -27,8 +27,8 @@ Lands_WL = ['Land-WLpeat','Land-WLflooded','Land-WLother']
 Lands_SE = ['FL-SE','CL-SE','GL-SE','WLpeat-SE','WLother-SE']
 #WL-WL class
 WL_WL = ['WL-WL(peatextraction)','WLother-WLpeat','WL-WL(flooded)','WL-WL(other)','WLpeat-WLother']
-#These classes will tell emissions from peat production, artificial ponds, wetlands etc.
-#wether remaining or converted.
+#These three classes will tell emissions from peat production, artificial ponds, wetlands etc.
+#wether being remaining or converted.
 WLpeat_summary = ['WL-WL(peatextraction)']+Lands_WLpeat
 WLflooded_summary = ['WL-WL(flooded)']+Lands_WLflooded
 WLother_summary = ['WL-WL(other)']+Lands_WLother
@@ -37,6 +37,7 @@ WLother_summary = ['WL-WL(other)']+Lands_WLother
 summary_color='00FFFF00'
 error_color='00FF0000'
 white_color='FFFFFF'
+grey_color='D4D4D4'
 
 class NoInventoryFiles(Exception):
     pass
@@ -429,8 +430,44 @@ def create_MtCO2eq_rows(sheet,MtCO2eq_start_row,start_year,end_year,ch4co2eq,n2o
                           MtCO2eq_start_row+40,MtCO2eq_start_row+45],summary_color,1)
     return sheet
 
+def create_land_use_summary_formulas(sheet,start_col:int,ncols:int,result_row_ls:list,start_year:int,end_year:int,color,sheet_ref_ls:list):
+    """
+    sheet: excel_sheet
+    start_col: start column for time series
+    ncols: the nth column up to which to fill with formulas 
+    result_row: result row to contain the summation formula
+    start_year: start year of the inventory
+    end_year: end year of the inventory
+    color: cell fill color
+    sheet_ref_ls: reference to sheets to sum up
+    """
+    #For each row in the list
+    for result_row  in result_row_ls:
+        #For each column from start_col to ncols-1 (e.g. range(1,5) return [1,2,3,4])
+        for i in range(start_col,ncols):
+            #Find the cell in the result row and i'th columns
+            cell = openpyxl.cell.cell.Cell(sheet,result_row,i)
+            #Then cell cooridinates
+            cell_coordinate = cell.coordinate
+            #Drop the number part
+            cell_letter = xlp.cut_cell_number(cell_coordinate)
+            #From the list of references to the sheets to sum up
+            #create a summation string that contains also right row number
+            #We use the same row to collect results and attach the formula.
+            s=""
+            for sheet_ref in sheet_ref_ls:
+                s=s+sheet_ref+cell_letter+str(result_row)+'+'
+            #Remove last '+'
+            s = s[:-1]
+            formula = "="+s
+            #Attach the formula to the cell
+            sheet[cell_coordinate]=formula
+            #Fill sum rows with yellow, otherwise white
+            sheet[cell_coordinate].fill = openpyxl.styles.PatternFill(start_color=color, end_color=color,fill_type = "solid")
+    return sheet
+
 def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_template_file:str,uid_300_500_file:str,
-                          start_year:int,end_year:int,ch4co2eq,n2oco2eq):
+                          start_year:int,end_year:int,ch4co2eq,n2oco2eq,formulas:bool,gwp_str:str):
     missing_uid_dict = dict()
     writer = pd.ExcelWriter(scen_excel_file,engine='openpyxl')
     #Read inventory to dictionary: UID:time series
@@ -558,7 +595,8 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
                     df_wlother_summary = add_data_series(df_wlother_summary,data_series_ls,str(start_year),str(end_year),row_number)
                     check_land_class = 1
                 if check_land_class == 0:
-                    print("Land class not in summary sheets",uid,class_name)
+                    pass
+                    #print("Land class not in summary sheets",uid,class_name)
             else:
                 print("MISSING",class_name,uid)
                 missing_uid_dict[class_name].append(uid)
@@ -577,12 +615,14 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
     #Excel sheet for missing UID values
     missing_uid_df = pd.DataFrame.from_dict(missing_uid_dict,orient='index')
     #missing_uid_df = missing_uid_df.dropna()
+    print("Creating information sheets")
     uid_sheet_name="UIDMatrix UID not in Inventory"
     missing_uid_df.to_excel(writer,sheet_name=uid_sheet_name)
     #Excel sheet for GWP
     ls = [['CO2','CH4','N2O'],[1,ch4co2eq,n2oco2eq]]
     df = pd.DataFrame(ls)
-    gwp_sheet="GWP"
+    #Mark in sheet name if GWP4 or GWP5 (default)
+    gwp_sheet="GWP"+gwp_str
     df.to_excel(writer,sheet_name=gwp_sheet)
     df_lulucf.to_excel(writer,sheet_name='LULUCF')
     column_ls = df_lfl.columns
@@ -629,13 +669,14 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
     sheet_wlwl = sheets['WL_WL']
     sheet_lse = sheets['Lands_SE']
     sheet_lulucf = sheets['LULUCF']
+    print("Creating summary sheets")
     #Summation for LULUCF and land change classes: FL_Lands, Lands_FL etc.
     sheet_wlpeat_summary = create_sum_rows(sheet_wlpeat_summary,start_year,end_year)
     sheet_wlpeat_summary = create_MtCO2eq_rows(sheet_wlpeat_summary,76,start_year,end_year,ch4co2eq,n2oco2eq)
     sheet_wlflooded_summary = create_sum_rows(sheet_wlflooded_summary,start_year,end_year)
     sheet_wlflooded_summary = create_MtCO2eq_rows(sheet_wlflooded_summary,76,start_year,end_year,ch4co2eq,n2oco2eq)
     sheet_wlother_summary = create_sum_rows(sheet_wlother_summary,start_year,end_year)
-    sheet_wlfother_summary = create_MtCO2eq_rows(sheet_wlother_summary,76,start_year,end_year,ch4co2eq,n2oco2eq)
+    sheet_wlother_summary = create_MtCO2eq_rows(sheet_wlother_summary,76,start_year,end_year,ch4co2eq,n2oco2eq)
     sheet_fll = create_sum_rows(sheet_fll,start_year,end_year)
     sheet_fll = create_MtCO2eq_rows(sheet_fll,76,start_year,end_year,ch4co2eq,n2oco2eq)
     sheet_lfl = create_sum_rows(sheet_lfl,start_year,end_year)
@@ -657,8 +698,37 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
     sheet_lse = create_sum_rows(sheet_lse,start_year,end_year)
     sheet_lse = create_MtCO2eq_rows(sheet_lse,76,start_year,end_year,ch4co2eq,n2oco2eq)
     sheet_lulucf = create_lulucf_sum_rows(sheet_lulucf,start_year,end_year)
+    if formulas:
+        print("Creating formulas in summary sheets")
+        create_land_use_summary_formulas(sheet_fll,5,end_year-start_year+1+5,list(range(7,130)),start_year,end_year,grey_color,
+                                         ["'FL-CL'!","'FL-GL'!","'FL-WLpeat'!","'FL-WLflooded'!","'FL-WLother'!","'FL-SE'!"])
+        create_land_use_summary_formulas(sheet_lfl,5,end_year-start_year+1+5,list(range(7,130)),start_year,end_year,grey_color,
+                                         ["'CL-FL'!","'GL-FL'!","'WLpeat-FL'!","'WLother-FL'!","'SE-FL'!"])
+        create_land_use_summary_formulas(sheet_lcl,5,end_year-start_year+1+5,list(range(7,130)),start_year,end_year,grey_color,
+                                         ["'FL-CL'!","'GL-CL'!","'WLpeat-CL'!","'WLother-CL'!","'SE-CL'!"])
+        create_land_use_summary_formulas(sheet_lgl,5,end_year-start_year+1+5,list(range(7,130)),start_year,end_year,grey_color,
+                                         ["'FL-GL'!","'CL-GL'!","'WLPeat-GL'!","'WLother-GL'!","'SE-GL'!"])
+        create_land_use_summary_formulas(sheet_lse,5,end_year-start_year+1+5,list(range(7,130)),start_year,end_year,grey_color,
+                                         ["'FL-SE'!","'CL-SE'!","'GL-SE'!","'WLpeat-SE'!","'WLother-SE'!"])
+        create_land_use_summary_formulas(sheet_lwl,5,end_year-start_year+1+5,list(range(7,130)),start_year,end_year,grey_color,
+                                         ["Lands_WLpeat!","Lands_WLflooded!","Lands_WLother!"])
+        create_land_use_summary_formulas(sheet_wlwl,5,end_year-start_year+1+5,list(range(7,130)),start_year,end_year,grey_color,
+                                         ["'WL-WL(peatextraction)'!","'WLother-WLpeat'!","'WL-WL(flooded)'!","'WL-WL(other)'!","'WLpeat-WLother'!"])
+        create_land_use_summary_formulas(sheet_lwlpeat,5,end_year-start_year+1+5,list(range(7,130)),start_year,end_year,grey_color,
+                                         ["'FL-WLpeat'!","'CL-WLpeat'!","'GL-WLpeat'!"])
+        create_land_use_summary_formulas(sheet_lwlflooded,5,end_year-start_year+1+5,list(range(7,130)),start_year,end_year,grey_color,
+                                         ["'FL-WLflooded'!","'CL-WLflooded'!","'GL-WLflooded'!","'SE-WLflooded'!","'OL-WLflooded'!"])
+        create_land_use_summary_formulas(sheet_lwlother,5,end_year-start_year+1+5,list(range(7,130)),start_year,end_year,grey_color,
+                                         ["'FL-WLother'!","'CL-WLother'!","'GL-WLother'!"])
+        create_land_use_summary_formulas(sheet_wlother_summary,5,end_year-start_year+1+5,list(range(7,130)),start_year,end_year,grey_color,
+                                         ["'WL-WL(other)'!","'FL-WLother'!","'CL-WLother'!","'GL-WLother'!"])
+        create_land_use_summary_formulas(sheet_wlflooded_summary,5,end_year-start_year+1+5,list(range(7,130)),start_year,end_year,grey_color,
+                                         ["'WL-WL(flooded)'!","'FL-WLflooded'!","'CL-WLflooded'!","'GL-WLflooded'!","'SE-WLflooded'!","'OL-WLflooded'!"])
+        create_land_use_summary_formulas(sheet_wlpeat_summary,5,end_year-start_year+1+5,list(range(7,130)),start_year,end_year,grey_color,
+                                         ["'WL-WL(peatextraction)'!","'FL-WLpeat'!","'CL-WLpeat'!","'GL-WLpeat'!"])
     #Rotate sheets from the end to the beginning
     #ad hoc numbers to get summary sheets first
+    print("Rotating sheets: summary sheets first")
     workbook = writer.book
     workbook.move_sheet('WLpeat_summary',-110)
     workbook.move_sheet('WLflooded_summary',-110)
