@@ -175,22 +175,17 @@ The command line is as follows. The `[]` denotes optional arguments:
 - --files: Give scenario csv files (wild card search). The format of
 the files is the  same as in ghg inventory. A row consists of optional
 but highly recommended comment part, UID of the time series followed by the time series.
-
 - --scen: The template excel for results. The file is `<GHGInventoryDirectory>/ScenarioTemplate/ScenarioTemplate.xlsx`.
   It contains three sheets:
   - UIDMatrix: contains  UIDs  identifying times series.
   - LandUse: template for results for land use and land use change.
   - LULUCF: template for collecting LULUCF totals from land use and land use change. 
-
 - -m: The UID mapping file as in run-ghg-master.sh.
-
 - -o: Excel output file
-
 - --start: The start year of the scenario inventory
-
 - --end: The end year of the scenario inventory
-
 - --GWP: Global warming potential for CH4 and N2O, possible values AR4 (GHG inventory) or AR5 (default)
+- --formulas: Create excel formulas in summary sheets, default True
 
 For the sample command line set your working directory to
 `<GHGInventoryDirectory>`. Then, assuming the scenario result files
