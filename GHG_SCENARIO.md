@@ -54,12 +54,12 @@ groupings.
 
 `ghg-scenario.py` produces excel file for scenarios in three parts: 1) LULUCF summary
 sheet covering the whole inventory, 2) excel summary sheets for land use groupings and
-3) excel sheets for land use and land use change classes. In addition the first
-sheet lists UIDs in the UIDMatrix sheet that are not found in inventory input files.
-The second sheet contains GWPs used.
+3) excel sheets for land use and land use change classes.
 
-The land use grouping sheets are defined as follows. The undescore ('_') denotes
-lands use grouping (summary) and hyphen ('-') change in land use.
+In addition the first sheet lists UIDs in the UIDMatrix sheet that are not found
+in inventory input files. The second sheet contains GWPs used.
+
+The undescore ('_') in a sheet name denotes lands use grouping (summary) and hyphen ('-') change in land use.
 For example CL-FL means cropland to forest land:
 
  + Lands_FL = CL-FL + GL-FL + WLpeat-FL + WLother-FL + SE-FL
@@ -76,17 +76,16 @@ For example CL-FL means cropland to forest land:
  + WLflooded_summary = WL-WL(flooded) + Lands_WLflooded
  + WLother_summary = WL-WL(other) + Lands_WLother
 
-Wetlands summaries tell emissions from peat productions, artificial lakes, wetlands etc.
-regardless being remaining or converted areas.
+The three last wetlands summaries (WLpeat_summary, WLflooded_summary, WLother_summary) contain emissions
+from peat productions, artificial lakes, wetlands etc. regardless being remaining or converted areas.
 
 ### Color coding ###
 
-Yellow color denotes summary rows. Red color denotes missing values. The latter is not necessarily
+Yellow color in excel sheets denotes summary rows. Red color denotes missing values. The latter is not necessarily
 an error. The grey color in summary sheets denote formulas are used in excel cells.
 
 ## Usage ##
 
-`ghg-scenario.py` can generate excel file for ghg scenario calculations.
 The command line is as follows. The `[]` denotes optional arguments:
 
 	(lukeghg) prompt% ghg-scenario.py [-h] --files FILES  --scen SCEN \
