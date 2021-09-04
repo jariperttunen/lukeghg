@@ -111,9 +111,11 @@ in *C Update lukeghg python package*:
 - -c Location of the GHG inventory files
 - -n Location of the GHG iventory files for NIR section in CRFReporter
 - -i Location of the GHG inventory comment files for CRFReporter
-- -p Location of the empty (i.e. no inventory data) PartyProfile xml from CRFReporter 
-     (see **NB** at the end of chapter)
-- -x Location of the PartyProfile result file to be imported to CRFReporter
+- -p Location of the empty (i.e. no inventory data) PartyProfile xml from CRFReporter.
+     The naming convention is that it uses the name of the active inventory in CRFReporter.
+     (see also **NB** at the end of chapter)
+- -x Location of the PartyProfile result file to be imported to CRFReporter.
+     The naming convention is that it uses *_result* in addition of the name of the empty PartyProfile file. 
 - -y Inventory year (the last year in CRFReporter)
 
 Practical note: the options -b, -k,-l and -m (in `run-ghg-master.sh`, not shown here) 
