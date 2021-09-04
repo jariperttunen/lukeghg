@@ -117,13 +117,12 @@ in *C Update lukeghg python package*:
 - -y Inventory year (the last year in CRFReporter)
 
 Practical note: the options -b, -k,-l and -m (in `run-ghg-master.sh`, not shown here) 
-refer to ubiquitous configuration files that come with the lukeghg package. 
-Thus after downloading lukeghg from GitHub create *crf* and *PartyProfile* directories in
-`<GHGInventoryDirectory>` and run the `run-ghg-master.sh` script 
+refer to ubiquitous configuration files and directories that come with the lukeghg package. 
+Thus after downloading lukeghg from GitHub run the `run-ghg-master.sh` script 
 in `<GHGInventoryDirectory>`. 
 
 The xml for CRFReporter can be produced as follows. Make sure you are
-in `<GHGInventoryDirectory>`. First, copy GHG inventory files to crf directory:
+in `<GHGInventoryDirectory>`. First, copy GHG inventory files to *crf* directory:
 
 	(lukeghg) prompt% scp <user>@hirsi.in.metla.fi:/hsan2/khk/ghg/2019/crf/*.csv crf/
 
