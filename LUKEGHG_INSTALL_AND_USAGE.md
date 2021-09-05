@@ -154,6 +154,10 @@ directory. Note EU529 concerns KPLULUCF files only (LULUCF files are not missing
 
 **Tips**: Once you have this set-up you can use it also for the future inventories. 
 
+**NB:** CRFReporter checks that the version number of the PartyProfile 
+xml matches the CRFReporter version. Each CRFReporter version update requires new
+PartyProfile xml from CRFReporter.
+
 #### GHG inventory files
 The files are text (csv) files with white space as separator. Each line
 in the file represent one time series for an emission, some area etc.
@@ -163,10 +167,6 @@ of the time series and after that the time series itself. For example:
        #fl.to.cl# A4DB34A0-1847-401A-92BA-7CCE37611F1A -29.903 -28.157 -26.926 ... -14.865 -14.865 -14.865
 
 The *#* character denotes the beginning and the end of the comment. The UID (*A4DB3 ...611F1A*) is CRFReporter generated.
-
-**NB:** CRFReporter checks that the version number of the PartyProfile 
-xml matches the CRFReporter version. Each CRFReporter version update requires new
-PartyProfile xml from CRFReporter.
 
 ## E GHG Scenarios
 
