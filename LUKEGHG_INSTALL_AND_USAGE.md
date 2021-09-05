@@ -4,7 +4,7 @@ check missing work, compare results with previous year and generate some ubiquit
 
 ## Contents
 
-+ A Setup your working environment
++ A Create python virtual environment
 + B Install lukeghg python package
 + C Update  lukeghg python package
 + D GHG inventory to CRFReporter xml file
