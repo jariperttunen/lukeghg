@@ -98,8 +98,8 @@ and `wheel` must be upgraded too as in section *A Create python virtual envitonm
 
 ## D GHG inventory to CRFReporter xml file
 
-Probably the most important part in this manual. `run-ghg-master.sh` is a script that sets directories and files
-for the current ghg inventory and inserts inventory results to CRFReporter PartyProfile xml.
+`run-ghg-master.sh` is a script that sets directories and files for the current ghg inventory 
+and inserts inventory results to CRFReporter PartyProfile xml.
 
 The `run-ghg-master.sh`is located in [lukeghg/lukeghg/bin](lukeghg/lukeghg/bin)
 directory. Edit the following command options if needed and update *lukeghg* package
@@ -112,8 +112,7 @@ as  in *C Update lukeghg python package*:
      The naming convention is that it uses the name of the active inventory in CRFReporter.
      (see also **NB** at the end of chapter)
 - -x Location of the PartyProfile result file to be imported to CRFReporter.
-     It is in the same directory as the empty PartyProfile and the naming convention is 
-     that it uses *_result* in addition of the name of the empty PartyProfile file. 
+     The naming convention is  that it uses *_result* in addition of the name of the empty PartyProfile file. 
 - -y Inventory year (the last year in CRFReporter)
 
 `run-ghg-master.sh` contains also the options -b, -k,-l and -m (not shown here) that 
