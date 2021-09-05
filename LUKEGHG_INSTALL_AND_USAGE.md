@@ -36,15 +36,14 @@ Check you have the latest versions of setuptools and wheel:
 
 	(lukeghg) prompt% python3 -m pip install --upgrade setuptools wheel
 
-Tips: It might make sense to create python virtual environments under one directory
-(with name venv for example) in home directory. Easier to locate and remember.
+**Tips**: It might make sense to create all python virtual environments under one directory
+(with name *venv* for example): easier to locate and remember.
 
 ## B Install the lukeghg python package
-
-For GitHub you need to have *.gitconfig* in your home directory.
-See item G Version control at the end.
-
 We assume that the working directory will be in /data/shared/\<user\> in sorvi.
+For GitHub you need to have *.gitconfig* in your home directory.
+See *G Version control* at the end.
+
 In what follows `<GHGInventoryDirectory>` denotes the working directory and `<user>`
 the user name. Clone lukeghg from GitHub for example to `/data/shared/<user>/<GHGInventoryDirectory>`.
 
