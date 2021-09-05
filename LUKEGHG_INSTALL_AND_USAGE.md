@@ -102,7 +102,7 @@ and `wheel` must be upgraded too as in section *A Create python virtual envitonm
 and inserts inventory results to CRFReporter PartyProfile xml.
 
 The [`run-ghg-master.sh`](lukeghg/lukeghg/bin/run-ghg-master.sh) is located in [lukeghg/lukeghg/bin](lukeghg/lukeghg/bin)
-directory. Edit the following command options if needed and update *lukeghg* package
+directory. Edit the following command options if needed and update lukeghg package
 as  in *C Update lukeghg python package*:
 
 - -c Location of the GHG inventory files
