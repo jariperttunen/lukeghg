@@ -131,10 +131,12 @@ Second, copy GHG inventory files to *crf* directory:
 	(lukeghg) prompt% scp <user>@hirsi.in.metla.fi:/hsan2/khk/ghg/2019/crf/*.csv crf/
 
 It has been practice that all GHG inventory files are in the same *crf* directory.
-Be sure the read rights to the files exists. Then download PartyProfile xml 
-from CRFReporter and copy it to *PartyProfile* directory. Rename as denoted by the `-p` 
-option in `run-ghg-master.sh`. To produce the PartyProfile  result file filled with the 
-GHG inventory results type the two commands:
+Be sure the read rights to the files exists. 
+
+Third, download PartyProfile xml from CRFReporter and copy it to *PartyProfile* directory. 
+Rename as denoted by the `-p`  option in `run-ghg-master.sh`. 
+
+To produce the PartyProfile  result file filled with the  GHG inventory results type the two commands:
 
 	(lukeghg) prompt% convertutf8.py -f crf/'*.csv'
 	(lukeghg) prompt% run-ghg-master.sh > Import.log 2> Error.log
