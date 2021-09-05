@@ -18,7 +18,7 @@ The instructions are for `bash` shell in sorvi.  Your default shell
 might be for example `tcsh` and you must for instance adjust hyphens
 in command lines containing wild card searches accordingly.
 
-## A Setup your working environment
+## A Create python virtual environment
 
 Create python virtual environment (called e.g. lukeghg) in your home directory
 (The *prompt%* denotes your terminal command line prompt):
@@ -57,6 +57,8 @@ Create the wheel package for lukeghg and install it to your virtual environment
 	(lukeghg) prompt% cd <GHGInventoryDirectory>/lukeghg/lukeghg
 	(lukeghg) prompt% python3 setup.py sdist bdist_wheel
 	(lukeghg) prompt% python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
+
+Now all the command line programs in lukeghg package are available. 
 
 ## C Update lukeghg python package
 
