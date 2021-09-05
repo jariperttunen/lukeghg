@@ -88,7 +88,7 @@ can see the *setup.py*  file.
 
 The `pip`command line allows other ways to achieve the same result but
 this seems to be straightforward. Note that if `pip` is upgraded then `setuptools` 
-and `wheel` must be upgraded too as in section **A Setup your working environment**.  
+and `wheel` must be upgraded too as in section *A Setup your working environment*.  
 
 ## D GHG inventory to CRFReporter xml file
 
