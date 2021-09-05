@@ -152,7 +152,7 @@ The final step is to import the PartyProfile result file to CRFReporter.
 For EU529 inventory there is similar `run-eu529-ghg-master.sh` script  in [lukeghg/lukeghg/bin](lukeghg/lukeghg/bin)
 directory. Note EU529 concerns KPLULUCF files only (LULUCF files are not missing by accident).
 
-**Tips**: Once you have this set-up or framework you can use it in the future. 
+**Tips**: Once you have this set-up you can use it also for the future inventories. 
 
 #### GHG inventory files
 The files are text (csv) files with white space as separator. Each line
