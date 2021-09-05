@@ -131,16 +131,16 @@ Second, copy GHG inventory files to *crf* directory:
 	(lukeghg) prompt% scp <user>@hirsi.in.metla.fi:/hsan2/khk/ghg/2019/crf/*.csv crf/
 
 It has been practice that all GHG inventory files are in the same *crf* directory.
-Be sure the read rights to the files exists. Then, if needed, download PartyProfile xml 
+Be sure the read rights to the files exists. Then download PartyProfile xml 
 from CRFReporter and copy it to *PartyProfile* directory. Rename as denoted by the `-p` 
 option in `run-ghg-master.sh`. To produce the PartyProfile  result file filled with the 
 GHG inventory results type the two commands:
 
-	(lukeghg) prompt% convertutf8 -f crf/'*.csv'
+	(lukeghg) prompt% convertutf8.py -f crf/'*.csv'
 	(lukeghg) prompt% run-ghg-master.sh > Import.log 2> Error.log
 
 The GHG inventory result files (csv files) seem to use different encoding systems.
-`convertutf8` converts them to utf8 if needed (this is why they need to be copied 
+`convertutf8.py` converts them to utf8 if needed (this is why they need to be copied 
 with `scp` to *crf* directory first). 
 
 The script `run-ghg-master.sh` will run few minutes at most. 
@@ -149,7 +149,7 @@ and `2>` redirects standard error terminal output to *Error.log* file.
 
 The final step is to import the PartyProfile result file to CRFReporter.
 
-For EU529 there is similar `run-eu529-ghg-master.sh` script  in [lukeghg/lukeghg/bin](lukeghg/lukeghg/bin)
+For EU529 inventory there is similar `run-eu529-ghg-master.sh` script  in [lukeghg/lukeghg/bin](lukeghg/lukeghg/bin)
 directory. Note EU529 concerns KPLULUCF files only (LULUCF files are not missing by accident).
 
 **Tips**: Once you have this set-up or framework you can use it in the future. 
