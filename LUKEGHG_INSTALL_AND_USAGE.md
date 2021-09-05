@@ -36,25 +36,15 @@ Check you have the latest versions of setuptools and wheel:
 
 	(lukeghg) prompt% python3 -m pip install --upgrade setuptools wheel
 
-Create public private keys for ssh login to hirsi:
-
-The manual for the sorvi server has good instructions but in short you do the
-following two commands:
-
-	(lukeghg) prompt% ssh-keygen -t rsa -b 4096
-	(lukeghg) prompt% ssh-copy-id <username>@hirsi.in.metla.fi
-
-Now you should be able to login to hirsi.in.metla.fi with ssh (without
-password). Check that this is possible. You will need this when
-generating NIR Table 6.1-2 with `lulucf-table-612.py` (F Some other useful programs):
-
-	(lukeghg) prompt% ssh  hirsi.in.metla.fi
+Tips: It might make sense to create python virtual environments under one directory
+(with name venv for example) in home directory. Easier to locate and remember.
 
 ## B Install the lukeghg python package
 
 For GitHub you need to have *.gitconfig* in your home directory.
 See item G Version control at the end.
 
+We assume that the working directory will be in /data/shared/\<user\> in sorvi.
 In what follows `<GHGInventoryDirectory>` denotes the working directory and `<user>`
 the user name. Clone lukeghg from GitHub for example to `/data/shared/<user>/<GHGInventoryDirectory>`.
 
