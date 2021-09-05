@@ -40,25 +40,28 @@ Check you have the latest versions of setuptools and wheel:
 (with name *venv* for example): easier to locate and remember.
 
 ## B Install the lukeghg python package
-We assume that the working directory will be in /data/shared/\<user\> in sorvi.
-For GitHub you need to have *.gitconfig* in your home directory.
-See *G Version control* at the end.
+We assume that the working directory will be in /data/shared/\<user\> in sorvi
+where \<user\> denotes user name. For GitHub you need to have *.gitconfig* 
+in your home directory. See *G Version control* at the end.
 
-In what follows `<GHGInventoryDirectory>` denotes the working directory and `<user>`
-the user name. Clone lukeghg from GitHub for example to `/data/shared/<user>/<GHGInventoryDirectory>`.
+Create *GHGInventory* directory and clone lukeghg from GitHub. 
 
 	(lukeghg) prompt% cd /data/shared/<user>
-	(lukeghg) prompt% mkdir <GHGInventoryDirectory>
-	(lukeghg) prompt% cd <GHGInventoryDirectory>
+	(lukeghg) prompt% mkdir GHGInvenory
+	(lukeghg) prompt% cd GHGInventory
 	(lukeghg) prompt% git clone https://github.com/jariperttunen/lukeghg.git
 
-Create the wheel package for lukeghg and install it to your virtual environment
+Create the *wheel package* for lukeghg and install it to your virtual environment
 
-	(lukeghg) prompt% cd <GHGInventoryDirectory>/lukeghg/lukeghg
+	(lukeghg) prompt% cd GHGInventory/lukeghg/lukeghg
 	(lukeghg) prompt% python3 setup.py sdist bdist_wheel
 	(lukeghg) prompt% python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
 
 Now all the command line programs in lukeghg package are available. 
+
+**Tips**: Naturally you can organise your work as you like including directory names. 
+But as we will see lukeghg package contains template and configuration files that make 
+the use of command line programs easier.
 
 ## C Update lukeghg python package
 
@@ -71,24 +74,27 @@ prompt). The `~` character refers to your home directory.
 	prompt% source ~/lukeghg/bin/activate
 	(lukeghg) prompt%
 
-Update lukeghg package from GitHub. Make sure you are in
-`<GHGInventoryDirectory>/lukeghg/` directory:
+Update lukeghg package from GitHub. Make sure you are in `/data/shared/<user>/GHGInventory/lukeghg/` directory:
 
+	(lukeghg) prompt% cd /data/shared/<user>/GHGInventory/lukeghg/
 	(lukeghg) prompt% git pull
 
 Update your lukeghg virtual environment next. As with the installation
 recreate the wheel package, but now first remove the lukeghg package
 and then upgrade lukeghg and its dependencies.
-Make sure you are in `<GHGInventoryDirectory>/lukeghg/lukeghg` where you
+Make sure you are in `/data/shared/<users>/GHGInventory/lukeghg/lukeghg` where you
 can see the *setup.py*  file.
 
+	(lukeghg) prompt% cd data/shared/<user>/GHGInventory/lukeghg/lukeghg
 	(lukeghg) prompt% python3 setup.py sdist bdist_wheel
 	(lukeghg) prompt% python3 -m pip uninstall lukeghg
 	(lukeghg) prompt% python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
 
 The `pip`command line allows other ways to achieve the same result but
 this seems to be straightforward. Note that if `pip` is upgraded then `setuptools` 
-and `wheel` must be upgraded too as in section *A Setup your working environment*.  
+and `wheel` must be upgraded too as in section *A Create python virtual envitonment*.  
+
+**Tips**: Note we had to move a a bit inside the lukeghg package.
 
 ## D GHG inventory to CRFReporter xml file
 
@@ -96,8 +102,8 @@ Probably the most important part in this manual. `run-ghg-master.sh` is a script
 for the current ghg inventory and inserts inventory results to CRFReporter PartyProfile xml.
 
 The `run-ghg-master.sh`is located in [lukeghg/lukeghg/bin](lukeghg/lukeghg/bin)
-directory. Edit the following command options if needed and update *lukeghg* as 
-in *C Update lukeghg python package*:
+directory. Edit the following command options if needed and update *lukeghg* package
+as  in *C Update lukeghg python package*:
 
 - -c Location of the GHG inventory files
 - -n Location of the GHG iventory files for NIR section in CRFReporter
@@ -106,24 +112,30 @@ in *C Update lukeghg python package*:
      The naming convention is that it uses the name of the active inventory in CRFReporter.
      (see also **NB** at the end of chapter)
 - -x Location of the PartyProfile result file to be imported to CRFReporter.
-     The naming convention is that it uses *_result* in addition of the name of the empty PartyProfile file. 
+     It is in the same directory as the empty PartyProfile and the naming convention is 
+     that it uses *_result* in addition of the name of the empty PartyProfile file. 
 - -y Inventory year (the last year in CRFReporter)
 
-Practical note: the options -b, -k,-l and -m (in `run-ghg-master.sh`, not shown here) 
+`run-ghg-master.sh` contains also the options -b, -k,-l and -m (not shown here) that 
 refer to ubiquitous configuration files and directories that come with the lukeghg package. 
-Thus after downloading lukeghg from GitHub run the `run-ghg-master.sh` script 
-in `<GHGInventoryDirectory>`. 
 
-The xml for CRFReporter can be produced as follows. Make sure you are
-in `<GHGInventoryDirectory>`. First, copy GHG inventory files to *crf* directory:
+#### Produce CRFReporter xml file
+Make sure you are in /data/shared/\<user\>/GHGInventory/. First, create *crf* and *PartyProfile*
+directories:
+
+	(lukeghg) prompt% cd /data/shared/<user>/GHGInventory/
+	(lukeghg) prompt% mkdir crf
+	(lukeghg( prompt% mkdir PartyProfile
+
+Second, copy GHG inventory files to *crf* directory:
 
 	(lukeghg) prompt% scp <user>@hirsi.in.metla.fi:/hsan2/khk/ghg/2019/crf/*.csv crf/
 
 It has been practice that all GHG inventory files are in the same *crf* directory.
 Be sure the read rights to the files exists. Then, if needed, download PartyProfile xml 
 from CRFReporter and copy it to *PartyProfile* directory. Rename as denoted by the `-p` 
-option in `run-ghg-master.sh`. To produce the PartyProfile  result file  filled with the 
-GHG inventory results (the option `-x`) type the two commands:
+option in `run-ghg-master.sh`. To produce the PartyProfile  result file filled with the 
+GHG inventory results type the two commands:
 
 	(lukeghg) prompt% convertutf8 -f crf/'*.csv'
 	(lukeghg) prompt% run-ghg-master.sh > Import.log 2> Error.log
@@ -136,10 +148,12 @@ The script `run-ghg-master.sh` will run few minutes at most.
 The `>`character redirects standard out terminal output to *Import.log* file 
 and `2>` redirects standard error terminal output to *Error.log* file.
 
-The final step is to import the PartyProfile result file from CRFReporter.
+The final step is to import the PartyProfile result file to CRFReporter.
 
 For EU529 there is similar `run-eu529-ghg-master.sh` script  in [lukeghg/lukeghg/bin](lukeghg/lukeghg/bin)
 directory. Note EU529 concerns KPLULUCF files only (LULUCF files are not missing by accident).
+
+**Tips**: Once you have this set-up or framework you can use it in the future. 
 
 #### GHG inventory files
 The files are text (csv) files with white space as separator. Each line
@@ -158,17 +172,17 @@ PartyProfile xml from CRFReporter.
 ## E GHG Scenarios
 
 `ghg-scenario.py` can generate excel file for ghg scenario calculations.
-The command line is as follows. The `[]` denotes optional arguments:
+The command line is as follows. The `[]` denotes optional arguments. In `bash` 
+the `\` character denotes the command line continues to the next line:
 
 	(lukeghg) prompt% ghg-scenario.py [-h] --files FILES  --scen SCEN \
-     -m M -o O --start START --end END [--GWP GWP] [--noformulas]
+                          -m M -o O --start START --end END [--GWP GWP] [--noformulas]
      
 - -h: python help
 - --files: Give scenario csv files (wild card search). The format of
 the files is the  same as in ghg inventory. A row consists of optional
 but highly recommended comment part, UID of the time series followed by the time series.
-- --scen: The template excel for results. The file is `<GHGInventoryDirectory>/ScenarioTemplate/ScenarioTemplate.xlsx`.
-  It contains three sheets:
+- --scen: The template excel in lukeghg for results. It contains three sheets:
   - UIDMatrix: contains  UIDs  identifying times series.
   - LandUse: template for results for land use and land use change.
   - LULUCF: template for collecting LULUCF totals from land use and land use change. 
@@ -177,15 +191,13 @@ but highly recommended comment part, UID of the time series followed by the time
 - --start: The start year of the scenario inventory
 - --end: The end year of the scenario inventory
 - --GWP: Global warming potential for CH4 and N2O, possible values AR4 (GHG inventory) or AR5 (default)
-- --noformulas: Sum up summary sheets. Default: Use excel formulas in summary sheets
+- --noformulas: Sum up summary sheets. Default: Not present, use excel formulas in summary sheets
 
-For the sample command line set your working directory to
-`<GHGInventoryDirectory>`. Then, assuming the scenario result files
-are in DGClima directory type the following. In `bash`the `\` character denotes the
-command line continues to the next line.:
+For the sample command line set your working directory to *GHGInventory* (as in *D GHG inventory to CRFReporter xml file*). 
+Then, assuming the scenario result files are under *hiisi* directory type:
 
-	(lukeghg) prompt% ghg-scenario.py --files 'hiisi/wem/crf/LU*.csv' --scen lukeghg/ScenarioTemplate/ScenarioTemplate.xlsx -m lukeghg/300_500_mappings_1.1.csv \
-      -o Hiisi.xlsx --start 1990 --end 2050
+	(lukeghg) prompt% ghg-scenario.py --files 'hiisi/wem/crf/LU*.csv' --scen lukeghg/ScenarioTemplate/ScenarioTemplate.xlsx \ 
+	          -m lukeghg/300_500_mappings_1.1.csv -o Hiisi_1990_2050.xlsx --start 1990 --end 2050
 
 For further details see [GHG_SCENARIO](GHG_SCENARIO.md).
 
