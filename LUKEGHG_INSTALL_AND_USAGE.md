@@ -150,8 +150,8 @@ and `2>` redirects standard error terminal output to *Error.log* file.
 
 The final step is to import the PartyProfile result file to CRFReporter.
 
-For EU529 inventory there is similar `run-eu529-ghg-master.sh` script  in [lukeghg/lukeghg/bin](lukeghg/lukeghg/bin)
-directory. Note EU529 concerns KPLULUCF files only (LULUCF files are not missing by accident).
+For EU529 inventory there is similar [`run-eu529-ghg-master.sh`](lukeghg/lukeghg/bin/run-eu529-ghg-master.sh)
+script  in [lukeghg/lukeghg/bin](lukeghg/lukeghg/bin) directory. Note EU529 concerns KPLULUCF files only (LULUCF files are not missing by accident).
 
 **Tips**: Once you have this set-up you can use it also for the future inventories. 
 
