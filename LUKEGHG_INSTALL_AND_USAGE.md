@@ -36,8 +36,8 @@ Check you have the latest versions of setuptools and wheel:
 
 	(lukeghg) prompt% python3 -m pip install --upgrade setuptools wheel
 
-**Tips**: It might make sense to create all python virtual environments under one directory
-(with name *venv* for example): easier to locate and remember.
+**Tips**: Consider creating all python virtual environments under one directory
+(*venv* for example): easier to locate and remember.
 
 ## B Install the lukeghg python package
 We assume that the working directory will be in /data/shared/\<user\> in sorvi
