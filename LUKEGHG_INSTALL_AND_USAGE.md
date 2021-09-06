@@ -150,8 +150,9 @@ The final step is to import the PartyProfile result file to CRFReporter.
 For EU529 inventory there is similar [`run-eu529-ghg-master.sh`](lukeghg/lukeghg/bin/run-eu529-ghg-master.sh). 
 Note EU529 concerns KPLULUCF files only (LULUCF files are not missing by accident).
 
-**Tips**: Once you have this set-up you can use it also for the future inventories. Each year CRFReporter 
-requires [manual work](CRFREPORTER_ANNUAL_CHECK.md) that needs to be done.
+**Tips**: Once you have this set-up you can use it also for the future inventories. Always check that
+you have the right active inventory in CRFReporter. Each year CRFReporter requires 
+[manual work](CRFREPORTER_ANNUAL_CHECK.md) that needs to be done.
 
 **NB:** CRFReporter checks that the version number of the PartyProfile 
 xml matches the CRFReporter version. Each CRFReporter version update requires new
