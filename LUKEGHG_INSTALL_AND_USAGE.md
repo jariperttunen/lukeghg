@@ -118,8 +118,8 @@ as  in *C Update lukeghg python package*:
 refer to ubiquitous configuration files and directories that come with the lukeghg package. 
 
 #### Produce CRFReporter xml file
-Make sure you are in /data/shared/\<user\>/GHGInventory/. First, create *crf* and *PartyProfile*
-directories:
+Make sure you have activated python virtual environment and you are in /data/shared/\<user\>/GHGInventory/. 
+First, create *crf* and *PartyProfile* directories:
 
 	(lukeghg) prompt% cd /data/shared/<user>/GHGInventory/
 	(lukeghg) prompt% mkdir crf
@@ -129,8 +129,8 @@ Second, copy GHG inventory files to *crf* directory:
 
 	(lukeghg) prompt% scp <user>@hirsi.in.metla.fi:/hsan2/khk/ghg/2019/crf/*.csv crf/
 
-It has been practice that all GHG inventory files are in the same *crf* directory.
-Be sure the read rights to the files exists. 
+It has been practice that all GHG inventory results are by year in the same *crf* directory on the server.
+Be sure the read rights for the files exists. 
 
 Third, download PartyProfile xml from CRFReporter and copy it to *PartyProfile* directory. 
 Rename as denoted by the `-p`  option in `run-ghg-master.sh`. 
