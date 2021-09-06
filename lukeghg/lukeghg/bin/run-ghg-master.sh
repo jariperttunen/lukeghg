@@ -4,6 +4,7 @@
 #See GitHub https://github.com/jariperttunen/lukeghg InstallAndUpdateLukeGHG.md
 #to setup 'lukeghg' python virtual environment and usage. 
 #To redirect output type e.g.: run-ghg-master.sh > output.txt 2> errors.txt.  
+#Check python virtual environment for lukeghg is activated:
 source ~/lukeghg/bin/activate
 ghg-master.py -c "crf/[KPLU]*.csv" -p PartyProfile/PartyProfile_FIN_2021_3.xml\
 	      -x PartyProfile/PartyProfile_FIN_2021_3_result.xml\
