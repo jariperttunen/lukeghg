@@ -12,7 +12,7 @@ check missing work, compare results with previous year and generate some ubiquit
 + F Some other useful programs
 + Version control
 + Notes on hirsi server
-+ References
++ Reading
 
 The instructions are for `bash` shell in sorvi.  Your default shell
 might be for example `tcsh` and you must for instance adjust hyphens
@@ -273,7 +273,7 @@ hirsi server will be phased out in the near future (winter, spring 2021).
 The parts of the manual refering to hirsi are due to change to reflect  the fact
 the GHG inventory will be done in sorvi completely.
 
-## References
+## Reading
 
 + https://sorvi-int1.ns.luke.fi/sorvi-guides/ug/
 + https://docs.python.org/3/library/venv.html
