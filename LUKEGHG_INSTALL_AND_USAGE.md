@@ -57,7 +57,8 @@ Create the *wheel package* for lukeghg and install it to your virtual environmen
 	(lukeghg) prompt% python3 setup.py sdist bdist_wheel
 	(lukeghg) prompt% python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
 
-Now all the command line programs in lukeghg package are available. 
+Now all the command line programs in lukeghg package are available located in
+[lukeghg/lukeghg/bin](lukeghg/lukeghg/bin).
 
 **Tips**: Naturally you can organise your work as you like including directory names. 
 But as we will see lukeghg package contains template and configuration files that make 
@@ -98,11 +99,9 @@ and `wheel` must be upgraded too as in section *A Create python virtual envitonm
 
 ## D GHG inventory to CRFReporter xml file
 
-`run-ghg-master.sh` is a script that sets directories and files to insert GHG inventory results to CRFReporter PartyProfile xml.
-
-The [`run-ghg-master.sh`](lukeghg/lukeghg/bin/run-ghg-master.sh) is located in [lukeghg/lukeghg/bin](lukeghg/lukeghg/bin)
-directory. Edit the following command options if needed and update lukeghg package
-as  in *C Update lukeghg python package*:
+[`run-ghg-master.sh`](lukeghg/lukeghg/bin/run-ghg-master.sh) is a script that sets directories 
+and files to insert GHG inventory results to CRFReporter PartyProfile xml. Edit the following command 
+options if needed and update lukeghg package as  in *C Update lukeghg python package*:
 
 - -c Location of the GHG inventory files
 - -n Location of the GHG iventory files for NIR section in CRFReporter
@@ -111,53 +110,52 @@ as  in *C Update lukeghg python package*:
      The naming convention is that it uses the name of the active inventory in CRFReporter.
      (see also **NB** at the end of chapter)
 - -x Location of the PartyProfile result file to be imported to CRFReporter.
-     The naming convention is  that it uses *_result* in addition of the name of the empty PartyProfile file. 
+     The naming convention is  that it appens *_result* to the empty PartyProfile file name. 
 - -y Inventory year (the last year in CRFReporter)
 
 `run-ghg-master.sh` contains also the options -b, -k,-l and -m (not shown here) that 
 refer to ubiquitous configuration files and directories that come with the lukeghg package. 
 
 #### Produce CRFReporter xml file
-Make sure you have activated python virtual environment and you are in /data/shared/\<user\>/GHGInventory/. 
-First, create *crf* and *PartyProfile* directories:
+
+Make sure you have activated *lukeghg* python virtual environment and you are in */data/shared/\<user\>/GHGInventory*. 
+Then create *crf* and *PartyProfile* directories for GHG Inventory result files and PartyProfile xml files respectively:
 
 	(lukeghg) prompt% cd /data/shared/<user>/GHGInventory/
 	(lukeghg) prompt% mkdir crf
 	(lukeghg( prompt% mkdir PartyProfile
 
-Second, copy GHG inventory files to *crf* directory:
+Copy GHG inventory files to *crf* directory:
 
 	(lukeghg) prompt% scp <user>@hirsi.in.metla.fi:/hsan2/khk/ghg/2019/crf/*.csv crf/
 
-It has been practice that all GHG inventory results are by year in the same *crf* directory on the server.
+It has been practice that all GHG inventory results are by year in the same *ghg/\<year\>/crf* directory on the server.
 Be sure the read rights for the files exists. 
 
-Third, download PartyProfile xml from CRFReporter and copy it to *PartyProfile* directory. 
-Rename as denoted by the `-p`  option in `run-ghg-master.sh`. 
-
-To produce the PartyProfile  result file filled with the  GHG inventory results type the two commands:
+Download PartyProfile xml from CRFReporter and copy it to *PartyProfile* directory. 
+Rename as denoted by the `-p`  option in `run-ghg-master.sh`. To produce the PartyProfile 
+result file filled with the  GHG inventory results type the two commands:
 
 	(lukeghg) prompt% convertutf8.py -f crf/'*.csv'
 	(lukeghg) prompt% run-ghg-master.sh > Import.log 2> Error.log
 
 The GHG inventory result files (csv files) seem to use different encoding systems.
 `convertutf8.py` converts them to utf8 if needed (this is why they need to be copied 
-with `scp` to *crf* directory first). 
-
-The script `run-ghg-master.sh` will run few minutes at most. 
+with `scp` to *crf* directory first).  The script `run-ghg-master.sh` will run few minutes at most. 
 The `>`character redirects standard out terminal output to *Import.log* file 
 and `2>` redirects standard error terminal output to *Error.log* file.
 
 The final step is to import the PartyProfile result file to CRFReporter.
 
-For EU529 inventory there is similar [`run-eu529-ghg-master.sh`](lukeghg/lukeghg/bin/run-eu529-ghg-master.sh)
-script  in [lukeghg/lukeghg/bin](lukeghg/lukeghg/bin) directory. Note EU529 concerns KPLULUCF files only (LULUCF files are not missing by accident).
+For EU529 inventory there is similar [`run-eu529-ghg-master.sh`](lukeghg/lukeghg/bin/run-eu529-ghg-master.sh). 
+Note EU529 concerns KPLULUCF files only (LULUCF files are not missing by accident).
 
-**Tips**: Once you have this set-up you can use it also for the future inventories. 
+**Tips**: Once you have this set-up you can use it also for the future inventories. Each year CRFReporter 
+requires [manual work](CRFREPORTER_ANNUAL_CHECK.md) that needs to be done.
 
 **NB:** CRFReporter checks that the version number of the PartyProfile 
 xml matches the CRFReporter version. Each CRFReporter version update requires new
-PartyProfile xml from CRFReporter.
+PartyProfile xml from CRFReporter even during the same active inventory. 
 
 #### GHG inventory files
 The files are text (csv) files with white space as separator. Each line
@@ -193,11 +191,12 @@ but highly recommended comment part, UID of the time series followed by the time
 - --GWP: Global warming potential for CH4 and N2O, possible values AR4 (GHG inventory) or AR5 (default)
 - --noformulas: Sum up summary sheets. Default: Not present, use excel formulas in summary sheets
 
-For the sample command line set your working directory to *GHGInventory* (as in *D GHG inventory to CRFReporter xml file*). 
-Then, assuming the scenario result files are under *hiisi* directory type:
+For the sample command line set your working directory to *GHGInventory* 
+(as in *D GHG inventory to CRFReporter xml file*).  Then, assuming the scenario result 
+files are under *hiisi* directory type:
 
-	(lukeghg) prompt% ghg-scenario.py --files 'hiisi/wem/crf/LU*.csv' --scen lukeghg/ScenarioTemplate/ScenarioTemplate.xlsx \ 
-	          -m lukeghg/300_500_mappings_1.1.csv -o Hiisi_1990_2050.xlsx --start 1990 --end 2050
+(lukeghg) prompt% ghg-scenario.py --files 'hiisi/wem/crf/LU*.csv' --scen lukeghg/ScenarioTemplate/ScenarioTemplate.xlsx \
+	                  -m lukeghg/300_500_mappings_1.1.csv -o Hiisi_1990_2050.xlsx --start 1990 --end 2050
 
 For further details see [GHG_SCENARIO](GHG_SCENARIO.md).
 
