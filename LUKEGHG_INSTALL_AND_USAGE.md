@@ -263,8 +263,8 @@ In the command line example inventory files are in 'crf' directory.
 
 ## Version control
 
-Currently *lukeghg* is in GitHub. Sample gitgonfig file for git is available
-in Git directory. Edit email and your name and install it as *.gitconfig* in your home directory. 
+Currently *lukeghg* is in GitHub. Sample gitgonfig file for git is available in [Git](Git) directory. 
+Edit email and your name and install it as *.gitconfig* in your home directory. 
 
 ## Notes on hirsi-server
 
