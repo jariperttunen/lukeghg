@@ -8,7 +8,6 @@
 if [ test -e ~/lukeghg/bin/activate ]
 then
 	source ~/lukeghg/bin/activate
-fi
 elif [ test -e ~/venv/lukeghg/bin/activate ]
 then
 	source  ~/venv/lukeghg/bin/activate
