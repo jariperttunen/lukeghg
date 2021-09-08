@@ -8,10 +8,10 @@ each line is of format:
 
     #comment# UID_TO UID1_FROM [UID2_FROM .... UIDN_FROM]
 
-UID_TO is the CRFReporter UID and the sums of time series in UID1_FROM ... UIDN_FROM are calculated 
-and inserted to PartProfile xml as a single unit.
+UID_TO is the CRFReporter UID and the sums of time series in UID1_FROM ... UIDN_FROM found 
+are calculated  and inserted to PartProfile xml as a single unit.
 
-Usually there are two sources (agriculture and forestry) with the same UID_FROM 
+Routinely there are two sources (agriculture and forestry) with the same UID_FROM 
 and also UID_TO is (usually) the same as UID_FROM.
 
 If necessary insert the data (UID) to following two files:
