@@ -87,7 +87,7 @@ recreate the wheel package, but now first remove the lukeghg package
 and then upgrade lukeghg and its dependencies.
 Make sure you are in `/data/shared/<user>/GHGInventory/lukeghg/lukeghg`:
 
-	(lukeghg) prompt% cd data/shared/<user>/GHGInventory/lukeghg/lukeghg
+	(lukeghg) prompt% cd /data/shared/<user>/GHGInventory/lukeghg/lukeghg
 	(lukeghg) prompt% python3 setup.py sdist bdist_wheel
 	(lukeghg) prompt% python3 -m pip uninstall lukeghg
 	(lukeghg) prompt% python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
