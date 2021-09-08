@@ -4,12 +4,12 @@ check missing work, compare results with previous year and generate some ubiquit
 
 ## Contents
 
-+ 1. Create python virtual environment
-+ 2. Install lukeghg python package
-+ 3. Update  lukeghg python package
-+ 4. GHG inventory to CRFReporter xml file
-+ 5. GHG Scenarios
-+ 6. Some other useful programs
++ 1\. Create python virtual environment
++ 2\. Install lukeghg python package
++ 3\. Update  lukeghg python package
++ 4\. GHG inventory to CRFReporter xml file
++ 5\. GHG Scenarios
++ 6\. Some other useful programs
 + Version control
 + Notes on hirsi server
 + Reading
@@ -62,7 +62,7 @@ Now all the command line programs in lukeghg package are available located in
 
 **Tips**: Naturally you can organise your work as you like including directory names. 
 But as we will see lukeghg package contains template and configuration files that make 
-the use of command line programs easier.
+the use of command line programs easier. So try this first and improve later.
 
 ## 3. Update lukeghg python package
 
