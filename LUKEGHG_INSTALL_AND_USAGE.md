@@ -1,7 +1,7 @@
 # lukeghg: Installation and usage in sorvi server
 The *lukeghg* python package contains command line tools to generate CRFReporter xml file from 
 GHG inventory results for CRFReporter import, check missing work, compare results with 
-previous year and generate some ubiquitous NIR tables. There are no intensions to make graphical user interface.
+previous year and generate some ubiquitous NIR tables. There are no intentions to make graphical user interface.
 
 ## Contents
 
@@ -62,6 +62,9 @@ Now all the command line programs in lukeghg package are available located in
 [lukeghg/lukeghg/bin](lukeghg/lukeghg/bin). `pip` may require upgrade with instructions. 
 After that upgrade also *sdist* and *bdist_wheel*.
 
+	(lukeghg) prompt% python3 -m pip install --upgrade pip
+	(lukeghg) prompt% python3 -m pip install --upgrade sdist bdist_wheel
+
 **Tips**: Naturally you can organise your work as you like including directory names. 
 But as we will see lukeghg package contains template and configuration files that make 
 the use of command line programs easier. So try this first and improve later.
@@ -94,9 +97,11 @@ can see the *setup.py*  file.
 	(lukeghg) prompt% python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
 
 The `pip`command line allows other ways to achieve the same result but
-this seems to be straightforward. `pip` may require upgrade (*1. Create python virtual envitonment*).  
+this seems to be straightforward. 
 
-**Tips**: Note we had to move around a bit inside the lukeghg package.
+**Tips**: Note we had to move around a bit inside the lukeghg package. 
+`pip` may require upgrade. 
+
 
 ## 4. GHG inventory to CRFReporter xml file
 
