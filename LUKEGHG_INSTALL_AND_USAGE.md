@@ -94,7 +94,7 @@ can see the *setup.py*  file.
 
 The `pip`command line allows other ways to achieve the same result but
 this seems to be straightforward. Note that if `pip` is upgraded then `setuptools` 
-and `wheel` must be upgraded too as in section *A Create python virtual envitonment*.  
+and `wheel` must be upgraded too as in section *1. Create python virtual envitonment*.  
 
 **Tips**: Note we had to move around a bit inside the lukeghg package.
 
