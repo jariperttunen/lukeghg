@@ -14,7 +14,7 @@ are calculated  and inserted to PartProfile xml as a single unit.
 Routinely there are two sources (agriculture and forestry) with the same UID_FROM 
 and also UID_TO is (usually) the same as UID_FROM.
 
-If necessary insert the data (UID) to following two files:
+Since 2015 there has not been changes. If necessary insert the data (UID) to following two files:
     
 + KPSummary.csv: UID's from KPLULUCF 
 + LUSummary.csv: UID's from LULUCF
