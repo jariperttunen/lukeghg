@@ -212,19 +212,8 @@ Compare two inventories and list missing time series and UIDs not
 found. This sample command assumes that 2018 inventory is in 2018crf
 directory and the output excel file is GHGToDo2019.xlsx.
 
-
 	(lukeghg) prompt% ghg-todo.py -f1 '2018crf/[KPLU]*.csv' -f2 'crf/[KPLU]*.csv' -x PartyProfile/PartyProfile_FIN_2021_1.xml \
 	  -o GHGToDo2019.xlsx -m lukeghg/300_500_mappings_1.1.csv -y 2019
-
-Also, `ghg-todo.py` is a quick fix to help to bring together scenario predictions for
-further analysis. Give all scenario result files for argument `-f1` and let 
-the `-f2` be a listing that produces no files. For example:
-
-	(lukeghg) prompt% ghg-todo.py -f1 'scen/[KPLU]*.csv' -f2 'scen/[KPLU]*.txt' -x PartyProfile/PartyProfile_FIN_2021_1.xml \
-	   -o GHGToDo2019.xlsx -m lukeghg/300_500_mappings_1.1.csv -y 2019
-
-This assumes that the scenario files are in *scen* directory and `-f2 scen/[KPLU]*.txt` produces empty list of files.
-Better solution for scenario projects is under construction (E GHG Scenarios).
 
 ### checkinventoryvalues.py:
 Compare two inventories and check for 1) too large differences in inventory values, 2) changes in notation keys and 
