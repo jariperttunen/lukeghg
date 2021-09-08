@@ -4,12 +4,12 @@ check missing work, compare results with previous year and generate some ubiquit
 
 ## Contents
 
-+ A Create python virtual environment
-+ B Install lukeghg python package
-+ C Update  lukeghg python package
-+ D GHG inventory to CRFReporter xml file
-+ E GHG Scenarios
-+ F Some other useful programs
++ 1. Create python virtual environment
++ 2. Install lukeghg python package
++ 3. Update  lukeghg python package
++ 4. GHG inventory to CRFReporter xml file
++ 5. GHG Scenarios
++ 6. Some other useful programs
 + Version control
 + Notes on hirsi server
 + Reading
@@ -18,7 +18,7 @@ The instructions are for `bash` shell in sorvi.  Your default shell
 might be for example `tcsh` and you must for instance adjust hyphens
 in command lines containing wild card searches accordingly.
 
-## A Create python virtual environment
+## 1. Create python virtual environment
 
 Create python virtual environment (called e.g. lukeghg) in your home directory
 (The *prompt%* denotes your terminal command line prompt):
@@ -39,7 +39,7 @@ Check you have the latest versions of setuptools and wheel:
 **Tips**: Consider creating all python virtual environments under one directory
 (*venv* for example): easier to locate and remember.
 
-## B Install the lukeghg python package
+## 2. Install the lukeghg python package
 We assume that the working directory will be in /data/shared/\<user\> in sorvi
 where \<user\> denotes user name. For GitHub you need to have *.gitconfig* 
 in your home directory. See *G Version control* at the end.
@@ -64,7 +64,7 @@ Now all the command line programs in lukeghg package are available located in
 But as we will see lukeghg package contains template and configuration files that make 
 the use of command line programs easier.
 
-## C Update lukeghg python package
+## 3. Update lukeghg python package
 
 You need to update lukeghg package from GitHub whenever someone has made changes
 and pushed the work there. Otherwise changes will not appear available in the virtual environment,
@@ -97,11 +97,11 @@ and `wheel` must be upgraded too as in section *A Create python virtual envitonm
 
 **Tips**: Note we had to move around a bit inside the lukeghg package.
 
-## D GHG inventory to CRFReporter xml file
+## 4. GHG inventory to CRFReporter xml file
 
 [`run-ghg-master.sh`](lukeghg/lukeghg/bin/run-ghg-master.sh) is a script that sets directories 
 and files to insert GHG inventory results to CRFReporter PartyProfile xml. Edit the following command 
-options if needed and update lukeghg package as  in *C Update lukeghg python package*:
+options if needed and update lukeghg package as  in *3. Update lukeghg python package*:
 
 - -c Location of the GHG inventory files
 - -n Location of the GHG iventory files for NIR section in CRFReporter
@@ -168,7 +168,7 @@ of the time series and after that the time series itself. For example:
 
 The *#* character denotes the beginning and the end of the comment. The UID (*A4DB3 ...611F1A*) is CRFReporter generated.
 
-## E GHG Scenarios
+## 5. GHG Scenarios
 
 `ghg-scenario.py` can generate excel file for ghg scenario calculations.
 The command line is as follows. The `[]` denotes optional arguments. In `bash` 
@@ -192,8 +192,7 @@ but highly recommended comment part, UID of the time series followed by the time
 - --GWP: Global warming potential for CH4 and N2O, possible values AR4 (GHG inventory) or AR5 (default)
 - --noformulas: Sum up summary sheets. Default: Not present, use excel formulas in summary sheets
 
-For the sample command line set your working directory to *GHGInventory* 
-(as in *D GHG inventory to CRFReporter xml file*).  Then, assuming the scenario result 
+For the sample command line set your working directory to *GHGInventory*. Then, assuming the scenario result 
 files are under *hiisi* directory type:
 
 (lukeghg) prompt% ghg-scenario.py --files 'hiisi/wem/crf/LU*.csv' --scen lukeghg/ScenarioTemplate/ScenarioTemplate.xlsx \
@@ -201,7 +200,7 @@ files are under *hiisi* directory type:
 
 For further details see [GHG_SCENARIO](GHG_SCENARIO.md).
 
-## F Some other useful programs
+## 6. Other useful programs
 
 lukeghg package contains useful scripts for checks for the inventory 
 and to generate some ubiquitous tables to appear in NIR. Standard python -h (help) option
