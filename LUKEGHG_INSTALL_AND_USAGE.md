@@ -33,7 +33,7 @@ Activate the virtual environment:
 
 Note the *(lukeghg)* appearing in front of your command prompt.
 
-Check you have the latest versions of `pip`, *setuptools* and *wheel*:
+Check you have the latest versions of `pip`, *setuptools* and *wheel* installed:
 
 	(lukeghg) prompt% python3 -m pip install --upgrade pip
 	(lukeghg) prompt% python3 -m pip install --upgrade setuptools wheel
@@ -43,17 +43,17 @@ Check you have the latest versions of `pip`, *setuptools* and *wheel*:
 
 ## 2. Install the lukeghg python package
 We assume that the working directory will be in /data/shared/\<user\> in sorvi
-where \<user\> denotes user name. For GitHub you need to have *.gitconfig* 
+where \<user\> denotes your user name. For GitHub you need to have *.gitconfig* 
 in your home directory. See *G Version control* at the end.
 
-Create *GHGInventory* directory and clone lukeghg from GitHub. 
+Create *GHGInventory* directory and clone lukeghg from GitHub:
 
 	(lukeghg) prompt% cd /data/shared/<user>
 	(lukeghg) prompt% mkdir GHGInvenory
 	(lukeghg) prompt% cd GHGInventory
 	(lukeghg) prompt% git clone https://github.com/jariperttunen/lukeghg.git
 
-Create the *wheel package* for lukeghg and install it to your virtual environment
+Create the *wheel package* for lukeghg and install it to your virtual environment:
 
 	(lukeghg) prompt% cd GHGInventory/lukeghg/lukeghg
 	(lukeghg) prompt% python3 setup.py sdist bdist_wheel
@@ -72,7 +72,7 @@ You need to update lukeghg package from GitHub whenever someone has made changes
 and pushed the work there. Otherwise changes will not appear available in the virtual environment,
 
 Remember to activate the virtual environment if needed (check your
-prompt). The `~` character refers to your home directory. 
+prompt). The `~` character refers to your home directory: 
 
 	prompt% source ~/lukeghg/bin/activate
 	(lukeghg) prompt%
@@ -85,8 +85,7 @@ Update lukeghg package from GitHub. Make sure you are in `/data/shared/<user>/GH
 Update your lukeghg virtual environment next. As with the installation
 recreate the wheel package, but now first remove the lukeghg package
 and then upgrade lukeghg and its dependencies.
-Make sure you are in `/data/shared/<users>/GHGInventory/lukeghg/lukeghg` where you
-can see the *setup.py*  file.
+Make sure you are in `/data/shared/<users>/GHGInventory/lukeghg/lukeghg`:
 
 	(lukeghg) prompt% cd data/shared/<user>/GHGInventory/lukeghg/lukeghg
 	(lukeghg) prompt% python3 setup.py sdist bdist_wheel
@@ -211,7 +210,7 @@ prints short explanation for each command line option.
 ### ghg-todo.py: 
 Compare two inventories and list missing time series and UIDs not
 found. This sample command assumes that 2018 inventory is in 2018crf
-directory and the output excel file is GHGToDo2019.xlsx.
+directory and the output excel file is GHGToDo2019.xlsx:
 
 	(lukeghg) prompt% ghg-todo.py -f1 '2018crf/[KPLU]*.csv' -f2 'crf/[KPLU]*.csv' -x PartyProfile/PartyProfile_FIN_2021_1.xml \
 	  -o GHGToDo2019.xlsx -m lukeghg/300_500_mappings_1.1.csv -y 2019
@@ -221,7 +220,7 @@ Compare two inventories and check for 1) too large differences in inventory valu
 3) missing UID's. These will appear in their respective sections in the output file.
 
 The sample command line assumes 2018 inventory  is in *2018crf* directory and 2019 inventory in *crf* directory.
-Output file is *GHGComparison.txt*. Excel file of the same name (*GHGComparison.xlsx*) will also be generated. 
+Output file is *GHGComparison.txt*. Excel file of the same name (*GHGComparison.xlsx*) will also be generated:
 
 	(lukeghg) prompt% checkinventoryvalues.py -p '2018crf/[KPLU]*.csv' -c crf/[KPLU]*.csv -m crf/lukeghg/300_500_mappings_1.1.csv \
 	  -f GHGComparison.txt -t 20
@@ -232,7 +231,7 @@ the two time series will appear in the result file.
 	
 
 ### lulucf-table-612.py:
-Produce NIR Table 6-1.2 in LuluTable6-1.2.xlsx. In the command line example inventory files are in *crf* directory. 
+Produce NIR Table 6-1.2 in LuluTable6-1.2.xlsx. In the command line example inventory files are in *crf* directory: 
 
 	(lukeghg) prompt% lulucf-table-612.py -s 1990 -e 2019 -o LuluTable6-1.2.xlsx -d crf/
 	  
@@ -241,13 +240,13 @@ Please note you must have set up public private key for `ssh`. `lulucf-table-612
 
 ### kptable-appendix11b.py:
 Produce NIR Table Appendix11b in KPTable_Appendix11b.txt. Read it to excel with *#* as a column separator.
-In the command line example inventory files are in *crf* directory. 
+In the command line example inventory files are in *crf* directory: 
 
 	(lukeghg) prompt%  kptable-appendix11b.py -s 1990 -e 2019 -o KPTable_Appendix11b.txt -d crf/
 
 ### kptable-appendix11c.py:
 Produce NIR Table Appendix11c in KPTable_Appendix11c.txt. Read it to excel with *#* as a column separator
-In the command line example inventory files are in 'crf' directory. 
+In the command line example inventory files are in 'crf' directory: 
 
 	(lukeghg) prompt%:  kptable-appendix11c.py -s 1990 -e 2019 -o KPTable_Appendix11c.txt -d crf/
 
