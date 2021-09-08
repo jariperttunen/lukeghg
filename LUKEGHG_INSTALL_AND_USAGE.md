@@ -85,7 +85,7 @@ Update lukeghg package from GitHub. Make sure you are in `/data/shared/<user>/GH
 Update your lukeghg virtual environment next. As with the installation
 recreate the wheel package, but now first remove the lukeghg package
 and then upgrade lukeghg and its dependencies.
-Make sure you are in `/data/shared/<users>/GHGInventory/lukeghg/lukeghg`:
+Make sure you are in `/data/shared/<user>/GHGInventory/lukeghg/lukeghg`:
 
 	(lukeghg) prompt% cd data/shared/<user>/GHGInventory/lukeghg/lukeghg
 	(lukeghg) prompt% python3 setup.py sdist bdist_wheel
