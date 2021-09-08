@@ -3,13 +3,13 @@ is that for one UID in PartyProfile xml data comes from two sources:
 agriculture and  forestry. In practice this means 
 double UID exists in inventory for these cases.
 
-For the summation `kp-summary.py` can read file where
-each line is of format
+As the last step to fill PartyProfile xml `kp-lulu-summary.py` can read file where
+each line is of format:
 
     #comment# UID_TO UID1_FROM [UID2_FROM .... UIDN_FROM]
 
-where UID_TO is the CRFReporter UID where the sums of 
-UID1_FROM ... UIDN_FROM are calculated. 
+UID_TO is the CRFReporter UID and the sums of time series in UID1_FROM ... UIDN_FROM are calculated 
+and inserted to PartProfile xml as a single unit.
 
 Usually there are two sources (agriculture and forestry) with the same UID_FROM 
 and also UID_TO is (usually) the same as UID_FROM.
