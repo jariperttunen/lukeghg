@@ -128,7 +128,7 @@ Then create *crf* and *PartyProfile* directories for GHG Inventory result files 
 
 Copy GHG inventory files to *crf* directory. Be sure the read rights for the files exists:
 
-	(lukeghg) prompt% scp <user>@hirsi.in.metla.fi:/hsan2/khk/ghg/2019/crf/*.csv crf/
+	(lukeghg) prompt% scp /data/projects/khk/ghg//2019/crf/*.csv crf/
 
 It has been practice that all GHG inventory results are by year in the same *ghg/\<year\>/crf* directory on the server.
 
@@ -235,8 +235,8 @@ Produce NIR Table 6-1.2 in LuluTable6-1.2.xlsx. In the command line example inve
 
 	(lukeghg) prompt% lulucf-table-612.py -s 1990 -e 2019 -o LuluTable6-1.2.xlsx -d crf/
 	  
-Please note you must have set up public private key for `ssh`. `lulucf-table-612.py`  will fetch biomasses 
-(the first two rows in the table) from hirsi server for the current inventory year.
+**Note**: `lulucf-table-612.py`  will fetch biomasses (the first two rows in the table) 
+from precalculated files for the current inventory year.
 
 ### kptable-appendix11b.py:
 Produce NIR Table Appendix11b in KPTable_Appendix11b.txt. Read it to excel with *#* as a column separator.
