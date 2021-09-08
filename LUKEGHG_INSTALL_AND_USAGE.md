@@ -10,7 +10,7 @@ previous year and generate some ubiquitous NIR tables. There are no intensions t
 + 3\. Update  lukeghg python package
 + 4\. GHG inventory to CRFReporter xml file
 + 5\. GHG Scenarios
-+ 6\. Some other useful programs
++ 6\. Other useful programs
 + Version control
 + Notes on hirsi server
 + Reading
