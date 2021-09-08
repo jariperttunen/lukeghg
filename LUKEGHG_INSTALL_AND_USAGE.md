@@ -94,7 +94,7 @@ can see the *setup.py*  file.
 	(lukeghg) prompt% python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
 
 The `pip`command line allows other ways to achieve the same result but
-this seems to be straightforward. `pip` may require upgrade (Section *1. Create python virtual envitonment*).  
+this seems to be straightforward. `pip` may require upgrade (*1. Create python virtual envitonment*).  
 
 **Tips**: Note we had to move around a bit inside the lukeghg package.
 
