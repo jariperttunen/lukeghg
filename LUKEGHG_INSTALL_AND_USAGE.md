@@ -33,8 +33,9 @@ Activate the virtual environment:
 
 Note the *(lukeghg)* appearing in front of your command prompt.
 
-Check you have the latest versions of setuptools and wheel:
+Check you have the latest versions of `pip`, *setuptools* and *wheel*:
 
+	(lukeghg) prompt% python3 -m pip install --upgrade pip
 	(lukeghg) prompt% python3 -m pip install --upgrade setuptools wheel
 
 **Tips**: Consider creating all python virtual environments under one directory
@@ -59,11 +60,7 @@ Create the *wheel package* for lukeghg and install it to your virtual environmen
 	(lukeghg) prompt% python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
 
 Now all the command line programs in lukeghg package are available located in
-[lukeghg/lukeghg/bin](lukeghg/lukeghg/bin). `pip` may require upgrade with instructions. 
-After that upgrade also *sdist* and *bdist_wheel*.
-
-	(lukeghg) prompt% python3 -m pip install --upgrade pip
-	(lukeghg) prompt% python3 -m pip install --upgrade sdist bdist_wheel
+[lukeghg/lukeghg/bin](lukeghg/lukeghg/bin).
 
 **Tips**: Naturally you can organise your work as you like including directory names. 
 But as we will see lukeghg package contains template and configuration files that make 
@@ -100,8 +97,7 @@ The `pip`command line allows other ways to achieve the same result but
 this seems to be straightforward. 
 
 **Tips**: Note we had to move around a bit inside the lukeghg package. 
-`pip` may require upgrade. 
-
+`pip` may require upgrade. Upgrade also *setuptools* and *wheel*.
 
 ## 4. GHG inventory to CRFReporter xml file
 
