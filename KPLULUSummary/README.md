@@ -3,7 +3,7 @@ is that for one UID in PartyProfile xml data comes from two sources:
 agriculture and  forestry. In practice this means 
 double UID exists in inventory for these cases.
 
-As the last step to fill PartyProfile xml `kp-lulu-summary.py` can read file where
+As the last step to fill PartyProfile xml `kp-lulu-summary.py` can read a file where
 each line is of format:
 
     #comment# UID_TO UID1_FROM [UID2_FROM .... UIDN_FROM]
