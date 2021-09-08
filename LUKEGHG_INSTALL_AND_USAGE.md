@@ -93,7 +93,7 @@ Make sure you are in `/data/shared/<user>/GHGInventory/lukeghg/lukeghg`:
 	(lukeghg) prompt% python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
 
 The `pip`command line allows other ways to achieve the same result but
-this seems to be straightforward. 
+this seems to be the most straightforward. 
 
 **Tips**: Note we had to move around a bit inside the lukeghg package. 
 `pip` may require upgrade. Upgrade also *setuptools* and *wheel*.
