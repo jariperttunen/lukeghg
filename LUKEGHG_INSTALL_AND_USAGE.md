@@ -59,7 +59,8 @@ Create the *wheel package* for lukeghg and install it to your virtual environmen
 	(lukeghg) prompt% python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
 
 Now all the command line programs in lukeghg package are available located in
-[lukeghg/lukeghg/bin](lukeghg/lukeghg/bin).
+[lukeghg/lukeghg/bin](lukeghg/lukeghg/bin). `pip` may require upgrade with instructions. 
+After that upgrade also *sdist* and *bdist_wheel*.
 
 **Tips**: Naturally you can organise your work as you like including directory names. 
 But as we will see lukeghg package contains template and configuration files that make 
@@ -93,8 +94,7 @@ can see the *setup.py*  file.
 	(lukeghg) prompt% python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
 
 The `pip`command line allows other ways to achieve the same result but
-this seems to be straightforward. Note that if `pip` is upgraded then `setuptools` 
-and `wheel` must be upgraded too as in section *1. Create python virtual envitonment*.  
+this seems to be straightforward. `pip` may require upgrade (Section *1. Create python virtual envitonment*).  
 
 **Tips**: Note we had to move around a bit inside the lukeghg package.
 
