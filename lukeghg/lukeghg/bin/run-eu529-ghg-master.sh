@@ -15,7 +15,7 @@ ghg-master.py -c "EU529/KP*.csv" -p PartyProfile/PartyProfile_FIN_2021_4.xml\
 	      -x PartyProfile/PartyProfile_FIN_2021_4_result.xml\
 	      -b lukeghg/KPLULU1990/KP_CM_GM_RV_WDR_UID_notaatioavain.csv\
 	      -k lukeghg/KPLULUSummary/KPSummary.csv\
-	      -m lukeghg/300_500_mappings_1.1.csv\
+	      -m lukeghg/CRFReporterMappings/300_500_mappings_1.1.csv\
 	      -n "EU529/NIR*.csv"\
 	      -i "EU529/C*.csv"\
 	      -y 2019
