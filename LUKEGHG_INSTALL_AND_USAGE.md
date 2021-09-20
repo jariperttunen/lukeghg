@@ -138,7 +138,7 @@ Download PartyProfile xml from CRFReporter and copy it to *PartyProfile* directo
 Rename as denoted by the `-p`  option in `run-ghg-master.sh`. To produce the PartyProfile 
 result file filled with the  GHG inventory results type the two commands:
 
-	(lukeghg) prompt% convertutf8.py -f crf/'*.csv'
+	(lukeghg) prompt% convertutf8.py -f 'crf/*.csv'
 	(lukeghg) prompt% run-ghg-master.sh > Import.log 2> Error.log
 
 The GHG inventory result files (csv files) seem to use different encoding systems.
