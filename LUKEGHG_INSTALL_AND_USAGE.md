@@ -3,21 +3,22 @@ The *lukeghg* python package contains command line tools to generate CRFReporter
 GHG inventory results for CRFReporter import, check missing work, compare results with 
 previous year and generate some ubiquitous NIR tables. There are no intentions to make graphical user interface.
 
+The instructions are for `bash` shell in sorvi.  Your default shell
+might be for example `tcsh` and you must for instance adjust hyphens
+in command lines containing wild card searches accordingly.
+
 ## Contents
 
-+ 1\. Create python virtual environment
-+ 2\. Install lukeghg python package
-+ 3\. Update  lukeghg python package
-+ 4\. GHG inventory to CRFReporter xml file
-+ 5\. GHG Scenarios
-+ 6\. Other useful programs
+1. Create python virtual environment
+2. Install lukeghg python package
+3. Update  lukeghg python package
+4. GHG inventory to CRFReporter xml file
+5. GHG Scenarios
+6. Other useful programs
 + Version control
 + Notes on hirsi server
 + Reading
 
-The instructions are for `bash` shell in sorvi.  Your default shell
-might be for example `tcsh` and you must for instance adjust hyphens
-in command lines containing wild card searches accordingly.
 
 ## 1. Create python virtual environment
 
