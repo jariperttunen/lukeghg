@@ -3,6 +3,6 @@ Tools to generate CRFReporter xml file from GHG inventory results for CRFReporte
 
 + ARKISTOON_ARCHIVE: Tiedostot Luken arkistoon KHK Inventaarion jälkeen. 
   Files to store in Luke official archive system after annual GHG inventory.
-+ CRFREPORTER_ANNUAL_CHECK: One a year manual work with CRFReporter.
++ CRFREPORTER_ANNUAL_CHECK: Once a year manual work with CRFReporter.
 + LUKEGHG_INSTALL_AND_USAGE: Install and update `lukeghg` package, user guides for python scripts.
 + GHG_SCENARIO: User guide for `ghg-scenario.py`. Produce GHG Scenario excel compendium file from scenario results.
