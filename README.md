@@ -1,5 +1,5 @@
 # lukeghg
-Tools to generate CRFReporter xml file from GHG inventory results for CRFReporter import, check missing work, compare results with previous year and generate some ubiquitous NIR tables. See the following files for details:
+Tools to generate CRFReporter xml file from GHG inventory results, check missing work, compare results with previous year and generate some ubiquitous NIR tables. See the following files for details:
 
 + ARKISTOON_ARCHIVE: Tiedostot Luken arkistoon KHK Inventaarion jälkeen. 
   Files to store in Luke official archive system after annual GHG inventory.
