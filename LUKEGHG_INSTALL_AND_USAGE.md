@@ -59,12 +59,12 @@ Create the *wheel package* for lukeghg and install it to your virtual environmen
 	(lukeghg) prompt% python3 setup.py sdist bdist_wheel
 	(lukeghg) prompt% python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
 
-Now all the command line programs in lukeghg package are available located in
-[lukeghg/lukeghg/bin](lukeghg/lukeghg/bin).
+All the command line programs in lukeghg package are now available in your virtual environment. 
+The programs are located in [lukeghg/lukeghg/bin](lukeghg/lukeghg/bin) in *lukeghg* package.
 
 **Tips**: Naturally you can organise your work as you like including directory names. 
 But as we will see lukeghg package contains template and configuration files that make 
-the use of command line programs easier. So try this first and improve later.
+the use of command line programs easier. So try this schema first and improve later.
 
 ## 3. Update lukeghg python package
 
