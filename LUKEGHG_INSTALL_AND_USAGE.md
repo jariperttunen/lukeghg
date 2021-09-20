@@ -192,7 +192,7 @@ but highly recommended comment part, UID of the time series followed by the time
 - --start: The start year of the scenario inventory
 - --end: The end year of the scenario inventory
 - --GWP: Global warming potential for CH4 and N2O, possible values AR4 (GHG inventory) or AR5 (default)
-- --noformulas: Sum up summary sheets. Default: Not present, use excel formulas in summary sheets
+- --noformulas: Add up values in summary sheets. Default: Not present, use excel formulas in summary sheets
 
 For the sample command line set your working directory to *GHGInventory*. Then, assuming the scenario result 
 files are under *hiisi* directory type:
