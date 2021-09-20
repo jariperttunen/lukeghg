@@ -127,12 +127,11 @@ Then create *crf* and *PartyProfile* directories for GHG Inventory result files 
 	(lukeghg) prompt% mkdir crf
 	(lukeghg( prompt% mkdir PartyProfile
 
-Copy GHG inventory files to *crf* directory. Be sure the read rights for the files exists:
+Copy GHG inventory files to *crf* directory. Be sure the read rights for the files exists, e.g. 2020 inventory:
 
-	(lukeghg) prompt% scp /data/projects/khk/ghg//2019/crf/*.csv crf/
+	(lukeghg) prompt% scp /data/projects/khk/ghg/2020/crf/*.csv crf/
 
 It has been practice that all GHG inventory results are by year in the same *ghg/\<year\>/crf* directory on the server.
-
 
 Download PartyProfile xml from CRFReporter and copy it to *PartyProfile* directory. 
 Rename as denoted by the `-p`  option in `run-ghg-master.sh`. To produce the PartyProfile 
