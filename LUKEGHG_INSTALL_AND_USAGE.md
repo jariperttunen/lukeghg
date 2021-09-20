@@ -207,7 +207,7 @@ lukeghg package contains useful scripts for checks for the inventory
 and to generate some ubiquitous tables to appear in NIR. Standard python -h (help) option
 prints short explanation for each command line option.
 
-### ghg-todo.py: 
+### ghg-todo.py
 Compare two inventories and list missing time series and UIDs not
 found. This sample command assumes that 2018 inventory is in 2018crf
 directory and the output excel file is GHGToDo2019.xlsx:
@@ -215,7 +215,7 @@ directory and the output excel file is GHGToDo2019.xlsx:
 	(lukeghg) prompt% ghg-todo.py -f1 '2018crf/[KPLU]*.csv' -f2 'crf/[KPLU]*.csv' -x PartyProfile/PartyProfile_FIN_2021_1.xml \
 	  -o GHGToDo2019.xlsx -m lukeghg/300_500_mappings_1.1.csv -y 2019
 
-### checkinventoryvalues.py:
+### checkinventoryvalues.py
 Compare two inventories and check for 1) too large differences in inventory values, 2) changes in notation keys and 
 3) missing UID's. These will appear in their respective sections in the output file.
 
@@ -230,7 +230,7 @@ inventory year in the same time series from the two inventories differ more than
 the two time series will appear in the result file.  
 	
 
-### lulucf-table-612.py:
+### lulucf-table-612.py
 Produce NIR Table 6-1.2 in LuluTable6-1.2.xlsx. In the command line example inventory files are in *crf* directory: 
 
 	(lukeghg) prompt% lulucf-table-612.py -s 1990 -e 2019 -o LuluTable6-1.2.xlsx -d crf/
@@ -238,19 +238,19 @@ Produce NIR Table 6-1.2 in LuluTable6-1.2.xlsx. In the command line example inve
 **Note**: `lulucf-table-612.py`  will fetch biomasses (the first two rows in the table) 
 from precalculated files for the current inventory year.
 
-### kptable-appendix11b.py:
+### kptable-appendix11b.py
 Produce NIR Table Appendix11b in KPTable_Appendix11b.txt. Read it to excel with *#* as a column separator.
 In the command line example inventory files are in *crf* directory: 
 
 	(lukeghg) prompt%  kptable-appendix11b.py -s 1990 -e 2019 -o KPTable_Appendix11b.txt -d crf/
 
-### kptable-appendix11c.py:
+### kptable-appendix11c.py
 Produce NIR Table Appendix11c in KPTable_Appendix11c.txt. Read it to excel with *#* as a column separator
 In the command line example inventory files are in 'crf' directory: 
 
 	(lukeghg) prompt%:  kptable-appendix11c.py -s 1990 -e 2019 -o KPTable_Appendix11c.txt -d crf/
 	
-### pretty-print-xml.py:
+### pretty-print-xml.py
 CRFReporter xml files come without line endings. `pretty-print-xml.py` formats xml to more human readable 
 form. This is useful when new UIDs must be found for GHG inventory:
 	
