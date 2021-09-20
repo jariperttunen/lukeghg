@@ -5,7 +5,7 @@ previous year and generate some ubiquitous NIR tables. There are no intentions t
 
 The instructions are for `bash` shell in sorvi.  Your default shell
 might be for example `tcsh` and you must for instance adjust hyphens
-in command lines containing wild card searches accordingly.
+in command lines containing wild cards accordingly.
 
 ## Contents
 
