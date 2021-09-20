@@ -6,7 +6,7 @@ excel template file produces scenario inventory summary in excel format.
 ## Input files ##
 
 Input files have exactly the same format as in the annual GHG inventory.
-The files are text (csv) files with white space as separator. Each line
+The files are text (csv) files with white space as delimiter. Each line
 in the file represent one time series for an emission, some area etc.
 The line begins with optional comment followed by the UID ("unique identifier")
 of the time series and after that the time series itself. For example:
@@ -105,4 +105,4 @@ but highly recommended comment part, UID of the time series followed by the time
 - --start: The start year of the scenario inventory
 - --end: The end year of the scenario inventory
 - --GWP: Global warming potential for CH4 and N2O, possible values AR4 (GHG inventory) or AR5 (default)
-- --noformulas: Sum up summary sheets. Default: use excel formulas
+- --noformulas: Add up values in summary sheets. Default: Not present, generate excel formulas
