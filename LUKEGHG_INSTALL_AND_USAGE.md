@@ -39,7 +39,7 @@ Check you have the latest versions of `pip`, *setuptools* and *wheel* installed:
 	(lukeghg) prompt% python3 -m pip install --upgrade setuptools wheel
 
 **Tips**: Consider creating all python virtual environments under one directory
-(*venv* for example): easier to locate and remember.
+(*venv* for example).
 
 ## 2. Install the lukeghg python package
 We assume that the working directory will be in /data/shared/\<user\> in sorvi
