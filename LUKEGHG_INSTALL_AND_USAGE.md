@@ -197,7 +197,7 @@ but highly recommended comment part, UID of the time series followed by the time
 For the sample command line set your working directory to *GHGInventory*. Then, assuming the scenario result 
 files are under *hiisi* directory type:
 
-(lukeghg) prompt% ghg-scenario.py --files 'hiisi/wem/crf/LU*.csv' --scen lukeghg/ScenarioTemplate/ScenarioTemplate.xlsx \
+	(lukeghg) prompt% ghg-scenario.py --files 'hiisi/wem/crf/LU*.csv' --scen lukeghg/ScenarioTemplate/ScenarioTemplate.xlsx \
 	                  -m lukeghg/300_500_mappings_1.1.csv -o Hiisi_1990_2050.xlsx --start 1990 --end 2050
 
 For further details see [GHG_SCENARIO](GHG_SCENARIO.md).
