@@ -157,7 +157,7 @@ you have the right active inventory in CRFReporter. Each year CRFReporter requir
 
 **NB:** CRFReporter checks that the version number of the PartyProfile 
 xml matches the CRFReporter version. Each CRFReporter version update requires new
-PartyProfile xml from CRFReporter,even during the same active inventory. 
+PartyProfile xml from CRFReporter, even during the same active inventory. 
 
 #### GHG inventory files
 The files are text (csv) files with white space as the delimeter mark. Each line
