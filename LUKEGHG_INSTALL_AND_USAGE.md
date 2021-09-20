@@ -249,6 +249,12 @@ Produce NIR Table Appendix11c in KPTable_Appendix11c.txt. Read it to excel with 
 In the command line example inventory files are in 'crf' directory: 
 
 	(lukeghg) prompt%:  kptable-appendix11c.py -s 1990 -e 2019 -o KPTable_Appendix11c.txt -d crf/
+	
+### pretty-print-xml.py:
+CRFReporter xml files come without line endings. `pretty-print-xml.py` formats xml to more human readable 
+form. This is useful when new UIDs must be found for GHG inventory:
+	
+	(lukeghg) prompt%: pretty-print-xml.py -i xml_input_file.xml -o xml_output_file.xml
 
 ## Version control
 
