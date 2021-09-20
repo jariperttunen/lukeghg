@@ -12,7 +12,7 @@ if __name__ == "__main__":
     parser.add_argument('--start',type=int,dest='start',required=True,help="Start year (1990)")
     parser.add_argument('--end',type=int,dest='end',required=True,help="End year")
     parser.add_argument('--GWP',type=str,dest='gwp',default="AR5",help="Global warming potential, AR4 (GHG inventory) or AR5 (default)")
-    parser.add_argument('--noformulas',action="store_true",help="Sum up summary sheets. Default: use excel formulas")
+    parser.add_argument('--noformulas',action="store_true",help="Add up values in summary sheets. Default: Not present, generate excel formulas")
     args = parser.parse_args()
         
     #Default GWP AR5
