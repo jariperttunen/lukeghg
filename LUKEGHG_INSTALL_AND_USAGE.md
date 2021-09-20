@@ -258,8 +258,8 @@ form. This is useful when new UIDs must be found for GHG inventory:
 
 ## Version control
 
-Currently *lukeghg* package is in GitHub. Sample gitgonfig file for git is available in [Git](Git) directory. 
-Edit email and your name and install it as *.gitconfig* in your home directory. 
+Currently *lukeghg* package is in GitHub. Sample gitgonfig file for Git is available in [Git](Git) directory. 
+To get started with Git edit email and your name and install it as *.gitconfig* in your home directory. 
 
 ## Notes on hirsi-server
 
