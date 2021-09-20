@@ -8,7 +8,8 @@ Emissions and removals from natural disturbances -> Total natural disturbances`
 
 Each year new element must be created manually. 
 The UID identifier or each item of the element must be retrieved from CRFReporter Simple xml.
-Tips: write nonsense values (for easy UID recover) for 1990 only, export simple xml and find the nonsense
+
+**Tips**: write nonsense values (for easy UID recover) for 1990 only, export simple xml and find the nonsense
 values in the xml. This guides close to the UIDs needed.
 
 ## HH HWP Activity data
