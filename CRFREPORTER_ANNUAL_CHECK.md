@@ -6,7 +6,7 @@
 `KP.B Article 3.4 Activities -> KP.B.1 Forest Management -> Carbon stock change -> 
 Emissions and removals from natural disturbances -> Total natural disturbances`
 
-Each year a new element (node) must be created. Then for each item of the new element the corresponding 
+Each year a new element (node) must be created for `Total natural disturbances`. Then for each item of the new element the corresponding 
 UID identifier must be retrieved from the CRFReporter Simple xml and handed over to the GHG inventory.
 
 **Tips**: write nonsense values, nine in total, only for the year 1990 that are not likely to appear anywhere 
