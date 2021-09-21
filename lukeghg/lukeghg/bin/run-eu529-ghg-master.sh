@@ -3,14 +3,7 @@
 #Note the use of double quotes to allow wild card file reading.
 #See "/hsan2/khk/ghg/lukeghg/InstallAndUpdateLukeGHG.txt" to setup 'lukeghg' python virtual environment. 
 #To redirect output type e.g.: run-eu529-ghg-master.sh > output.txt 2> errors.txt.  
-#Check lukeghg python virtual environment to activate it:
-if [ test -e ~/lukeghg/bin/activate ]
-then
-	source ~/lukeghg/bin/activate
-elif [ test -e ~/venv/lukeghg/bin/activate ]
-then
-	source  ~/venv/lukeghg/bin/activate
-fi
+#It is assumed that this script is in python virtual environment (lukeghg)
 ghg-master.py -c "EU529/KP*.csv" -p PartyProfile/PartyProfile_FIN_2021_4.xml\
 	      -x PartyProfile/PartyProfile_FIN_2021_4_result.xml\
 	      -b lukeghg/KPLULU1990/KP_CM_GM_RV_WDR_UID_notaatioavain.csv\
@@ -19,4 +12,4 @@ ghg-master.py -c "EU529/KP*.csv" -p PartyProfile/PartyProfile_FIN_2021_4.xml\
 	      -n "EU529/NIR*.csv"\
 	      -i "EU529/C*.csv"\
 	      -y 2019
-deactivate
+
