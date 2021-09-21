@@ -7,7 +7,7 @@
 Emissions and removals from natural disturbances -> Total natural disturbances`
 
 Each year a new element (node) must be created. Then for each item of the new element the corresponding 
-UID identifier must be retrieved from the CRFReporter Simple xml.
+UID identifier must be retrieved from the CRFReporter Simple xml and handed over to the GHG inventory.
 
 **Tips**: write nonsense values for the year 1990 only that are not likely to appear anywhere 
 in any sector of the inventory, export simple xml and find the nonsense values in the xml. 
