@@ -1,4 +1,4 @@
-# Manual work for each new GHG inventory in CRFReporter.
+# Manual work for a new GHG inventory in CRFReporter.
 
 
 ## Natural disturbances
@@ -6,11 +6,11 @@
 `KP.B Article 3.4 Activities -> KP.B.1 Forest Management -> Carbon stock change -> 
 Emissions and removals from natural disturbances -> Total natural disturbances`
 
-Each year new element must be created manually. 
-The UID identifier or each item of the element must be retrieved from CRFReporter Simple xml.
+Each year new element must be created manually. The UID identifier for each item 
+of the element must be retrieved from the RFReporter Simple xml.
 
-**Tips**: write nonsense values (for easy UID recover) for 1990 only, export simple xml and find the nonsense
-values in the xml. This guides close to the UIDs needed.
+**Tips**: write nonsense values for 1990 only that are not likely to appear anywhere in any sector of the inventory, 
+export simple xml and find the nonsense values in the xml. This guides close to the UIDs needed.
 
 ## HWP Activity data
 
