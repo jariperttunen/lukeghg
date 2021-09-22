@@ -43,8 +43,8 @@ Check you have the latest versions of `pip`, *setuptools* and *wheel* installed:
 (*venv* for example).
 
 ## 2. Install the lukeghg python package
-We assume that the working directory will be in /data/shared/\<user\> in sorvi
-where \<user\> denotes your user name. For GitHub you need to have *.gitconfig* 
+We assume that the working directory will be in */data/shared/\<user\>* in sorvi
+server where *\<user\>* denotes your user name. For GitHub you need to have *.gitconfig* 
 in your home directory. See *Version control* at the end.
 
 Create *GHGInventory* directory and clone lukeghg from GitHub:
