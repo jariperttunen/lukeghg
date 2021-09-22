@@ -97,7 +97,7 @@ The `pip`command line allows other ways to achieve the same result but
 this seems to be the most straightforward. 
 
 **Tips**: Note we had to move around a bit inside the lukeghg package. 
-In case `pip` requires update, upgrade also *setuptools* and *wheel*.
+In case `pip` requires update, upgrade also *setuptools* and *wheel* (*1. Create python virtual environment*).
 
 ## 4. GHG inventory to CRFReporter xml file
 
