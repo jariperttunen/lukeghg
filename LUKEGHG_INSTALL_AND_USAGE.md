@@ -45,7 +45,7 @@ Check you have the latest versions of `pip`, *setuptools* and *wheel* installed:
 ## 2. Install the lukeghg python package
 We assume that the working directory will be in /data/shared/\<user\> in sorvi
 where \<user\> denotes your user name. For GitHub you need to have *.gitconfig* 
-in your home directory. See *G Version control* at the end.
+in your home directory. See *Version control* at the end.
 
 Create *GHGInventory* directory and clone lukeghg from GitHub:
 
@@ -116,7 +116,7 @@ options if needed and update lukeghg package as  in *3. Update lukeghg python pa
 - -y Inventory year (the last year in CRFReporter)
 
 `run-ghg-master.sh` contains also the options -b, -k,-l and -m (not shown here) that 
-refer to ubiquitous configuration files and directories that come with the lukeghg package. 
+refer to ubiquitous configuration files and directories that come with the *lukeghg* package. 
 
 #### Produce CRFReporter xml file
 
