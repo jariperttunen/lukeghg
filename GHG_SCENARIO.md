@@ -4,7 +4,7 @@
 
 ## Input files ##
 
-Input files have exactly the same format as in the annual GHG inventory.
+`ghg-scenario.py` input files have exactly the same format as in the annual GHG inventory.
 The files are text (csv) files with white space as delimiter. Each line
 in the file represent one time series for an emission, some area etc.
 The line begins with optional comment followed by the UID ("unique identifier")
