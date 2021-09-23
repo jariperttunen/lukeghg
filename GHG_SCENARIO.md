@@ -75,7 +75,7 @@ For example CL-FL means cropland to forest land. The land use summary sheets are
  + WLflooded_summary = WL-WL(flooded) + Lands_WLflooded
  + WLother_summary = WL-WL(other) + Lands_WLother
 
-The three last wetlands summaries (WLpeat_summary, WLflooded_summary, WLother_summary) contain emissions
+The last three wetlands summaries (WLpeat_summary, WLflooded_summary, WLother_summary) contain emissions
 from peat productions, artificial lakes, wetlands etc. regardless being remaining or converted areas.
 
 ### Color coding ###
