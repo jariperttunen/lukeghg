@@ -112,6 +112,6 @@ so that you can find  ScenarioTemplate and  300_500_mapping files as denoted in 
 Then, assuming the scenario result  files are under *hiisi* directory type:
 
 	(lukeghg) prompt% ghg-scenario.py --files 'hiisi/wem/crf/LU*.csv' --scen lukeghg/ScenarioTemplate/ScenarioTemplate.xlsx \
-	                  -m lukeghg/300_500_mappings_1.1.csv -o Hiisi_1990_2050.xlsx --start 1990 --end 2050
+	                  -m lukeghg/CRFReporterMappings/300_500_mappings_1.1.csv -o Hiisi_1990_2050.xlsx --start 1990 --end 2050
 			 
 The scenario results will appear in Hiisi_1990_2050.xlsx.
