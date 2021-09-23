@@ -82,7 +82,7 @@ from peat productions, artificial lakes, wetlands etc. regardless being remainin
 ### Color coding ###
 
 Yellow color in excel sheets denotes summary rows. The grey color in summary sheets denotes formulas 
-are used in excel cells.Red color denotes missing values. The latter is not necessarily an error. 
+are used in excel cells. Red color denotes missing values (not necessarily an error). 
 
 ## Usage ##
 
