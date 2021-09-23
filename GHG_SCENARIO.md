@@ -106,3 +106,12 @@ but highly recommended comment part, UID of the time series followed by the time
 - --end: The end year of the scenario inventory
 - --GWP: Global warming potential for CH4 and N2O, possible values AR4 (GHG inventory) or AR5 (default)
 - --noformulas: Add up values in summary sheets. Default: Not present, generate excel formulas
+
+For the sample command line set your working directory to [lukeghg](lukeghg) package so that you can find 
+ScenarioTemplate and  300_500_mapping files as denoted in the command line options. Then, assuming the scenario result 
+files are under *hiisi* directory type:
+
+	(lukeghg) prompt% ghg-scenario.py --files 'hiisi/wem/crf/LU*.csv' --scen lukeghg/ScenarioTemplate/ScenarioTemplate.xlsx \
+	                  -m lukeghg/300_500_mappings_1.1.csv -o Hiisi_1990_2050.xlsx --start 1990 --end 2050
+			 
+The scenario results will appear in Hiisi_1990_2050.xlsx.
