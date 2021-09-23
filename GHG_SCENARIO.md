@@ -35,7 +35,7 @@ Note that not all cells have an UID because those cases simply do not occur.
 
 ### LandUse sheet ###
 
-The LandUse sheet is the template for the results for each land use class or groupings of classes 
+The LandUse sheet is the template for the results for each land use class or clusters of land use classes 
 whether straightforwardly collected from the result files or summarised from other sheets.
 The sheet columns contain inventory years from 1990 to 2050. *The missing years from the end of the
 time series to 2050 will appear as zeros in results*. Scenarios intended from 1990 beyond 2050
