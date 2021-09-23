@@ -1,7 +1,6 @@
 # Produce GHG scenario excel #
 
-`ghg-scenario.py` reads GHG scenario result files and using
-excel template file produces scenario inventory summary in excel format. 
+`ghg-scenario.py` reads GHG scenario result files and using excel template file produces scenario inventory summary in excel format. It is part of [*lukeghg*](LUKEGHG_INSTALL_AND_USAGE_md) python package. 
 
 ## Input files ##
 
