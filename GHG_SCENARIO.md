@@ -54,7 +54,7 @@ groupings.
 `ghg-scenario.py` produces excel file for scenarios in three parts: 1) LULUCF summary
 sheet covering the whole inventory, 2) excel summary sheets for land use clusters
 generated from 3) excel sheets for land use and land use change classes constructed from scenario
-results. In addition the first sheet  lists UIDs in the UIDMatrix sheet that are not found in inventory input files. 
+results. In addition the first sheet  lists UIDs in the UIDMatrix sheet not found in inventory input files. 
 The second sheet contains Global Warming Potentials (GWP) used.
 
 The undescore ('_') in a sheet name denotes summary for a land use cluster and hyphen ('-') change in land use.
