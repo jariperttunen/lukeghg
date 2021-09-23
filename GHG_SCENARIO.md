@@ -58,7 +58,7 @@ generated from 3) excel sheets for land use and land use change classes construc
 results. In addition the first sheet  lists UIDs in the UIDMatrix sheet that are not found in inventory input files. 
 The second sheet contains Global Warming Potentials (GWP) used.
 
-The undescore ('_') in a sheet name denotes lands use grouping (summary) and hyphen ('-') change in land use.
+The undescore ('_') in a sheet name denotes lands use summary and hyphen ('-') change in land use.
 For example CL-FL means cropland to forest land. The land use summary sheets are defined as follows:
 
  + Lands_FL = CL-FL + GL-FL + WLpeat-FL + WLother-FL + SE-FL
