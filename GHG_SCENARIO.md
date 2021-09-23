@@ -27,8 +27,8 @@ has three sheets: UIDMatrix, LandUse and LULUCF.
 
 The *UIDMatrix* sheet represent carbon stock changes and other emissions by gases. The columns
 define land use and land use change classes and rows their respective stock changes and emissions.
-The column A contains numbers (in red) that guide `ghg-scenario.py`to insert the time series
-into the right row (with the same number) in the *LandUse* template sheet. 
+The column A contains numbers (red) that guide `ghg-scenario.py`to insert the time series
+into the right row based derived from the same number (red) found in the *LandUse* template sheet. 
 
 The sheet cells contain UIDs of the time series. For example 4A48C2F0-02C0-4EAB-8547-6A109929DDCD 
 denotes *CL-FL biomass gains*. **Only those time series having UID entry will appear in result Excel**. 
@@ -41,7 +41,7 @@ whether straightforwardly collected from the result files or summarised from oth
 The sheet columns contain inventory years from 1990 to 2050. *The missing years from the end of the
 time series to 2050 will appear as zeros in results*. Scenarios intended from 1990 beyond 2050
 require matching number of years in the (new) template sheet. The sheet rows contain Carbon stock changes
-and emissions by gases. The column A has numbers (in red) that corresponds to numbers (in red)
+and emissions by gases. The column A has numbers (red) that corresponds to numbers (red)
 in the matching column A in the UID Matrix sheet.
 
 ### LULUCF sheet ###
