@@ -173,7 +173,7 @@ The *#* character denotes the beginning and the end of the comment. The UID (*A4
 
 `ghg-scenario.py` can generate excel file for ghg scenario calculations.
 The command line is as follows. Brackets ([]) denote optional arguments. In `bash` 
-the backslash (\) denotes the command line continues to the next line:
+the backslash (\\) denotes the command line continues to the next line:
 
 	(lukeghg) prompt% ghg-scenario.py [-h] --files FILES  --scen SCEN \
                           -m M -o O --start START --end END [--GWP GWP] [--noformulas]
