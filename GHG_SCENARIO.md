@@ -86,7 +86,8 @@ are used in excel cells. Red color denotes missing values (not necessarily an er
 
 ## Usage ##
 
-The command line is as follows. Bracktes ([]) denote optional arguments:
+The command line is as follows. Bracktes ([]) denote optional arguments, the backslash (\\) 
+in `bash` denotes line continuation:
 
 	(lukeghg) prompt% ghg-scenario.py [-h] --files FILES  --scen SCEN \
      -m M -o O --start START --end END [--GWP GWP] [--noformulas] 
