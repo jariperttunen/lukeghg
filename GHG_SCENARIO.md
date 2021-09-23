@@ -108,7 +108,7 @@ but highly recommended comment part, UID of the time series followed by the time
 - --noformulas: Add up values in summary sheets. Default: Not present, generate excel formulas
 
 For the sample command line set your working directory to [*lukeghg*](https://github.com/jariperttunen/lukeghg) package 
-so that you can find  ScenarioTemplate and  300_500_mapping files as denoted in the command line options. 
+so that you can find *ScenarioTemplate* and *300_500_mappings_1.1* files as denoted in the command line options. 
 Then, assuming the scenario result  files are under *hiisi* directory type:
 
 	(lukeghg) prompt% ghg-scenario.py --files 'hiisi/wem/crf/LU*.csv' --scen lukeghg/ScenarioTemplate/ScenarioTemplate.xlsx \
