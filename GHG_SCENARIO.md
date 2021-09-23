@@ -59,7 +59,8 @@ results. In addition the first sheet  lists UIDs in the UIDMatrix sheet that are
 The second sheet contains Global Warming Potentials (GWP) used.
 
 The undescore ('_') in a sheet name denotes summary for a land use cluster and hyphen ('-') change in land use.
-For example CL-FL means cropland to forest land. The land use summary sheets are defined as follows:
+For example Lands_FL means lands to forest land and CL-FL means cropland to forest land. 
+The land use summary sheets are defined as follows:
 
  + Lands_FL = CL-FL + GL-FL + WLpeat-FL + WLother-FL + SE-FL
  + FL_Lands = FL-CL + FL-GL + FL-WLpeat + FL-WLflooded + FL-WLother + FL-SE
