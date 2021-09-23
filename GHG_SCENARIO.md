@@ -38,9 +38,9 @@ Note that not all cells have an UID because those cases simply do not occur.
 
 The LandUse sheet is the template for the results for each land use class or groupings of classes 
 whether straightforwardly collected from the result files or summarised from other sheets.
-The sheet columns contain inventory years from 1990 to 2050. The missing years from the end of the
-time series to 2050 will appear as zeros. Scenarios intended from 1990 beyond 2050
-require matching number of years in the template sheet. The sheet rows contain Carbon stock changes
+The sheet columns contain inventory years from 1990 to 2050. *The missing years from the end of the
+time series to 2050 will appear as zeros in results*. Scenarios intended from 1990 beyond 2050
+require matching number of years in the (new) template sheet. The sheet rows contain Carbon stock changes
 and emissions by gases. The column A has numbers (in red) that corresponds to numbers (in red)
 in the matching column A in the UID Matrix sheet.
 
