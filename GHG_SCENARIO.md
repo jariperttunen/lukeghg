@@ -86,7 +86,7 @@ an error. The grey color in summary sheets denote formulas are used in excel cel
 
 ## Usage ##
 
-The command line is as follows. The `[]` denotes optional arguments:
+The command line is as follows. Bracktes ([]) denote optional arguments:
 
 	(lukeghg) prompt% ghg-scenario.py [-h] --files FILES  --scen SCEN \
      -m M -o O --start START --end END [--GWP GWP] [--noformulas] 
