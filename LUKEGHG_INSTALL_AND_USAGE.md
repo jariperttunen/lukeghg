@@ -105,15 +105,15 @@ In case `pip` requires update, upgrade also *setuptools* and *wheel* (*1. Create
 and files for `ghg-master.py` python script to insert GHG inventory results in the CRFReporter PartyProfile xml. 
 Edit the following command line options if needed and update lukeghg package as  in *3. Update lukeghg python package*:
 
-- -c Location of the GHG inventory files
-- -n Location of the GHG iventory files for NIR section in CRFReporter
-- -i Location of the GHG inventory comment files for CRFReporter
+- -c Location of the GHG inventory files.
+- -n Location of the GHG iventory files for NIR section in CRFReporter.
+- -i Location of the GHG inventory comment files for CRFReporter.
 - -p Location of the empty (i.e. no inventory data) PartyProfile xml from CRFReporter.
-     The naming convention is that it uses the name of the active inventory in CRFReporter.
-     (see also **NB** at the end of chapter)
+     The naming convention is that it uses the name of the active inventory in CRFReporter
+     (see also **NB** at the end of chapter).
 - -x Location of the PartyProfile result file to be imported to CRFReporter.
-     The naming convention is  that it appens *_result* to the empty PartyProfile file name. 
-- -y Inventory year (the last year in CRFReporter)
+     The naming convention is  that it appends *_result* to the empty PartyProfile file name. 
+- -y Inventory year (the last year in CRFReporter).
 
 `ghg-master.py` has also the options -b, -k,-l and -m (not shown here) that 
 refer to ubiquitous configuration files and directories that come with the *lukeghg* package. 
