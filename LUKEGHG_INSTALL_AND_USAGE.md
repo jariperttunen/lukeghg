@@ -134,8 +134,8 @@ Copy GHG inventory files to *crf* directory. Be sure the read rights for the fil
 It has been practice that all GHG inventory results are by year in the same *ghg/\<year\>/crf* directory on the server.
 
 Log in CRFReporter *Import/Export* section, export PartyProfile xml and copy it to *PartyProfile* directory. 
-Rename as denoted by the `-p`  option in `run-ghg-master.sh`. To produce the PartyProfile 
-result file filled with the  GHG inventory results type the two commands:
+Rename as denoted by the `-p`  option in [`run-ghg-master.sh`](lukeghg/lukeghg/bin/run-ghg-master.sh). 
+To produce the PartyProfile result file filled with the  GHG inventory results type the two commands:
 
 	(lukeghg) prompt% convertutf8.py -f 'crf/*.csv'
 	(lukeghg) prompt% run-ghg-master.sh > Import.log 2> Error.log
