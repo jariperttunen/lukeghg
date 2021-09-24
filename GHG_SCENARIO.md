@@ -113,8 +113,9 @@ in `bash` denotes line continuation:
 - --noformulas: Add up values in summary sheets. Default: Not present, generate excel formulas
 
 For the `ghg-scenario.py` command line set your working directory to [*lukeghg*](https://github.com/jariperttunen/lukeghg) 
-package so that you can find *ScenarioTemplate* and *300_500_mappings_1.1* files as shown in the command line options. 
-Then, assuming the scenario result  files are under *hiisi* directory type:
+package so that you can find *ScenarioTemplate.xlsx* and *300_500_mappings_1.1.csv* files as shown in the 
+command line arguments `--scen` and `-m`. Then, assuming the scenario result  files are under *hiisi* directory 
+(argument `--files`) type:
 
 	(lukeghg) prompt% ghg-scenario.py --files 'hiisi/wem/crf/LU*.csv' --scen lukeghg/ScenarioTemplate/ScenarioTemplate.xlsx \
 	                  -m lukeghg/CRFReporterMappings/300_500_mappings_1.1.csv -o Hiisi_1990_2050.xlsx --start 1990 --end 2050
