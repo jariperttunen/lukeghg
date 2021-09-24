@@ -101,9 +101,9 @@ In case `pip` requires update, upgrade also *setuptools* and *wheel* (*1. Create
 
 ## 4. GHG inventory to CRFReporter xml file
 
-[`run-ghg-master.sh`](lukeghg/lukeghg/bin/run-ghg-master.sh) is a script that sets directories 
-and files to insert GHG inventory results to CRFReporter PartyProfile xml. Edit the following command 
-options if needed and update lukeghg package as  in *3. Update lukeghg python package*:
+[`run-ghg-master.sh`](lukeghg/lukeghg/bin/run-ghg-master.sh) is a shell script that sets directories 
+and files for `ghg-master.py` python script to insert GHG inventory results in the CRFReporter PartyProfile xml. 
+Edit the following command line options if needed and update lukeghg package as  in *3. Update lukeghg python package*:
 
 - -c Location of the GHG inventory files
 - -n Location of the GHG iventory files for NIR section in CRFReporter
@@ -115,7 +115,7 @@ options if needed and update lukeghg package as  in *3. Update lukeghg python pa
      The naming convention is  that it appens *_result* to the empty PartyProfile file name. 
 - -y Inventory year (the last year in CRFReporter)
 
-`run-ghg-master.sh` contains also the options -b, -k,-l and -m (not shown here) that 
+`ghg-master.py` contains also the options -b, -k,-l and -m (not shown here) that 
 refer to ubiquitous configuration files and directories that come with the *lukeghg* package. 
 
 #### Produce CRFReporter xml file
