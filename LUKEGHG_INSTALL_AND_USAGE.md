@@ -179,9 +179,7 @@ the backslash (\\) denotes the command line continues to the next line:
                           -m M -o O --start START --end END [--GWP GWP] [--noformulas]
      
 - -h: python help
-- --files: Give scenario csv files (wild card search). The format of
-the files is the  same as in ghg inventory. A row consists of optional
-but highly recommended comment part, UID of the time series followed by the time series.
+- --files: Give scenario csv files (wild card search).
 - --scen: The template excel in lukeghg for results. It contains three sheets:
   - UIDMatrix: contains  UIDs  identifying times series.
   - LandUse: template for results for land use and land use change.
