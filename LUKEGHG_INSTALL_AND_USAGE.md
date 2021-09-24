@@ -115,7 +115,7 @@ Edit the following command line options if needed and update lukeghg package as 
      The naming convention is  that it appens *_result* to the empty PartyProfile file name. 
 - -y Inventory year (the last year in CRFReporter)
 
-`ghg-master.py` contains also the options -b, -k,-l and -m (not shown here) that 
+`ghg-master.py` has also the options -b, -k,-l and -m (not shown here) that 
 refer to ubiquitous configuration files and directories that come with the *lukeghg* package. 
 
 #### Produce CRFReporter xml file
