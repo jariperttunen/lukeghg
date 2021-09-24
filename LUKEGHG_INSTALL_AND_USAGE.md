@@ -147,7 +147,7 @@ The `>`character redirects standard out terminal output to *Import.log* file
 and `2>` redirects standard error terminal output to *Error.log* file.
 
 The final step is to import the PartyProfile result file to CRFReporter. Log in the CRFReporter, 
-*Import/Export* section and follow the instructions in *Excel/XML* import.
+*Import/Export* section and follow the instructions in *Excel/XML-import*.
 
 For EU529 inventory there is similar [`run-eu529-ghg-master.sh`](lukeghg/lukeghg/bin/run-eu529-ghg-master.sh). 
 Note EU529 concerns KPLULUCF files only (LULUCF files are not missing by accident).
