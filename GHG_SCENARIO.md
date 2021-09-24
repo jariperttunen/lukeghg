@@ -2,7 +2,14 @@
 
 `ghg-scenario.py` reads GHG scenario result files and using excel template file produces scenario inventory summary in excel format. It is part of the [*lukeghg*](LUKEGHG_INSTALL_AND_USAGE.md) python package. 
 
-## Input files ##
+## Contents
+
+1. Input files
+2. Excel template file
+3. Excel result file
+4. Usage 
+
+## 1. Input files ##
 
 `ghg-scenario.py` input files have exactly the same format as in the annual GHG inventory.
 The files are text (csv) files with white space as delimiter. Each line
@@ -16,7 +23,7 @@ The *#* character denotes the beginning and the end of the comment. The UID (*A4
 user defined. In the latter case the times series used in GHG inventory has been
 divided into two or more parts to provide finer level of detail.
 
-## Excel template file ##
+## 2. Excel template file ##
 
 The [Excel template file](ScenarioTemplate) gives `ghg-scenario.py` information about the times series to collect
 them into their proper sheets and rows in the final excel result file. The template file
@@ -49,7 +56,7 @@ The LULUCF sheet will be the summary for the whole scenario. `ghg-scenario.py` w
 rows with appropriate excel formulas to collect results from land use classes and land use class
 groupings.
 
-## Excel result file ##
+## 3. Excel result file ##
 
 `ghg-scenario.py` produces excel file for scenarios in three parts: 1) LULUCF summary
 sheet covering the whole inventory, 2) excel summary sheets for land use clusters
@@ -83,7 +90,7 @@ from peat productions, artificial lakes, wetlands etc. regardless being remainin
 Yellow color in excel sheets denotes summary rows. The grey color in summary sheets denotes formulas 
 are used in excel cells. Red color denotes missing values (not necessarily an error). 
 
-## Usage ##
+## 4. Usage ##
 
 The command line is as follows. Bracktes ([]) denote optional arguments, the backslash (\\) 
 in `bash` denotes line continuation:
