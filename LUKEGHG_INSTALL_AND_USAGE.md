@@ -103,7 +103,7 @@ In case `pip` requires update, upgrade also *setuptools* and *wheel* (*1. Create
 
 [`run-ghg-master.sh`](lukeghg/lukeghg/bin/run-ghg-master.sh) is a shell script that sets directories 
 and files for `ghg-master.py` python script to insert GHG inventory results in the CRFReporter PartyProfile xml. 
-Edit the following command line options if needed and update lukeghg package as  in *3. Update lukeghg python package*:
+Edit the following command line arguments if needed and update lukeghg package as  in *3. Update lukeghg python package*:
 
 - -c Location of the GHG inventory files.
 - -n Location of the GHG iventory files for NIR section in CRFReporter.
@@ -115,7 +115,7 @@ Edit the following command line options if needed and update lukeghg package as 
      The naming convention is  that it appends *_result* to the empty PartyProfile file name. 
 - -y Inventory year (the last year in CRFReporter).
 
-`ghg-master.py` has also the options -b, -k,-l and -m (not shown here) that 
+`ghg-master.py` has also the arguments -b, -k,-l and -m (not shown here) that 
 refer to ubiquitous configuration files and directories that come with the *lukeghg* package. 
 
 #### Produce CRFReporter xml file
@@ -134,7 +134,7 @@ Copy GHG inventory files to *crf* directory. Be sure the read rights for the fil
 It has been practice that all GHG inventory results are by year in the same *ghg/\<year\>/crf* directory on the server.
 
 Log in CRFReporter *Import/Export* section, export PartyProfile xml and copy it to *PartyProfile* directory. 
-Rename as denoted by the `-p`  option in [`run-ghg-master.sh`](lukeghg/lukeghg/bin/run-ghg-master.sh). 
+Rename as denoted by the `-p`  argument in [`run-ghg-master.sh`](lukeghg/lukeghg/bin/run-ghg-master.sh). 
 To produce the PartyProfile result file filled with the  GHG inventory results type the two commands:
 
 	(lukeghg) prompt% convertutf8.py -f 'crf/*.csv'
@@ -197,8 +197,8 @@ For further details see [GHG_SCENARIO](GHG_SCENARIO.md).
 ## 6. Other useful programs
 
 lukeghg package contains useful scripts for checks for the inventory 
-and to generate some ubiquitous tables to appear in NIR. Standard python -h (help) option
-prints short explanation for each command line option.
+and to generate some ubiquitous tables to appear in NIR. Standard python -h (help) argument
+prints short explanation for each command line argument.
 
 ### ghg-todo.py
 Compare two inventories and list missing time series and UIDs not
@@ -218,7 +218,7 @@ Output file is *GHGComparison.txt*. Excel file of the same name (*GHGComparison.
 	(lukeghg) prompt% checkinventoryvalues.py -p '2018crf/[KPLU]*.csv' -c crf/[KPLU]*.csv -m crf/lukeghg/300_500_mappings_1.1.csv \
 	  -f GHGComparison.txt -t 20
 	  
-The `-t` option defines that values that disagree 20% or more will be accounted for. More precisely, if two values for some 
+The `-t` argument defines that values that disagree 20% or more will be accounted for. More precisely, if two values for some 
 inventory year in the same time series from the two inventories differ more than this threshold value, 
 the two time series will appear in the result file.  
 	
