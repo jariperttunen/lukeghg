@@ -104,7 +104,7 @@ in `bash` denotes line continuation:
   It contains three sheets:
   - UIDMatrix: contains  UIDs  identifying times series.
   - LandUse: template for results for land use and land use change.
-  - LULUCF: template for collecting LULUCF totals from LandUse sheets, land use and land use change. 
+  - LULUCF: template for collecting GHGH scenario totals from LandUse sheets. 
 - -m: The UID mapping file as in run-ghg-master.sh.
 - -o: Excel output file
 - --start: The start year of the scenario inventory
