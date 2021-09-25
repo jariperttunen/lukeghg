@@ -103,7 +103,7 @@ in `bash` denotes line continuation:
 - --scen: The template excel for results. The file is in [ScenarioTemplate](ScenarioTemplate) directory.
   It contains three sheets:
   - UIDMatrix: contains  UIDs  identifying times series.
-  - LandUse: template for results for land use and land use change.
+  - LandUse: template for results.
   - LULUCF: template for collecting GHG scenario totals from LandUse sheets. 
 - -m: The UID mapping file as in run-ghg-master.sh.
 - -o: Excel output file
