@@ -181,10 +181,7 @@ the backslash (\\) denotes the command line continues to the next line:
      
 - -h: python help
 - --files: Give scenario csv files (wild card search).
-- --scen: The template excel in lukeghg for results. It contains three sheets:
-  - UIDMatrix: contains  UIDs  identifying times series.
-  - LandUse: template for results for land use and land use change.
-  - LULUCF: template for collecting LULUCF totals from land use and land use change. 
+- --scen: The template excel in *lukeghg* for results. 
 - -m: The UID mapping file as in run-ghg-master.sh.
 - -o: Excel output file
 - --start: The start year of the scenario inventory
