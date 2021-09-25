@@ -4,24 +4,23 @@
 
 ## Contents
 
-1. Input files
+1. GHG scenario files
 2. Excel template file
 3. Excel result file
 4. Usage 
 
-## 1. Input files ##
+## 1. GHG scenario files ##
 
-`ghg-scenario.py` input files have exactly the same format as in the annual GHG inventory.
-The files are text (csv) files with white space as delimiter. Each line
-in the file represent one time series for an emission, some area etc.
-The line begins with optional comment followed by the UID ("unique identifier")
+GHG scenario results, input for `ghg-scenario.py`, have exactly the same file format as in the annual GHG inventory.
+Files are text (csv) files with white space as delimiter. Each line in a file represent one 
+time series for an emission, some area etc. The line begins with optional comment followed by the UID ("unique identifier")
 of the time series and after that the time series itself. For example:
 
        #fl.to.cl# A4DB34A0-1847-401A-92BA-7CCE37611F1A -29.903 -28.157 -26.926 ... -14.865 -14.865 -14.865
 
 The *#* character denotes the beginning and the end of the comment. The UID (*A4DB3 ...611F1A*) is CRFReporter generated or
-user defined. In the latter case the times series used in GHG inventory has been
-divided into two or more parts to provide finer level of detail.
+user defined. In the latter case the times series used in GHG inventory has been divided into two or more parts 
+to provide finer level of detail.
 
 ## 2. Excel template file ##
 
