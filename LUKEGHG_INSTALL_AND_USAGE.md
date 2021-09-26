@@ -94,9 +94,9 @@ Make sure you are in `/data/shared/<user>/GHGInventory/lukeghg/lukeghg`:
 	(lukeghg) prompt% python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
 
 
-**Tips**: The `pip`command line allows other ways to achieve the same result but
-this seems to be the most straightforward. Note we had to move around a bit inside the lukeghg package. 
-In case `pip` requires update, upgrade also *setuptools* and *wheel* (*1. Create python virtual environment*).
+**Tips**: `pip` allows other ways to achieve the same result but this seems to be the most straightforward. 
+Note we had to move around a bit inside the lukeghg package. In case `pip` requires update, upgrade 
+also *setuptools* and *wheel* (*1. Create python virtual environment*).
 
 ## 4. GHG inventory to CRFReporter xml file
 
