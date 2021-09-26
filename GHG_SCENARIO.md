@@ -13,7 +13,7 @@
 
 GHG scenario results, input for `ghg-scenario.py`, have exactly the same file format as in the annual GHG inventory.
 Files are text (csv) files with white space as delimiter. Each line in a file represent one 
-time series for an emission, stock change some, area etc. The line begins with optional comment followed by 
+time series for an emission, stock change, area etc. The line begins with optional comment followed by 
 the UID ("unique identifier") of the time series and after that the time series itself. For example:
 
        #fl.to.cl# A4DB34A0-1847-401A-92BA-7CCE37611F1A -29.903 -28.157 -26.926 ... -14.865 -14.865 -14.865
@@ -53,7 +53,7 @@ in the matching column A in the UID Matrix sheet.
 
 The LULUCF sheet will be the summary for the whole scenario. `ghg-scenario.py` will fill sheet
 rows with appropriate excel formulas to collect results from land use classes and land use class
-groupings.
+clusters.
 
 ## 3. Excel result file ##
 
