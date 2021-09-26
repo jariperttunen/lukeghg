@@ -224,7 +224,7 @@ Produce NIR Table 6-1.2 in LuluTable6-1.2.xlsx. In the command line example inve
 
 	(lukeghg) prompt% lulucf-table-612.py -s 1990 -e 2019 -o LuluTable6-1.2.xlsx -d crf/
 	  
-**Note**: `lulucf-table-612.py`  will fetch biomasses (the first two rows in the table) 
+**NB**: `lulucf-table-612.py`  will fetch biomasses (the first two rows in the table) 
 from precalculated files for the current inventory year.
 
 ### kptable-appendix11b.py
