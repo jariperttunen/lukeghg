@@ -40,8 +40,8 @@ denotes *CL-FL biomass gains*. **Only those time series having UID entry will ap
 Note that some sheet cells cannot have an UID simply because those land use - emissions or stock change cases do not occur.
 
 It is difficult, may even be impossible, to produce completely automated construction of the final Excel file
-for GHG scenarios. However, this approach provides some flexibility to react to different wishes within
-the framework of GHG inventory.
+for GHG scenarios. However, this approach provides some flexibility to react to different wishes and specifications 
+within the framework of GHG inventory.
 
 ### LandUse sheet ###
 
