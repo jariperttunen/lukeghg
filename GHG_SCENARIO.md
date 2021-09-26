@@ -4,12 +4,12 @@
 
 ## Contents
 
-1. GHG scenario files
+1. GHG scenario result files
 2. Excel template file
 3. Excel result file
 4. Usage 
 
-## 1. GHG scenario files ##
+## 1. GHG scenario result files ##
 
 GHG scenario results, input for `ghg-scenario.py`, have exactly the same file format as in the annual GHG inventory.
 Files are text (csv) files with white space as delimiter. Each line in a file represent one 
