@@ -176,7 +176,7 @@ The command line is as follows. Brackets ([]) denote optional arguments. In `bas
 the backslash (\\) denotes the command line continues to the next line:
 
 	(lukeghg) prompt% ghg-scenario.py [-h] --files FILES  --scen SCEN \
-                          -m M -o O --start START --end END [--GWP GWP] [--noformulas]
+	                  -m M -o O --start START --end END [--GWP GWP] [--noformulas]
      
 - -h: python help
 - --files: Give scenario csv files (wild card search).
