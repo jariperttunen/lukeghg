@@ -211,7 +211,8 @@ Compare two inventories and check for 1) too large differences in inventory valu
 The sample command line assumes 2018 inventory  is in *2018crf* directory and 2019 inventory in *crf* directory.
 Output file is *GHGComparison.txt*. Excel file of the same name (*GHGComparison.xlsx*) will also be generated:
 
-	(lukeghg) prompt% checkinventoryvalues.py -p '2018crf/[KPLU]*.csv' -c crf/[KPLU]*.csv -m crf/lukeghg/300_500_mappings_1.1.csv \
+	(lukeghg) prompt% checkinventoryvalues.py -p '2018crf/[KPLU]*.csv' -c 'crf/[KPLU]*.csv' \ 
+	  -m crf/lukeghg/300_500_mappings_1.1.csv \
 	  -f GHGComparison.txt -t 20
 	  
 The `-t` argument defines that values that disagree 20% or more will be accounted for. More precisely, if two values for some 
