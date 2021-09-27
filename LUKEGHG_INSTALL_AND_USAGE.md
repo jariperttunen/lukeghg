@@ -64,8 +64,8 @@ All the command line programs in lukeghg package are now available in your virtu
 The programs are located in [lukeghg/lukeghg/bin](lukeghg/lukeghg/bin) in *lukeghg* package.
 
 **Tips**: Naturally you can organise your work as you like. But as we will see the *lukeghg* package 
-contains template and configuration files that make the use of command line programs easier. 
-So try this schema first and improve later.
+contains templates and configuration files that are preset for command line programs. So try this schema 
+first and improve later.
 
 ## 3. Update lukeghg python package
 
