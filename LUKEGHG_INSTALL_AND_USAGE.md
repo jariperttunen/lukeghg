@@ -49,7 +49,7 @@ if you are part of NFI or closely work with them you may have settings by NFI th
 installed in sorvi.
 
 ## 2. Install the lukeghg python package
-We assume that the working directory will be in */data/shared/\<user\>* in sorvi
+We assume that the working directory will be in */data/shared/\<user\>/GHGInventory* in sorvi
 server where *\<user\>* denotes your user name. For GitHub you need to have *.gitconfig* 
 in your home directory. See *Version control* at the end.
 
