@@ -42,6 +42,10 @@ Check you have the latest versions of `pip`, *setuptools* and *wheel* installed:
 **Tips**: Python virtual environments are so omnipresent that it is customary to create all of them under one
 directory (*venv* for example).
 
+**NB**: If you have any problems creating the virtual environment check your `.bashrc` file. For example 
+if you are part of NFI or closely work with them you may have settings by NFI that may disrupt the `python3`
+installed in sorvi.
+
 ## 2. Install the lukeghg python package
 We assume that the working directory will be in */data/shared/\<user\>* in sorvi
 server where *\<user\>* denotes your user name. For GitHub you need to have *.gitconfig* 
