@@ -53,7 +53,7 @@ We assume that the working directory will be in */data/shared/\<user\>/GHGInvent
 server where *\<user\>* denotes your user name. For GitHub you need to have *.gitconfig* 
 in your home directory. See *Git version control* at the end.
 
-Create *GHGInventory* directory and clone lukeghg from GitHub:
+Create *GHGInventory* directory and clone *lukeghg* from GitHub:
 
 	(lukeghg) prompt% cd /data/shared/<user>
 	(lukeghg) prompt% mkdir GHGInvenory
