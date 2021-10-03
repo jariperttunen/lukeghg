@@ -32,15 +32,17 @@ Activate the virtual environment:
 	prompt% source lukeghg/bin/activate
 	(lukeghg) prompt%
 
-Note the *(lukeghg)* appearing in front of your command prompt.
+Note the name of the virtual environment *(lukeghg)* appearing in front of your command prompt.
 
 Check you have the latest versions of `pip`, *setuptools* and *wheel* installed:
 
 	(lukeghg) prompt% python3 -m pip install --upgrade pip
 	(lukeghg) prompt% python3 -m pip install --upgrade setuptools wheel
 
+You can now install *lukeghg* python package.
+
 **Tips**: Python virtual environments are so omnipresent that it is customary to create all of them under one
-directory (*venv* for example).
+directory (*venv* for example). You can quit virtual environment with `deactivate`.
 
 **NB**: If you have any problems creating the virtual environment check your `.bashrc` file. For example 
 if you are part of NFI or closely work with them you may have settings by NFI that  disrupt the `python3`
