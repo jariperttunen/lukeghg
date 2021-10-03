@@ -81,7 +81,7 @@ You need to update the *lukeghg* package from GitHub whenever you or someone els
 and pushed the work there. Otherwise changes will not appear available in the virtual environment,
 
 Remember to activate the virtual environment if needed (check your
-prompt). The `~` character refers to your home directory: 
+prompt). The tilde (~) character refers to your home directory: 
 
 	prompt% source ~/lukeghg/bin/activate
 	(lukeghg) prompt%
