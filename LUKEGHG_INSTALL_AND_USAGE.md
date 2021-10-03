@@ -15,7 +15,7 @@ There are no intentions to make graphical user interface.
 4. GHG inventory to CRFReporter xml file
 5. GHG Scenarios
 6. Other useful programs
-+ Version control
++ Git version control
 + Notes on hirsi server
 + Reading
 
@@ -51,7 +51,7 @@ installed in sorvi.
 ## 2. Install the lukeghg python package
 We assume that the working directory will be in */data/shared/\<user\>/GHGInventory* in sorvi
 server where *\<user\>* denotes your user name. For GitHub you need to have *.gitconfig* 
-in your home directory. See *Version control* at the end.
+in your home directory. See *Git version control* at the end.
 
 Create *GHGInventory* directory and clone lukeghg from GitHub:
 
@@ -252,7 +252,7 @@ form. This is useful when new UIDs must be found for GHG inventory:
 	
 	(lukeghg) prompt%: pretty-print-xml.py -i xml_input_file.xml -o xml_output_file.xml
 
-## Version control
+## Git version control
 
 Currently *lukeghg* package is in GitHub. Sample minimum gitgonfig file for Git is available in [Git](Git) directory. 
 Download it, edit your name, email address and install it as *.gitconfig* in your home directory. 
