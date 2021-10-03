@@ -62,7 +62,7 @@ Create *GHGInventory* directory and clone lukeghg from GitHub:
 
 Create the *wheel package* for lukeghg and install it to your virtual environment. 
 [`setup.py`](lukeghg/setup.py) is the configuration file with instructions 
-for package dependencies and virtual environment set-up:
+for python package dependencies and virtual environment set-up:
 
 	(lukeghg) prompt% cd GHGInventory/lukeghg/lukeghg
 	(lukeghg) prompt% python3 setup.py sdist bdist_wheel
