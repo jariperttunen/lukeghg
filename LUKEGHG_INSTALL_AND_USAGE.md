@@ -92,8 +92,8 @@ Update lukeghg package from GitHub. Make sure you are in `/data/shared/<user>/GH
 	(lukeghg) prompt% git pull
 
 Update your lukeghg virtual environment next. As with the installation
-recreate the wheel package, but now first remove the lukeghg package
-and then upgrade lukeghg and its dependencies.
+recreate the wheel package, but now first remove the *lukeghg* package
+and then upgrade *lukeghg* and its dependencies.
 Make sure you are in `/data/shared/<user>/GHGInventory/lukeghg/lukeghg`:
 
 	(lukeghg) prompt% cd /data/shared/<user>/GHGInventory/lukeghg/lukeghg
