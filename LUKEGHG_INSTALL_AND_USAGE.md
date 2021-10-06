@@ -1,11 +1,11 @@
 # lukeghg: Installation and usage in sorvi server
 The *lukeghg* python package contains command line tools to generate CRFReporter xml file from 
 GHG inventory results for CRFReporter import, check missing work, compare results with 
-previous year and generate some ubiquitous NIR tables. There are no intentions to make graphical user interface.
+previous year and generate some ubiquitous NIR tables. 
 
-The instructions are for `bash` shell in sorvi.  Your default shell
-might be for example `tcsh` and you must for instance adjust quotation marks (')
-in command lines containing wild cards accordingly.
+The instructions are for `bash` shell in sorvi.  Your default shell might be for example `tcsh` 
+and you must for instance adjust quotation marks (') in command lines containing wild cards accordingly. 
+There are no intentions to make graphical user interface.
 
 ## Contents
 
@@ -15,15 +15,15 @@ in command lines containing wild cards accordingly.
 4. GHG inventory to CRFReporter xml file
 5. GHG Scenarios
 6. Other useful programs
-+ Version control
++ Git version control
 + Notes on hirsi server
 + Reading
 
 
 ## 1. Create python virtual environment
 
-Create python virtual environment (called e.g. lukeghg) in your home directory
-(The *prompt%* denotes your terminal command line prompt):
+Create python virtual environment (called e.g. lukeghg) in your home directory.
+The *prompt%* denotes your terminal command line prompt:
 
 	prompt% /usr/bin/python3 -m venv lukeghg
 
@@ -32,48 +32,56 @@ Activate the virtual environment:
 	prompt% source lukeghg/bin/activate
 	(lukeghg) prompt%
 
-Note the *(lukeghg)* appearing in front of your command prompt.
+Note the name of the virtual environment *(lukeghg)* appearing in front of your command prompt.
 
 Check you have the latest versions of `pip`, *setuptools* and *wheel* installed:
 
 	(lukeghg) prompt% python3 -m pip install --upgrade pip
 	(lukeghg) prompt% python3 -m pip install --upgrade setuptools wheel
 
-**Tips**: Consider creating all python virtual environments under one directory
-(*venv* for example).
+You can now install *lukeghg* python package.
+
+**Tips**: Python virtual environments are so omnipresent that it is customary to create all of them under one
+directory (*venv* for example). You can quit virtual environment with `deactivate`.
+
+**NB**: If you have any problems creating the virtual environment check your `.bashrc` file. For example 
+if you are part of NFI or closely work with them you may have settings by NFI that  disrupt the `python3`
+installed in sorvi.
 
 ## 2. Install the lukeghg python package
-We assume that the working directory will be in */data/shared/\<user\>* in sorvi
+We assume that the working directory will be in */data/shared/\<user\>/GHGInventory* in sorvi
 server where *\<user\>* denotes your user name. For GitHub you need to have *.gitconfig* 
-in your home directory. See *Version control* at the end.
+in your home directory. See *Git version control* at the end.
 
-Create *GHGInventory* directory and clone lukeghg from GitHub:
+Create *GHGInventory* directory and clone *lukeghg* from GitHub:
 
 	(lukeghg) prompt% cd /data/shared/<user>
 	(lukeghg) prompt% mkdir GHGInvenory
 	(lukeghg) prompt% cd GHGInventory
 	(lukeghg) prompt% git clone https://github.com/jariperttunen/lukeghg.git
 
-Create the *wheel package* for lukeghg and install it to your virtual environment:
+Create the *wheel package* for *lukeghg* and install it to your virtual environment. 
+[`setup.py`](lukeghg/setup.py) is the configuration file with instructions 
+for python package dependencies and virtual environment set-up:
 
 	(lukeghg) prompt% cd GHGInventory/lukeghg/lukeghg
 	(lukeghg) prompt% python3 setup.py sdist bdist_wheel
 	(lukeghg) prompt% python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
 
-All the command line programs in lukeghg package are now available in your virtual environment. 
-The programs are located in [lukeghg/lukeghg/bin](lukeghg/lukeghg/bin) in *lukeghg* package.
+All the command line programs in *lukeghg* package are now available in your virtual environment. 
+The programs are located in [lukeghg/lukeghg/bin](lukeghg/lukeghg/bin) directory.
 
-**Tips**: Naturally you can organise your work as you like including directory names. 
-But as we will see lukeghg package contains template and configuration files that make 
-the use of command line programs easier. So try this schema first and improve later.
+**Tips**: Naturally you can organise your work as you like. But as we will see the *lukeghg* package 
+contains templates and configuration files that are preset for command line programs. So try this schema 
+first and improve later.
 
 ## 3. Update lukeghg python package
 
-You need to update the *lukeghg* package from GitHub whenever someone has made changes
+You need to update the *lukeghg* package from GitHub whenever you or someone else has made changes
 and pushed the work there. Otherwise changes will not appear available in the virtual environment,
 
 Remember to activate the virtual environment if needed (check your
-prompt). The `~` character refers to your home directory: 
+prompt). The tilde (~) character in `bash` expands to your home directory: 
 
 	prompt% source ~/lukeghg/bin/activate
 	(lukeghg) prompt%
@@ -84,8 +92,8 @@ Update lukeghg package from GitHub. Make sure you are in `/data/shared/<user>/GH
 	(lukeghg) prompt% git pull
 
 Update your lukeghg virtual environment next. As with the installation
-recreate the wheel package, but now first remove the lukeghg package
-and then upgrade lukeghg and its dependencies.
+recreate the wheel package, but now first remove the *lukeghg* package
+and then upgrade *lukeghg* and its dependencies.
 Make sure you are in `/data/shared/<user>/GHGInventory/lukeghg/lukeghg`:
 
 	(lukeghg) prompt% cd /data/shared/<user>/GHGInventory/lukeghg/lukeghg
@@ -93,11 +101,10 @@ Make sure you are in `/data/shared/<user>/GHGInventory/lukeghg/lukeghg`:
 	(lukeghg) prompt% python3 -m pip uninstall lukeghg
 	(lukeghg) prompt% python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
 
-The `pip`command line allows other ways to achieve the same result but
-this seems to be the most straightforward. 
 
-**Tips**: Note we had to move around a bit inside the lukeghg package. 
-In case `pip` requires update, upgrade also *setuptools* and *wheel* (*1. Create python virtual environment*).
+**Tips**: `pip` allows other ways to achieve the same result but this seems to be the most straightforward. 
+Note we had to move around a bit inside the lukeghg package. In case `pip` requires update, upgrade 
+also *setuptools* and *wheel* as in *1. Create python virtual environment*.
 
 ## 4. GHG inventory to CRFReporter xml file
 
@@ -160,15 +167,15 @@ you have the right active inventory in CRFReporter. Each year CRFReporter requir
 xml matches the CRFReporter version. Each CRFReporter version update requires new
 PartyProfile xml from CRFReporter, even during the same active inventory. 
 
-#### GHG inventory files
-The files are text (csv) files with white space as the delimeter mark. Each line
-in the file represent one time series for an emission, some area etc.
-in CRFReporter. The line begins with optional comment, then the UID ("unique identifier")
-of the time series followed by the time series itself. For example:
+#### GHG inventory result files
+The GHG inventory result files are text (csv) files with white space as the delimeter mark. Each line
+in the file represent one time series for an emission, area, stock change etc. in CRFReporter. 
+The line begins with optional comment, then the UID (*unique identifier*) of the time series followed 
+by the time series itself. For example:
 
        #fl.to.cl# A4DB34A0-1847-401A-92BA-7CCE37611F1A -29.903 -28.157 -26.926 ... -14.865 -14.865 -14.865
 
-The *#* character denotes the beginning and the end of the comment. The UID (*A4DB3 ...611F1A*) is CRFReporter generated.
+The number sign (#) character denotes the beginning and the end of the comment. The UID (*A4DB3 ...611F1A*) is CRFReporter generated.
 
 ## 5. GHG Scenarios
 
@@ -177,14 +184,11 @@ The command line is as follows. Brackets ([]) denote optional arguments. In `bas
 the backslash (\\) denotes the command line continues to the next line:
 
 	(lukeghg) prompt% ghg-scenario.py [-h] --files FILES  --scen SCEN \
-                          -m M -o O --start START --end END [--GWP GWP] [--noformulas]
+	                  -m M -o O --start START --end END [--GWP GWP] [--noformulas]
      
 - -h: python help
 - --files: Give scenario csv files (wild card search).
-- --scen: The template excel in lukeghg for results. It contains three sheets:
-  - UIDMatrix: contains  UIDs  identifying times series.
-  - LandUse: template for results for land use and land use change.
-  - LULUCF: template for collecting LULUCF totals from land use and land use change. 
+- --scen: The template excel in *lukeghg* for results. 
 - -m: The UID mapping file as in run-ghg-master.sh.
 - -o: Excel output file
 - --start: The start year of the scenario inventory
@@ -205,8 +209,9 @@ Compare two inventories and list missing time series and UIDs not
 found. This sample command assumes that 2018 inventory is in 2018crf
 directory and the output excel file is GHGToDo2019.xlsx:
 
-	(lukeghg) prompt% ghg-todo.py -f1 '2018crf/[KPLU]*.csv' -f2 'crf/[KPLU]*.csv' -x PartyProfile/PartyProfile_FIN_2021_1.xml \
-	  -o GHGToDo2019.xlsx -m lukeghg/300_500_mappings_1.1.csv -y 2019
+	(lukeghg) prompt% ghg-todo.py -f1 '2018crf/[KPLU]*.csv' -f2 'crf/[KPLU]*.csv' \ 
+	                  -x PartyProfile/PartyProfile_FIN_2021_1.xml -o GHGToDo2019.xlsx \
+			  -m lukeghg/CRFReporterMappings/300_500_mappings_1.1.csv -y 2019
 
 ### checkinventoryvalues.py
 Compare two inventories and check for 1) too large differences in inventory values, 2) changes in notation keys and 
@@ -215,8 +220,8 @@ Compare two inventories and check for 1) too large differences in inventory valu
 The sample command line assumes 2018 inventory  is in *2018crf* directory and 2019 inventory in *crf* directory.
 Output file is *GHGComparison.txt*. Excel file of the same name (*GHGComparison.xlsx*) will also be generated:
 
-	(lukeghg) prompt% checkinventoryvalues.py -p '2018crf/[KPLU]*.csv' -c crf/[KPLU]*.csv -m crf/lukeghg/300_500_mappings_1.1.csv \
-	  -f GHGComparison.txt -t 20
+	(lukeghg) prompt% checkinventoryvalues.py -p '2018crf/[KPLU]*.csv' -c 'crf/[KPLU]*.csv' \ 
+	                  -m lukeghg/CRFReporteMappings/300_500_mappings_1.1.csv -f GHGComparison.txt -t 20
 	  
 The `-t` argument defines that values that disagree 20% or more will be accounted for. More precisely, if two values for some 
 inventory year in the same time series from the two inventories differ more than this threshold value, 
@@ -228,7 +233,7 @@ Produce NIR Table 6-1.2 in LuluTable6-1.2.xlsx. In the command line example inve
 
 	(lukeghg) prompt% lulucf-table-612.py -s 1990 -e 2019 -o LuluTable6-1.2.xlsx -d crf/
 	  
-**Note**: `lulucf-table-612.py`  will fetch biomasses (the first two rows in the table) 
+**NB**: `lulucf-table-612.py`  will fetch biomasses (the first two rows in the table) 
 from precalculated files for the current inventory year.
 
 ### kptable-appendix11b.py
@@ -249,7 +254,7 @@ form. This is useful when new UIDs must be found for GHG inventory:
 	
 	(lukeghg) prompt%: pretty-print-xml.py -i xml_input_file.xml -o xml_output_file.xml
 
-## Version control
+## Git version control
 
 Currently *lukeghg* package is in GitHub. Sample minimum gitgonfig file for Git is available in [Git](Git) directory. 
 Download it, edit your name, email address and install it as *.gitconfig* in your home directory. 

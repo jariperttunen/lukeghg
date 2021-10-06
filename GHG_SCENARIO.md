@@ -4,24 +4,23 @@
 
 ## Contents
 
-1. Input files
+1. GHG scenario result files
 2. Excel template file
 3. Excel result file
 4. Usage 
 
-## 1. Input files ##
+## 1. GHG scenario result files ##
 
-`ghg-scenario.py` input files have exactly the same format as in the annual GHG inventory.
-The files are text (csv) files with white space as delimiter. Each line
-in the file represent one time series for an emission, some area etc.
-The line begins with optional comment followed by the UID ("unique identifier")
-of the time series and after that the time series itself. For example:
+GHG scenario results, input for `ghg-scenario.py`, have exactly the same file format as in the annual GHG inventory.
+Files are text (csv) files with white space as delimiter. Each line in a file represent one 
+time series for an emission, stock change, area etc. The line begins with optional comment followed by 
+the UID ("unique identifier") of the time series and after that the time series itself. For example:
 
        #fl.to.cl# A4DB34A0-1847-401A-92BA-7CCE37611F1A -29.903 -28.157 -26.926 ... -14.865 -14.865 -14.865
 
 The *#* character denotes the beginning and the end of the comment. The UID (*A4DB3 ...611F1A*) is CRFReporter generated or
-user defined. In the latter case the times series used in GHG inventory has been
-divided into two or more parts to provide finer level of detail.
+user defined. In the latter case the times series used in GHG inventory has been divided into two or more parts 
+to provide finer level of detail.
 
 ## 2. Excel template file ##
 
@@ -38,7 +37,11 @@ into the right row deduced from the same number (red) found in the *LandUse* tem
 
 The sheet cells contain UIDs of the time series. For example 4A48C2F0-02C0-4EAB-8547-6A109929DDCD 
 denotes *CL-FL biomass gains*. **Only those time series having UID entry will appear in result Excel**. 
-Note that not all cells have an UID because those cases simply do not occur.
+Note that some sheet cells cannot have an UID simply because those land use vs. emissions or stock change cases do not occur.
+
+It is difficult, may even be impossible, to produce completely automated construction of the final Excel file
+for GHG scenarios. However, this approach provides some flexibility to react to different wishes and specifications 
+within the framework of GHG inventory.
 
 ### LandUse sheet ###
 
@@ -54,7 +57,7 @@ in the matching column A in the UID Matrix sheet.
 
 The LULUCF sheet will be the summary for the whole scenario. `ghg-scenario.py` will fill sheet
 rows with appropriate excel formulas to collect results from land use classes and land use class
-groupings.
+clusters.
 
 ## 3. Excel result file ##
 
@@ -83,7 +86,7 @@ The land use summary sheets are defined as follows:
  + WLother_summary = WL-WL(other) + Lands_WLother
 
 The last three wetlands summaries (WLpeat_summary, WLflooded_summary, WLother_summary) contain emissions
-from peat productions, artificial lakes, wetlands etc. regardless being remaining or converted areas.
+from peat productions, artificial lakes, wetlands etc. regardless coming about from remaining or converted areas.
 
 ### Color coding ###
 
@@ -92,7 +95,7 @@ are used in excel cells. Red color denotes missing values (not necessarily an er
 
 ## 4. Usage ##
 
-The command line is as follows. Bracktes ([]) denote optional arguments, the backslash (\\) 
+The `ghg-scenario.py` command line is as follows. Bracktes ([]) denote optional arguments, the backslash (\\) 
 in `bash` denotes line continuation:
 
 	(lukeghg) prompt% ghg-scenario.py [-h] --files FILES  --scen SCEN \
@@ -103,8 +106,8 @@ in `bash` denotes line continuation:
 - --scen: The template excel for results. The file is in [ScenarioTemplate](ScenarioTemplate) directory.
   It contains three sheets:
   - UIDMatrix: contains  UIDs  identifying times series.
-  - LandUse: template for results for land use and land use change.
-  - LULUCF: template for collecting LULUCF totals from LandUse sheets, land use and land use change. 
+  - LandUse: template for results.
+  - LULUCF: template for collecting GHG scenario totals from LandUse sheets. 
 - -m: The UID mapping file as in run-ghg-master.sh.
 - -o: Excel output file
 - --start: The start year of the scenario inventory
@@ -112,7 +115,7 @@ in `bash` denotes line continuation:
 - --GWP: Global warming potential for CH4 and N2O, possible values AR4 (GHG inventory) or AR5 (default)
 - --noformulas: Add up values in summary sheets. Default: Not present, generate excel formulas
 
-For the `ghg-scenario.py` command line set your working directory to [*lukeghg*](https://github.com/jariperttunen/lukeghg) 
+To run `ghg-scenario.py` set your working directory next to [*lukeghg*](https://github.com/jariperttunen/lukeghg) 
 package so that you can find *ScenarioTemplate.xlsx* and *300_500_mappings_1.1.csv* files as shown in the 
 command line arguments `--scen` and `-m`. Then, assuming the scenario result  files are under *hiisi* directory 
 (argument `--files`) type:
