@@ -170,7 +170,7 @@ PartyProfile xml from CRFReporter, even during the same active inventory.
 #### GHG inventory result files
 The GHG inventory result files are text (csv) files with white space as the delimeter mark. Each line
 in the file represent one time series for an emission, area, stock change etc. in CRFReporter. 
-The line begins with optional comment, then the UID ("unique identifier") of the time series followed 
+The line begins with optional comment, then the UID (*unique identifier*) of the time series followed 
 by the time series itself. For example:
 
        #fl.to.cl# A4DB34A0-1847-401A-92BA-7CCE37611F1A -29.903 -28.157 -26.926 ... -14.865 -14.865 -14.865
