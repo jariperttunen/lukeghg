@@ -38,7 +38,7 @@ be *.csv*, i.e. the one used for csv files.
 
 The GHG inventory result files are mainly produced with R language programs. It is custom
 in an R script to use the dot (.) character to separate words in function and variable names.
-Do not use the dot but apply the underscore (_) instead to separate words in file names. The only
+Do not use the dot but apply the underscore (_) instead to separate lowercase words in file names. The only
 dot should denote the file suffix, i.e *.csv*.
 
 Try to indicate with the file name, as much it is possible and feasible, the place in CRFreporter
@@ -49,6 +49,8 @@ Consider also using comment section in the file where in the CRFReporter the res
 GHG inventory has common *de facto* abberviations for land use classes and land use changes.
 For example FL is Forest land, GL is Grassland and FL-GL means Forest land converted
 to Grassland. You can use these abbreviations in file names to detail the contents of the file.
+If you think to use word abbreviation make sure it is commonly known in the GHG inventory. 
+Otherwise write the word without shortening it.
 
 Use english words only in file names, do not mix finnish words with english.
 
