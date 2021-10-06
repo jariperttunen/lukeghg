@@ -173,9 +173,9 @@ in the file represent one time series for an emission, area, stock change etc. i
 The line begins with optional comment, then the UID (*unique identifier*) of the time series followed 
 by the time series itself. For example:
 
-       #fl.to.cl# A4DB34A0-1847-401A-92BA-7CCE37611F1A -29.903 -28.157 -26.926 ... -14.865 -14.865 -14.865
+		#CLorg# 810E194F-0D38-4486-8A88-96ACF87C2059 -0.119 -0.119 -0.119 ...  -0.882 -0.948 -0.948
 
-The number sign (#) character denotes the beginning and the end of the comment. The UID (*A4DB3 ...611F1A*) is CRFReporter generated.
+The number sign (#) character denotes the beginning and the end of the comment. The UID (*A4DB3 ...611F1A*) is CRFReporter generated. For details see [GHG_INVENTORY_RESULT_FILES.md](GHG_INVENTORY_RESULT_FILES.md)
 
 ## 5. GHG Scenarios
 
