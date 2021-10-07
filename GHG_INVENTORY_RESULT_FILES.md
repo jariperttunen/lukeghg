@@ -33,7 +33,7 @@ there is frequent need to return to the result files and study their content man
 The use of descriptive comments and common file naming conventions can make this work easier.  
 
 The GHG inventory results read by `run-ghg-master.sh` and `run-eu529-ghg-master.sh` assume
-that LULUCF files and KPLULUCF files begin with *LU* and *KP* respectively. The file suffix should
+that LULUCF and KPLULUCF file names begin with *LU* and *KP* respectively. The file suffix should
 be *.csv* used for csv files.
 
 Try to indicate with the file name, as much it is possible and feasible, the place in CRFreporter
