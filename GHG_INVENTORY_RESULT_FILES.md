@@ -33,7 +33,7 @@ there is frequent need to return to the result files and study their content man
 The use of descriptive comments and common file naming conventions can make this work easier.  
 
 The GHG inventory results read by `run-ghg-master.sh` and `run-eu529-ghg-master.sh` assume
-that LULUCF and KPLULUCF file names begin with *LU* and *KP* respectively. The file suffix should
+that LULUCF and KPLULUCF file names begin with *LU* and *KP* respectively. The file name suffix should
 be *.csv* used for csv files.
 
 Try to indicate with the file name, as much it is possible and feasible, the place in CRFreporter
@@ -44,7 +44,7 @@ Consider also using comment sections in the files where the results should appea
 The GHG inventory result files are mainly produced with R language programs. It is custom
 in an R script to use the dot (.) character to separate words in function and variable names.
 Do not use the dot but apply the underscore (_) instead to separate lowercase words in file names. The only
-dot should denote the *.csv* file suffix.
+dot should denote the *.csv* file name suffix.
 
 GHG inventory has common *de facto* abberviations for land use classes and land use changes.
 For example FL is Forest land, GL is Grassland and FL-GL means Forest land converted
