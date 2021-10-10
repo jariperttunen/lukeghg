@@ -38,7 +38,7 @@ that LULUCF and KPLULUCF file names begin with *LU* and *KP* respectively. The f
 be *.csv* used for csv files. There is no need to use *LULUCF* or *KPLULUCF* to start the file name but
 shorten them and use spared characters to describe the content of the file.
 
-Try to indicate with the file name, as much it is possible and feasible, the place in CRFreporter
+Try to indicate first in the file name, as much it is possible and feasible, the place in CRFreporter
 where the content of the file is to appear. For example *LU4A1xxx.csv* guides the reader
 at least to Forest Land Remaining Forest Land and *LU4A1_4Vxxx.csv* further to Biomass Burning.
 Consider also using comment sections in the files where the results should appear in the CRFReporter.
