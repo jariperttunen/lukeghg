@@ -27,7 +27,7 @@ The programs used, [`run-ghg-master.sh`](lukeghg/lukeghg/bin/run-ghg-master.sh) 
 [`run-eu529-ghg-master.sh`](lukeghg/lukeghg/bin/run-eu529-ghg-master.sh), resort to
 the UID's of the time series to find their proper places in the PartyProfile xml. 
 
-## Naming conventions (Work in progress, ideas and comments welcome)
+## File name conventions (Work in progress, ideas and comments welcome)
 
 Although the process to fill CRFReporter PartyProfile xml with GHG inventory results is automated
 there is frequent need to return to the result files and study their content manually. 
