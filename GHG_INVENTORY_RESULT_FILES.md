@@ -35,7 +35,8 @@ The use of descriptive comments and common file naming conventions can make this
 
 The GHG inventory results read by `run-ghg-master.sh` and `run-eu529-ghg-master.sh` assume
 that LULUCF and KPLULUCF file names begin with *LU* and *KP* respectively. The file name suffix should
-be *.csv* used for csv files.
+be *.csv* used for csv files. There is no need to have *LULUCF* or *KPLULUCF* to start the file name but
+shorten them and use spared characters to describe the content of the file.
 
 Try to indicate with the file name, as much it is possible and feasible, the place in CRFreporter
 where the content of the file is to appear. For example *LU4A1xxx.csv* guides the reader
