@@ -65,17 +65,18 @@ def GHGToCRFReporter(file_ls,partyprofile_xml_file,crf_xml_file,uid_mapping_file
         #data comment and  finally splits the time series  into a list
         #of strings (datals).
         datals = [x.rpartition('#')[2].split(sep=sep1) for x in f.readlines() if x.count('#') != 1]
+        #print(datals)
         f.close()
         if len(datals) == 0:
             print("Empty file",file_name,file=sys.stderr)
             continue
         ##Retrieve user based on the first time series uid
-        print(file_name)
-        time_series=datals[0]
+        #print(file_name)
+        #time_series=datals[0]
         #The first string in the list is the uid
-        uid = time_series[0]
-        uid=uid.replace(' ','')
-        uid_new = uid.strip('{}')
+        #uid = time_series[0]
+        #uid=uid.replace(' ','')
+        #uid_new = uid.strip('{}')
         not_found_uid_ls=[]
         print("--------------------------------------------------------------------------")
         print("File:",file_name)
