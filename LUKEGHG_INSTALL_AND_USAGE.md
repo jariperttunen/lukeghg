@@ -159,6 +159,15 @@ The final step is to import the PartyProfile result file to CRFReporter. Log in 
 For EU529 inventory there is similar [`run-eu529-ghg-master.sh`](lukeghg/lukeghg/bin/run-eu529-ghg-master.sh). 
 Note EU529 concerns KPLULUCF files only (LULUCF files are not missing by accident).
 
+#### Slurm
+User logins to *interactive* node in sorvi. In addition four *computing* nodes can be used for batch jobs via Slurm.
+`run-ghg-master.slurm` and `run-eu529-ghg-master.slurm` are scripts that can be submitted via `sbatch` for execution.
+The usage is:
+		(lukeghg) prompt% sbatch run-ghg-master.slurm firstname lastname
+		(lukeghg) prompt% sbatch run-eu529-ghg-master.slurm firstname lastname
+		
+Use `squeue` to see your work in Slurm and `scancel` to remove it.
+
 **Tips**: Once you have this set-up you can use it also for the future inventories. Always check that
 you have the right active inventory in CRFReporter. Each year CRFReporter requires 
 [manual work](CRFREPORTER_ANNUAL_CHECK.md) that needs to be done.
