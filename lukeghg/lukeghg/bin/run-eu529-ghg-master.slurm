@@ -6,9 +6,7 @@
 #Default: source /home/jarip/venv/bin/activate
 #CHECK --account 
 #Default:  $USER
-#CHECK the --mail-user below
-#CHECK the --mail-user below
-#Default: jari.perttunen@luke.fi
+#CHECK the --mail-user from command line 
 #Note the use of double quotes to allow wild card file reading.
 #See GitHub https://github.com/jariperttunen/lukeghg InstallAndUpdateLukeGHG.md
 #to setup 'lukeghg' python virtual environment and usage. 
@@ -26,8 +24,7 @@
 #SBATCH --error=errors_%j.txt
 #SBATCH --mail-type=begin        # send email when job begins
 #SBATCH --mail-type=end          # send email when job ends
-#SBATCH --mail-user=$1.$2@luke.fi
-#run-eu529-ghg-master.slurm: Run (2017) EU529 inventory xml import in one step. 
+#run-eu529-ghg-master.slurm: Run  EU529 inventory xml import in one step. 
 #Note the use of double quotes to allow wild card file reading.
 #See "/hsan2/khk/ghg/lukeghg/InstallAndUpdateLukeGHG.txt" to setup 'lukeghg' python virtual environment. 
 ghg-master.py -c "EU529/KP*.csv" -p PartyProfile/PartyProfile_FIN_2021_4.xml\
