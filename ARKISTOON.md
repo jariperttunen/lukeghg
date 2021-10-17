@@ -60,5 +60,3 @@ teossa tarvittavat tiedostot ja ohjelmat.
 + ./lukeghg/lukeghg/scen/__init__.py
 + ./lukeghg/lukeghg/scen/ghgscenario.py
 + ./lukeghg/setup.py
-
-----LOPPU-----
