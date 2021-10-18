@@ -12,7 +12,7 @@
 ## 1. GHG scenario result files ##
 
 GHG scenario results, input for `ghg-scenario.py`, have exactly the same file format as in the annual GHG inventory
-[File formmat](GHG_INVENTORY_RESULT_FILES.md).
+([ see details for file format](GHG_INVENTORY_RESULT_FILES.md)).
 Files are text (csv) files with white space as delimiter. Each line in a file represent one 
 time series for an emission, stock change, area etc. The line begins with optional comment followed by 
 the UID ("unique identifier") of the time series and after that the time series itself. For example:
