@@ -171,6 +171,17 @@ The usage is:
 Use `squeue` to see your work in Slurm and `scancel` to remove it. Although running the scipts takes up to only ten minutes (each),
 it might be a good practice to send the work to computational nodes with Slurm.
 
+#### GHG inventory result files
+The GHG inventory result files are text (csv) files with white space as the delimeter mark. Each line
+in the file represent one time series for an emission, area, stock change etc. in CRFReporter. 
+The line begins with optional comment, then the UID (*unique identifier*) of the time series followed 
+by the time series itself. For example:
+
+		#CLorg# 810E194F-0D38-4486-8A88-96ACF87C2059 -0.119 -0.119 -0.119 ...  -0.882 -0.948 -0.948
+
+The number sign (#) character denotes the beginning and the end of the comment. The UID (*810E194F-...-96ACF87C2059*) is CRFReporter generated. For details see [GHG_INVENTORY_RESULT_FILES](GHG_INVENTORY_RESULT_FILES.md).
+
+
 **NB1:** CRFReporter checks that the version number of the PartyProfile 
 xml matches the CRFReporter version. Each CRFReporter version update requires new
 PartyProfile xml from CRFReporter, even during the same active inventory. 
@@ -183,16 +194,6 @@ there.
 **Tips**: Once you have this set-up you can use it also for the future inventories. Always check that
 you have the right active inventory in CRFReporter. Each year CRFReporter requires 
 [manual work](CRFREPORTER_ANNUAL_CHECK.md) that needs to be done.
-
-#### GHG inventory result files
-The GHG inventory result files are text (csv) files with white space as the delimeter mark. Each line
-in the file represent one time series for an emission, area, stock change etc. in CRFReporter. 
-The line begins with optional comment, then the UID (*unique identifier*) of the time series followed 
-by the time series itself. For example:
-
-		#CLorg# 810E194F-0D38-4486-8A88-96ACF87C2059 -0.119 -0.119 -0.119 ...  -0.882 -0.948 -0.948
-
-The number sign (#) character denotes the beginning and the end of the comment. The UID (*810E194F-...-96ACF87C2059*) is CRFReporter generated. For details see [GHG_INVENTORY_RESULT_FILES](GHG_INVENTORY_RESULT_FILES.md).
 
 ## 5. GHG Scenarios
 
