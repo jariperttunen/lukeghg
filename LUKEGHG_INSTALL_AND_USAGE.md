@@ -117,7 +117,7 @@ Edit the following command line arguments if needed and update lukeghg package a
 - -i Location of the GHG inventory comment files for CRFReporter.
 - -p Location of the empty (i.e. no inventory data) PartyProfile xml from CRFReporter.
      The naming convention is that it uses the name of the active inventory in CRFReporter
-     (see also **NB** at the end of chapter).
+     (see also **NB1** at the end of chapter).
 - -x Location of the PartyProfile result file to be imported to CRFReporter.
      The naming convention is  that it appends *_result* to the empty PartyProfile file name. 
 - -y Inventory year (the last year in CRFReporter).
@@ -154,7 +154,8 @@ The `>`character redirects standard out terminal output to *Import.log* file
 and `2>` redirects standard error terminal output to *Error.log* file.
 
 The final step is to import the PartyProfile result file to CRFReporter. Log in CRFReporter
-*Import/Export* section and follow the instructions in *Excel/XML-import*.
+*Import/Export* section and follow the instructions in *Excel/XML-import*. Read **NB2** carefully
+before xml import.
 
 For EU529 inventory there is similar [`run-eu529-ghg-master.sh`](lukeghg/lukeghg/bin/run-eu529-ghg-master.sh). 
 Note EU529 concerns KPLULUCF files only (LULUCF files are not missing by accident).
@@ -173,9 +174,14 @@ Use `squeue` to see your work in Slurm and `scancel` to remove it.
 you have the right active inventory in CRFReporter. Each year CRFReporter requires 
 [manual work](CRFREPORTER_ANNUAL_CHECK.md) that needs to be done.
 
-**NB:** CRFReporter checks that the version number of the PartyProfile 
+**NB1:** CRFReporter checks that the version number of the PartyProfile 
 xml matches the CRFReporter version. Each CRFReporter version update requires new
 PartyProfile xml from CRFReporter, even during the same active inventory. 
+
+**NB2:** Please check that you have write access *only and solely* to 4. LULUCF and 7. KPLULUCF sectors
+in CRFReporter. The bulk xml import in CRFReporter tries first to clear all results in all sectors.
+If by accident you have write access for example to 3. Agriculture sector you will delete exisiting results
+there.
 
 #### GHG inventory result files
 The GHG inventory result files are text (csv) files with white space as the delimeter mark. Each line
