@@ -10,8 +10,8 @@ There are no intentions to make graphical user interface.
 ## Contents
 
 1. Create python virtual environment
-2. Install lukeghg python package
-3. Update  lukeghg python package
+2. Install the lukeghg python package
+3. Update  the lukeghg python package
 4. GHG inventory to CRFReporter xml file
 5. GHG Scenarios
 6. Other useful programs
