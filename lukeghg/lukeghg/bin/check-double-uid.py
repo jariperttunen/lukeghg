@@ -15,7 +15,7 @@ import lukeghg.check.checkdoubleuid as check
 if __name__ == "__main__":
     parser = OP()
     parser.add_option("-c","--csv",dest="f1",help="Read GHG inventory csv files")
-    parser.add_option("-x","--excel",dest="f2",help="Excel file")
+    parser.add_option("-o","--excel",dest="f2",help="Excel file")
     (options,args) = parser.parse_args()
     dirfilels = []
     if options.f1 is None:
