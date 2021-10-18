@@ -75,7 +75,7 @@ The programs are located in [lukeghg/lukeghg/bin](lukeghg/lukeghg/bin) directory
 contains templates and configuration files that are preset for command line programs. So try this schema 
 first and improve later.
 
-## 3. Update lukeghg python package
+## 3. Update the lukeghg python package
 
 You need to update the *lukeghg* package from GitHub whenever you or someone else has made changes
 and pushed the work there. Otherwise changes will not appear available in the virtual environment,
