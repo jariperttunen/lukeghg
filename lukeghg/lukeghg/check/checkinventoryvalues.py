@@ -1,4 +1,3 @@
-#!python
 import os
 from xml.etree.ElementTree import ElementTree as ET
 from xml.etree.ElementTree import Element,SubElement

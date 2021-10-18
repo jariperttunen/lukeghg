@@ -1,5 +1,9 @@
-import argparse
-import checkinventoryvalues
+#!python
+from optparse import OptionParser as OP
+import glob
+from lukeghg.crf.uid340to500mapping import MapUID340to500, Create340to500UIDMapping
+from lukeghg.crf.crfxmlfunctions import ConvertFloat
+import checkinventoryvalues as checkinv
 
 
 if __name__ == "__main__":
@@ -32,9 +36,9 @@ if __name__ == "__main__":
     dirfilels1 = glob.glob(options.f1)
     dirfilels2 = glob.glob(options.f2)
     #dictionary for previous year: {UID: time series}
-    dictprev1=CreateDictionary(dirfilels1)
+    dictprev1=checkinv.CreateDictionary(dirfilels1)
     #dictionary for previous year: {UID: time series}
-    dictcurrent2=CreateDictionary(dirfilels2)
+    dictcurrent2=checkinv.CreateDictionary(dirfilels2)
     #Check the existence of UID
     dictprev1keyls = dictprev1.keys()
     uidnotincurrentyear=[]
@@ -57,5 +61,5 @@ if __name__ == "__main__":
     print("Writing output to:", file_name)
     ls=file_name.split('.')
     print("Writing output to:", ls[0]+".xlsx")
-    CompareTwoInventoryYears(dictcurrent2,dictprev1,tolerance,uidnotincurrentyear,uidnotinpreviousyear,file_name)
+    checkinv.CompareTwoInventoryYears(dictcurrent2,dictprev1,tolerance,uidnotincurrentyear,uidnotinpreviousyear,file_name)
     print("Done\n")
