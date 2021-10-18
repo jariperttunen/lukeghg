@@ -223,7 +223,7 @@ directory and the output excel file is GHGToDo2019.xlsx:
 	                  -x PartyProfile/PartyProfile_FIN_2021_1.xml -o GHGToDo2019.xlsx \
 			  -m lukeghg/CRFReporterMappings/300_500_mappings_1.1.csv -y 2019
 
-### checkinventoryvalues.py
+### check-inventory-values.py
 Compare two inventories and check for 1) too large differences in inventory values, 2) changes in notation keys and 
 3) missing UID's. These will appear in their respective sections in the output file.
 
@@ -231,7 +231,7 @@ The sample command line assumes 2018 inventory  is in *2018crf* directory and 20
 Output file is *GHGComparison.txt*. Excel file of the same name (*GHGComparison.xlsx*) will also be generated:
 
 	(lukeghg) prompt% checkinventoryvalues.py -p '2018crf/[KPLU]*.csv' -c 'crf/[KPLU]*.csv' \ 
-	                  -m lukeghg/CRFReporteMappings/300_500_mappings_1.1.csv -f GHGComparison.txt -t 20
+	                  -m lukeghg/CRFReporteMappings/300_500_mappings_1.1.csv -o GHGComparison.txt -t 20
 	  
 The `-t` argument defines that values that disagree 20% or more will be accounted for. More precisely, if two values for some 
 inventory year in the same time series from the two inventories differ more than this threshold value, 
