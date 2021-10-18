@@ -249,7 +249,7 @@ if __name__ == "__main__":
     parser.add_option("-p","--prev",dest="f1",help="Read input ghg result files previous year (wild card search)")
     parser.add_option("-c","--curr",dest="f2",help="Read input ghg result files current year (wild card search)")
     parser.add_option("-m","--map",dest="f5", help="CRFReporter 3.0.0 --> 5.0.0 UID mapping file")
-    parser.add_option("-f","--diff_file",dest="f6",help="Output text file containing: 1) too large differences, 2) change in Notation keys and methods, 3) missing UID")
+    parser.add_option("-o","--diff_file",dest="f6",help="Output text file containing: 1) too large differences, 2) change in Notation keys and methods, 3) missing UID")
     parser.add_option("-t","--tolerance",dest="f7",help="Tolerance for difference in percentage")
     (options,args) = parser.parse_args()
 
