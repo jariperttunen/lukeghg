@@ -170,10 +170,6 @@ The usage is:
 		
 Use `squeue` to see your work in Slurm and `scancel` to remove it.
 
-**Tips**: Once you have this set-up you can use it also for the future inventories. Always check that
-you have the right active inventory in CRFReporter. Each year CRFReporter requires 
-[manual work](CRFREPORTER_ANNUAL_CHECK.md) that needs to be done.
-
 **NB1:** CRFReporter checks that the version number of the PartyProfile 
 xml matches the CRFReporter version. Each CRFReporter version update requires new
 PartyProfile xml from CRFReporter, even during the same active inventory. 
@@ -182,6 +178,10 @@ PartyProfile xml from CRFReporter, even during the same active inventory.
 in CRFReporter. The bulk xml import in CRFReporter tries first to clear all results in all sectors.
 If by accident you have write access for example to 3. Agriculture sector you will delete exisiting results
 there.
+
+**Tips**: Once you have this set-up you can use it also for the future inventories. Always check that
+you have the right active inventory in CRFReporter. Each year CRFReporter requires 
+[manual work](CRFREPORTER_ANNUAL_CHECK.md) that needs to be done.
 
 #### GHG inventory result files
 The GHG inventory result files are text (csv) files with white space as the delimeter mark. Each line
