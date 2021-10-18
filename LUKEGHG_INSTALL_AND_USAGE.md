@@ -159,6 +159,16 @@ The final step is to import the PartyProfile result file to CRFReporter. Log in 
 For EU529 inventory there is similar [`run-eu529-ghg-master.sh`](lukeghg/lukeghg/bin/run-eu529-ghg-master.sh). 
 Note EU529 concerns KPLULUCF files only (LULUCF files are not missing by accident).
 
+#### Slurm
+User logins to *interactive* node in sorvi. In addition four *computing* nodes can be used for batch jobs via Slurm.
+`run-ghg-master.slurm` and `run-eu529-ghg-master.slurm` are scripts that can be submitted via `sbatch` for execution.
+The usage is:
+
+		(lukeghg) prompt% sbatch --mail-user firstname.lastname@luke.fi run-ghg-master.slurm
+		(lukeghg) prompt% sbatch --mail-user firstname.lastname@luke.fi run-eu529-ghg-master.slurm 
+		
+Use `squeue` to see your work in Slurm and `scancel` to remove it.
+
 **Tips**: Once you have this set-up you can use it also for the future inventories. Always check that
 you have the right active inventory in CRFReporter. Each year CRFReporter requires 
 [manual work](CRFREPORTER_ANNUAL_CHECK.md) that needs to be done.
@@ -213,7 +223,7 @@ directory and the output excel file is GHGToDo2019.xlsx:
 	                  -x PartyProfile/PartyProfile_FIN_2021_1.xml -o GHGToDo2019.xlsx \
 			  -m lukeghg/CRFReporterMappings/300_500_mappings_1.1.csv -y 2019
 
-### checkinventoryvalues.py
+### check-inventory-values.py
 Compare two inventories and check for 1) too large differences in inventory values, 2) changes in notation keys and 
 3) missing UID's. These will appear in their respective sections in the output file.
 
@@ -221,13 +231,19 @@ The sample command line assumes 2018 inventory  is in *2018crf* directory and 20
 Output file is *GHGComparison.txt*. Excel file of the same name (*GHGComparison.xlsx*) will also be generated:
 
 	(lukeghg) prompt% checkinventoryvalues.py -p '2018crf/[KPLU]*.csv' -c 'crf/[KPLU]*.csv' \ 
-	                  -m lukeghg/CRFReporteMappings/300_500_mappings_1.1.csv -f GHGComparison.txt -t 20
+	                  -m lukeghg/CRFReporteMappings/300_500_mappings_1.1.csv -o GHGComparison.txt -t 20
 	  
 The `-t` argument defines that values that disagree 20% or more will be accounted for. More precisely, if two values for some 
 inventory year in the same time series from the two inventories differ more than this threshold value, 
 the two time series will appear in the result file.  
 	
+### check-double-uid.py
 
+Check if a UID appears twice or more in the inventory:
+
+	(lukeghg) check-double-udi.py -x DoubleUID2020.xlsx -c crf/'*.csv'
+	
+Ten results come from two sources: forestry and agriculture and will appear as multiple UIDs.
 ### lulucf-table-612.py
 Produce NIR Table 6-1.2 in LuluTable6-1.2.xlsx. In the command line example inventory files are in *crf* directory: 
 
