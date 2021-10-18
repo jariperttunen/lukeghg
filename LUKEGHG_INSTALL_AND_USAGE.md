@@ -168,8 +168,8 @@ The usage is:
 		(lukeghg) prompt% sbatch --mail-user firstname.lastname@luke.fi run-ghg-master.slurm
 		(lukeghg) prompt% sbatch --mail-user firstname.lastname@luke.fi run-eu529-ghg-master.slurm 
 		
-Use `squeue` to see your work in Slurm and `scancel` to remove it. Although running the scipts takes only ten minutes (each),
-it might be a good practice to send work to computational nodes with Slurm.
+Use `squeue` to see your work in Slurm and `scancel` to remove it. Although running the scipts takes up to only ten minutes (each),
+it might be a good practice to send the work to computational nodes with Slurm.
 
 **NB1:** CRFReporter checks that the version number of the PartyProfile 
 xml matches the CRFReporter version. Each CRFReporter version update requires new
