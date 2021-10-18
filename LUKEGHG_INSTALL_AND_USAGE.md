@@ -237,7 +237,13 @@ The `-t` argument defines that values that disagree 20% or more will be accounte
 inventory year in the same time series from the two inventories differ more than this threshold value, 
 the two time series will appear in the result file.  
 	
+### check-double-uid.py
 
+Check if a UID appears twice or more in the inventory:
+
+	(lukeghg) check-double-udi.py -x DoubleUID2020.xlsx -c crf/'*.csv'
+	
+Ten results come from two sources: forestry and agriculture and will appear as multiple UIDs.
 ### lulucf-table-612.py
 Produce NIR Table 6-1.2 in LuluTable6-1.2.xlsx. In the command line example inventory files are in *crf* directory: 
 
