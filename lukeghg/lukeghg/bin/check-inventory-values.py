@@ -3,7 +3,7 @@ from optparse import OptionParser as OP
 import glob
 from lukeghg.crf.uid340to500mapping import MapUID340to500, Create340to500UIDMapping
 from lukeghg.crf.crfxmlfunctions import ConvertFloat
-import checkinventoryvalues as checkinv
+import lukeghg.check.checkinventoryvalues as checkinv
 
 
 if __name__ == "__main__":
