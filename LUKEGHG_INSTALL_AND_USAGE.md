@@ -10,8 +10,8 @@ There are no intentions to make graphical user interface.
 ## Contents
 
 1. Create python virtual environment
-2. Install lukeghg python package
-3. Update  lukeghg python package
+2. Install the lukeghg python package
+3. Update  the lukeghg python package
 4. GHG inventory to CRFReporter xml file
 5. GHG Scenarios
 6. Other useful programs
@@ -75,7 +75,7 @@ The programs are located in [lukeghg/lukeghg/bin](lukeghg/lukeghg/bin) directory
 contains templates and configuration files that are preset for command line programs. So try this schema 
 first and improve later.
 
-## 3. Update lukeghg python package
+## 3. Update the lukeghg python package
 
 You need to update the *lukeghg* package from GitHub whenever you or someone else has made changes
 and pushed the work there. Otherwise changes will not appear available in the virtual environment,
@@ -117,7 +117,7 @@ Edit the following command line arguments if needed and update lukeghg package a
 - -i Location of the GHG inventory comment files for CRFReporter.
 - -p Location of the empty (i.e. no inventory data) PartyProfile xml from CRFReporter.
      The naming convention is that it uses the name of the active inventory in CRFReporter
-     (see also **NB** at the end of chapter).
+     (see also **NB1** at the end of chapter).
 - -x Location of the PartyProfile result file to be imported to CRFReporter.
      The naming convention is  that it appends *_result* to the empty PartyProfile file name. 
 - -y Inventory year (the last year in CRFReporter).
@@ -148,13 +148,13 @@ To produce the PartyProfile result file filled with the  GHG inventory results t
 	(lukeghg) prompt% run-ghg-master.sh > Import.log 2> Error.log
 
 The GHG inventory result files (csv files) seem to use different encoding systems.
-`convertutf8.py` converts them to utf8 if needed (this is why they need to be copied 
-with `scp` to *crf* directory first).  The script `run-ghg-master.sh` will run few minutes at most. 
-The `>`character redirects standard out terminal output to *Import.log* file 
+`convertutf8.py` converts them to utf8 if needed (this is why they need to be copied. The script `run-ghg-master.sh` will 
+run few minutes at most.  The `>`character redirects standard out terminal output to *Import.log* file 
 and `2>` redirects standard error terminal output to *Error.log* file.
 
 The final step is to import the PartyProfile result file to CRFReporter. Log in CRFReporter
-*Import/Export* section and follow the instructions in *Excel/XML-import*.
+*Import/Export* section and follow the instructions in *Excel/XML-import*. Read **NB2** carefully
+before xml import.
 
 For EU529 inventory there is similar [`run-eu529-ghg-master.sh`](lukeghg/lukeghg/bin/run-eu529-ghg-master.sh). 
 Note EU529 concerns KPLULUCF files only (LULUCF files are not missing by accident).
@@ -167,15 +167,8 @@ The usage is:
 		(lukeghg) prompt% sbatch --mail-user firstname.lastname@luke.fi run-ghg-master.slurm
 		(lukeghg) prompt% sbatch --mail-user firstname.lastname@luke.fi run-eu529-ghg-master.slurm 
 		
-Use `squeue` to see your work in Slurm and `scancel` to remove it.
-
-**Tips**: Once you have this set-up you can use it also for the future inventories. Always check that
-you have the right active inventory in CRFReporter. Each year CRFReporter requires 
-[manual work](CRFREPORTER_ANNUAL_CHECK.md) that needs to be done.
-
-**NB:** CRFReporter checks that the version number of the PartyProfile 
-xml matches the CRFReporter version. Each CRFReporter version update requires new
-PartyProfile xml from CRFReporter, even during the same active inventory. 
+Use `squeue` to see your work in Slurm and `scancel` to remove it. Although running the scipts takes up to only ten minutes (each),
+it might be a good practice to send the work to computational nodes with Slurm.
 
 #### GHG inventory result files
 The GHG inventory result files are text (csv) files with white space as the delimeter mark. Each line
@@ -186,6 +179,20 @@ by the time series itself. For example:
 		#CLorg# 810E194F-0D38-4486-8A88-96ACF87C2059 -0.119 -0.119 -0.119 ...  -0.882 -0.948 -0.948
 
 The number sign (#) character denotes the beginning and the end of the comment. The UID (*810E194F-...-96ACF87C2059*) is CRFReporter generated. For details see [GHG_INVENTORY_RESULT_FILES](GHG_INVENTORY_RESULT_FILES.md).
+
+
+**NB1:** CRFReporter checks that the version number of the PartyProfile 
+xml matches the CRFReporter version. Each CRFReporter version update requires new
+PartyProfile xml from CRFReporter, even during the same active inventory. 
+
+**NB2:** Please check that you have write access *only and solely* to 4. LULUCF and 7. KPLULUCF sectors
+in CRFReporter. The bulk xml import in CRFReporter tries first to clear all results in all sectors.
+If by accident you have write access for example to 3. Agriculture sector you will delete exisiting results
+there.
+
+**Tips**: Once you have this set-up you can use it also for the future inventories. Always check that
+you have the right active inventory in CRFReporter. Each year CRFReporter requires 
+[manual work](CRFREPORTER_ANNUAL_CHECK.md) that needs to be done.
 
 ## 5. GHG Scenarios
 
@@ -228,9 +235,9 @@ Compare two inventories and check for 1) too large differences in inventory valu
 3) missing UID's. These will appear in their respective sections in the output file.
 
 The sample command line assumes 2018 inventory  is in *2018crf* directory and 2019 inventory in *crf* directory.
-Output file is *GHGComparison.txt*. Excel file of the same name (*GHGComparison.xlsx*) will also be generated:
+Output files *GHGComparison.txt* snd *GHGComparison.xlsx* (excel) be generated:
 
-	(lukeghg) prompt% checkinventoryvalues.py -p '2018crf/[KPLU]*.csv' -c 'crf/[KPLU]*.csv' \ 
+	(lukeghg) prompt% check-inventory-values.py -p '2018crf/[KPLU]*.csv' -c 'crf/[KPLU]*.csv' \ 
 	                  -m lukeghg/CRFReporteMappings/300_500_mappings_1.1.csv -o GHGComparison.txt -t 20
 	  
 The `-t` argument defines that values that disagree 20% or more will be accounted for. More precisely, if two values for some 
