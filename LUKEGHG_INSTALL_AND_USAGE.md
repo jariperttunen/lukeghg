@@ -240,9 +240,9 @@ The excel file *GHGComparison.xlsx* will be generated:
 	(lukeghg) prompt% check-inventory-values.py -p '2018crf/[KPLU]*.csv' -c 'crf/[KPLU]*.csv' \ 
 	                  -m lukeghg/CRFReporteMappings/300_500_mappings_1.1.csv -o GHGComparison.xlsx -t 20
 	  
-The `-t` argument defines that values that disagree 20% or more will be accounted for. More precisely, if two values for some 
+The `-t` argument defines the values that disagree 20% or more will be accounted for. More precisely, if two values for some 
 inventory year in the same time series from the two inventories differ more than this threshold value, 
-the two time series will appear in the result file. Values exceeding this given tolerance appear red in excel file. 
+the two time series will appear in the result file. Values exceeding the given tolerance appear red in excel file. 
 	
 ### check-double-uid.py
 
