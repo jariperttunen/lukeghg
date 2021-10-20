@@ -110,111 +110,65 @@ def CompareTwoInventoryYears(dict1,dict2,tolerance,uidnotincurrentyear,uidnotinp
     #Print the results for each three types of differences
     result_diff_keyls=result_diff_dict.keys()
     data_frame_list=[]
-    f.write('Section Relative change more than '+str(tolerance)+'%'+'\n')
     data_frame_list.append(['Section Relative change more than '+str(tolerance)+'%'])
     for key in result_diff_keyls:
         (time_series_current,comment,time_series_prev,relative_change_ls,file_current,file_prev)=result_diff_dict[key]
-        f.write(key+'#'+comment+'#'+file_prev+'#')
         len_diff = len(time_series_current)-len(time_series_prev)
         for item in range(0,len_diff-1):
             time_series_prev.insert(0,'-')
-        for item in time_series_prev:
-            f.write(item+'#')
-        f.write('\n')
-        f.write(key+'#'+comment+'#'+file_current+'#')
-        for item in time_series_current:
-            f.write(item+'#')
-        f.write('\n')
-        f.write(key+'#'+comment+'#'+'Relative change (%)'+'#')
         for item in relative_change_ls:
             try:
                 item=float(format(float(item),'.3f'))
             except ValueError:
                 item=item
-            f.write(str(item)+'#')
-        f.write('\n\n')
         time_series_prev=[ConvertFloat(x) for x in time_series_prev]
         time_series_current=[ConvertFloat(x) for x in time_series_current]
         relative_change_ls=[ConvertFloat(x) for x in relative_change_ls]
         data_frame_list.append([key,comment,file_prev]+time_series_prev)
         data_frame_list.append([key,comment,file_current]+time_series_current)
         data_frame_list.append([key,"","Difference"]+relative_change_ls)
-    f.write('Section Change in Notation key\n')
     data_frame_list.append(['Section Change in Notation key'])
     result_nk_diff_keyls = nk_diff_dict.keys()
     for key in result_nk_diff_keyls:
         (time_series_current,comment,time_series_prev,file_current,file_prev)=nk_diff_dict[key]
-        f.write(key+'#'+comment+'#'+file_prev+'#')
         len_diff = len(time_series_current)-len(time_series_prev)
         for item in range(0,len_diff-1):
             time_series_prev.insert(0,'-')
-        for item in time_series_prev:
-            f.write(item+'#')
-        f.write('\n')
-        f.write(key+'#'+comment+'#'+file_current+'#')
-        for item in time_series_current:
-            f.write(item+'#')
-        f.write('\n\n')
         time_series_prev=[ConvertFloat(x) for x in time_series_prev]
         time_series_current=[ConvertFloat(x) for x in time_series_current]
         data_frame_list.append([key,comment,file_prev]+time_series_prev)
         data_frame_list.append([key,comment,file_current]+time_series_current)
-    f.write('Section Change in Methods\n')
     data_frame_list.append(['Section Change in Methods'])
     result_method_diff_keyls = method_diff_dict.keys()
     for key in result_method_diff_keyls:
         (time_series_current,comment,time_series_prev,file_current,file_prev)=method_diff_dict[key]
-        f.write(key+'#'+comment+'#'+file_prev+'#')
         len_diff = len(time_series_current)-len(time_series_prev)
         for item in range(0,len_diff-1):
             time_series_prev.insert(0,'-')
-        for item in time_series_prev:
-            f.write(item+'#')
-        f.write('\n')
-        f.write(key+'#'+comment+'#'+file_current+'#')
-        for item in time_series_current:
-            f.write(item+'#')
-        f.write('\n\n')
         data_frame_list.append([key,comment,file_prev]+time_series_prev)
         data_frame_list.append([key,comment,file_current]+time_series_current)
-    f.write('Section Found zeros (i.e. number 0)\n')
     data_frame_list.append(['Section Found zeros (i.e. number 0)'])
     result_zero_numbers_keyls = zero_numbers_dict.keys()
     for key in result_zero_numbers_keyls:
         (time_series_current,comment,time_series_prev,file_current,file_prev)=zero_numbers_dict[key]
-        f.write(key+'#'+comment+'#'+file_prev+'#')
         len_diff = len(time_series_current)-len(time_series_prev)
         for item in range(0,len_diff-1):
             time_series_prev.insert(0,'-')
-        for item in time_series_prev:
-            f.write(item+'#')
-        f.write('\n')
-        f.write(key+'#'+comment+'#'+file_current+'#')
-        for item in time_series_current:
-            f.write(item+'#')
-        f.write('\n\n')
         time_series_prev=[ConvertFloat(x) for x in time_series_prev]
         time_series_current=[ConvertFloat(x) for x in time_series_current]
         data_frame_list.append([key,comment,file_prev]+time_series_prev)
         data_frame_list.append([key,comment,file_current]+time_series_current)
-    f.write('UID not in current year'+'#'+'Comment'+'#'+'File\n')
     data_frame_list.append(['UID not in current year','Comment','File'])
     for uid in uidnotincurrentyear:
         (time_series_prev,comment_prev,file_prev) = dict2[uid]
-        f.write(uid+'#'+comment_prev+'#'+file_prev)
-        f.write('\n')
         data_frame_list.append([uid,comment_prev,file_prev])
-    f.write('UID not in previous year'+'#'+'Comment'+'#'+'File\n')
     data_frame_list.append(['UID not in previous year','Comment','File'])
     for uid in uidnotinpreviousyear:
         (time_series_current,comment_current,file_current) = dict1[uid]
-        f.write(uid+'#'+comment_current+'#'+file_current)
-        f.write('\n')
         data_frame_list.append([uid,comment_current,file_current])
     f.close()
     data_frame=pd.DataFrame(data_frame_list)
-    ls=file_out.split('.')
-    writer = pd.ExcelWriter(ls[0]+".xlsx",engine='xlsxwriter')
+    writer = pd.ExcelWriter(file_out,engine='xlsxwriter')
     data_frame.to_excel(writer,sheet_name="Inventory Check")
     writer.save()
     
