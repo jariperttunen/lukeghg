@@ -16,7 +16,6 @@ There are no intentions to make graphical user interface.
 5. GHG Scenarios
 6. Other useful programs
 + Git version control
-+ Notes on hirsi server
 + Reading
 
 
@@ -281,12 +280,6 @@ form. This is useful when new UIDs must be found for GHG inventory:
 
 Currently *lukeghg* package is in GitHub. Sample minimum gitgonfig file for Git is available in [Git](Git) directory. 
 Download it, edit your name, email address and install it as *.gitconfig* in your home directory. 
-
-## Notes on hirsi-server
-
-hirsi server will be phased out in the near future (winter, spring 2021).
-The parts of the manual refering to hirsi are due to change to reflect  the fact
-the GHG inventory will be done in sorvi completely.
 
 ## Reading
 
