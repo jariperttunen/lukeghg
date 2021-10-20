@@ -235,10 +235,10 @@ Compare two inventories and check for 1) too large differences in inventory valu
 3) missing UID's. These will appear in their respective sections in the output file.
 
 The sample command line assumes 2018 inventory  is in *2018crf* directory and 2019 inventory in *crf* directory.
-Output files *GHGComparison.txt* snd *GHGComparison.xlsx* (excel) be generated:
+The excel file *GHGComparison.xlsx* will be enerated:
 
 	(lukeghg) prompt% check-inventory-values.py -p '2018crf/[KPLU]*.csv' -c 'crf/[KPLU]*.csv' \ 
-	                  -m lukeghg/CRFReporteMappings/300_500_mappings_1.1.csv -o GHGComparison.txt -t 20
+	                  -m lukeghg/CRFReporteMappings/300_500_mappings_1.1.csv -o GHGComparison.xlsx -t 20
 	  
 The `-t` argument defines that values that disagree 20% or more will be accounted for. More precisely, if two values for some 
 inventory year in the same time series from the two inventories differ more than this threshold value, 
