@@ -127,6 +127,7 @@ def CompareTwoInventoryYears(dict1,dict2,tolerance,uidnotincurrentyear,uidnotinp
         data_frame_list.append([key,comment,file_prev]+time_series_prev)
         data_frame_list.append([key,comment,file_current]+time_series_current)
         data_frame_list.append([key,"","Difference"]+relative_change_ls)
+    data_frame_list.append(['------'])
     data_frame_list.append(['Section Change in Notation key'])
     result_nk_diff_keyls = nk_diff_dict.keys()
     for key in result_nk_diff_keyls:
@@ -138,6 +139,7 @@ def CompareTwoInventoryYears(dict1,dict2,tolerance,uidnotincurrentyear,uidnotinp
         time_series_current=[ConvertFloat(x) for x in time_series_current]
         data_frame_list.append([key,comment,file_prev]+time_series_prev)
         data_frame_list.append([key,comment,file_current]+time_series_current)
+    data_frame_list.append(['------'])
     data_frame_list.append(['Section Change in Methods'])
     result_method_diff_keyls = method_diff_dict.keys()
     for key in result_method_diff_keyls:
@@ -147,6 +149,7 @@ def CompareTwoInventoryYears(dict1,dict2,tolerance,uidnotincurrentyear,uidnotinp
             time_series_prev.insert(0,'-')
         data_frame_list.append([key,comment,file_prev]+time_series_prev)
         data_frame_list.append([key,comment,file_current]+time_series_current)
+    data_frame_list.append(['------'])
     data_frame_list.append(['Section Found zeros (i.e. number 0)'])
     result_zero_numbers_keyls = zero_numbers_dict.keys()
     for key in result_zero_numbers_keyls:
