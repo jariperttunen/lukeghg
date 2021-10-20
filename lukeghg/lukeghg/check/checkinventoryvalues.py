@@ -1,11 +1,15 @@
 import os
+import glob
 from xml.etree.ElementTree import ElementTree as ET
 from xml.etree.ElementTree import Element,SubElement
 from optparse import OptionParser as OP
 import pandas as pd
+import openpyxl 
 from lukeghg.crf.uid340to500mapping import MapUID340to500, Create340to500UIDMapping
 from lukeghg.crf.crfxmlfunctions import ConvertFloat
-import glob
+
+title_color='00FFFF00'
+error_color='00FF0000'
 
 #Notation Keys in CRFReporter
 nkls = ['IE','NE','NO','NA', 'R']
@@ -171,10 +175,28 @@ def CompareTwoInventoryYears(dict1,dict2,tolerance,uidnotincurrentyear,uidnotinp
         data_frame_list.append([uid,comment_current,file_current])
     f.close()
     data_frame=pd.DataFrame(data_frame_list)
-    writer = pd.ExcelWriter(file_out,engine='xlsxwriter')
+    writer = pd.ExcelWriter(file_out,engine='openpyxl')
     data_frame.to_excel(writer,sheet_name="Inventory Check")
+    sheets = writer.sheets
+    sheet_active = sheets["Inventory Check"]
+    #Coloring red values that are >= tolerance
+    #Collecting cells in a single column
+    for row in sheet_active.iter_rows(min_col=4,max_col=4):
+        for cell in  row:
+            if type(cell.value) is str and "Diff" in cell.value:
+                #Collecting cells from a single row starting column 5
+                for col in sheet_active.iter_rows(min_row=cell.row,max_row=cell.row, min_col=5):
+                    for cell in col:
+                        #Check if value >=tolerance
+                        if type(cell.value) is float and cell.value >= tolerance:
+                            cell.fill =  openpyxl.styles.PatternFill(start_color=error_color, end_color=error_color,fill_type = "solid")
+    #Coloring the beginning of sections
+    for row in sheet_active.iter_rows(min_col=2,max_col=2):
+        for cell in row:
+            #Note paranthesis to denote either Section or UID in cell value
+            if type(cell.value) is str and ("Section" in cell.value or "UID" in cell.value):
+                cell.fill = openpyxl.styles.PatternFill(start_color=title_color, end_color=title_color,fill_type = "solid")
     writer.save()
-    
 def CreateDictionary(dirfilels):
     """Create a dictionary that associate a UID to its
        time series,comment and file name: {UID1:(time_series1,comment1,file1),UID2:(time_series2,comment2,file2),....}
