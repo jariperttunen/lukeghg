@@ -48,7 +48,7 @@ Consider also using comment sections in the files where the results should appea
 
 The GHG inventory result files are mainly produced with R language programs. It is custom
 in an R script to use the dot (.) character to separate words in function and variable names.
-Do not use the dot but apply the underscore (_) instead to separate lowercase words in file names. The only
+In file names do not use the dot but apply the underscore (_) instead to separate lowercase words. The only
 dot should denote the *.csv* file name suffix.
 
 GHG inventory has common *de facto* abberviations for land use classes and land use changes.
