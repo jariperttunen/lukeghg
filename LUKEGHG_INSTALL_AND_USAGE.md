@@ -253,7 +253,7 @@ Check if a UID appears twice or more in the inventory:
 
 	(lukeghg) check-double-uid.py -x DoubleUID2020.xlsx -c crf/'*.csv'
 	
-Ten results come from two sources: forestry and agriculture and will appear as multiple UIDs.
+Ten results come from two sources, forestry and agriculture, and will appear as multiple UIDs.
 ### lulucf-table-612.py
 Produce NIR Table 6-1.2 in LuluTable6-1.2.xlsx. In the command line example inventory files are in *crf* directory: 
 
