@@ -64,7 +64,7 @@ Create the *wheel package* for *lukeghg* and install it to your virtual environm
 for python package dependencies and virtual environment set-up:
 
 	(lukeghg) prompt% cd GHGInventory/lukeghg/lukeghg
-	(lukeghg) prompt% python3 setup.py sdist bdist_wheel
+	(lukeghg) prompt% python3 setup.py bdist_wheel
 	(lukeghg) prompt% python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
 
 All the command line programs in *lukeghg* package are now available in your virtual environment. 
