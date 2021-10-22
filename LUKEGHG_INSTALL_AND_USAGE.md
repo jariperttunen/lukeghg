@@ -241,7 +241,11 @@ The excel file *GHGComparison.xlsx* will be generated:
 	  
 The argument `-t` defines the values that disagree 20% or more will be accounted for. More precisely, if two values for some 
 inventory year in the same time series from the two inventories differ more than this threshold value, 
-the two time series will appear in the result file. Differences exceeding the given tolerance show up in red. 
+the two time series will appear in the result file. 
+
+#### Coloring
+Differences exceeding the given tolerance value show up in red. Notation key changes are in orange. Notation key changes to 
+calculated values are in green. Calculated value changes to notation keys appear in red.
 	
 ### check-double-uid.py
 
