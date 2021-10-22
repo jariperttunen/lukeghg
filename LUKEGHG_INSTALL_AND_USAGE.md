@@ -243,7 +243,7 @@ The argument `-t` defines the values that disagree 20% or more will be accounted
 inventory year in the same time series from the two inventories differ more than this threshold value, 
 the two time series will appear in the result file. 
 
-#### Coloring
+#### Colouring
 Differences exceeding the given tolerance value show up in red. Notation key changes are in orange. Notation key changes to 
 calculated values are in green. Calculated value changes to notation keys appear in red.
 	
