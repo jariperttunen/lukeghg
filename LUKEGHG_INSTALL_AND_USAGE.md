@@ -244,8 +244,8 @@ inventory year in the same time series from the two inventories differ more than
 the two time series will appear in the result file. 
 
 #### Colouring
-Differences exceeding the given tolerance value show up in red. Notation key changes are in orange. Notation key changes to 
-calculated values are in green. Calculated value changes to notation keys appear in red.
+Differences exceeding the given tolerance value show up in red. Notation key changes are in orange. Notation keys changed to 
+calculated values are in green. Calculated values changed to notation keys appear in red.
 	
 ### check-double-uid.py
 
