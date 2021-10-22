@@ -16,7 +16,6 @@ There are no intentions to make graphical user interface.
 5. GHG Scenarios
 6. Other useful programs
 + Git version control
-+ Notes on hirsi server
 + Reading
 
 
@@ -167,7 +166,7 @@ The usage is:
 		(lukeghg) prompt% sbatch --mail-user firstname.lastname@luke.fi run-ghg-master.slurm
 		(lukeghg) prompt% sbatch --mail-user firstname.lastname@luke.fi run-eu529-ghg-master.slurm 
 		
-Use `squeue` to see your work in Slurm and `scancel` to remove it. Although running the scipts takes up to only ten minutes (each),
+Use `squeue` to see your work in Slurm and `scancel` to remove it. Although running the scripts takes up to only ten minutes (each),
 it might be a good practice to send the work to computational nodes with Slurm.
 
 #### GHG inventory result files
@@ -240,9 +239,9 @@ The excel file *GHGComparison.xlsx* will be generated:
 	(lukeghg) prompt% check-inventory-values.py -p '2018crf/[KPLU]*.csv' -c 'crf/[KPLU]*.csv' \ 
 	                  -m lukeghg/CRFReporteMappings/300_500_mappings_1.1.csv -o GHGComparison.xlsx -t 20
 	  
-The `-t` argument defines that values that disagree 20% or more will be accounted for. More precisely, if two values for some 
+The argument `-t` defines the values that disagree 20% or more will be accounted for. More precisely, if two values for some 
 inventory year in the same time series from the two inventories differ more than this threshold value, 
-the two time series will appear in the result file.  
+the two time series will appear in the result file. Differences exceeding the given tolerance show up in red. 
 	
 ### check-double-uid.py
 
@@ -281,12 +280,6 @@ form. This is useful when new UIDs must be found for GHG inventory:
 
 Currently *lukeghg* package is in GitHub. Sample minimum gitgonfig file for Git is available in [Git](Git) directory. 
 Download it, edit your name, email address and install it as *.gitconfig* in your home directory. 
-
-## Notes on hirsi-server
-
-hirsi server will be phased out in the near future (winter, spring 2021).
-The parts of the manual refering to hirsi are due to change to reflect  the fact
-the GHG inventory will be done in sorvi completely.
 
 ## Reading
 
