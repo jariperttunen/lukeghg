@@ -10,7 +10,8 @@ from lukeghg.crf.crfxmlfunctions import ConvertFloat
 
 title_color='00FFFF00'
 error_color='00FF0000'
-
+nk_change_color ='00FF9900'
+nk_change_to_number_color='0099CC00'
 #Notation Keys in CRFReporter
 nkls = ['IE','NE','NO','NA', 'R']
 methodls = ['T1','T2','T3']
@@ -44,7 +45,6 @@ def CompareTwoInventoryYears(dict1,dict2,tolerance,uidnotincurrentyear,uidnotinp
     nk_diff_dict={}
     result_diff_dict={}
     zero_numbers_dict={}
-    f=open(file_out,"w")
     for key in current_year_keyls:
         nk_diff_set=set()
         method_diff_set=set()
@@ -143,6 +143,7 @@ def CompareTwoInventoryYears(dict1,dict2,tolerance,uidnotincurrentyear,uidnotinp
         time_series_current=[ConvertFloat(x) for x in time_series_current]
         data_frame_list.append([key,comment,file_prev]+time_series_prev)
         data_frame_list.append([key,comment,file_current]+time_series_current)
+        data_frame_list.append([key,"","Notation key change"]+time_series_current)
     data_frame_list.append(['------'])
     data_frame_list.append(['Section Change in Methods'])
     result_method_diff_keyls = method_diff_dict.keys()
@@ -173,7 +174,6 @@ def CompareTwoInventoryYears(dict1,dict2,tolerance,uidnotincurrentyear,uidnotinp
     for uid in uidnotinpreviousyear:
         (time_series_current,comment_current,file_current) = dict1[uid]
         data_frame_list.append([uid,comment_current,file_current])
-    f.close()
     data_frame=pd.DataFrame(data_frame_list)
     writer = pd.ExcelWriter(file_out,engine='openpyxl')
     data_frame.to_excel(writer,sheet_name="Inventory Check")
@@ -186,11 +186,30 @@ def CompareTwoInventoryYears(dict1,dict2,tolerance,uidnotincurrentyear,uidnotinp
             if type(cell.value) is str and "Diff" in cell.value:
                 #Collecting cells from a single row starting column 5
                 for col in sheet_active.iter_rows(min_row=cell.row,max_row=cell.row, min_col=5):
-                    for cell in col:
+                    for col_cell in col:
                         #Check if value >=tolerance
-                        if type(cell.value) is float and cell.value >= tolerance:
-                            cell.fill =  openpyxl.styles.PatternFill(start_color=error_color, end_color=error_color,fill_type = "solid")
-    #Coloring the beginning of sections
+                        if type(col_cell.value) is float and col_cell.value >= tolerance:
+                            col_cell.fill =  openpyxl.styles.PatternFill(start_color=error_color, end_color=error_color,fill_type = "solid")
+    #Coloring orange notation key changes, coloring red when number (=result) changed to notation key
+    #Collecting all cells in a single column
+    for row in sheet_active.iter_rows(min_col=4,max_col=4):
+        for cell in row:
+            if type(cell.value) is str and "Notation key" in cell.value:
+                #Collecting cells from a single row starting column 5
+                for col in sheet_active.iter_rows(min_row=cell.row,max_row=cell.row, min_col=5):
+                    #Compare with a original value (two rows above, same column)
+                    for col_cell in col:
+                        cell_orig = sheet_active.cell(row=col_cell.row-2,column=col_cell.column)
+                        #Change in notation key
+                        if (type(col_cell.value)==str and type(cell_orig.value) == str) and (col_cell.value != cell_orig.value) and (cell_orig.value !="") :
+                            col_cell.fill =  openpyxl.styles.PatternFill(start_color=nk_change_color, end_color=nk_change_color,fill_type = "solid")
+                        #Calculated value to Notation key
+                        if (type(col_cell.value)==str and type(cell_orig.value) == float) and (cell_orig.value !="") :
+                            col_cell.fill =  openpyxl.styles.PatternFill(start_color=error_color, end_color=error_color,fill_type = "solid")
+                        #Notation key to calculated value
+                        if (type(col_cell.value)==float and type(cell_orig.value) == str) and (cell_orig.value !="") :
+                            col_cell.fill =  openpyxl.styles.PatternFill(start_color=nk_change_to_number_color, end_color=nk_change_to_number_color,fill_type = "solid")
+    #Coloring yellow the beginning of sections
     for row in sheet_active.iter_rows(min_col=2,max_col=2):
         for cell in row:
             #Note paranthesis to denote either Section or UID in cell value
