@@ -231,7 +231,7 @@ directory and the output excel file is GHGToDo2019.xlsx:
 
 ### check-inventory-values.py
 Compare two inventories and check for 1) too large differences in inventory values, 2) changes in notation keys and 
-3) missing UID's. These will appear in their respective sections in the output file.
+3) UID's not accounted for. These will appear in their respective sections in the output file.
 
 The sample command line assumes 2018 inventory  is in *2018crf* directory and 2019 inventory in *crf* directory.
 The excel file *GHGComparison.xlsx* will be generated:
