@@ -64,7 +64,7 @@ Create the *wheel package* for *lukeghg* and install it to your virtual environm
 for python package dependencies and virtual environment set-up:
 
 	(lukeghg) prompt% cd GHGInventory/lukeghg/lukeghg
-	(lukeghg) prompt% python3 setup.py sdist bdist_wheel
+	(lukeghg) prompt% python3 setup.py bdist_wheel
 	(lukeghg) prompt% python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
 
 All the command line programs in *lukeghg* package are now available in your virtual environment. 
@@ -230,8 +230,8 @@ directory and the output excel file is GHGToDo2019.xlsx:
 			  -m lukeghg/CRFReporterMappings/300_500_mappings_1.1.csv -y 2019
 
 ### check-inventory-values.py
-Compare two inventories and check for 1) too large differences in inventory values, 2) changes in notation keys and 
-3) missing UID's. These will appear in their respective sections in the output file.
+Compare two inventories and check time series for 1) too large differences in inventory values, 2) changes in notation keys and 
+3) UID's not accounted for. Results will appear in their respective sections in the output file.
 
 The sample command line assumes 2018 inventory  is in *2018crf* directory and 2019 inventory in *crf* directory.
 The excel file *GHGComparison.xlsx* will be generated:
@@ -239,17 +239,21 @@ The excel file *GHGComparison.xlsx* will be generated:
 	(lukeghg) prompt% check-inventory-values.py -p '2018crf/[KPLU]*.csv' -c 'crf/[KPLU]*.csv' \ 
 	                  -m lukeghg/CRFReporteMappings/300_500_mappings_1.1.csv -o GHGComparison.xlsx -t 20
 	  
-The argument `-t` defines the values that disagree 20% or more will be accounted for. More precisely, if two values for some 
-inventory year in the same time series from the two inventories differ more than this threshold value, 
-the two time series will appear in the result file. Differences exceeding the given tolerance show up in red. 
+The argument `-t` defines the values that disagree 20% or more will be accounted for. More precisely, 
+if two values for some inventory year in the same time series from the two inventories differ 
+more than this threshold value, the two time series will appear in the result file. 
+
+#### Colouring
+Differences exceeding the given tolerance value show up in red. Notation key changes are in orange. Notation keys changed to 
+calculated values are in green. Calculated values changed to notation keys appear in red.
 	
 ### check-double-uid.py
 
 Check if a UID appears twice or more in the inventory:
 
-	(lukeghg) check-double-udi.py -x DoubleUID2020.xlsx -c crf/'*.csv'
+	(lukeghg) check-double-uid.py -x DoubleUID2020.xlsx -c crf/'*.csv'
 	
-Ten results come from two sources: forestry and agriculture and will appear as multiple UIDs.
+Ten time series come from two sources, forestry and agriculture, and will appear as multiple UIDs.
 ### lulucf-table-612.py
 Produce NIR Table 6-1.2 in LuluTable6-1.2.xlsx. In the command line example inventory files are in *crf* directory: 
 
