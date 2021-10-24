@@ -293,7 +293,5 @@ if __name__ == "__main__":
     tolerance = float(options.f7)
     print("Comparing two inventories for differences")
     print("Writing output to:", file_name)
-    ls=file_name.split('.')
-    print("Writing output to:", ls[0]+".xlsx")
     CompareTwoInventoryYears(dictcurrent2,dictprev1,tolerance,uidnotincurrentyear,uidnotinpreviousyear,file_name)
     print("Done\n")
