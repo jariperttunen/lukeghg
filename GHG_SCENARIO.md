@@ -89,7 +89,7 @@ The land use summary sheets are defined as follows:
 The last three wetlands summaries (WLpeat_summary, WLflooded_summary, WLother_summary) contain emissions
 from peat productions, artificial lakes, wetlands etc. regardless coming about from remaining or converted areas.
 
-### Color coding ###
+### Colour coding ###
 
 Yellow color in excel sheets denotes summary rows. The grey color in summary sheets denotes formulas 
 are used in excel cells. Red color denotes missing values (not necessarily an error). 
