@@ -1,32 +1,21 @@
 #!python
 import glob
-from optparse import OptionParser as OP
+import argparse
 from lukeghg.nir import lulucftable612
-start=1990
-end=2017
-file_name='Table-6.1-2.txt'
-parser = OP()
-parser.add_option("-s","--start",dest="f1",help="Inventory start year (1990)")
-parser.add_option("-e","--end",dest="f2",help="Inventory end year")
-parser.add_option("-o","--ofile",dest="f3",help="Output file name")
-parser.add_option("-d","--crfdir",dest="f4",help="CRF directory for inventory results")
-(options,args) = parser.parse_args()
-
-if options.f1 is None:
-    print("No inventory start year")
-    quit()
-start=int(options.f1)
-if options.f2 is None:
-    print("No inventory end year")
-    quit()
-end=int(options.f2)
-if options.f3 is None:
-    print("No output file name")
-    quit()
-file_name=options.f3
-if options.f4 is None:
-    print("No crf directory")
-    quit()
-d=options.f4
-
-lulucftable612.WriteCO2eqTableData(start,end,file_name,d,'hirsi.in.metla.fi','/hsan2/khk/ghg/'+str(end)+'/NIR/Table_6.1-2.csv')
+#start=1990
+#end=2017
+#file_name='Table-6.1-2.txt'
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-s","--start",dest="f1",type=int,default=1990,help="Inventory start year (1990)")
+    parser.add_argument("-e","--end",dest="f2",type=int,required=True,help="Inventory end year")
+    parser.add_argument("-o","--ofile",dest="f3",type=str,required=True,help="Output file name")
+    parser.add_argument("-d","--crfdir",dest="f4",type=str,required=True,help="CRF directory for inventory results")
+    parser.add_argument("-b","--biomass",dest="f5",type=str,default="Table_6.1-2.csv",help="Biomass file, default Table_6.1-2.csv")
+    args = parser.parse_args()
+    start=args.f1
+    end=args.f2
+    file_name=args.f3
+    d=args.f4
+    bmass_file = args.f5
+    lulucftable612.WriteCO2eqTableData(start,end,file_name,d,bmass_file)

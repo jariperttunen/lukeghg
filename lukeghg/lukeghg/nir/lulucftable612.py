@@ -145,19 +145,20 @@ N2O_indirect_uid_ls = ['E3A677C8-0818-417A-9D7C-053DEFD1F14E']
 #This list collects all results
 CO2eq_table_data_ls = []
 #-------------------------------------------
-def CreateCO2eqTableData(crf_dir,server,file_path):
+def CreateCO2eqTableData(crf_dir,biomass_file_path):
     lulucf_file_ls = glob.glob(crf_dir+"/"+"LU*.csv")
     #biomass_file="Table_6.1-2.csv"
 #Forest land
 #1. 4A Biomass, mineral and organic
-    #f = open(biomass_file)
-    #biomass_data_ls = [x.split() for x in f.readlines()]
-    #f.close()
-    #biomass_data_ls.pop(0)
-    #biomass_data_ls = [list(map(lambda x: format(float(x),'.6f'),ls)) for ls in biomass_data_ls]
+    f = open(biomass_file_path)
+    biomass_data_ls = [x.split() for x in f.readlines()]
+    f.close()
+    #pop title line
+    biomass_data_ls.pop(0)
+    biomass_data_ls = [list(map(lambda x: format(float(x),'.6f'),ls)) for ls in biomass_data_ls]
     #-------------------------------------------
-    r = remote.RemoteFile()
-    biomass_data_ls = r.read_remote_file_as_str(server,file_path)
+    #r = remote.RemoteFile()
+    #biomass_data_ls = r.read_remote_file_as_str(server,file_path)
     place_holder_ls = ['0']*len(biomass_data_ls[0])
     #print(biomass_data_ls[0])
     #print(biomass_data_ls[1])
@@ -412,8 +413,8 @@ def set_row_color(sheet,ncols,row,color):
     return sheet
 #---------------------------------------------------------------------------------------------------
 #Write data to a file
-def WriteCO2eqTableData(start,end,file_name,crf_dir,server,biomass_file_path):
-    CreateCO2eqTableData(crf_dir,server,biomass_file_path)
+def WriteCO2eqTableData(start,end,file_name,crf_dir,biomass_file_path):
+    CreateCO2eqTableData(crf_dir,biomass_file_path)
     separator = '#'
     col_title_ls = GenerateRowTitleList(start,end)
     row_title_ls1 = ["Mt CO2 eq"]+col_title_ls
@@ -443,7 +444,7 @@ def WriteCO2eqTableData(start,end,file_name,crf_dir,server,biomass_file_path):
     df=pd.DataFrame(CO2eq_table_data_ls,columns=col_title_ls,index=row_title_ls)
     print(df)
     df_float=df.applymap(ConvertFloat)
-    biomass_text=server+'://'+biomass_file_path
+    biomass_text=biomass_file_path
     now = datetime.datetime.now()
     df_float.loc["Biomass from",1990]=biomass_text
     df_float.loc["Date",1990]=str(now)
