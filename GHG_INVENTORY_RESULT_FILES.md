@@ -51,7 +51,7 @@ in an R script to use the dot (.) character to separate words in function and va
 In file names do not use the dot but apply the underscore (_) instead to separate lowercase words. The only
 dot should denote the *.csv* file name suffix.
 
-GHG inventory has common *de facto* abberviations for land use classes and land use changes.
+GHG inventory has common *de facto* abbreviations for land use classes and land use changes.
 For example FL is Forest land, GL is Grassland and FL-GL means Forest land converted
 to Grassland. You can use these abbreviations in file names to detail the contents of the file.
 If you have in mind to use word abbreviation make sure it is commonly known in the GHG inventory. 
