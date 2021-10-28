@@ -287,7 +287,7 @@ Download it, edit your name, email address and install it as *.gitconfig* in you
 
 ## ToDo
 There is a bit to do to reorganise the *lukeghg* package so that it is a proper python package  
-in Python Package Index (PyPi) installable simply by `pip install lukeghg`.
+in Python Package Index (PyPI) installable simply by `pip install lukeghg` to use out of the box.
 
 ## Reading
 
