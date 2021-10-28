@@ -74,9 +74,6 @@ The programs are located in [lukeghg/lukeghg/bin](lukeghg/lukeghg/bin) directory
 contains templates and configuration files that are preset for command line programs. So try this schema 
 first and improve later.
 
-**ToDo**: There is a bit to do to reorganise the *lukeghg* package so that it is a proper python package  
-in Python Package Index (PyPi) installable simply by `pip install lukeghg`.
-
 ## 3. Update the lukeghg python package
 
 You need to update the *lukeghg* package from GitHub whenever you or someone else has made changes
@@ -287,6 +284,10 @@ form. This is useful when new UIDs must be found for GHG inventory:
 
 Currently *lukeghg* package is in GitHub. Sample minimum gitgonfig file for Git is available in [Git](Git) directory. 
 Download it, edit your name, email address and install it as *.gitconfig* in your home directory. 
+
+## ToDo
+There is a bit to do to reorganise the *lukeghg* package so that it is a proper python package  
+in Python Package Index (PyPi) installable simply by `pip install lukeghg`.
 
 ## Reading
 
