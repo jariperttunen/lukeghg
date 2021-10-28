@@ -166,8 +166,8 @@ The usage is:
 		(lukeghg) prompt% sbatch --mail-user firstname.lastname@luke.fi run-ghg-master.slurm
 		(lukeghg) prompt% sbatch --mail-user firstname.lastname@luke.fi run-eu529-ghg-master.slurm 
 		
-Use `squeue` to see your job number in Slurm and `scancel` to remove it. The output will appear in `output_%j.txt` 
-and `errors_%j.txt` files where *j* is the Slurm job number. Although running the scripts takes up to only ten minutes (each),
+Use `squeue` to see your job number in Slurm and `scancel` to remove it. The output will appear in *output_%j.txt* 
+and *errors_%j.txt* files where *%j* is the Slurm job number. Although running the scripts takes up to only ten minutes (each),
 it might be a good practice to send the work to computational nodes with Slurm.
 
 #### GHG inventory result files
