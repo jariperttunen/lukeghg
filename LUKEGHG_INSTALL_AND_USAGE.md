@@ -4,8 +4,8 @@ GHG inventory results for CRFReporter import, check missing work, compare result
 previous year and generate some ubiquitous NIR tables. 
 
 The instructions are for `bash` shell in sorvi.  Your default shell might be for example `tcsh` 
-and you must for instance adjust quotation marks (') in command lines containing wild cards accordingly. 
-There are no intentions to make graphical user interface.
+and you must for instance adjust quotation marks (') in command lines containing wild cards 
+to fit shell's syntax. There are no intentions to make graphical user interface.
 
 ## Contents
 
