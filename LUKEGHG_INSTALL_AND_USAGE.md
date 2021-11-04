@@ -4,8 +4,8 @@ GHG inventory results for CRFReporter import, check missing work, compare result
 previous year and generate some ubiquitous NIR tables. 
 
 The instructions are for `bash` shell in sorvi.  Your default shell might be for example `tcsh` 
-and you must for instance adjust quotation marks (') in command lines containing wild cards accordingly. 
-There are no intentions to make graphical user interface.
+and you must for instance adjust quotation marks (') to fit shell's syntax. There are no 
+intentions to make graphical user interface.
 
 ## Contents
 
@@ -96,7 +96,7 @@ and then upgrade *lukeghg* and its dependencies.
 Make sure you are in `/data/shared/<user>/GHGInventory/lukeghg/lukeghg`:
 
 	(lukeghg) prompt% cd /data/shared/<user>/GHGInventory/lukeghg/lukeghg
-	(lukeghg) prompt% python3 setup.py sdist bdist_wheel
+	(lukeghg) prompt% python3 setup.py bdist_wheel
 	(lukeghg) prompt% python3 -m pip uninstall lukeghg
 	(lukeghg) prompt% python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
 
@@ -166,7 +166,8 @@ The usage is:
 		(lukeghg) prompt% sbatch --mail-user firstname.lastname@luke.fi run-ghg-master.slurm
 		(lukeghg) prompt% sbatch --mail-user firstname.lastname@luke.fi run-eu529-ghg-master.slurm 
 		
-Use `squeue` to see your work in Slurm and `scancel` to remove it. Although running the scripts takes up to only ten minutes (each),
+Use `squeue` to see your job number in Slurm and `scancel` to remove it. The output will appear in *output_%j.txt* 
+and *errors_%j.txt* files where *%j* is the Slurm job number. Although running the scripts takes up to only ten minutes (each),
 it might be a good practice to send the work to computational nodes with Slurm.
 
 #### GHG inventory result files
@@ -284,6 +285,10 @@ form. This is useful when new UIDs must be found for GHG inventory:
 
 Currently *lukeghg* package is in GitHub. Sample minimum gitgonfig file for Git is available in [Git](Git) directory. 
 Download it, edit your name, email address and install it as *.gitconfig* in your home directory. 
+
+## ToDo
+There is a bit to do to reorganise the *lukeghg* package so that it is a proper python package  
+in Python Package Index (PyPI) installable simply by `pip install lukeghg` to use out of the box.
 
 ## Reading
 
