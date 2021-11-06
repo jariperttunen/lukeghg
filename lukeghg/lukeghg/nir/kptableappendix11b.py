@@ -1,8 +1,10 @@
 #Usage: python3 kptable-appendix-11b.py [-h] [--help]
 import datetime
-from optparse import OptionParser as OP
+import pathlib
+import pandas as pd
+import xlsxwriter
 from lukeghg.crf.crfxmlconstants import ch4co2eq, n2oco2eq, ctoco2
-from lukeghg.crf.crfxmlfunctions import ConvertSign, ConvertToCO2, SumTwoValues, SumBiomassLs
+from lukeghg.crf.crfxmlfunctions import ConvertFloat,ConvertSign, ConvertToCO2, SumTwoValues, SumBiomassLs
 from lukeghg.crf.crfxmlfunctions import PaddingList, GenerateRowTitleList
 
 #These constants will come from CrfXMLConstants
@@ -374,3 +376,14 @@ def appendix11b(start,end,directory,file_name):
     print(str(now))
     f1.write("Date produced: "+str(now)+"\n")
     f1.close()
+    #Create excel
+    p = pathlib.Path(file_name)
+    stem = p.stem
+    p_excel = pathlib.Path(stem+'.xlsx')
+    #Define max number of columns, dataframe can adjust to it
+    names=['col' + str(x) for x in range(12) ]
+    df = pd.read_csv(file_name,engine='python',header=None,delimiter='#',keep_default_na=False,names=names,dtype=str)
+    writer = pd.ExcelWriter(p_excel,engine='openpyxl')
+    df_float = df.applymap(ConvertFloat) 
+    df_float.to_excel(writer,file_name,header=False)
+    writer.close()
