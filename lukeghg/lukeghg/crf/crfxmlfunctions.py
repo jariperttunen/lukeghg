@@ -178,6 +178,8 @@ def ConvertFloat(x):
         return x
     except ValueError:
         return x
+    except TypeError:
+        return x
         
 def SumBiomassLs(bmls):
     """Sum time series in the list and take care if a notation key is encountered
