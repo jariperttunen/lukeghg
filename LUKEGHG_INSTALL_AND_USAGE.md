@@ -270,7 +270,7 @@ Produce NIR LULUCF Table 6.4-1. The usage is:
 	lulucf-table-641.py [-h] -i F1 -y F2 -o F3 [--format_only | --check_total]
 
 The `--format-only` option reads the input file to a dataframe and simply writes it to an Excel file. 
-The `--check-total` option calculates totals and compares results to precalculated values and writes Excel file.
+The `--check-total` option calculates totals and compares results with precalculated values and writes Excel file.
 These two options are mutually exclusive. The `--format_only` should be enough. For example:
 
 	lulucf-table-641.py -i /path/to/Table_6.4-1_FLRem_Areas_of_organic_soils.csv -y 2019 -o LUTable_6.4-1.xlsx --format_only
