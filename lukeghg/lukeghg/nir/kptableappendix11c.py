@@ -1,4 +1,6 @@
-from optparse import OptionParser as OP
+import pathlib
+import openpyxl
+import pandas as pd
 from array import array
 from lukeghg.crf.crfxmlconstants import ch4co2eq,n2oco2eq,ctoco2,nkset
 from lukeghg.crf.crfxmlfunctions import *
@@ -158,7 +160,7 @@ def appendix11c(start,end,directory,file_name):
     hwp_ls_gains = hwp_ls[2::4]
     hwp_ls_losses = hwp_ls[3::4]
     hwp_ls = hwp_ls_gains+hwp_ls_losses
-    print(hwp_ls)
+    #print(hwp_ls)
     hwp_sum_ls = SumBiomassLs(hwp_ls)
     #C to CO2
     #Removals are good for the atmosphere, change the sign
@@ -170,6 +172,7 @@ def appendix11c(start,end,directory,file_name):
     hwp_co2_ls = fill_ls+hwp_co2_ls
 
     #Create the KPTable Table 1_App_11c
+    print("Creating text file for Net emissions and removals Article 3.4 in", file_name)
     delim='#'
     table_title='KPTable Appendix_11c Net emissions and removals from the activities under Article 3.4\n'
     row_title_ls = GenerateRowTitleList(start,end)
@@ -197,6 +200,19 @@ def appendix11c(start,end,directory,file_name):
     ftable.write("##########"+"Losses Lines:4,8,12 etc"+'\n')
     #Sign with the date time
     now = datetime.datetime.now()
-    print(str(now))
+    #print(str(now))
     ftable.write("Date produced: "+str(now)+"\n")
     ftable.close()
+    #Create excel
+    
+    p = pathlib.Path(file_name)
+    stem = p.stem
+    p_excel = pathlib.Path(stem+'.xlsx')
+    print("Creating Excel file for Net emissions and removals Article 3.4 in", str(p_excel))
+    #Define max number of columns, dataframe can adjust to it
+    names=['col' + str(x) for x in range(12) ]
+    df = pd.read_csv(file_name,engine='python',header=None,delimiter='#',keep_default_na=False,names=names,dtype=str)
+    writer = pd.ExcelWriter(p_excel,engine='openpyxl')
+    df_float = df.applymap(ConvertFloat) 
+    df_float.to_excel(writer,file_name,header=False)
+    writer.close()

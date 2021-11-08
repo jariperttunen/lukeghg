@@ -286,7 +286,7 @@ def appendix11b(start,end,directory,file_name):
     hwp_ar_ls_gains = hwp_ard_ls[2::4]
     hwp_ar_ls_losses = hwp_ard_ls[3::4]
     hwp_ar_ls = hwp_ar_ls_gains+hwp_ar_ls_losses
-    print(hwp_ar_ls)
+    #print(hwp_ar_ls)
     hwp_ar_sum_ls = SumBiomassLs(hwp_ar_ls)
     #Removals are good for the atmosphere, change the sign
     hwp_ar_sum_ls = [ConvertSign(ConvertToCO2(ctoco2,x)) for x in hwp_ar_sum_ls]
@@ -298,6 +298,7 @@ def appendix11b(start,end,directory,file_name):
 
     #Create the two tables Afforestation/Reforestation and Deforestation
     #-------------------------------------------------------------------
+    print("Creating first text file for Afforestation/Reforestation and Deforestation in", file_name)
     f1 = open(kptable_appendix_11b_file,'w')
     delim ='#'
     table_name="Appendix_11b"
@@ -373,13 +374,14 @@ def appendix11b(start,end,directory,file_name):
     f1.write("#"+kpa2_ar_under_D_gains+delim+kp_defor_mineral+delim+kp_defor_organic+"#\n")
     f1.write("#"+delim+kp4a2_clglpewesl_deadwood+" Lines:9-10"+"#\n")
     now = datetime.datetime.now()
-    print(str(now))
+    #print(str(now))
     f1.write("Date produced: "+str(now)+"\n")
     f1.close()
     #Create excel
     p = pathlib.Path(file_name)
     stem = p.stem
     p_excel = pathlib.Path(stem+'.xlsx')
+    print("Creating Excel file for Afforestation/Reforestation and Deforestation in", str(p_excel))
     #Define max number of columns, dataframe can adjust to it
     names=['col' + str(x) for x in range(12) ]
     df = pd.read_csv(file_name,engine='python',header=None,delimiter='#',keep_default_na=False,names=names,dtype=str)
