@@ -278,7 +278,7 @@ These two options are mutually exclusive. The `--format_only` should be enough. 
 The path to input file is required. Inventory year is 2019. The output file is LUTable_6.4-1.xlsx. 
 If both `--format_only` and `--check-total` are left out then the totals are explicitely computed.
 
-The input file Table_6.4-1_FLRem_Areas_of_organic_soils.csv is located in NIR directory.
+The input file *Table_6.4-1_FLRem_Areas_of_organic_soils.csv* is located in NIR directory.
 	
 ### kptable-appendix11b.py
 Produce NIR Table Appendix11b in KPTable_Appendix11b.txt. Then read it to dataframe with *#* as a column separator
