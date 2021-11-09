@@ -14,10 +14,10 @@ def GenerateRowTitleList(begin,end):
     return row_title_ls
 
 parser = OP()
-parser.add_option("-i","--ipcc",dest="f1",help="Read IPCC land-use category file")
+parser.add_option("-i","--ipcc",dest="f1",default="lulucf_classes_all.txt",help="Read IPCC land-use category file. Default: lulucf_classes_all.txt")
 parser.add_option("-o",dest="f2",help="Output  file")
 parser.add_option("-y",dest="f3",help="Inventory year")
-parser.add_option("-u",dest="f4",help="Read uncertainty for areas")
+parser.add_option("-u",dest="f4",default="LU_table6.2-2_UC_areas.csv",help="Read uncertainty for areas. Default: LU_table6.2-2_UC_areas.csv")
 (options,args) = parser.parse_args()
 if options.f1 is None:
     print("No input file")
@@ -163,50 +163,5 @@ df_total_area.to_excel(writer,sheet_name='LUTable622',startrow=11+len(list(range
 df_date_now.to_excel(writer,sheet_name='LUTable622',startrow=14+len(list(range(1990,inventory_year+1))),startcol=0,index=False,header=False)
 print(df_all_land_use.head())
 print("Done")
-writer.save()
 writer.close()
-#Quit now, Fix the file naming so that the text file does not override excel file
-#or remove the text file part because now it is innecessary
-#Create the table)
-table_file.write(table_title)
-table_file.write(header_title)
-table_file.write(column_title)
-for (row_title,fl,cl,gl,owl,peat_extr,sett,ol,inland_waters,total_area) in zip(row_title_ls,fl_ls,cl_ls,
-                                                                               gl_ls,owl_ls,peat_extr_ls,
-                                                                               sett_ls,ol_ls,inland_waters_ls,
-                                                                               total_area_ls):
-    total_land_area=fl+cl+gl+owl+peat_extr+sett+ol
-    total_wetlands=owl+peat_extr+inland_waters
-    #Markus may want to change the order of the columns
-    table_file.write(row_title+"#"+str(fl)+"#"+str(cl)+"#"+str(gl)+"#"+str(owl)+"#"+str(peat_extr)+"#"+
-                     str(inland_waters)+"#"+str(total_wetlands)+"#"+str(sett)+"#"+str(ol)+"#"+str(total_land_area)+"#"+
-                     str(total_area)+"\n")
-
-table_file.write("\n\n\n\n")
-table_file.write("Data from:#\n")
-table_file.write(lulucf_classes_all_file+"#\n")
-table_file.write("\n\n")
-table_file.write("Calculating total areas:#")
-for item in row_title_ls:
-    table_file.write(item+"#")
-table_file.write("\n")
-sum_total_area_ls=[]
-for (fl,cl,gl,owl,peat_extr,sett,ol,inland_waters) in zip(fl_ls,cl_ls,gl_ls,owl_ls,peat_extr_ls,
-                                                          sett_ls,ol_ls,inland_waters_ls):
-    sum_total_area_ls.append(fl+cl+gl+owl+peat_extr+sett+ol+inland_waters)
-
-table_file.write("Total area (sum from the Table)#")
-for item in sum_total_area_ls:
-    table_file.write(str(item)+"#")
-table_file.write("\n")
-table_file.write("Total area (in "+lulucf_classes_all_file+")#")
-for item in total_area_ls:
-    table_file.write(str(item)+"#")
-table_file.write("\n")
-table_file.write("Difference:#")
-
-for (tot1,tot2) in zip(sum_total_area_ls,total_area_ls):
-    diff = tot1-tot2
-    table_file.write(str(diff)+"#")
-table_file.write("\n")
 
