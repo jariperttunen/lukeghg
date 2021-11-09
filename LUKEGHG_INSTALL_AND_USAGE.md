@@ -1,11 +1,10 @@
 # lukeghg: Installation and usage in sorvi server
 The *lukeghg* python package contains command line tools to generate CRFReporter xml file from 
 GHG inventory results for CRFReporter import, check missing work, compare results with 
-previous year and generate some ubiquitous NIR tables. 
+previous year and generate some ubiquitous NIR tables. There are no intentions to make graphical user interface.
 
 **The instructions are for `bash` shell in sorvi**.  Your default shell might be for example `tcsh` 
-and you must for instance adjust quotation marks (') to fit shell's syntax. There are no 
-intentions to make graphical user interface.
+and you must for instance adjust quotation marks (') to fit shell's syntax. 
 
 ## Contents
 
