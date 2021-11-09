@@ -3,7 +3,7 @@ The *lukeghg* python package contains command line tools to generate CRFReporter
 GHG inventory results for CRFReporter import, check missing work, compare results with 
 previous year and generate some ubiquitous NIR tables. 
 
-The instructions are for `bash` shell in sorvi.  Your default shell might be for example `tcsh` 
+**The instructions are for `bash` shell in sorvi**.  Your default shell might be for example `tcsh` 
 and you must for instance adjust quotation marks (') to fit shell's syntax. There are no 
 intentions to make graphical user interface.
 
@@ -40,10 +40,10 @@ Check you have the latest versions of `pip`, *setuptools* and *wheel* installed:
 
 You can now install *lukeghg* python package.
 
-**Tips**: Python virtual environments are so omnipresent that it is customary to create all of them under one
+**Tips:** Python virtual environments are so omnipresent that it is customary to create all of them under one
 directory (*venv* for example). You can quit virtual environment with `deactivate`.
 
-**NB**: If you have any problems creating the virtual environment check your `.bashrc` file. For example 
+**NB:** If you have any problems creating the virtual environment check your `.bashrc` file. For example 
 if you are part of NFI or closely work with them you may have settings by NFI that  disrupt the `python3`
 installed in sorvi.
 
@@ -70,7 +70,7 @@ for python package dependencies and virtual environment set-up:
 All the command line programs in *lukeghg* package are now available in your virtual environment. 
 The programs are located in [lukeghg/lukeghg/bin](lukeghg/lukeghg/bin) directory.
 
-**Tips**: Naturally you can organise your work as you like. But as we will see the *lukeghg* package 
+**Tips:** Naturally you can organise your work as you like. But as we will see the *lukeghg* package 
 contains templates and configuration files that are preset for command line programs. So try this schema 
 first and improve later.
 
@@ -101,7 +101,7 @@ Make sure you are in `/data/shared/<user>/GHGInventory/lukeghg/lukeghg`:
 	(lukeghg) prompt% python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
 
 
-**Tips**: `pip` allows other ways to achieve the same result but this seems to be the most straightforward. 
+**Tips:** `pip` allows other ways to achieve the same result but this seems to be the most straightforward. 
 Note we had to move around a bit inside the lukeghg package. In case `pip` requires update, upgrade 
 also *setuptools* and *wheel* as in *1. Create python virtual environment*.
 
@@ -190,7 +190,7 @@ in CRFReporter. The bulk xml import in CRFReporter tries first to clear all resu
 If by accident you have write access for example to 3. Agriculture sector you will delete exisiting results
 there.
 
-**Tips**: Once you have this set-up you can use it also for the future inventories. Always check that
+**Tips:** Once you have this set-up you can use it also for the future inventories. Always check that
 you have the right active inventory in CRFReporter. Each year CRFReporter requires 
 [manual work](CRFREPORTER_ANNUAL_CHECK.md) that needs to be done.
 
@@ -262,8 +262,8 @@ Produce NIR LULUCF Table 6.1-2 in LuluTable6.1-2.xlsx. In the command line examp
 	(lukeghg) prompt% lulucf-table-612.py -s 1990 -e 2019 -o LuluTable6.1-2.xlsx -d crf/ \
 	                  -b /data/projects/khk/ghg/2019/NIR/Table_6.1-2.csv
 	  
-**NB**: `lulucf-table-612.py`  will fetch biomasses (the first two rows in the table) 
-from a precalculated file *Table_6.1-2.csv* for the current inventory year. It can be found in NIR directory.
+**NB:** `lulucf-table-612.py`  will fetch biomasses (the first two rows in the table) 
+from a precalculated file in *NIR/Table_6.1-2.csv* for the current inventory year.
 
 ### lulucf-table-641.py
 Produce NIR LULUCF Table 6.4-1. The usage is:
@@ -291,8 +291,8 @@ Produce NIR LULUCF Table 6.2-2 for IPCC land use. For example:
 For historic reasons the land areas are collected from *lulucf_classes_all.txt*. The uncertainties can be found 
 in *LU_table6.2-2_UC_areas.csv*. The inventory year is 2019 and output file LULUTable_6.2-2.xlsx.
 
-**NB** Remember to compare with values in NIR/LU_table6.2-2_areas.csv. lulucf-table-622.py needs to be rewritten so that areas
-are read directly from LU_table6.2-2_areas.csv.  
+**NB:** Remember to compare with values in NIR/LU_table6.2-2_areas.csv. lulucf-table-622.py needs to be rewritten so that areas
+are read directly from NIR/LU_table6.2-2_areas.csv.  
 	
 ### kptable-appendix11b.py
 Produce NIR Table Appendix11b in KPTable_Appendix11b.txt. Then read it to dataframe with *#* as a column separator
