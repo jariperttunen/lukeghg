@@ -263,7 +263,7 @@ Produce NIR LULUCF Table 6.1-2 in LuluTable6.1-2.xlsx. In the command line examp
 	                  -b /data/projects/khk/ghg/2019/NIR/Table_6.1-2.csv
 	  
 **NB**: `lulucf-table-612.py`  will fetch biomasses (the first two rows in the table) 
-from a precalculated file for the current inventory year. It can be found in NIR directory.
+from a precalculated file *Table_6.1-2.csv* for the current inventory year. It can be found in NIR directory.
 
 ### lulucf-table-641.py
 Produce NIR LULUCF Table 6.4-1. The usage is:
