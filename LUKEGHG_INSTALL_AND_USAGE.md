@@ -255,25 +255,47 @@ Check if a UID appears twice or more in the inventory:
 	(lukeghg) check-double-uid.py -x DoubleUID2020.xlsx -c crf/'*.csv'
 	
 Ten time series come from two sources, forestry and agriculture, and will appear as multiple UIDs.
-### lulucf-table-612.py
-Produce NIR Table 6-1.2 in LuluTable6-1.2.xlsx. In the command line example inventory files are in *crf* directory: 
 
-	(lukeghg) prompt% lulucf-table-612.py -s 1990 -e 2019 -o LuluTable6-1.2.xlsx -d crf/
+### lulucf-table-612.py
+Produce NIR LULUCF Table 6.1-2 in LuluTable6.1-2.xlsx. In the command line example inventory files are in *crf* directory: 
+
+	(lukeghg) prompt% lulucf-table-612.py -s 1990 -e 2019 -o LuluTable6.1-2.xlsx -d crf/ \
+	                  -b /data/projects/khk/ghg/2019/NIR/Table_6.1-2.csv
 	  
 **NB**: `lulucf-table-612.py`  will fetch biomasses (the first two rows in the table) 
-from precalculated files for the current inventory year.
+from a precalculated file *Table_6.1-2.csv* for the current inventory year. It can be found in NIR directory.
 
+### lulucf-table-641.py
+Produce NIR LULUCF Table 6.4-1. The usage is:
+
+	(lukeghg) prompt% lulucf-table-641.py [-h] -i F1 -y F2 -o F3 (--format_only | --check_total)
+
+The `--format-only` option reads the input file to a dataframe and simply writes it to an Excel file. 
+The `--check-total` option calculates totals and compares results with precalculated values and writes Excel file.
+These two options are mutually exclusive but mandatory: one of them should be present. The `--format_only` 
+should be enough. For example:
+
+	(lukeghg) prompt% lulucf-table-641.py -i /data/projects/khk/ghg/2019/NIR/Table_6.4-1_FLRem_Areas_of_organic_soils.csv -y 2019 \ 
+	                                      -o LUTable_6.4-1.xlsx --format_only
+
+The input file *Table_6.4-1_FLRem_Areas_of_organic_soils.csv* is located each year in NIR directory.
+Inventory year is 2019. The output file is LUTable_6.4-1.xlsx. 
+	
 ### kptable-appendix11b.py
-Produce NIR Table Appendix11b in KPTable_Appendix11b.txt. Read it to excel with *#* as a column separator.
-In the command line example inventory files are in *crf* directory: 
+Produce NIR Table Appendix11b in KPTable_Appendix11b.txt. Then read it to dataframe with *#* as a column separator
+and produce Excel file KPTable_Appendix11b.xlsx. In the command line example inventory files are in *crf* directory: 
 
 	(lukeghg) prompt%  kptable-appendix11b.py -s 1990 -e 2019 -o KPTable_Appendix11b.txt -d crf/
 
+Inventory years are from 1990 to 2019.
+
 ### kptable-appendix11c.py
-Produce NIR Table Appendix11c in KPTable_Appendix11c.txt. Read it to excel with *#* as a column separator
-In the command line example inventory files are in 'crf' directory: 
+Produce NIR Table Appendix11c in KPTable_Appendix11c.txt. Then read it to dataframe  with *#* as a column separator
+and produce Excel file KPTable_Appendix11c.xlsx. In the command line example inventory files are in 'crf' directory: 
 
 	(lukeghg) prompt%:  kptable-appendix11c.py -s 1990 -e 2019 -o KPTable_Appendix11c.txt -d crf/
+
+Inventory years are from 1990 to 2019.
 	
 ### pretty-print-xml.py
 CRFReporter xml files come without line endings. `pretty-print-xml.py` formats xml to more human readable 
