@@ -259,7 +259,8 @@ Ten time series come from two sources, forestry and agriculture, and will appear
 ### lulucf-table-612.py
 Produce NIR LULUCF Table 6.1-2 in LuluTable6.1-2.xlsx. In the command line example inventory files are in *crf* directory: 
 
-	(lukeghg) prompt% lulucf-table-612.py -s 1990 -e 2019 -o LuluTable6.1-2.xlsx -d crf/
+	(lukeghg) prompt% lulucf-table-612.py -s 1990 -e 2019 -o LuluTable6.1-2.xlsx -d crf/ \
+	                  -b /data/projects/khk/ghg/2019/NIR/Table_6.1-2.csv
 	  
 **NB**: `lulucf-table-612.py`  will fetch biomasses (the first two rows in the table) 
 from a precalculated file for the current inventory year. It can be found in NIR directory.
