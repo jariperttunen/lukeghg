@@ -255,6 +255,7 @@ Check if a UID appears twice or more in the inventory:
 	(lukeghg) check-double-uid.py -x DoubleUID2020.xlsx -c crf/'*.csv'
 	
 Ten time series come from two sources, forestry and agriculture, and will appear as multiple UIDs.
+
 ### lulucf-table-612.py
 Produce NIR LULUCF Table 6.1-2 in LuluTable6.1-2.xlsx. In the command line example inventory files are in *crf* directory: 
 
@@ -264,21 +265,20 @@ Produce NIR LULUCF Table 6.1-2 in LuluTable6.1-2.xlsx. In the command line examp
 from a precalculated file for the current inventory year. It can be found in NIR directory.
 
 ### lulucf-table-641.py
-
 Produce NIR LULUCF Table 6.4-1. The usage is:
 
-	lulucf-table-641.py [-h] -i F1 -y F2 -o F3 [--format_only | --check_total]
+	(lukeghg) prompt% lulucf-table-641.py [-h] -i F1 -y F2 -o F3 (--format_only | --check_total)
 
 The `--format-only` option reads the input file to a dataframe and simply writes it to an Excel file. 
 The `--check-total` option calculates totals and compares results with precalculated values and writes Excel file.
-These two options are mutually exclusive. The `--format_only` should be enough. For example:
+These two options are mutually exclusive but mandatory: either of them should be present. The `--format_only` 
+should be enough. For example:
 
-	lulucf-table-641.py -i /path/to/Table_6.4-1_FLRem_Areas_of_organic_soils.csv -y 2019 -o LUTable_6.4-1.xlsx --format_only
+	(lukeghg) prompt% lulucf-table-641.py -i /data/projects/khk/ghg/2019/NIR/Table_6.4-1_FLRem_Areas_of_organic_soils.csv -y 2019 \ 
+	                                      -o LUTable_6.4-1.xlsx --format_only
 
-The path to input file is required. Inventory year is 2019. The output file is LUTable_6.4-1.xlsx. 
-If both `--format_only` and `--check-total` are left out then the totals are explicitely computed.
-
-The input file *Table_6.4-1_FLRem_Areas_of_organic_soils.csv* is located in NIR directory.
+The input file *Table_6.4-1_FLRem_Areas_of_organic_soils.csv* is located each year in NIR directory.
+Inventory year is 2019. The output file is LUTable_6.4-1.xlsx. 
 	
 ### kptable-appendix11b.py
 Produce NIR Table Appendix11b in KPTable_Appendix11b.txt. Then read it to dataframe with *#* as a column separator
