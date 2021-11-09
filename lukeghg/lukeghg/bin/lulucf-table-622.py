@@ -41,13 +41,16 @@ row_title_ls=GenerateRowTitleList(1990,inventory_year)
 
 lulucf_classes_all_file=options.f1
 
-table_file=open('LULUTable6-2.2.txt',"w")
+#table_file=open('LULUTable6-2.2.txt',"w")
 #print(row_title_ls)
 #Read the raw data
+print("Reading data from",lulucf_classes_all_file) 
 df = pd.read_table(lulucf_classes_all_file,delim_whitespace=True)
+print("Reading uncertainty from",options.f4)
 df_uncertainty=pd.read_table(options.f4,sep=';')
 #Force one decimal even if zero
 #df_uncertainty = df_uncertainty.applymap("{0:.1f}".format)
+#Adding column for the table
 df_uncertainty.insert(6,column='Wetlands total',value='')
 df_uncertainty['InWater']=""
 df_uncertainty.index=['Uncertainty']
@@ -150,6 +153,7 @@ df_uncertainty_from=pd.DataFrame(['Uncertainty from: '+options.f4]).transpose()
 df_total_from_file=pd.DataFrame(['Total area (land and inland waters) in: '+options.f1]).transpose()
 date_now=datetime.datetime.now()
 df_date_now=pd.DataFrame(['Date:',str(date_now)]).transpose()
+print("Writing excel file", options.f2)
 writer=pd.ExcelWriter(options.f2,engine='xlsxwriter')
 df_title.to_excel(writer,sheet_name='LUTable622',startrow=0,startcol=0,header=False)
 df_first_row.to_excel(writer,sheet_name='LUTable622',startrow=1,startcol=0,header=False)
@@ -161,7 +165,6 @@ df_uncertainty_from.to_excel(writer,sheet_name='LUTable622',startrow=7+len(list(
 df_total_from_file.to_excel(writer,sheet_name='LUTable622',startrow=10+len(list(range(1990,inventory_year+1))),startcol=0,index=False,header=False)
 df_total_area.to_excel(writer,sheet_name='LUTable622',startrow=11+len(list(range(1990,inventory_year+1))),startcol=0,index=False)
 df_date_now.to_excel(writer,sheet_name='LUTable622',startrow=14+len(list(range(1990,inventory_year+1))),startcol=0,index=False,header=False)
-print(df_all_land_use.head())
 print("Done")
 writer.close()
 
