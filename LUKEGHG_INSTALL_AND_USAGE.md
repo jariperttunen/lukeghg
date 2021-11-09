@@ -274,9 +274,15 @@ Produce NIR LULUCF Table 6.2-2 for IPCC land use. For example:
 For historic reasons the land areas are collected directly from *lulucf_classes_all.txt*. The uncertainties can be found 
 in *NIR/LU_table6.2-2_UC_areas.csv*. Inventory year is 2019 and output file LULUTable_6.2-2.xlsx.
 
-**NB:** Remember to compare with values in NIR/LU_table6.2-2_areas.csv. The lulucf-table-622.py program needs to be 
-rewritten so that areas are read directly from NIR/LU_table6.2-2_areas.csv.  
+##### check-lulucf-table-622.py
+Remember to compare results from lulucf-table-622.py with values in *NIR/LU_table6.2-2_areas.csv*:
 
+	(lukeghg) prompt% check-lulucf-table622.py -x LULUTable_6.2-2.xlsx  -n /data/projects/khk/ghg/2019/NIR/LU_table6.2-2_areas.csv \
+	                                           -y 2019
+
+Inventory year is 2019. Program simply echoes if differences in results occur or not. The lulucf-table-622.py program needs 
+to be rewritten so that IPCC areas are read directly from NIR/LU_table6.2-2_areas.csv.  
+						 
 ### lulucf-table-641.py
 Produce NIR LULUCF Table 6.4-1. The usage is:
 
