@@ -280,6 +280,19 @@ should be enough. For example:
 
 The input file *Table_6.4-1_FLRem_Areas_of_organic_soils.csv* is located each year in NIR directory.
 Inventory year is 2019. The output file is LUTable_6.4-1.xlsx. 
+
+### lulucf-table-622.py
+Produce NIR LULUCF Table 6.2-2 for IPCC land use. For example:
+
+	(lukeghg) prompt% lulucf-table-622.py -i /data/projects/khk/ghg/2019/areas/lulucf/results/lulucf_classes_all.txt \ 
+	                                      -o LULUTable_6.2-2.xlsx -y 2019 \
+					      -u /data/projects/khk/ghg/2019/NIR/LU_table6.2-2_UC_areas.csv
+					      
+For historic reasons the land areas are collected from *lulucf_classes_all.txt*. The uncertainties can be found 
+in *LU_table6.2-2_UC_areas.csv*. The inventory year is 2019 and output file LULUTable_6.2-2.xlsx.
+
+**NB** Remember to compare with values in NIR/LU_table6.2-2_areas.csv. lulucf-table-622.py needs to be rewritten so that areas
+are read directly from LU_table6.2-2_areas.csv.  
 	
 ### kptable-appendix11b.py
 Produce NIR Table Appendix11b in KPTable_Appendix11b.txt. Then read it to dataframe with *#* as a column separator
