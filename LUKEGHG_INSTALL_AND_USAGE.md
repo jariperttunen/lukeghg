@@ -256,12 +256,14 @@ Check if a UID appears twice or more in the inventory:
 Ten time series come from two sources, forestry and agriculture, and will appear as multiple UIDs.
 
 ### lulucf-table-612.py
-Produce NIR LULUCF Table 6.1-2 in LULUTable_6.1-2.xlsx. In the command line example inventory files are in *crf* directory: 
+Produce NIR LULUCF Table 6.1-2 based on inventory result files directly. In the command line example the result files 
+are in *crf* directory: 
 
 	(lukeghg) prompt% lulucf-table-612.py -s 1990 -e 2019 -o LULUTable_6.1-2.xlsx -d crf/ \
 	                  -b /data/projects/khk/ghg/2019/NIR/Table_6.1-2.csv
 
-Inventory start is 1990 and 2019 is the current inventory year. The '-b' option denotes the biomass file.
+Inventory start year is 1990 and 2019 is the current inventory year. The '-b' option denotes the biomass file. The output file
+is LULUTable_6.1-2.xlsx.
 
 **NB:** `lulucf-table-612.py`  will fetch biomasses (the first two rows in the Table 6.1-2) 
 from a precalculated file in *NIR/Table_6.1-2.csv* for the current inventory year.
