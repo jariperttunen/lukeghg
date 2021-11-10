@@ -260,8 +260,10 @@ Produce NIR LULUCF Table 6.1-2 in LULUTable_6.1-2.xlsx. In the command line exam
 
 	(lukeghg) prompt% lulucf-table-612.py -s 1990 -e 2019 -o LULUTable_6.1-2.xlsx -d crf/ \
 	                  -b /data/projects/khk/ghg/2019/NIR/Table_6.1-2.csv
-	  
-**NB:** `lulucf-table-612.py`  will fetch biomasses (the first two rows in the table) 
+
+Inventory start is 1990 and 2019 is the current inventory year. The '-b' option denotes the biomass file.
+
+**NB:** `lulucf-table-612.py`  will fetch biomasses (the first two rows in the Table 6.1-2) 
 from a precalculated file in *NIR/Table_6.1-2.csv* for the current inventory year.
 
 ### lulucf-table-622.py
