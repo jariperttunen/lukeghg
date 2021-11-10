@@ -256,9 +256,9 @@ Check if a UID appears twice or more in the inventory:
 Ten time series come from two sources, forestry and agriculture, and will appear as multiple UIDs.
 
 ### lulucf-table-612.py
-Produce NIR LULUCF Table 6.1-2 in LuluTable6.1-2.xlsx. In the command line example inventory files are in *crf* directory: 
+Produce NIR LULUCF Table 6.1-2 in LULUTable_6.1-2.xlsx. In the command line example inventory files are in *crf* directory: 
 
-	(lukeghg) prompt% lulucf-table-612.py -s 1990 -e 2019 -o LuluTable6.1-2.xlsx -d crf/ \
+	(lukeghg) prompt% lulucf-table-612.py -s 1990 -e 2019 -o LULUTable_6.1-2.xlsx -d crf/ \
 	                  -b /data/projects/khk/ghg/2019/NIR/Table_6.1-2.csv
 	  
 **NB:** `lulucf-table-612.py`  will fetch biomasses (the first two rows in the table) 
@@ -293,10 +293,10 @@ The `--check-total` option calculates totals and compares results with precalcul
 These two options are mutually exclusive but mandatory: one of them must be present. For example:
 
 	(lukeghg) prompt% lulucf-table-641.py -i /data/projects/khk/ghg/2019/NIR/Table_6.4-1_FLRem_Areas_of_organic_soils.csv -y 2019 \ 
-	                                      -o LUTable_6.4-1.xlsx --format_only
+	                                      -o LULUTable_6.4-1.xlsx --format_only
 
 The input file *Table_6.4-1_FLRem_Areas_of_organic_soils.csv* is located each year in NIR directory.
-Inventory year is 2019  and output file LUTable_6.4-1.xlsx. 
+Inventory year is 2019  and output file LULUTable_6.4-1.xlsx. 
 	
 ### kptable-appendix11b.py
 Produce NIR Table Appendix11b in KPTable_Appendix11b.txt. Then read it to dataframe with *#* as a column separator
