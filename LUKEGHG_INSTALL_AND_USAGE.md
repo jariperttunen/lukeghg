@@ -186,13 +186,13 @@ Do xml imports incrementally, you can easily check if new results have become av
 Always check that you have the right active inventory in CRFReporter. Each year CRFReporter requires 
 [manual work](CRFREPORTER_ANNUAL_CHECK.md) that needs to be done.
 
-**NB1:** CRFReporter checks that the version number of the PartyProfile 
+**NB1:** CRFReporter requires that the version number of the PartyProfile 
 xml matches the CRFReporter version. Each CRFReporter version update requires new
 PartyProfile xml from CRFReporter, even during the same active inventory. 
 
-**NB2:** Please check that you have write access *only and solely* to 4. LULUCF and 7. KPLULUCF sectors
+**NB2:** Make sure that you have write access *only and solely* to 4. LULUCF and 7. KPLULUCF sectors
 in CRFReporter. The bulk xml import in CRFReporter tries first to clear all results in all sectors.
-If by accident you have write access for example to 3. Agriculture sector you will delete exisiting results
+If by accident you have write access for example to 3. Agriculture sector you will delete existing results
 there.
 
 ## 5. GHG Scenarios
