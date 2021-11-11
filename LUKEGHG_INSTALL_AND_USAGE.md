@@ -148,9 +148,9 @@ To produce the PartyProfile result file filled with the  GHG inventory results t
 	(lukeghg) prompt% run-ghg-master.sh > Import.log 2> Error.log
 
 The GHG inventory result files (csv files) seem to use different encoding systems.
-`convertutf8.py` converts them to utf8 if needed (this is why they need to be copied. The script `run-ghg-master.sh` will 
-run few minutes at most.  The `>`character redirects standard out terminal output to *Import.log* file 
-and `2>` redirects standard error terminal output to *Error.log* file.
+`convertutf8.py` converts them to utf8 if needed (this is why they need to be copied first from *crf*). 
+The script `run-ghg-master.sh` will  run few minutes at most.  The `>`character redirects standard out 
+terminal output to *Import.log* file and `2>` redirects standard error terminal output to *Error.log* file.
 
 The final step is to import the PartyProfile result file to CRFReporter. Log in CRFReporter
 *Import/Export* section and follow the instructions in *Excel/XML-import*. Read **NB2** carefully
