@@ -181,6 +181,10 @@ by the time series itself. For example:
 
 The number sign (#) character denotes the beginning and the end of the comment. The UID (*810E194F-...-96ACF87C2059*) is CRFReporter generated. For details see [GHG_INVENTORY_RESULT_FILES](GHG_INVENTORY_RESULT_FILES.md).
 
+**Tips:** Once you have this set-up you can use it also for the future inventories. 
+Do xml imports incrementally, you can easily check if new results have become available. 
+Always check that you have the right active inventory in CRFReporter. Each year CRFReporter requires 
+[manual work](CRFREPORTER_ANNUAL_CHECK.md) that needs to be done.
 
 **NB1:** CRFReporter checks that the version number of the PartyProfile 
 xml matches the CRFReporter version. Each CRFReporter version update requires new
@@ -190,10 +194,6 @@ PartyProfile xml from CRFReporter, even during the same active inventory.
 in CRFReporter. The bulk xml import in CRFReporter tries first to clear all results in all sectors.
 If by accident you have write access for example to 3. Agriculture sector you will delete exisiting results
 there.
-
-**Tips:** Once you have this set-up you can use it also for the future inventories. Always check that
-you have the right active inventory in CRFReporter. Each year CRFReporter requires 
-[manual work](CRFREPORTER_ANNUAL_CHECK.md) that needs to be done.
 
 ## 5. GHG Scenarios
 
