@@ -313,14 +313,20 @@ and produce Excel file KPTable_Appendix11b.xlsx. In the command line example inv
 
 Inventory years are from 1990 to 2019.
 
+**NB:** Unlike for LULUCF Table 6.1-2 the for historic reasons values collected for the Appendix11b are *not* based on 
+UID but on row number. That is, file structures should remain the same. The source of data appears at the bottom of the tables.
+
 ### kptable-appendix11c.py
-Produce NIR Table Appendix11c in KPTable_Appendix11c.txt. Then read it to dataframe  with *#* as a column separator
+Produce NIR KPLULUCF Table Appendix11c in KPTable_Appendix11c.txt. Then read it to dataframe  with *#* as a column separator
 and produce Excel file KPTable_Appendix11c.xlsx. In the command line example inventory files are in 'crf' directory: 
 
 	(lukeghg) prompt%:  kptable-appendix11c.py -s 1990 -e 2019 -o KPTable_Appendix11c.txt -d crf/
 
 Inventory years are from 1990 to 2019.
-	
+
+**NB:** Unlike for LULUCF Table 6.1-2 the for historic reasons values collected for the Appendix11c are *not* based on 
+UID but on row number. That is, file structures should remain the same. The source of data appears at the bottom of the table.
+
 ### pretty-print-xml.py
 CRFReporter xml files come without line endings. `pretty-print-xml.py` formats xml to more human readable 
 form. This is useful when new UIDs must be found for GHG inventory:
