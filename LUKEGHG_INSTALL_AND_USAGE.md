@@ -266,7 +266,7 @@ example the result files are in *crf* directory:
 	(lukeghg) prompt% lulucf-table-612.py -s 1990 -e 2019 -o LULUTable_6.1-2.xlsx -d crf/ \
 	                  -b /data/projects/khk/ghg/2019/NIR/Table_6.1-2.csv
 
-Inventory start year is 1990 and 2019 is the current inventory year. The '-b' option denotes the biomass file. The output file
+Inventory start year is 1990 and 2019 is the current inventory year. The `-b` option denotes the biomass file. The output file
 is LULUTable_6.1-2.xlsx.
 
 **NB:** `lulucf-table-612.py`  will fetch biomasses (the first two rows in the Table 6.1-2) 
