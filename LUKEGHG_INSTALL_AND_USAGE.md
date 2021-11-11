@@ -45,7 +45,7 @@ directory (*venv* for example). You can quit virtual environment with `deactivat
 
 **NB:** If you have any problems creating the virtual environment check your `.bashrc` file. For example 
 if you are part of NFI or closely work with them you may have settings by NFI that  disrupt the `python3`
-installed in sorvi.
+environment installed in sorvi.
 
 ## 2. Install the lukeghg python package
 We assume that the working directory will be in */data/shared/\<user\>/GHGInventory* in sorvi
