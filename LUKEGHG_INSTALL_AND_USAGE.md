@@ -121,7 +121,8 @@ Edit the following command line arguments if needed and update lukeghg package a
 - -y Inventory year (the last year in CRFReporter).
 
 `ghg-master.py` has also the arguments -b, -k,-l and -m (not shown here) that 
-refer to ubiquitous configuration files and directories that come with the *lukeghg* package. 
+refer to ubiquitous configuration files that come with the *lukeghg* package.
+Each file has an accompanied README explaining the purpose of the file.
 
 #### Produce CRFReporter xml file
 
