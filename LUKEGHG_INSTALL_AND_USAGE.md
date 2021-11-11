@@ -314,7 +314,7 @@ and produce Excel file KPTable_Appendix11b.xlsx. In the command line example inv
 
 Inventory years are from 1990 to 2019.
 
-**NB:** Unlike for LULUCF Table 6.1-2 the for historic reasons values collected for the Appendix11b are *not* based on 
+**NB:** Unlike in LULUCF Table 6.1-2, for historic reasons, values collected for the Appendix11b are *not* based on 
 UID but on row number. That is, file structures should remain the same. The source of data appears at the bottom of the tables.
 
 ### kptable-appendix11c.py
@@ -325,7 +325,7 @@ and produce Excel file KPTable_Appendix11c.xlsx. In the command line example inv
 
 Inventory years are from 1990 to 2019.
 
-**NB:** Unlike for LULUCF Table 6.1-2 the for historic reasons values collected for the Appendix11c are *not* based on 
+**NB:** Unlike in  LULUCF Table 6.1-2, for historic reasons, values collected for the Appendix11c are *not* based on 
 UID but on row number. That is, file structures should remain the same. The source of data appears at the bottom of the table.
 
 ### pretty-print-xml.py
