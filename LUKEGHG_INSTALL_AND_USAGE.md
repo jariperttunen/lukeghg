@@ -220,13 +220,16 @@ The *lukeghg* package contains useful scripts to validate the inventory and to g
 to appear annually in the NIR report. Standard python -h (help) argument prints short explanation for each command line argument.
 
 ### ghg-todo.py
-Compare two inventories and list missing time series and UIDs not
-found. This sample command assumes that 2018 inventory is in 2018crf
-directory and the output excel file is GHGToDo2019.xlsx:
+Compare two inventories and list missing time series and UIDs not found. This sample command assumes that 2018 inventory is in *2018crf*
+directory and the 2019 inventory in *crf* directory. The output excel file is GHGToDo2019.xlsx:
 
 	(lukeghg) prompt% ghg-todo.py -f1 '2018crf/[KPLU]*.csv' -f2 'crf/[KPLU]*.csv' \ 
 	                  -x PartyProfile/PartyProfile_FIN_2021_1.xml -o GHGToDo2019.xlsx \
 			  -m lukeghg/CRFReporterMappings/300_500_mappings_1.1.csv -y 2019
+
+The PartyProfile xml is needed to validate UID's found in the inventories. The 300_500_mappings_1.1.csv file must
+be present for historic reasons. It maps the obsolete CRFReporter 3.0.0 UIDs used in inventory result files 
+to new ones corrected in the CRFReporter 5.0.0.
 
 ### check-inventory-values.py
 Compare two inventories and check time series for 1) too large differences in inventory values, 2) changes in notation keys and 
