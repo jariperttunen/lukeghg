@@ -304,7 +304,8 @@ These two options are mutually exclusive but mandatory: one of them must be pres
 	                                      -o LULUTable_6.4-1.xlsx --format_only
 
 The input file *Table_6.4-1_FLRem_Areas_of_organic_soils.csv* is located each year in NIR directory.
-Inventory year is 2019  and output file LULUTable_6.4-1.xlsx. 
+Inventory year is 2019  and output file LULUTable_6.4-1.xlsx. **Note** the summary rows may deviate from the sums of 
+respective columns. This is due to rounding.
 	
 ### kptable-appendix11b.py
 Produce NIR Table Appendix11b in KPTable_Appendix11b.txt. Then read it to dataframe with *#* as a column separator
