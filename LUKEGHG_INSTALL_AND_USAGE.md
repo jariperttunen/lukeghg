@@ -338,7 +338,7 @@ form. This is useful when new UIDs must be found for GHG inventory:
 	
 	(lukeghg) prompt%: pretty-print-xml.py -i xml_input_file.xml -o xml_output_file.xml
 
-## Git version control
+## GitHub version control
 
 Currently *lukeghg* package is in GitHub. Sample minimum gitgonfig file for Git is available in [Git](Git) directory. 
 Download it, edit your name, email address and install it as *.gitconfig* in your home directory. 
