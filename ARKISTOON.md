@@ -17,9 +17,10 @@ teossa tarvittavat tiedostot ja ohjelmat.
 + ./CRFReporterMappings/README.md
 
 #### 3. Python ohjelmat:
-+ ./lukeghg/lukeghg/__init__.py
-+ ./lukeghg/lukeghg/bin/__init__.py
-+ ./lukeghg/lukeghg/bin/lulutable-641.py
++ ./lukeghg/lukeghg/bin/run-ghg-master.sh
++ ./lukeghg/lukeghg/bin/run-eu529-ghg-master.sh
++ ./lukeghg/lukeghg/bin/run-ghg-master.slurm
++ ./lukeghg/lukeghg/bin/run-eu529-ghg-master.slurm
 + ./lukeghg/lukeghg/bin/check-double-uid.py
 + ./lukeghg/lukeghg/bin/ghg-agri.py
 + ./lukeghg/lukeghg/bin/ghg-inventory.py
@@ -29,17 +30,15 @@ teossa tarvittavat tiedostot ja ohjelmat.
 + ./lukeghg/lukeghg/bin/kptable-appendix11b.py
 + ./lukeghg/lukeghg/bin/kptable-appendix11c.py
 + ./lukeghg/lukeghg/bin/lulucf-table-612.py
-+ ./lukeghg/lukeghg/bin/lulucf-table-622-ipcc-land-use-excel.py
-+ ./lukeghg/lukeghg/bin/lulucf-table-622-ipcc-land-use.py
++ ./lukeghg/lukeghg/bin/lulucf-table-622.py
++ ./lukeghg/lukeghg/bin/lulucf-table-641.py
 + ./lukeghg/lukeghg/bin/nir3-table.py
 + ./lukeghg/lukeghg/bin/nk-comments.py
 + ./lukeghg/lukeghg/bin/ghg-todo.py
 + ./lukeghg/lukeghg/bin/write-crf-variables.py
 + ./lukeghg/lukeghg/bin/pretty-print-xml.py
 + ./lukeghg/lukeghg/bin/ghg-scenario.py
-+ ./lukeghg/lukeghg/check/__init__.py
 + ./lukeghg/lukeghg/check/checkdoubleuid.py
-+ ./lukeghg/lukeghg/crf/__init__.py
 + ./lukeghg/lukeghg/crf/agrighg.py
 + ./lukeghg/lukeghg/crf/crfreporter.py
 + ./lukeghg/lukeghg/crf/crfxmlconstants.py
@@ -50,13 +49,10 @@ teossa tarvittavat tiedostot ja ohjelmat.
 + ./lukeghg/lukeghg/crf/nkcomments.py
 + ./lukeghg/lukeghg/crf/ppxml.py
 + ./lukeghg/lukeghg/crf/uid340to500mapping.py
-+ ./lukeghg/lukeghg/nir/__init__.py
 + ./lukeghg/lukeghg/nir/kptable622ipcclanduse.py
 + ./lukeghg/lukeghg/nir/kptableappendix11b.py
 + ./lukeghg/lukeghg/nir/kptableappendix11c.py
 + ./lukeghg/lukeghg/nir/lulucftable612.py
-+ ./lukeghg/lukeghg/requests/__init__.py
 + ./lukeghg/lukeghg/utility/filter.py
-+ ./lukeghg/lukeghg/scen/__init__.py
 + ./lukeghg/lukeghg/scen/ghgscenario.py
 + ./lukeghg/setup.py
