@@ -195,6 +195,9 @@ in CRFReporter. The bulk xml import in CRFReporter tries first to clear all resu
 If by accident you have write access for example to 3. Agriculture sector you will delete existing results
 there.
 
+**NB3:** It is important to  run `convertutf8.py`. Otherwise file reading might fail and string comparisons 
+may go astray.
+
 ## 5. GHG Scenarios
 
 `ghg-scenario.py` can generate excel file for GHG scenario calculations.
