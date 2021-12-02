@@ -148,7 +148,7 @@ To produce the PartyProfile result file filled with the  GHG inventory results t
 	(lukeghg) prompt% run-ghg-master.sh > Import.log 2> Error.log
 
 The GHG inventory result files (csv files) seem to use different encoding systems, most notably some files
-seem to use UTF-8 BOM (Byte Order Marking). `convertutf8.py` converts them to UTF-8 encoding if needed 
+seem to use UTF-8 BOM (Byte Order Marking). `convertutf8.py` converts files to UTF-8 encoding if needed 
 (this is why they need to be copied first from *crf*). 
 
 The script `run-ghg-master.sh` will  run few minutes at most.  The `>`character redirects standard out 
