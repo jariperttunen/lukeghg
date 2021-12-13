@@ -329,9 +329,9 @@ and produce Excel file KPTable_Appendix11c.xlsx. In the command line example inv
 
 Inventory years are from 1990 to 2019.
 
-**NB:** Unlike in  LULUCF Table 6.1-2, for historic reasons, values collected for the Appnedix 11b and Appendix11c 
-are *not* based on time series UID but on row number. That is, *file structures should remain the same*. 
-The data sources appear at the bottom of the tables for each column.
+**NB:** Unlike in  LULUCF Table 6.1-2, for historic reasons, values collected for the Appendix11b and Appendix11c 
+are *not* based on time series UID but on file row number. That is, *files should maintain their structure*. 
+The data sources (file names with row numbers) appear at the bottom of the tables for each column.
 
 ### pretty-print-xml.py
 CRFReporter xml files come without line endings. `pretty-print-xml.py` formats xml to more human readable 
