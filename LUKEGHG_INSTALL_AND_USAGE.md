@@ -293,7 +293,7 @@ Remember to compare results from lulucf-table-622.py with values in *NIR/LU_tabl
 	(lukeghg) prompt% check-lulucf-table622.py -x LULUTable_6.2-2.xlsx  -n /data/projects/khk/ghg/2019/NIR/LU_table6.2-2_areas.csv \
 	                                           -y 2019
 
-Inventory year is 2019. Program simply echoes if differences in results occur or not. The lulucf-table-622.py program needs 
+Inventory year is 2019. Program simply echoes if differences in results occur or not. The `lulucf-table-622.py` program needs 
 to be rewritten so that IPCC areas are read directly from NIR/LU_table6.2-2_areas.csv.  
 						 
 ### lulucf-table-641.py
@@ -321,10 +321,6 @@ and produce Excel file KPTable_Appendix11b.xlsx. In the command line example inv
 
 Inventory years are from 1990 to 2019.
 
-**NB:** Unlike in LULUCF Table 6.1-2, for historic reasons, values collected for the Appendix11b are *not* based on 
-UID but on row number. That is, *file structures should remain the same*. The data sources appear at the bottom 
-of the tables for each column.
-
 ### kptable-appendix11c.py
 Produce NIR KPLULUCF Table Appendix11c in KPTable_Appendix11c.txt. Then read it to dataframe  with *#* as a column separator
 and produce Excel file KPTable_Appendix11c.xlsx. In the command line example inventory files are in 'crf' directory: 
@@ -333,9 +329,9 @@ and produce Excel file KPTable_Appendix11c.xlsx. In the command line example inv
 
 Inventory years are from 1990 to 2019.
 
-**NB:** Unlike in  LULUCF Table 6.1-2, for historic reasons, values collected for the Appendix11c are *not* based on 
-UID but on row number. That is, file structures should remain the same. The source of data appears at the bottom 
-of the table for each column.
+**NB:** Unlike in  LULUCF Table 6.1-2, for historic reasons, values collected for the Appnedix 11b and Appendix11c 
+are *not* based on time series UID but on row number. That is, *file structures should remain the same*. 
+The data sources appear at the bottom of the tables for each column.
 
 ### pretty-print-xml.py
 CRFReporter xml files come without line endings. `pretty-print-xml.py` formats xml to more human readable 
