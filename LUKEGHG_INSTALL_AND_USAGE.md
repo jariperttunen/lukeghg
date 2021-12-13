@@ -322,7 +322,7 @@ and produce Excel file KPTable_Appendix11b.xlsx. In the command line example inv
 Inventory years are from 1990 to 2019.
 
 **NB:** Unlike in LULUCF Table 6.1-2, for historic reasons, values collected for the Appendix11b are *not* based on 
-UID but on row number. That is, file structures should remain the same. The source of data appears at the bottom 
+UID but on row number. That is, *file structures should remain the same*. The data sources appear at the bottom 
 of the tables for each column.
 
 ### kptable-appendix11c.py
