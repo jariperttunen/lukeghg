@@ -1,17 +1,11 @@
 #!/bin/bash
-#run-ghg-master.slurm: Run inventory xml import in one step.
-#THIS IS A SLURM SCRIPT. 
-#To run type in command line: sbatch run-ghg-master.slurm
-#CHECK The lukeghg python virtual environment is correctly set below
-#Default: source /home/jarip/venv/bin/activate
-#CHECK --account 
-#Default: $USER 
-#CHECK --mail-user from command line
-#Default: command line parameters (firstname.lastname@luke.fi)
-#Note the use of double quotes to allow wild card file reading.
+#THIS IS A SLURM SCRIPT.
 #See GitHub https://github.com/jariperttunen/lukeghg InstallAndUpdateLukeGHG.md
-#to setup 'lukeghg' python virtual environment and usage. 
-#To redirect output type e.g.: run-ghg-master.sh > output.txt 2> errors.txt.
+#run-ghg-master.slurm: Run inventory xml import in one step.
+#To run type in command line: sbatch --mail-user firstname.lastname@luke.fi run-ghg-master.slurm
+#CHECK The lukeghg python virtual environment is correctly set below
+#CHECK --account (Default: $USER) 
+#CHECK --mail-user from command line
 #It assumed that this script is in python virtual environment (lukeghg)
 #SBATCH --job-name=lukeghg   # create a short name for your job
 #SBATCH --account=$USER          # account
@@ -26,14 +20,5 @@
 #SBATCH --mail-type=begin        # send email when job begins
 #SBATCH --mail-type=end          # send email when job ends
 #source /home/jarip/venv/bin/activate
-ghg-master.py -c "crf/[KPLU]*.csv"\
-              -p PartyProfile/PartyProfile_FIN_2022_2.xml\
-	      -x PartyProfile/PartyProfile_FIN_2022_2_result.xml\
-	      -b lukeghg/KPLULU1990/KP_CM_GM_RV_WDR_UID_notaatioavain.csv\
-	      -k lukeghg/KPLULUSummary/KPSummary.csv\
-	      -l lukeghg/KPLULUSummary/LUSummary.csv\
-	      -m lukeghg/CRFReporterMappings/300_500_mappings_1.1.csv\
-	      -n "crf/NIR*.csv"\
-	      -i "crf/C*.csv"\
-	      -y 2020
+run-ghg-master.sh
 
