@@ -266,7 +266,7 @@ Ten time series come from two sources, forestry and agriculture, and will appear
 
 ### lulucf-table-612.py
 Produce NIR LULUCF Table 6.1-2 ("Grand Total") based on inventory result files directly. Time series are retrieved based
-on their UID. In the command line example the inventory result files are in *crf* directory: 
+on their UIDs. In the command line example the inventory result files are in *crf* directory: 
 
 	(lukeghg) prompt% lulucf-table-612.py -s 1990 -e 2019 -o LULUTable_6.1-2.xlsx -d crf/ \
 	                  -b /data/projects/khk/ghg/2019/NIR/Table_6.1-2.csv
