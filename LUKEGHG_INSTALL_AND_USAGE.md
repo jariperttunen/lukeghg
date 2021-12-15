@@ -1,7 +1,8 @@
 # lukeghg: Installation and usage in sorvi server
-The *lukeghg* python package contains command line tools to generate CRFReporter xml file from 
-GHG inventory results for CRFReporter import, check missing work, compare results with 
-previous year and generate some ubiquitous NIR tables. There are no intentions to make graphical user interface.
+The *lukeghg* python package contains command line tools to generate CRF Reporter Inventory Software 
+(hereafter CRFReporter) xml file from GHG inventory results for CRFReporter xml import.  The package has also
+programs for rudimentary validation of the inventory and to generate some ubiquitous NIR tables. 
+There are no intentions to make graphical user interface.
 
 **The instructions are for `bash` shell in sorvi**.  Your default shell might be for example `tcsh` 
 and you must for instance adjust quotation marks (') to fit shell's syntax. 
@@ -44,7 +45,7 @@ directory (*venv* for example). You can quit virtual environment with `deactivat
 
 **NB:** If you have any problems creating the virtual environment check your `.bashrc` file. For example 
 if you are part of NFI or closely work with them you may have settings by NFI that  disrupt the `python3`
-installed in sorvi.
+environment installed in sorvi.
 
 ## 2. Install the lukeghg python package
 We assume that the working directory will be in */data/shared/\<user\>/GHGInventory* in sorvi
@@ -121,7 +122,8 @@ Edit the following command line arguments if needed and update lukeghg package a
 - -y Inventory year (the last year in CRFReporter).
 
 `ghg-master.py` has also the arguments -b, -k,-l and -m (not shown here) that 
-refer to ubiquitous configuration files and directories that come with the *lukeghg* package. 
+refer to ubiquitous configuration files that come with the *lukeghg* package.
+Each file has an accompanied README explaining the purpose of the file.
 
 #### Produce CRFReporter xml file
 
@@ -145,10 +147,12 @@ To produce the PartyProfile result file filled with the  GHG inventory results t
 	(lukeghg) prompt% convertutf8.py -f 'crf/*.csv'
 	(lukeghg) prompt% run-ghg-master.sh > Import.log 2> Error.log
 
-The GHG inventory result files (csv files) seem to use different encoding systems.
-`convertutf8.py` converts them to utf8 if needed (this is why they need to be copied. The script `run-ghg-master.sh` will 
-run few minutes at most.  The `>`character redirects standard out terminal output to *Import.log* file 
-and `2>` redirects standard error terminal output to *Error.log* file.
+The GHG inventory result files (csv files) seem to use different encoding systems, most notably some files
+seem to use UTF-8 BOM (Byte Order Marking). `convertutf8.py` converts files to UTF-8 encoding if needed 
+(this is why they need to be copied first from *crf*). 
+
+The script `run-ghg-master.sh` will  run few minutes at most.  The `>`character redirects standard out 
+terminal output to *Import.log* file and `2>` redirects standard error terminal output to *Error.log* file.
 
 The final step is to import the PartyProfile result file to CRFReporter. Log in CRFReporter
 *Import/Export* section and follow the instructions in *Excel/XML-import*. Read **NB2** carefully
@@ -160,7 +164,8 @@ Note EU529 concerns KPLULUCF files only (LULUCF files are not missing by acciden
 #### Slurm
 User logins to *interactive* node in sorvi. In addition four *computing* nodes can be used for batch jobs via Slurm.
 `run-ghg-master.slurm` and `run-eu529-ghg-master.slurm` are scripts that can be submitted via `sbatch` for execution.
-The usage is:
+Both simply call `run-ghg-master.sh`and `run-eu529-ghg-master.sh` respectively, so editing these two files is reflected 
+in the corresponding Slurm scripts. The usage is:
 
 		(lukeghg) prompt% sbatch --mail-user firstname.lastname@luke.fi run-ghg-master.slurm
 		(lukeghg) prompt% sbatch --mail-user firstname.lastname@luke.fi run-eu529-ghg-master.slurm 
@@ -179,19 +184,22 @@ by the time series itself. For example:
 
 The number sign (#) character denotes the beginning and the end of the comment. The UID (*810E194F-...-96ACF87C2059*) is CRFReporter generated. For details see [GHG_INVENTORY_RESULT_FILES](GHG_INVENTORY_RESULT_FILES.md).
 
+**Tips:** Once you have this set-up you can use it also for the future inventories. 
+Do xml imports incrementally, you can easily check if new results have become available. 
+Always check that you have the right active inventory in CRFReporter. Each year CRFReporter requires 
+[manual work](CRFREPORTER_ANNUAL_CHECK.md) that needs to be done.
 
-**NB1:** CRFReporter checks that the version number of the PartyProfile 
+**NB1:** CRFReporter requires that the version number of the PartyProfile 
 xml matches the CRFReporter version. Each CRFReporter version update requires new
 PartyProfile xml from CRFReporter, even during the same active inventory. 
 
-**NB2:** Please check that you have write access *only and solely* to 4. LULUCF and 7. KPLULUCF sectors
+**NB2:** Make sure that you have write access *only and solely* to 4. LULUCF and 7. KPLULUCF sectors
 in CRFReporter. The bulk xml import in CRFReporter tries first to clear all results in all sectors.
-If by accident you have write access for example to 3. Agriculture sector you will delete exisiting results
+If by accident you have write access for example to 3. Agriculture sector you will delete existing results
 there.
 
-**Tips:** Once you have this set-up you can use it also for the future inventories. Always check that
-you have the right active inventory in CRFReporter. Each year CRFReporter requires 
-[manual work](CRFREPORTER_ANNUAL_CHECK.md) that needs to be done.
+**NB3:** It is important to  run `convertutf8.py`. Otherwise file reading might fail and string comparisons 
+may go astray.
 
 ## 5. GHG Scenarios
 
@@ -216,18 +224,20 @@ For further details see [GHG_SCENARIO](GHG_SCENARIO.md).
 
 ## 6. Other useful programs
 
-lukeghg package contains useful scripts for checks for the inventory 
-and to generate some ubiquitous tables to appear in NIR. Standard python -h (help) argument
-prints short explanation for each command line argument.
+The *lukeghg* package contains useful scripts to validate the inventory and to generate some ubiquitous tables 
+to appear annually in the NIR report. Standard python -h (help) argument prints short explanation for each command line argument.
 
 ### ghg-todo.py
-Compare two inventories and list missing time series and UIDs not
-found. This sample command assumes that 2018 inventory is in 2018crf
-directory and the output excel file is GHGToDo2019.xlsx:
+Compare two inventories and list missing time series and UIDs not found. This sample command assumes that 2018 inventory is in *2018crf*
+directory and the 2019 inventory in *crf* directory. The output excel file is GHGToDo2019.xlsx:
 
 	(lukeghg) prompt% ghg-todo.py -f1 '2018crf/[KPLU]*.csv' -f2 'crf/[KPLU]*.csv' \ 
 	                  -x PartyProfile/PartyProfile_FIN_2021_1.xml -o GHGToDo2019.xlsx \
 			  -m lukeghg/CRFReporterMappings/300_500_mappings_1.1.csv -y 2019
+
+The PartyProfile xml is needed to validate UID's found in the inventories. The 300_500_mappings_1.1.csv file must
+be present for historic reasons. It maps the obsolete CRFReporter 3.0.0 UIDs used in inventory result files 
+to new ones corrected in the CRFReporter 5.0.0.
 
 ### check-inventory-values.py
 Compare two inventories and check time series for 1) too large differences in inventory values, 2) changes in notation keys and 
@@ -256,12 +266,16 @@ Check if a UID appears twice or more in the inventory:
 Ten time series come from two sources, forestry and agriculture, and will appear as multiple UIDs.
 
 ### lulucf-table-612.py
-Produce NIR LULUCF Table 6.1-2 in LuluTable6.1-2.xlsx. In the command line example inventory files are in *crf* directory: 
+Produce NIR LULUCF Table 6.1-2 ("Grand Total") based on inventory result files directly. Time series are retrieved based
+on their UIDs. In the command line example the inventory result files are in *crf* directory: 
 
-	(lukeghg) prompt% lulucf-table-612.py -s 1990 -e 2019 -o LuluTable6.1-2.xlsx -d crf/ \
+	(lukeghg) prompt% lulucf-table-612.py -s 1990 -e 2019 -o LULUTable_6.1-2.xlsx -d crf/ \
 	                  -b /data/projects/khk/ghg/2019/NIR/Table_6.1-2.csv
-	  
-**NB:** `lulucf-table-612.py`  will fetch biomasses (the first two rows in the table) 
+
+Inventory start year is 1990 and 2019 is the current inventory year. The `-b` option denotes the biomass file. The output file
+is LULUTable_6.1-2.xlsx.
+
+**NB:** `lulucf-table-612.py`  will fetch biomasses (the first two rows in the Table 6.1-2) 
 from a precalculated file in *NIR/Table_6.1-2.csv* for the current inventory year.
 
 ### lulucf-table-622.py
@@ -274,9 +288,15 @@ Produce NIR LULUCF Table 6.2-2 for IPCC land use. For example:
 For historic reasons the land areas are collected directly from *lulucf_classes_all.txt*. The uncertainties can be found 
 in *NIR/LU_table6.2-2_UC_areas.csv*. Inventory year is 2019 and output file LULUTable_6.2-2.xlsx.
 
-**NB:** Remember to compare with values in NIR/LU_table6.2-2_areas.csv. The lulucf-table-622.py program needs to be 
-rewritten so that areas are read directly from NIR/LU_table6.2-2_areas.csv.  
+#### check-lulucf-table-622.py
+Remember to compare results from lulucf-table-622.py with values in *NIR/LU_table6.2-2_areas.csv*:
 
+	(lukeghg) prompt% check-lulucf-table622.py -x LULUTable_6.2-2.xlsx  -n /data/projects/khk/ghg/2019/NIR/LU_table6.2-2_areas.csv \
+	                                           -y 2019
+
+Inventory year is 2019. Program simply echoes if differences in results occur or not. The `lulucf-table-622.py` program needs 
+to be rewritten so that IPCC areas are read directly from NIR/LU_table6.2-2_areas.csv.  
+						 
 ### lulucf-table-641.py
 Produce NIR LULUCF Table 6.4-1. The usage is:
 
@@ -287,10 +307,12 @@ The `--check-total` option calculates totals and compares results with precalcul
 These two options are mutually exclusive but mandatory: one of them must be present. For example:
 
 	(lukeghg) prompt% lulucf-table-641.py -i /data/projects/khk/ghg/2019/NIR/Table_6.4-1_FLRem_Areas_of_organic_soils.csv -y 2019 \ 
-	                                      -o LUTable_6.4-1.xlsx --format_only
+	                                      -o LULUTable_6.4-1.xlsx --format_only
 
 The input file *Table_6.4-1_FLRem_Areas_of_organic_soils.csv* is located each year in NIR directory.
-Inventory year is 2019  and output file LUTable_6.4-1.xlsx. 
+Inventory year is 2019  and output file LULUTable_6.4-1.xlsx. **Note** the summary columns may deviate from the sums of 
+their respective column constituents (in the order of 1 kha, the magnitude in the Table 6.4-1). 
+This is due to roundings in the original data.
 	
 ### kptable-appendix11b.py
 Produce NIR Table Appendix11b in KPTable_Appendix11b.txt. Then read it to dataframe with *#* as a column separator
@@ -301,20 +323,24 @@ and produce Excel file KPTable_Appendix11b.xlsx. In the command line example inv
 Inventory years are from 1990 to 2019.
 
 ### kptable-appendix11c.py
-Produce NIR Table Appendix11c in KPTable_Appendix11c.txt. Then read it to dataframe  with *#* as a column separator
+Produce NIR KPLULUCF Table Appendix11c in KPTable_Appendix11c.txt. Then read it to dataframe  with *#* as a column separator
 and produce Excel file KPTable_Appendix11c.xlsx. In the command line example inventory files are in 'crf' directory: 
 
 	(lukeghg) prompt%:  kptable-appendix11c.py -s 1990 -e 2019 -o KPTable_Appendix11c.txt -d crf/
 
 Inventory years are from 1990 to 2019.
-	
+
+**NB:** Unlike in  LULUCF Table 6.1-2, for historic reasons, values collected for the Appendix11b and Appendix11c 
+are *not* based on time series UID but on file row number. That is, *files should maintain their structure*. 
+The data sources (file names with row numbers) appear at the bottom of the tables for each column.
+
 ### pretty-print-xml.py
 CRFReporter xml files come without line endings. `pretty-print-xml.py` formats xml to more human readable 
 form. This is useful when new UIDs must be found for GHG inventory:
 	
 	(lukeghg) prompt%: pretty-print-xml.py -i xml_input_file.xml -o xml_output_file.xml
 
-## Git version control
+## GitHub version control
 
 Currently *lukeghg* package is in GitHub. Sample minimum gitgonfig file for Git is available in [Git](Git) directory. 
 Download it, edit your name, email address and install it as *.gitconfig* in your home directory. 
