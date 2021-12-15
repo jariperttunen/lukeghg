@@ -3,7 +3,7 @@
 #See GitHub https://github.com/jariperttunen/lukeghg InstallAndUpdateLukeGHG.md
 #run-ghg-master.slurm: Run inventory xml import in one step.
 #To run type in command line: sbatch --mail-user firstname.lastname@luke.fi run-ghg-master.slurm
-#CHECK The lukeghg python virtual environment is correctly set below
+#CHECK The lukeghg python virtual environment is correctly set
 #CHECK --account (Default: $USER) 
 #CHECK --mail-user from command line
 #It assumed that this script is in python virtual environment (lukeghg)
