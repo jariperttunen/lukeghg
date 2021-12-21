@@ -16,4 +16,4 @@ This guides close to the UIDs needed.
 ## HWP Activity data
 
 The years starting from 1961 miss the current inventory year. It is not automatically added.
-The current inventory year must be inserted by hand. 
+The current inventory year must be inserted by hand in CRFReporter. 
