@@ -48,13 +48,13 @@ if you are part of NFI or closely work with them you may have settings by NFI th
 environment installed in sorvi.
 
 ## 2. Install the lukeghg python package
-We assume that the working directory will be in */data/shared/\<user\>/GHGInventory* in sorvi
+We assume that the working directory will be in */work/\<user\>/GHGInventory* in sorvi
 server where *\<user\>* denotes your user name. For GitHub you need to have *.gitconfig* 
 in your home directory. See *Git version control* at the end.
 
 Create *GHGInventory* directory and clone *lukeghg* from GitHub:
 
-	(lukeghg) prompt% cd /data/shared/<user>
+	(lukeghg) prompt% cd /work/<user>
 	(lukeghg) prompt% mkdir GHGInvenory
 	(lukeghg) prompt% cd GHGInventory
 	(lukeghg) prompt% git clone https://github.com/jariperttunen/lukeghg.git
@@ -85,17 +85,17 @@ prompt). The tilde (~) character in `bash` expands to your home directory:
 	prompt% source ~/lukeghg/bin/activate
 	(lukeghg) prompt%
 
-Update lukeghg package from GitHub. Make sure you are in `/data/shared/<user>/GHGInventory/lukeghg/` directory:
+Update lukeghg package from GitHub. Make sure you are in `/work/<user>/GHGInventory/lukeghg/` directory:
 
-	(lukeghg) prompt% cd /data/shared/<user>/GHGInventory/lukeghg/
+	(lukeghg) prompt% cd /work/<user>/GHGInventory/lukeghg/
 	(lukeghg) prompt% git pull
 
 Update your lukeghg virtual environment next. As with the installation
 recreate the wheel package, but now first remove the *lukeghg* package
 and then upgrade *lukeghg* and its dependencies.
-Make sure you are in `/data/shared/<user>/GHGInventory/lukeghg/lukeghg`:
+Make sure you are in `/work/<user>/GHGInventory/lukeghg/lukeghg`:
 
-	(lukeghg) prompt% cd /data/shared/<user>/GHGInventory/lukeghg/lukeghg
+	(lukeghg) prompt% cd /work/<user>/GHGInventory/lukeghg/lukeghg
 	(lukeghg) prompt% python3 setup.py bdist_wheel
 	(lukeghg) prompt% python3 -m pip uninstall lukeghg
 	(lukeghg) prompt% python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
@@ -127,16 +127,16 @@ Each file has an accompanied README explaining the purpose of the file.
 
 #### Produce CRFReporter xml file
 
-Make sure you have activated *lukeghg* python virtual environment and you are in */data/shared/\<user\>/GHGInventory*. 
+Make sure you have activated *lukeghg* python virtual environment and you are in */work/\<user\>/GHGInventory*. 
 Then create *crf* and *PartyProfile* directories for GHG Inventory result files and PartyProfile xml files respectively:
 
-	(lukeghg) prompt% cd /data/shared/<user>/GHGInventory/
+	(lukeghg) prompt% cd /work/<user>/GHGInventory/
 	(lukeghg) prompt% mkdir crf
 	(lukeghg( prompt% mkdir PartyProfile
 
 Copy GHG inventory files to *crf* directory. Be sure the read rights for the files exists, e.g. 2020 inventory:
 
-	(lukeghg) prompt% scp /data/projects/khk/ghg/2020/crf/*.csv crf/
+	(lukeghg) prompt% scp /projects/khk/ghg/2020/crf/*.csv crf/
 
 It has been practice that all GHG inventory results are by year in the same *ghg/\<year\>/crf* directory on the server.
 
