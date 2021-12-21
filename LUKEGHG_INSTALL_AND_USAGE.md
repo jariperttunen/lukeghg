@@ -149,13 +149,13 @@ To produce the PartyProfile result file filled with the  GHG inventory results t
 
 The GHG inventory result files (csv files) seem to use different encoding systems, most notably some files
 seem to use UTF-8 BOM (Byte Order Marking). `convertutf8.py` converts files to UTF-8 encoding if needed 
-(this is why they need to be copied first from *crf*). 
+(this is why they need to be copied first from *ghg/\<year\>/crf* folder). See also **NB2**.
 
 The script `run-ghg-master.sh` will  run few minutes at most.  The `>`character redirects standard out 
 terminal output to *Import.log* file and `2>` redirects standard error terminal output to *Error.log* file.
 
 The final step is to import the PartyProfile result file to CRFReporter. Log in CRFReporter
-*Import/Export* section and follow the instructions in *Excel/XML-import*. Read **NB2** carefully
+*Import/Export* section and follow the instructions in *Excel/XML-import*. Read **NB3** carefully
 before xml import.
 
 For EU529 inventory there is similar [`run-eu529-ghg-master.sh`](lukeghg/lukeghg/bin/run-eu529-ghg-master.sh). 
@@ -193,13 +193,13 @@ Always check that you have the right active inventory in CRFReporter. Each year 
 xml matches the CRFReporter version. Each CRFReporter version update requires new
 PartyProfile xml from CRFReporter, even during the same active inventory. 
 
-**NB2:** Make sure that you have write access *only and solely* to 4. LULUCF and 7. KPLULUCF sectors
+**NB2:** It is important to  run `convertutf8.py`. Otherwise file reading might fail and string comparisons 
+may go astray.
+
+**NB3:** Make sure that you have write access *only and solely* to 4. LULUCF and 7. KPLULUCF sectors
 in CRFReporter. The bulk xml import in CRFReporter tries first to clear all results in all sectors.
 If by accident you have write access for example to 3. Agriculture sector you will delete existing results
 there.
-
-**NB3:** It is important to  run `convertutf8.py`. Otherwise file reading might fail and string comparisons 
-may go astray.
 
 ## 5. GHG Scenarios
 
@@ -247,7 +247,7 @@ The sample command line assumes 2018 inventory  is in *2018crf* directory and 20
 The excel file *GHGComparison.xlsx* will be generated:
 
 	(lukeghg) prompt% check-inventory-values.py -p '2018crf/[KPLU]*.csv' -c 'crf/[KPLU]*.csv' \ 
-	                  -m lukeghg/CRFReporteMappings/300_500_mappings_1.1.csv -o GHGComparison.xlsx -t 20
+	                  -m lukeghg/CRFReporterMappings/300_500_mappings_1.1.csv -o GHGComparison.xlsx -t 20
 	  
 The argument `-t` defines the values that disagree 20% or more will be accounted for. More precisely, 
 if two values for some inventory year in the same time series from the two inventories differ 
