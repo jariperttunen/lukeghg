@@ -10,8 +10,9 @@ Each year a new element (node) must be created for `Total natural disturbances`.
 UID identifier must be retrieved from the CRFReporter Simple xml and handed over to the GHG inventory.
 
 **Tips**: write nonsense values, nine in total, only for the year 1990 that are not likely to appear anywhere 
-in any sector of the inventory, export simple xml and find the nonsense values in the xml. 
-This guides close to the UIDs needed.
+in any sector of the inventory. Export simple xml and find the nonsense values in the xml. 
+This guides close to the UIDs needed. Use `pretty-print-xml.py` to make Simple xml human readable with line breaks
+and indentations.
 
 ## HWP Activity data
 
