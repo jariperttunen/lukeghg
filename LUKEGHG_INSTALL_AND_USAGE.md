@@ -14,7 +14,7 @@ and you must for instance adjust quotation marks (') to fit shell's syntax.
 3. Update  the lukeghg python package
 4. GHG inventory to CRFReporter xml file
 5. GHG Scenarios
-6. Other useful programs
+6. Utility programs
 + Git version control
 + Reading
 
