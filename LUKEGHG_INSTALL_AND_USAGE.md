@@ -222,7 +222,7 @@ the backslash (\\) denotes the command line continues to the next line:
 
 For further details see [GHG_SCENARIO](GHG_SCENARIO.md).
 
-## 6. Other useful programs
+## 6. Utility programs
 
 The *lukeghg* package contains useful scripts to validate the inventory and to generate some ubiquitous tables 
 to appear annually in the NIR report. Standard python -h (help) argument prints short explanation for each command line argument.
