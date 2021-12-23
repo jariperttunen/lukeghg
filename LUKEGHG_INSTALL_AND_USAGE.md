@@ -235,9 +235,8 @@ directory and the 2019 inventory in *crf* directory. The output excel file is GH
 	                  -x PartyProfile/PartyProfile_FIN_2021_1.xml -o GHGToDo2019.xlsx \
 			  -m lukeghg/CRFReporterMappings/300_500_mappings_1.1.csv -y 2019
 
-The PartyProfile xml is needed to validate UID's found in the inventories. The 300_500_mappings_1.1.csv file must
-be present for historic reasons. It maps the obsolete CRFReporter 3.0.0 UIDs used in inventory result files 
-to new ones corrected in the CRFReporter 5.0.0.
+The PartyProfile xml is needed to validate UID's found in the inventories. The 300_500_mappings_1.1.csv file 
+maps the obsolete CRFReporter 3.0.0 UIDs used in GHG inventory result files to new UIDs corrected for the CRFReporter 5.0.0.
 
 ### check-inventory-values.py
 Compare two inventories and check time series for 1) too large differences in inventory values, 2) changes in notation keys and 
