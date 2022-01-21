@@ -50,7 +50,7 @@ environment installed in sorvi.
 ## 2. Install the lukeghg python package
 We assume that the working directory will be in */work/\<user\>/GHGInventory* in sorvi
 server where *\<user\>* denotes your user name. For GitHub you need to have *.gitconfig* 
-in your home directory. See [Git version control](#github-version-control) at the end.
+in your home directory (see [GitHub version control](#github-version-control) at the end).
 
 Create *GHGInventory* directory and clone *lukeghg* from GitHub:
 
