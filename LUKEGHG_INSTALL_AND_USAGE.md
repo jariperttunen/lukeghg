@@ -15,7 +15,8 @@ and you must for instance adjust quotation marks (') to fit shell's syntax.
 4. GHG inventory to CRFReporter xml file
 5. GHG Scenarios
 6. Utility programs
-+ Git version control
++ GitHub version control
++ ToDo
 + Reading
 
 
