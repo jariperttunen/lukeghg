@@ -19,10 +19,10 @@ and indentations.
 The years starting from 1961 miss the current inventory year. It is not automatically added.
 The current inventory year must be inserted by hand in CRFReporter. 
 
-## CrfReporter PartyProfile xml
+## CRFReporter PartyProfile xml
 
-The CrfReporter PartyProfile xml is the template for the inventory results.
-In the course of inventory in the fall there tends to be several CrfReporter updates. 
-During PartyProfile xml import (with inventory results) CrfReporter checks that
-the PartyProfile xml matches the CrfReporter version. Keep the PartyProfile xml
-in sync with CrfReporter version.
+The CRFReporter PartyProfile xml is the template for the inventory results.
+In the course of inventory in the fall there tends to be several CRFReporter updates. 
+During PartyProfile xml import (with inventory results) CRFReporter checks that
+the PartyProfile xml matches the CRFReporter version. Keep the PartyProfile xml
+in sync with CRFReporter version.
