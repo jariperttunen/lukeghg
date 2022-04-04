@@ -242,8 +242,8 @@ maps the obsolete CRFReporter 3.0.0 UIDs used in GHG inventory result files to n
 
 ### check-inventory-values.py
 Compare two inventories and check time series for 1) too large differences in inventory values, 2) changes in notation keys,
-3) UID's not accounted for and 4) optionally list NO notation keys on separate sheet. Results will appear in their 
-respective sections in the output file.
+3) UID's not accounted for and 4) optionally list NO notation keys for the *current* year on separate sheet. 
+Results will appear in their respective sections in the output file.
 
 The sample command line assumes 2018 inventory  is in *2018crf* directory and 2019 inventory in *crf* directory.
 The excel file *GHGComparison.xlsx* will be generated:
