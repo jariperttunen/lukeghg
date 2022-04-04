@@ -241,18 +241,20 @@ The PartyProfile xml is needed to validate UID's found in the inventories. The 3
 maps the obsolete CRFReporter 3.0.0 UIDs used in GHG inventory result files to new UIDs corrected for the CRFReporter 5.0.0.
 
 ### check-inventory-values.py
-Compare two inventories and check time series for 1) too large differences in inventory values, 2) changes in notation keys and 
-3) UID's not accounted for. Results will appear in their respective sections in the output file.
+Compare two inventories and check time series for 1) too large differences in inventory values, 2) changes in notation keys,
+3) UID's not accounted for and 4) optionally list NO notation keys on separate sheet. Results will appear in their 
+respective sections in the output file.
 
 The sample command line assumes 2018 inventory  is in *2018crf* directory and 2019 inventory in *crf* directory.
 The excel file *GHGComparison.xlsx* will be generated:
 
 	(lukeghg) prompt% check-inventory-values.py -p '2018crf/[KPLU]*.csv' -c 'crf/[KPLU]*.csv' \ 
-	                  -m lukeghg/CRFReporterMappings/300_500_mappings_1.1.csv -o GHGComparison.xlsx -t 20
+	                  -m lukeghg/CRFReporterMappings/300_500_mappings_1.1.csv -o GHGComparison.xlsx -t 20 --NO
 	  
 The argument `-t` defines the values that disagree 20% or more will be accounted for. More precisely, 
 if two values for some inventory year in the same time series from the two inventories differ 
-more than this threshold value, the two time series will appear in the result file. 
+more than this threshold value, the two time series will appear in the result file. The --NO flag produces 
+the listing of NO notation keys.
 
 #### Colouring
 Differences exceeding the given tolerance value show up in red. Notation key changes are in orange. Notation keys changed to 
