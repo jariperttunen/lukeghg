@@ -2,33 +2,46 @@
 import subprocess
 import argparse
 from optparse import OptionParser as OP
-#ghg-master.py gathers all steps of xml import into one (this) file.
-#See "run-ghg-master.sh" bash shell script to run 2017 inventory xml import in a single step
+## \file ghg-master.py
 #
-#If one wants to do import step by step execute the following 6 steps.
-#Each program has '-h' (help) option that gives command arguments and their descriptions
-#See also the end of this file, where the commands are executed with 'subprocess.run'
-#1. Basic xml import
-#ghg-inventory.py -c "/hsan2/khk/ghg/2017/crf/[KPLU]*.csv" -p /hsan2/khk/ghg/2017/FIN_2019_1/PartyProfile-2017-PP.xml \
-#-x PartyProfileResults_2017.xml -b /hsan2/khk/ghg/lukeghg/KPLULU1990/KP_CM_GM_RV_WDR_UID_notaatioavain.\
-#-m /hsan2/khk/ghg/lukeghg/300_500_mappings_1.1.csv -y 2017
-#2. Some CL, GL inventory results come from two source, add up and import to xml
-#kp-lulu-summary.py -c "/hsan2/khk/ghg/2017/crf/KP*.csv" -p PartyProfileResults_2017.xml \
-#-x PartyProfileResults_2017.xml -u /hsan2/khk/ghg/lukeghg/KPLULUSummary/KPSummary.csv \
-#-m /hsan2/khk/ghg/lukeghg/300_500_mappings_1.1.csv,args.m -y 2017
-#3.
-#kp-lulu-summary.py -c "/hsan2/khk/ghg/2017/crf/LU*.csv" -p PartyProfileResults_2017.xml \
-#-x PartyProfileResults_2017.xml -u /hsan2/khk/ghg/lukeghg/KPLULUSummary/LUSummary.csv \
-#-m /hsan2/khk/ghg/lukeghg/300_500_mappings_1.1.csv,args.m -y 2017
-#4. NIR3 table requires own algorithm for xml import
-#nir3-table.py -c "/hsan2/khk/ghg/2017/crf/NIR*.csv" -p PartyProfileResults_2017.xml -x PartyProfileResults_2017.xml\
-#-m /hsan2/khk/ghg/lukeghg/300_500_mappings_1.1.csv,args.m -y 2017
-#5. Information items are calculated from the deforestation results
-#information-items.py -p PartyProfileResults_2017.xml -x PartyProfileResults_2017.xml\
-#-m /hsan2/khk/ghg/lukeghg/300_500_mappings_1.1.csv,args.m -y 2017
-#6. Finally, insert KP and LULU comments for notation keys
-#nk-comments.py -c "/hsan2/khk/ghg/2017/crf/C*.csv" -p PartyProfileResults_2017.xml -x PartyProfileResults_2017.xml\
-#-m /hsan2/khk/ghg/lukeghg/300_500_mappings_1.1.csv,args.m 
+# The script `ghg-master.py` gathers all stages of CRFReporter xml assembly.
+# See `run-ghg-master.sh` bash shell script to run GHG inventory xml in a single step.
+#
+# If one wants to  assemble the CRFReporter xml in stages execute the following 5 steps.
+# Each program has '-h' (help) option that gives command arguments and their descriptions
+# See also the end of this file, where the commands are executed with `subprocess.run`
+#
+# 1. Basic xml import (emissions and stocks).
+#
+#          ghg-inventory.py -c "/hsan2/khk/ghg/2017/crf/[KPLU]*.csv" -p /hsan2/khk/ghg/2017/FIN_2019_1/PartyProfile-2017-PP.xml 
+#          -x PartyProfileResults_2017.xml -b /hsan2/khk/ghg/lukeghg/KPLULU1990/KP_CM_GM_RV_WDR_UID_notaatioavain.csv
+#          -m /hsan2/khk/ghg/lukeghg/300_500_mappings_1.1.csv -y 2017
+#
+# 2. Some CL and GL inventory results come from two sources (forestry and agriculture). Add and import to xml.
+#
+#          kp-lulu-summary.py -c "/hsan2/khk/ghg/2017/crf/KP*.csv" -p PartyProfileResults_2017.xml 
+#          -x PartyProfileResults_2017.xml -u /hsan2/khk/ghg/lukeghg/KPLULUSummary/KPSummary.csv 
+#          -m /hsan2/khk/ghg/lukeghg/300_500_mappings_1.1.csv -y 2017
+#
+#          kp-lulu-summary.py -c "/hsan2/khk/ghg/2017/crf/LU*.csv" -p PartyProfileResults_2017.xml 
+#          -x PartyProfileResults_2017.xml -u /hsan2/khk/ghg/lukeghg/KPLULUSummary/LUSummary.csv 
+#          -m /hsan2/khk/ghg/lukeghg/300_500_mappings_1.1.csv -y 2017
+#
+# 3. NIR3 table requires own algorithm for xml import.
+#
+#          nir3-table.py -c "/hsan2/khk/ghg/2017/crf/NIR*.csv" -p PartyProfileResults_2017.xml -x PartyProfileResults_2017.xml
+#          -m /hsan2/khk/ghg/lukeghg/300_500_mappings_1.1.csv  -y 2017
+#
+# 4. Information items are calculated from the deforestation results.
+#
+#          information-items.py -p PartyProfileResults_2017.xml -x PartyProfileResults_2017.xml
+#          -m /hsan2/khk/ghg/lukeghg/300_500_mappings_1.1.csv  -y 2017
+#
+# 5. Finally, insert KPLULUCF and LULUCF comments for notation keys.
+#
+#          nk-comments.py -c "/hsan2/khk/ghg/2017/crf/C*.csv" -p PartyProfileResults_2017.xml -x PartyProfileResults_2017.xml
+#          -m /hsan2/khk/ghg/lukeghg/300_500_mappings_1.1.csv 
+#
 
 #The filling of the Party Profile xml with inventory data follows
 parser = argparse.ArgumentParser()

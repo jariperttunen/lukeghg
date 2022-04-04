@@ -10,8 +10,23 @@ import pandas as pd
 import xlsxwriter
 from lukeghg.crf.uid340to500mapping import MapUID340to500, Create340to500UIDMapping
 import lukeghg.crf.ghginventory as ghg
-
-def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file,inventory_year:int):
+## @file
+# Create ToDo list for GHG inventory. 
+def GHGToDo(fprev:str,fcurrent:str,xml_file:str,outfile:str,uid_mapping_file:str,inventory_year:int):
+    """! Compare two inventories.
+    Compare two inventories, LU and KP files. Create two sets of inventories for previous and current respectively.
+    Calculate set difference. Create Excel file sheets for time series not yet in current inventory, 
+    time series in current inventory and for missing, erroneous UIDs.
+     
+    @param fprev: Previous inventory files (wild cards).
+    @param fcurrent: Current inventory files (wild cards).
+    @param xml_file: CRFReporter PartyProfyle xml file.
+    @param outfile: Excel outoput file name.
+    @param uid_mapping_file: CRFReporter `300_500_mappings_1.1.csv` file.
+    @param inventory_year: Inventory year (last year in CRFReporter).
+    @return None (write excel file).
+    """
+##
     #Inventory results from the previous year
     filels1 = glob.glob(fprev)
     filels1 = sorted(filels1)
@@ -20,6 +35,8 @@ def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file,inventory_year:int)
     if fcurrent != None:
         filels2 = glob.glob(fcurrent)
         filels2 = sorted(filels2)
+    ## @var $t
+    # xml.etree.ElementTree xml parser.
     t = ET()
     print("Number of files",inventory_year-1,len(filels1))
     print("Number of files",inventory_year,len(filels2))
@@ -28,15 +45,17 @@ def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file,inventory_year:int)
     it=t.iter('variable')
     variablels = [e for e in it if e.tag=='variable']
     #Create two sets of the UID identifiers
-    #Previous year
+    ## @var set1
+    # Previous year UIDs
     set1=set()
-    #Current year
+    ## @var set2
+    # Current year UIDs
     set2=set()
     uid_file_dict1={}
     uid_file_dict2={}
     uid_missing_ls=[]
     #Read results
-    print("Reading inventory",fprev)
+    print("Reading previous inventory",fprev)
     for fname in filels1:
         ls = ghg.ParseGHGInventoryFile(fname,uid_mapping_file)
         for x in ls:
@@ -44,21 +63,32 @@ def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file,inventory_year:int)
                 print("Empty line found")
             else:
                 uid1 = x.pop(0)
-                #get owner information
+                #Get owner information
+                ## @var $stat_info
+                # python `os` library data structure for file information. 
                 stat_info = os.stat(fname)
+                ## @var $user
+                # Owner of a file. \sa stat_info
                 user = uid = stat_info.st_uid
                 try:
                     user = pwd.getpwuid(uid)[0]
                 except KeyError:
                     user=uid
+                ## @var $varls
+                # Find single `variable` from the xml that matches `uid1`.
+                # @snippet{lineno} bin/ghg-todo.py FindVar
+                # @internal
+                # [FindVar]
                 varls = [var for var in variablels if var.get('uid')==uid1]
+                # [FindVar]
+                # @endinternal
                 if len(varls)==0:
                     #Missing UID
                     uid_missing_ls.append([uid1,fname]+x)
                 else:
                     set1.add(uid1)
                     uid_file_dict1[uid1]=(fname,len(x),user,x)   
-    print("Reading inventory",fcurrent)
+    print("Reading current inventory",fcurrent)
     for fname in filels2:
         ls = ghg.ParseGHGInventoryFile(fname,uid_mapping_file)
         for x in ls:
@@ -79,7 +109,8 @@ def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file,inventory_year:int)
                 else:
                     set2.add(uid2)
                     uid_file_dict2[uid2]=(fname,len(x),user)    
-    #Take the set difference, i.e. missing records from the inventory
+    ## @var set3
+    # Take the set difference set1 and set2, i.e. missing records from the inventory. \sa set1 set2.
     set3 = set1.difference(set2)
     print("Number of inventory records:","Previous",len(set1),"Current",len(set2),"Set difference",len(set3))
     df_ls1=[]
@@ -130,38 +161,34 @@ def GHGToDo(fprev,fcurrent,xml_file,outfile,uid_mapping_file,inventory_year:int)
     df3.to_excel(writer,sheet_name='Missing UID '+str(inventory_year))
     writer.save()
 #---------------------------------The main program begins--------------------------------------------------
-#Command line generator   
-parser = argparse.ArgumentParser()
-parser.add_argument("-f1",type=str,dest="f1",help="Read input ghg result files (wild card search),previous year")
-parser.add_argument("-f2",type=str,dest="f2",help="Read input ghg result files (wild card search), current year")
-parser.add_argument("-x",type=str,dest="x",help="CRFReporter Simple XML file for current year")
-parser.add_argument("-o",type=str,dest="o",help="Output Excel file for missing inventory categories")
-parser.add_argument("-m",type=str,dest="m",help="CRFReporter 3.0.0 --> 5.0.0 UID mapping file")
-parser.add_argument("-y",type=int,dest="y",help="Inventory year")
-
-#parser.add_argument("-u",type=str,dest="f5",help="File for dictionary of (UID,file name, date modified, file owner) from previous year")
-
-args = parser.parse_args()
-
-if args.f1 is None:
-    print("No input ghg inventory results files, previous year")
-    quit()
-if args.f2 is None:
-    print("No input ghg inventory results files, current year")
-    args.f2= None
-if args.x is None:
-    print("No input CRFReporter Simple XML file to generate human readable output")
-    quit()
-if args.o is None:
-    print("No output file for missing inventory categories")
-    quit()
-if args.m is None:
-    print("No output file for missing inventory categories")
-    quit()
-if args.y is None:
-    print("No inventory year")
-    quit()
-
-GHGToDo(args.f1,args.f2,args.x,args.o,args.m,args.y)
-print("Done")
+#Command line generator
+if __name__ == "__main__":
+    ## @var $parser
+    # Command line parser
+    parser = argparse.ArgumentParser()
+    ## @var $required
+    # Command line parser required arguments
+    ## @var $dest
+    # Command line parser argument
+    ## @var $int
+    # Command line parser argument data type. \sa type.
+    ## @var type
+    # Command line parser argument types.
+    ## @var $str
+    # Command line parser argument data type. \sa type.
+    ## @var $help
+    # Command line parser `help` argument
+    ## @var $True
+    ## Command line parser argments are required. \sa required. 
+    parser.add_argument("-f1",type=str,dest="f1",required = True,help="Read input ghg result files (wild card search),previous year")
+    parser.add_argument("-f2",type=str,dest="f2",required = True,help="Read input ghg result files (wild card search), current year")
+    parser.add_argument("-x",type=str,dest="x",required = True,help="CRFReporter Simple XML file for current year")
+    parser.add_argument("-o",type=str,dest="o",required = True,help="Output Excel file for missing inventory categories")
+    parser.add_argument("-m",type=str,dest="m",required = True,help="CRFReporter 3.0.0 --> 5.0.0 UID mapping file")
+    parser.add_argument("-y",type=int,dest="y",required=True,help="Inventory year")
+    ## @var $args
+    # Command line arguments
+    args = parser.parse_args()
+    GHGToDo(args.f1,args.f2,args.x,args.o,args.m,args.y)
+    print("Done")
 
