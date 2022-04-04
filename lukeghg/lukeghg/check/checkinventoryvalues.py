@@ -7,50 +7,154 @@ import pandas as pd
 import openpyxl 
 from lukeghg.crf.uid340to500mapping import MapUID340to500, Create340to500UIDMapping
 from lukeghg.crf.crfxmlfunctions import ConvertFloat
+## @file
+# Compare two inventories.
+# Compare two inventories for susceptible values, deficiences and errors.
+# These include  too large deviations between inventroy values, changes in notiation keys
+# and missing inventory data. Comparison is made between two time series with the same UIDs.
 
+##  Color for titles
 title_color='00FFFF00'
+##  Color for errors
 error_color='00FF0000'
+## Color for notation key changes
 nk_change_color ='00FF9900'
+## Color for change from notation key to number  
 nk_change_to_number_color='0099CC00'
-#Notation Keys in CRFReporter
+## Notation keys in CRFReporter
 nkls = ['IE','NE','NO','NA', 'R']
+## Methods in  CRFReporter
 methodls = ['T1','T2','T3']
-#Return -1 if negative, otherwise 1 (i.e x >= 0)
+
+## @defgroup Dictionary Create dictionary for time series.
+# Dictionary for time series.
+# @{
+def CreateDictionary(dirfilels:list):
+    """! Create a dictionary that associate a UID (dictinary key) to its time series,comment and file name.
+    Format is {UID1:(time_series1,comment1,file1),UID2:(time_series2,comment2,file2),....}
+    @param dirfilels: List of directory files
+    @return  dict: Dictionary \sa dict.
+    """
+    ## @var $dict
+    #  Return value, dictionary of UIDs keys and times series, comments and file name as data
+    dict={}
+    for file in dirfilels:
+        #print(file)
+        f=open(file)
+        datals = [x.rpartition('#') for x in f.readlines() if x.count('#') != 1]
+        f.close()
+        for tuple3 in datals:
+            comment = tuple3[0]
+            comment=comment.lstrip('#')
+            time_series = tuple3[2].split()
+            if len(time_series)==0:
+                print("Found empty line:",file)
+            else:
+                uid = time_series.pop(0)
+                uid_new = uid.strip('{}')
+                #print(uid_new,time_series,len(time_series))
+                dict[uid_new]=(time_series,comment,file)
+    return dict
+## @}
+
+## @defgroup SignGroup Sign of a number.
+# Determine the sign of a number. \sa Sign \sa SameSign
+# @{
 def Sign(x):
+    """! Sign of `x`, return -1 if `x` < 0, otherwise 1.
+    @param x: number
+    @return -1 or 1
+    
+    """
     if x < 0:
         return -1
     else:
         return 1
 
 def SameSign(x,y):
+    """! Return True if same Sign, otherwise return False.
+    @param x: number
+    @param y: number
+    @return Sign(x)==Sign(y)
+    \sa Sign
+    """
     s1 = Sign(x)
     s2 = Sign(y)
     return s1 == s2
+## @}
 
-def CompareTwoInventoryYears(dict1,dict2,tolerance,uidnotincurrentyear,uidnotinpreviousyear,file_out):
-    """
-    Comapare two inventory years collected into the two dictioniaries.
-    The dict1 is the current inventory year and dict2 the previous one (or some else).
+## @defgroup CmpInventory Compare two inventories
+# Compare two inventories and write differences to Excel file.
+# The comparison of two inventory years proceeds in four steps
+# in `CompareTwoInventoryYears` documented in submodules:
+#  + Check inventory: First check if differences exist
+#  + Dictionaries for differences: If differences found crete corresponfing dictionaries
+#  + Excel result: Create data frames for Excel sheet (from difference dictionaries) and write Excel file 
+#    + Coloring cells: Define colors for Excel sheet cells
+#
+# \sa CompareTwoInventoryYears
+# @{
+def CompareTwoInventoryYears(dict1:dict,dict2:dict,tolerance,uidnotincurrentyear:dict,uidnotinpreviousyear:dict,collect_NO:bool,file_out:str):
+    """! Comapare two inventory years collected into the two dictionaries.
     Each time series has UID identifier that is the key to the dictionary.
     The value returned by the UID key is a three tuple (time_series,comment, file).
-    This way a more informative output can be generated for results too different
-    tolerance: the error (%) or greater that is not accepted
-    file_out: output file for errors 
+    This way using time series comments and files names a more informative output 
+    can be generated for possibly flawed results.
+    @param dict1: The current inventory year.
+    @param dict2: The previous inventory year (or some else).
+    @param tolerance: The difference (%) or greater that is not accepted between two inventpry values.
+    @param uidnotincurrentyear:  UIDs not in current year
+    @param uidnotinpreviousyear:  UIDs not in previous year
+    @param collect_NO: collect NO notation keys to an excel sheet
+    @param file_out: output file for possible errata in GHG inventory .
+    @return None: Write an Excel output file to `file_out`. 
+    
+    The Excel file has six sections: 
+       1. Values above tolerance.
+       2. Changes in notation keys.
+       3. Changes in methods. 
+       4. Zeroes (number 0) found (not allowed in GHG inventory).  
+       5. UIDs not in current year. \sa uidnotincurrentyear.
+       6. UIDs not in previous year. \sa uidnotinpreviousyear.
     """
+## @}
+##
     current_year_keyls=dict1.keys()
-    #Collect differences into three dictionaries and print out to file_out
-    #Each three dictionary contains the key uid, time_series, the comment and the file
-    #{uid:((time_series, comment, file),(}
+    ## @defgroup DiffDict Dictionaries for differences.
+    # @ingroup CmpInventory
+    # @{
+    # Collect differences into dictionaries.
+    # Collect differences into three dictionaries and print out to Excel file_out.
+    # Each three dictionary contains the UID as the key and time_series, the comment and the file
+    # as 3-tuple data.
+    # @var $method_diff_dict
+    # Differences in methods
     method_diff_dict={}
+    # @var $nk_diff_dict
+    # Differences in notation keys
     nk_diff_dict={}
+    # @var $result_nk_diff
+    # Differences in results
     result_diff_dict={}
+    ## @var $zero_numbers_dict
+    # Zeroes (number 0) found in inventory.
     zero_numbers_dict={}
+    ## @}
     for key in current_year_keyls:
+        ##  @defgroup DiffSet Check inventory differences.
+        # @ingroup CmpInventory
+        # Check if inventory differences.
+        # Check differences between two time series year by year for methods, notation keys, changes in results and for zeroes.
+        # If one or more found the respective set will have True. Write  the two time series compared to output file.
+        # @{
         nk_diff_set=set()
         method_diff_set=set()
         value_diff_set=set()
         zero_numbers_set=set()
+        ## @var $relative_change_ls
+        # List containing relative changes between two time series. \sa CompareTwoInventoryYears and the parameter `tolerance`.
         relative_change_ls=[]
+        ## @} 
         if key in dict2:
             (time_series_current,comment_current,file_current) = dict1[key]
             (time_series_prev,comment_prev,file_prev) = dict2[key]
@@ -111,7 +215,10 @@ def CompareTwoInventoryYears(dict1,dict2,tolerance,uidnotincurrentyear,uidnotinp
                         relative_change_ls.append('ZERO')
                 #Collect the relative changes
                 result_diff_dict[key]=(time_series_current,comment_current,time_series_prev,relative_change_ls,file_current,file_prev)
-    #Print the results for each three types of differences
+    ## @defgroup ExcelFile Excel result file.
+    # @ingroup CmpInventory
+    # Write the results for each type of differences to Excel file.
+    # @{
     result_diff_keyls=result_diff_dict.keys()
     data_frame_list=[]
     data_frame_list.append(['Section Relative change more than '+str(tolerance)+'%'])
@@ -179,8 +286,15 @@ def CompareTwoInventoryYears(dict1,dict2,tolerance,uidnotincurrentyear,uidnotinp
     data_frame.to_excel(writer,sheet_name="Inventory Check")
     sheets = writer.sheets
     sheet_active = sheets["Inventory Check"]
-    #Coloring red values that are >= tolerance
-    #Collecting cells in a single column
+    ## @}
+    #
+    ## @defgroup Coloring Coloring cells
+    # @ingroup ExcelFile
+    # Coloring susceptible values.
+    # Coloring red values that are above tolerance
+    # Coloring orange notation key changes. Coloring red when number (=result) changed to notation key.
+    # Coloring yellow the beginning of sections
+    # @{
     for row in sheet_active.iter_rows(min_col=4,max_col=4):
         for cell in  row:
             if type(cell.value) is str and "Diff" in cell.value:
@@ -191,7 +305,6 @@ def CompareTwoInventoryYears(dict1,dict2,tolerance,uidnotincurrentyear,uidnotinp
                         if type(col_cell.value) is float and col_cell.value >= tolerance:
                             col_cell.fill =  openpyxl.styles.PatternFill(start_color=error_color, end_color=error_color,fill_type = "solid")
     #Coloring orange notation key changes, coloring red when number (=result) changed to notation key
-    #Collecting all cells in a single column
     for row in sheet_active.iter_rows(min_col=4,max_col=4):
         for cell in row:
             if type(cell.value) is str and "Notation key" in cell.value:
@@ -215,83 +328,17 @@ def CompareTwoInventoryYears(dict1,dict2,tolerance,uidnotincurrentyear,uidnotinp
             #Note paranthesis to denote either Section or UID in cell value
             if type(cell.value) is str and ("Section" in cell.value or "UID" in cell.value):
                 cell.fill = openpyxl.styles.PatternFill(start_color=title_color, end_color=title_color,fill_type = "solid")
+    #Collect NO notation keys
+    if collect_NO == True:
+        df_NO_ls = []
+        print("Collecting NO notation keys") 
+        current_year_keyls=dict1.keys()
+        for key in current_year_keyls:
+            (time_series,comment,file_name) = dict1[key]
+            if 'NO' in time_series:
+                df_NO_ls.append([key,comment,file_name]+time_series)
+        df = pd.DataFrame(df_NO_ls)
+        df.to_excel(writer,sheet_name="NO Notation keys")
     writer.save()
-def CreateDictionary(dirfilels):
-    """Create a dictionary that associate a UID to its
-       time series,comment and file name: {UID1:(time_series1,comment1,file1),UID2:(time_series2,comment2,file2),....}
-    """
-    dict={}
-    for file in dirfilels:
-        #print(file)
-        f=open(file)
-        datals = [x.rpartition('#') for x in f.readlines() if x.count('#') != 1]
-        f.close()
-        for tuple3 in datals:
-            comment = tuple3[0]
-            comment=comment.lstrip('#')
-            time_series = tuple3[2].split()
-            if len(time_series)==0:
-                print("Found empty line:",file)
-            else:
-                uid = time_series.pop(0)
-                uid_new = uid.strip('{}')
-                #print(uid_new,time_series,len(time_series))
-                dict[uid_new]=(time_series,comment,file)
-    return dict
+    ## @}
 
-#---------------------------------The main program begins--------------------------------------------------
-if __name__ == "__main__":
-    #Command line generator   
-    parser = OP()
-    parser.add_option("-p","--prev",dest="f1",help="Read input ghg result files previous year (wild card search)")
-    parser.add_option("-c","--curr",dest="f2",help="Read input ghg result files current year (wild card search)")
-    parser.add_option("-m","--map",dest="f5", help="CRFReporter 3.0.0 --> 5.0.0 UID mapping file")
-    parser.add_option("-o","--diff_file",dest="f6",help="Output text file containing: 1) too large differences, 2) change in Notation keys and methods, 3) missing UID")
-    parser.add_option("-t","--tolerance",dest="f7",help="Tolerance for difference in percentage")
-    (options,args) = parser.parse_args()
-
-    if options.f1 is None:
-        print("No input ghg inventory results files from previous year")
-        quit()
-    if options.f2 is None:
-        print("No input ghg inventory results files from current year")
-        quit()
-    if options.f5 is None:
-        print("No CRFReporter 3.0.0 --> 5.0.0 UID mapping file")
-        quit()
-    if options.f6 is None:
-        print("No outputfile for differences")
-        quit()
-    if options.f7 is None:
-        print("No tolerance in percenatge given for time series differences")
-        quit()    
-    (uid340set,uiddict340to500) = Create340to500UIDMapping(options.f5)
-    print("Comparing two inventories:", options.f1,options.f2)
-    dirfilels1 = glob.glob(options.f1)
-    dirfilels2 = glob.glob(options.f2)
-    #dictionary for previous year: {UID: time series}
-    dictprev1=CreateDictionary(dirfilels1)
-    #dictionary for previous year: {UID: time series}
-    dictcurrent2=CreateDictionary(dirfilels2)
-    #Check the existence of UID
-    dictprev1keyls = dictprev1.keys()
-    uidnotincurrentyear=[]
-    for uid in dictprev1keyls:
-        if not uid in dictcurrent2:
-            uidnotincurrentyear.append(uid)
-    print("Number of UID in previous year, not in current year:",len(uidnotincurrentyear))
-    uidnotinpreviousyear=[]
-    dictcurrent2keyls = dictcurrent2.keys()
-    uidnotinpreviousyear=[]
-    for uid in dictcurrent2keyls:
-        if not uid in dictprev1:
-            uidnotinpreviousyear.append(uid)
-    print("Number of UID current year, not in previous year:",len(uidnotinpreviousyear))
-    print("Number of UID previous year",len(dictprev1keyls))
-    print("Number of UID current year",len(dictcurrent2keyls))
-    file_name = options.f6
-    tolerance = float(options.f7)
-    print("Comparing two inventories for differences")
-    print("Writing output to:", file_name)
-    CompareTwoInventoryYears(dictcurrent2,dictprev1,tolerance,uidnotincurrentyear,uidnotinpreviousyear,file_name)
-    print("Done\n")
