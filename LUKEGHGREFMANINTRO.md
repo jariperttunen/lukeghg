@@ -3,12 +3,12 @@
  The *lukeghg* python package contains command line tools to generate CRF Reporter Inventory Software (a.k.a CRFReporter)
  xml file from GHG inventory results. The package has also programs for rudimentary validation
  of the inventory and to generate some ubiquitous NIR tables.
- The [User Guide](LUKEGHG_INSTALL_AND_USAGE.md) is available in GitHub.
-
- The Reference Manual for the *lukghg* package is generated with `doxygen` based on the comments in source files.
- To keep up with warnings and errors redirect standard error output to an error file:
+ The Reference Manual for the *lukghg* package is intended  to be generated with `doxygen`
+ based on the comments in source files.
 
         doxygen Doxyfile 2> errors.txt
+
+The [User Guide](LUKEGHG_INSTALL_AND_USAGE.md) is available in GitHub.
 
 Linux `bash` shell redirection `2>` redirects error output to file *errors.txt'.
 
