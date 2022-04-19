@@ -163,7 +163,7 @@ For EU529 inventory there is similar [`run-eu529-ghg-master.sh`](lukeghg/lukeghg
 Note EU529 concerns KPLULUCF files only (LULUCF files are not missing by accident).
 
 #### Slurm
-Users login to *interactive* node in sorvi. In addition four *computing* nodes can be used to submit batch jobs via Slurm
+Users login to *interactive node* in sorvi. In addition four *computing nodes* can be used to submit batch jobs via Slurm
 network load monitor. `run-ghg-master.slurm` and `run-eu529-ghg-master.slurm` are scripts that can be submitted 
 via `sbatch` for execution. They simply first reserve resources for program execution and then call `run-ghg-master.sh` 
 and `run-eu529-ghg-master.sh` respectively. Therefore edits in these latter two files are mirrored in the corresponding 
