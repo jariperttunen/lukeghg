@@ -197,7 +197,7 @@ Always check that you have the right active inventory in CRFReporter. Each year 
 xml matches the CRFReporter version. Each CRFReporter version update requires new
 PartyProfile xml from CRFReporter, even during the same active inventory. 
 
-**NB2:** The GHG inventory result files tend to come in various character encodingss. It is important 
+**NB2:** The GHG inventory result files tend to come in various character encodings. It is important 
 to  run `convertutf8.py` first. Otherwise file reading might fail and string comparisons 
 may go astray.
 
