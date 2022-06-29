@@ -165,9 +165,9 @@ Note EU529 concerns KPLULUCF files only (LULUCF files are not missing by acciden
 
 #### Slurm
 Users login to *interactive node* (common to all users) in sorvi computing server. In addition four *computing nodes* can be used
-to submit batch jobs via Slurm network load monitor. `run-ghg-master.slurm` is a Slurm script that can be submitted 
-via `sbatch` for execution. It simply first reserves resources for program execution and then calls `run-ghg-master.sh`. 
-The usage is:
+to submit batch jobs via Slurm network load monitor. [`run-ghg-master.slurm`](ukeghg/lukeghg/bin/run-ghg-master.slurm) 
+is a Slurm script that can be submitted via `sbatch` for execution. It simply first reserves resources for program execution 
+and then calls `run-ghg-master.sh`. The usage is:
 
 		(lukeghg) prompt% sbatch --mail-user firstname.lastname@luke.fi run-ghg-master.slurm
 		
