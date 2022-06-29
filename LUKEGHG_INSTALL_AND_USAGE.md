@@ -159,21 +159,21 @@ The final step is to import the PartyProfile result file to CRFReporter. Log in 
 *Import/Export* section and follow the instructions in *Excel/XML-import*. Read **NB3** carefully
 before xml import.
 
-**Obsolete:** For EU529 inventory there is similar [`run-eu529-ghg-master.sh`](lukeghg/lukeghg/bin/run-eu529-ghg-master.sh). 
+**Obsolete 2021 inventory:** For EU529 inventory there is similar 
+[`run-eu529-ghg-master.sh`](lukeghg/lukeghg/bin/run-eu529-ghg-master.sh). 
 Note EU529 concerns KPLULUCF files only (LULUCF files are not missing by accident).
 
 #### Slurm
-Users login to *interactive node* in sorvi. In addition four *computing nodes* can be used to submit batch jobs via Slurm
-network load monitor. `run-ghg-master.slurm` is a script that can be submitted 
-via `sbatch` for execution. They simply first reserve resources for program execution and then call `run-ghg-master.sh` 
-and `run-eu529-ghg-master.sh` respectively. Therefore edits in these latter two files are mirrored in the corresponding 
-Slurm scripts. The usage is:
+Users login to *interactive node* in sorvi computing server. In addition four *computing nodes* can be used
+to submit batch jobs via Slurm network load monitor. `run-ghg-master.slurm` is a Slurm script that can be submitted 
+via `sbatch` for execution. It simply first reserves resources for program execution and then calls `run-ghg-master.sh`. 
+The usage is:
 
 		(lukeghg) prompt% sbatch --mail-user firstname.lastname@luke.fi run-ghg-master.slurm
 		
 Use `squeue` to see the Slurm job numbers and `scancel` to remove the jobs from execution. The output will appear in *output_%j.txt* 
-and *errors_%j.txt* files where *%j* is the Slurm job number. Although running the scripts takes up to only ten minutes (each),
-it might be a good practice to send the work to computational nodes with Slurm.
+and *errors_%j.txt* files where *%j* is the Slurm job number. Although running the `run-ghg-master.sh` script takes up to 
+only ten minutes, it might be a good practice to send the work to computational nodes with Slurm.
 
 #### GHG inventory result files
 The GHG inventory result files are text (csv) files with white space as the delimeter mark. Each line
