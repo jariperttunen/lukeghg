@@ -75,7 +75,7 @@ The programs are located in [lukeghg/lukeghg/bin](lukeghg/lukeghg/bin) directory
 contains templates and configuration files that are preset for command line programs. So try this schema 
 first and improve later.
 
-**NB:** When the inventory is completed including checks and comparisons with previous year etc. you wil use 
+**NB:** When the inventory is completed including checks and comparisons with previous year etc. you have used 
 about 800MB disk space. 
 
 ## 3. Update the lukeghg python package
@@ -197,7 +197,8 @@ Always check that you have the right active inventory in CRFReporter. Each year 
 xml matches the CRFReporter version. Each CRFReporter version update requires new
 PartyProfile xml from CRFReporter, even during the same active inventory. 
 
-**NB2:** It is important to  run `convertutf8.py`. Otherwise file reading might fail and string comparisons 
+**NB2:** The GHG inventory result files tend to come in various character encodingss. It is important 
+to  run `convertutf8.py` first. Otherwise file reading might fail and string comparisons 
 may go astray.
 
 **NB3:** Make sure that you have write access *only and solely* to 4. LULUCF and 7. KPLULUCF sectors
