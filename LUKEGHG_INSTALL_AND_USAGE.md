@@ -159,18 +159,17 @@ The final step is to import the PartyProfile result file to CRFReporter. Log in 
 *Import/Export* section and follow the instructions in *Excel/XML-import*. Read **NB3** carefully
 before xml import.
 
-For EU529 inventory there is similar [`run-eu529-ghg-master.sh`](lukeghg/lukeghg/bin/run-eu529-ghg-master.sh). 
+**Obsolete:** For EU529 inventory there is similar [`run-eu529-ghg-master.sh`](lukeghg/lukeghg/bin/run-eu529-ghg-master.sh). 
 Note EU529 concerns KPLULUCF files only (LULUCF files are not missing by accident).
 
 #### Slurm
 Users login to *interactive node* in sorvi. In addition four *computing nodes* can be used to submit batch jobs via Slurm
-network load monitor. `run-ghg-master.slurm` and `run-eu529-ghg-master.slurm` are scripts that can be submitted 
+network load monitor. `run-ghg-master.slurm` is a script that can be submitted 
 via `sbatch` for execution. They simply first reserve resources for program execution and then call `run-ghg-master.sh` 
 and `run-eu529-ghg-master.sh` respectively. Therefore edits in these latter two files are mirrored in the corresponding 
 Slurm scripts. The usage is:
 
 		(lukeghg) prompt% sbatch --mail-user firstname.lastname@luke.fi run-ghg-master.slurm
-		(lukeghg) prompt% sbatch --mail-user firstname.lastname@luke.fi run-eu529-ghg-master.slurm 
 		
 Use `squeue` to see the Slurm job numbers and `scancel` to remove the jobs from execution. The output will appear in *output_%j.txt* 
 and *errors_%j.txt* files where *%j* is the Slurm job number. Although running the scripts takes up to only ten minutes (each),
