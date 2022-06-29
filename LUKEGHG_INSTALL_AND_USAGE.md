@@ -159,7 +159,7 @@ The final step is to import the PartyProfile result file to CRFReporter. Log in 
 *Import/Export* section and follow the instructions in *Excel/XML-import*. Read **NB3** carefully
 before xml import.
 
-**Obsolete 2021 inventory:** For EU529 inventory there is similar 
+**Obsolete 2021 inventory and onwards:** For EU529 inventory there is similar 
 [`run-eu529-ghg-master.sh`](lukeghg/lukeghg/bin/run-eu529-ghg-master.sh). 
 Note EU529 concerns KPLULUCF files only (LULUCF files are not missing by accident).
 
