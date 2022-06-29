@@ -155,8 +155,8 @@ The GHG inventory result files (csv files) seem to use different encoding system
 seem to use UTF-8 BOM (Byte Order Marking). `convertutf8.py` converts files to UTF-8 encoding if needed 
 (this is why they need to be copied first from *ghg/\<year\>/crf* folder). See also **NB2**.
 
-The script `run-ghg-master.sh` will  run few minutes at most.  The `>`character redirects standard out 
-terminal output to *Import.log* file and `2>` redirects standard error terminal output to *Error.log* file.
+The `>`character redirects standard out terminal output to *Import.log* file and `2>` redirects standard error 
+terminal output to *Error.log* file.
 
 The final step is to import the PartyProfile result file to CRFReporter. Log in CRFReporter
 *Import/Export* section and follow the instructions in *Excel/XML-import*. Read **NB3** carefully
