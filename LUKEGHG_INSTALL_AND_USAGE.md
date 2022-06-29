@@ -307,7 +307,7 @@ Produce NIR LULUCF Table 6.4-1. The usage is:
 
 The `--format-only` option reads the input file to a dataframe and simply writes it to an Excel file. 
 The `--check-total` option calculates totals and compares results with precalculated values and writes Excel file.
-These two options are mutually exclusive but mandatory: one of them must be present. For example:
+These two options are mutually exclusive but mandatory; one of them must be present. For example:
 
 	(lukeghg) prompt% lulucf-table-641.py -i /data/projects/khk/ghg/2019/NIR/Table_6.4-1_FLRem_Areas_of_organic_soils.csv -y 2019 \ 
 	                                      -o LULUTable_6.4-1.xlsx --format_only
