@@ -75,6 +75,9 @@ The programs are located in [lukeghg/lukeghg/bin](lukeghg/lukeghg/bin) directory
 contains templates and configuration files that are preset for command line programs. So try this schema 
 first and improve later.
 
+**NB:** When the inventory is completed including checks and comparisons with previous year etc. you wil use 
+about 800MB disk space. 
+
 ## 3. Update the lukeghg python package
 
 You need to update the *lukeghg* package from GitHub whenever you or someone else has made changes
