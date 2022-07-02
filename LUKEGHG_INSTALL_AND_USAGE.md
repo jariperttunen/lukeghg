@@ -1,28 +1,16 @@
 # lukeghg: Installation and usage in sorvi server
-The *lukeghg* python package contains command line tools to generate CRF Reporter Inventory Software 
+The *lukeghg* Python package contains command line tools to generate CRF Reporter Inventory Software 
 (hereafter CRFReporter) xml file from GHG inventory results for CRFReporter xml import.  The package has also
 programs for rudimentary validation of the inventory and to generate some ubiquitous NIR tables. 
 There are no intentions to make graphical user interface.
 
-**The instructions are for `bash` shell in sorvi**.  Your default shell might be for example `tcsh` 
+**The instructions are for bash shell in sorvi**.  Your default shell might be for example `tcsh` 
 and you must for instance adjust quotation marks (') to fit shell's syntax. 
 
-## Contents
 
-1. Create python virtual environment
-2. Install the lukeghg python package
-3. Update  the lukeghg python package
-4. GHG inventory to CRFReporter xml file
-5. GHG Scenarios
-6. Utility programs
-+ GitHub version control
-+ ToDo
-+ Reading
+## 1. Create Python virtual environment
 
-
-## 1. Create python virtual environment
-
-Create python virtual environment (called e.g. lukeghg) in your home directory.
+Create Python virtual environment (called e.g. lukeghg) in your home directory.
 The *prompt%* denotes your terminal command line prompt:
 
 	prompt% /usr/bin/python3 -m venv lukeghg
@@ -39,7 +27,7 @@ Check you have the latest versions of `pip`, *setuptools* and *wheel* installed:
 	(lukeghg) prompt% python3 -m pip install --upgrade pip
 	(lukeghg) prompt% python3 -m pip install --upgrade setuptools wheel
 
-You can now install *lukeghg* python package.
+You can now install *lukeghg* Python package.
 
 **Tips:** Python virtual environments are so omnipresent that it is customary to create all of them under one
 directory (*venv* for example). You can quit virtual environment with `deactivate`.
@@ -48,7 +36,7 @@ directory (*venv* for example). You can quit virtual environment with `deactivat
 if you are part of NFI or closely work with them you may have settings by NFI that  disrupt the `python3`
 environment installed in sorvi.
 
-## 2. Install the lukeghg python package
+## 2. Install the lukeghg Python package
 We assume that the working directory will be in */work/\<user\>/GHGInventory* in sorvi
 server where *\<user\>* denotes your user name. For GitHub you need to have *.gitconfig* 
 in your home directory (see [GitHub version control](#github-version-control) at the end).
@@ -62,7 +50,7 @@ Create *GHGInventory* directory and clone *lukeghg* from GitHub:
 
 Create the *wheel package* for *lukeghg* and install it to your virtual environment. 
 [`setup.py`](lukeghg/setup.py) is the configuration file with instructions 
-for python package dependencies and virtual environment set-up:
+for Python package dependencies and virtual environment set-up:
 
 	(lukeghg) prompt% cd GHGInventory/lukeghg/lukeghg
 	(lukeghg) prompt% python3 setup.py bdist_wheel
@@ -78,7 +66,7 @@ first and improve later.
 **NB:** When the inventory is completed including checks and comparisons with previous year etc. you have used 
 about 800MB disk space. 
 
-## 3. Update the lukeghg python package
+## 3. Update the lukeghg Python package
 
 You need to update the *lukeghg* package from GitHub whenever you or someone else has made changes
 and pushed the work there. Otherwise changes will not appear available in the virtual environment,
@@ -107,13 +95,13 @@ Make sure you are in `/work/<user>/GHGInventory/lukeghg/lukeghg`:
 
 `pip` allows other ways to achieve the same result but this seems to be the most straightforward. 
 Note we had to move around a bit inside the lukeghg package. In case `pip` requires update, upgrade 
-also *setuptools* and *wheel* as in *1. Create python virtual environment*.
+also *setuptools* and *wheel* as in *1. Create Python virtual environment*.
 
 ## 4. GHG inventory to CRFReporter xml file
 
 [`run-ghg-master.sh`](lukeghg/lukeghg/bin/run-ghg-master.sh) is a shell script that sets directories 
-and files for `ghg-master.py` python script to insert GHG inventory results in the CRFReporter PartyProfile xml. 
-Edit the following command line arguments if needed and update lukeghg package as  in *3. Update lukeghg python package*:
+and files for `ghg-master.py` Python script to insert GHG inventory results in the CRFReporter PartyProfile xml. 
+Edit the following command line arguments if needed and update lukeghg package as  in *3. Update lukeghg Python package*:
 
 - -c Location of the GHG inventory files.
 - -n Location of the GHG iventory files for NIR section in CRFReporter.
@@ -131,7 +119,7 @@ Each file has an accompanied README explaining the purpose of the file.
 
 #### Produce CRFReporter xml file
 
-Make sure you have activated *lukeghg* python virtual environment and you are in */work/\<user\>/GHGInventory*. 
+Make sure you have activated *lukeghg* Python virtual environment and you are in */work/\<user\>/GHGInventory*. 
 Then create *crf* and *PartyProfile* directories for GHG Inventory result files and PartyProfile xml files respectively:
 
 	(lukeghg) prompt% cd /work/<user>/GHGInventory/
@@ -353,7 +341,7 @@ Currently *lukeghg* package is in GitHub. Sample minimum gitgonfig file for Git 
 Download it, edit your name, email address and install it as *.gitconfig* in your home directory. 
 
 ## ToDo
-There is a bit to do to reorganise the *lukeghg* package so that it is a proper python package  
+There is a bit to do to reorganise the *lukeghg* package so that it is a proper Python package  
 in Python Package Index (PyPI) installable simply by `pip install lukeghg` to use out of the box.
 
 ## Reading
