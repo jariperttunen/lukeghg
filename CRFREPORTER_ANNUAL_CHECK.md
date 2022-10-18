@@ -1,6 +1,6 @@
 # Manual work for a new GHG inventory in CRFReporter.
 
-**Note:** From 2021 GHG inventory and onwards KPLULUCF sector is obsolete.
+**Note:** From 2021 GHG inventory (calendar year 2022) and onwards KPLULUCF sector is obsolete.
 
 ## Natural disturbances
 Location in CRFReporter:
