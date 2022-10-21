@@ -257,7 +257,7 @@ calculated values are in green. Calculated values changed to notation keys appea
 
 Check if a UID appears twice or more in the inventory:
 
-	(lukeghg) check-double-uid.py -x DoubleUID2020.xlsx -c crf/'*.csv'
+	(lukeghg) check-double-uid.py -o DoubleUID2020.xlsx -c crf/'*.csv'
 	
 Ten time series come from two sources, forestry and agriculture, and will appear as multiple UIDs.
 
