@@ -69,8 +69,8 @@ about 800MB disk space.
 
 ## 3. Update the lukeghg Python package
 
-You need to update the *lukeghg* package from GitHub whenever you or someone else has made changes
-and pushed the work there. Otherwise changes will not appear available in the virtual environment.
+You need to update the *lukeghg* package (from GitHub) whenever you or someone else has made changes
+and edits in the package. Otherwise changes will not appear available in the virtual environment.
 Be sure to update *lukeghg* also after updating [`run-ghg-master.sh`](lukeghg/lukeghg/bin/run-ghg-master.sh)
 for each inventory to create CRFReporter xml file from inventory results.
 
