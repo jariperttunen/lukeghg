@@ -275,7 +275,8 @@ Inventory start year is 1990 and 2019 is the current inventory year. The `-b` op
 is LULUTable_6.1-2.xlsx.
 
 **NB:** `lulucf-table-612.py`  will fetch biomasses (the first two rows in the Table 6.1-2) 
-from a precalculated file in *NIR/Table_6.1-2.csv* for the current inventory year.
+from a precalculated file in *NIR/Table_6.1-2.csv* for the current inventory year. Since March 2013 submission AR5 Global Warming Potentials
+in use.
 
 ### lulucf-table-622.py
 Produce NIR LULUCF Table 6.2-2 for IPCC land use. For example:
