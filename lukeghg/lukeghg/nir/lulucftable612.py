@@ -10,7 +10,7 @@ from xlsxwriter.utility import xl_rowcol_to_cell
 #from optparse import OptionParser as OP
 from lukeghg.crf.uid340to500mapping import MapUID340to500, Create340to500UIDMapping
 import glob
-from lukeghg.crf.crfxmlconstants import *
+from lukeghg.crf.crfxmlconstants import ch4co2eq, n2oco2eq, ctoco2
 from lukeghg.crf.crfxmlfunctions import *
 import lukeghg.utility.remote as remote
 #inventory_year=2015
@@ -428,18 +428,19 @@ def WriteCO2eqTableData(start,end,file_name,crf_dir,biomass_file_path):
                     "4.G Harvested wood products", "4(IV) Indirect N2O emissions", "4 Total CO2 eq"]
     if len(CO2eq_table_data_ls) != len(row_title_ls):
         print("ERROR",len(CO2eq_table_data_ls),len(row_title_ls))
-        quit()
-    
-    
+        quit()    
     p = pathlib.Path(file_name)
     parent = str(p.parent)+'/'
     stem = p.stem
     excel_file_name=parent+stem+'.xlsx' 
     writer = pd.ExcelWriter(excel_file_name,engine='openpyxl')
     col_title_ls = [int(x) for x in col_title_ls]
+    #Create 3 empty lines for Biomass, QR5 and Date
+    CO2eq_table_data_ls.append([' ']*len(col_title_ls))
     CO2eq_table_data_ls.append([' ']*len(col_title_ls))
     CO2eq_table_data_ls.append([' ']*len(col_title_ls))
     row_title_ls.append("Biomass from")
+    row_title_ls.append("AR5")
     row_title_ls.append('Date')
     df=pd.DataFrame(CO2eq_table_data_ls,columns=col_title_ls,index=row_title_ls)
     print(df)
@@ -447,6 +448,9 @@ def WriteCO2eqTableData(start,end,file_name,crf_dir,biomass_file_path):
     biomass_text=biomass_file_path
     now = datetime.datetime.now()
     df_float.loc["Biomass from",1990]=biomass_text
+    df_float.loc["AR5",1990]="CH4CO2eq="+str(ch4co2eq)
+    df_float.loc["AR5",1991]="N2OCO2eq="+str(n2oco2eq)
+    df_float.loc["AR5",1992]="CtoCO2=44/12"
     df_float.loc["Date",1990]=str(now)
     df_float.index.name="Mt CO2eq"
     df_float.to_excel(writer,sheet_name='Table-6.1-2')
