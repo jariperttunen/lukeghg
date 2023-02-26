@@ -4,8 +4,8 @@ The *lukeghg* Python package contains command line tools to generate CRF Reporte
 programs for rudimentary validation of the inventory and to generate some ubiquitous NIR tables. 
 There are no intentions to make graphical user interface.
 
-**The instructions are for bash shell in sorvi**.  Your default shell might be for example `tcsh` 
-and you must for instance adjust quotation marks (') to fit shell's syntax. 
+**The instructions are for `bash` shell in sorvi**.  Your default shell might be for example `tcsh` 
+and you must for instance adjust quotation marks (') in the examples to fit shell's syntax. 
 
 **Note:** From 2021 GHG inventory (calendar year 2022) and onwards KPLULUCF sector is obsolete. 
 
@@ -57,8 +57,9 @@ for Python package dependencies and virtual environment set-up:
 	(lukeghg) prompt% python3 setup.py bdist_wheel
 	(lukeghg) prompt% python3 -m pip install --upgrade dist/lukeghg-1.0-py3-none-any.whl
 
-All the command line programs in *lukeghg* package are now available in your virtual environment. 
-The programs are located in [lukeghg/lukeghg/bin](lukeghg/lukeghg/bin) directory.
+All the terminal command line programs in *lukeghg* package are now available in your virtual environment.
+See *~/lukeghg/bin/* in your home directory. In the *lukeghg* package hierarchy the programs are located
+in the [lukeghg/lukeghg/bin](lukeghg/lukeghg/bin) directory.
 
 **Tips:** Naturally you can organise your work as you like. But as we will see the *lukeghg* package 
 contains templates and configuration files that are preset for command line programs. So try this schema 
@@ -69,8 +70,10 @@ about 800MB disk space.
 
 ## 3. Update the lukeghg Python package
 
-You need to update the *lukeghg* package from GitHub whenever you or someone else has made changes
-and pushed the work there. Otherwise changes will not appear available in the virtual environment,
+You need to update the *lukeghg* package (from GitHub) whenever you or someone else has made changes
+and edits in the package to make the changes to appear in the virtual environment.
+Especially, be sure to update *lukeghg* after updating [`run-ghg-master.sh`](lukeghg/lukeghg/bin/run-ghg-master.sh)
+for each inventory to create CRFReporter xml file from inventory results.
 
 Remember to activate the virtual environment if needed (check your
 prompt). The tilde (~) character in `bash` expands to your home directory: 
