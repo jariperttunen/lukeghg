@@ -70,7 +70,7 @@ about 800MB disk space.
 
 ## 3. Update the lukeghg Python package
 
-You need to update the *lukeghg* package (from GitHub) whenever you or someone else has made changes
+You need to update the *lukeghg* package whenever you or someone else has made changes
 and edits in the package to make the changes to appear in the virtual environment.
 Especially, be sure to update *lukeghg* after updating [`run-ghg-master.sh`](lukeghg/lukeghg/bin/run-ghg-master.sh)
 for each inventory to create CRFReporter xml file from inventory results.
@@ -81,7 +81,8 @@ prompt). The tilde (~) character in `bash` expands to your home directory:
 	prompt% source ~/lukeghg/bin/activate
 	(lukeghg) prompt%
 
-Update lukeghg package from GitHub. Make sure you are in `/work/<user>/GHGInventory/lukeghg/` directory:
+Update *lukeghg* package from GitHub in case someone has made contributions to the package.
+Make sure you are in `/work/<user>/GHGInventory/lukeghg/` directory:
 
 	(lukeghg) prompt% cd /work/<user>/GHGInventory/lukeghg/
 	(lukeghg) prompt% git pull
