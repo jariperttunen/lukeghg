@@ -152,7 +152,7 @@ The `>`character redirects standard out terminal output to *Import.log* file and
 terminal output to *Error.log* file.
 
 The final step is to import the PartyProfile result file to CRFReporter. Log in CRFReporter
-*Import/Export* section and follow the instructions in *Excel/XML-import*. Read **NB3** carefully
+*Import/Export* section and follow the instructions in *Excel/XML-import*. Read also **NB3**
 before xml import.
 
 **Obsolete 2021 inventory and onwards:** For EU529 inventory there is similar 
@@ -191,12 +191,12 @@ xml matches the CRFReporter version. Each CRFReporter version update requires ne
 PartyProfile xml from CRFReporter, even during the same active inventory. 
 
 **NB2:** The GHG inventory result files tend to come in various character encodings. It is important 
-to  run `convertutf8.py` first. Otherwise file reading might fail and string comparisons 
+to  run `convertutf8.py` first. Otherwise file reading might fail and string comparisons in python
 may go astray.
 
-**NB3:** Make sure that you have write access *only and solely* to 4. LULUCF and 7. KPLULUCF sectors
-in CRFReporter. The bulk xml import in CRFReporter tries first to clear all results in all sectors.
-If by accident you have write access for example to 3. Agriculture sector you will delete existing results
+**NB3 XML import:** Make sure that you have write access *only and solely* to 4. LULUCF and 7. KPLULUCF sectors
+in CRFReporter. The bulk xml import in CRFReporter tries to clear all results in all sectors first.
+If you have for example write access to 3. Agriculture sector you will delete existing results
 there.
 
 ## 5. GHG Scenarios
