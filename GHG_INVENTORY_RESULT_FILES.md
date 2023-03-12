@@ -13,7 +13,7 @@ After the optional file comments each line in the file contains one time series 
 A single line begins with optional short comment, followed by the UID (*unique identifier*) in front of its 
 time series. For the time series the comment is between two number signs. As an example:
 
-      #Produced by <file name here>
+      #Produced by <file name here> depends on <file names here>
       #This file has deadwood emissions from Cropland (organinc), Grassland (organic),
       #Settlements and Wetlands.
       #CLorg# 810E194F-0D38-4486-8A88-96ACF87C2059 -0.119 -0.119 -0.119 ...  -0.882 -0.948 -0.948
