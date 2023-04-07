@@ -42,7 +42,11 @@ from optparse import OptionParser as OP
 #          nk-comments.py -c "/hsan2/khk/ghg/2017/crf/C*.csv" -p PartyProfileResults_2017.xml -x PartyProfileResults_2017.xml
 #          -m /hsan2/khk/ghg/lukeghg/300_500_mappings_1.1.csv 
 #
-
+##\page runghgmaster Create CRFReporter inventory XML file
+##Run the following script to produce CRFReport XML from the GHG inventory files.
+##Set the input and output XML files and inventory year (-y option)
+##To make the changes to take effect recreate the *lukeghg* package and update the virtual environment. 
+##\include run-ghg-master.sh 
 #The filling of the Party Profile xml with inventory data follows
 parser = argparse.ArgumentParser()
 #ghg-inventory.py arguments, GHG inventory results

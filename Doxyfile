@@ -964,7 +964,9 @@ RECURSIVE              = YES
 # Note that relative paths are relative to the directory from which doxygen is
 # run.
 
-EXCLUDE                =
+EXCLUDE                = lukeghg/build \
+                         lukeghg/dist \
+                         lukeghg/lukeghg.egg-info
 
 # The EXCLUDE_SYMLINKS tag can be used to select whether or not files or
 # directories that are symbolic links (a Unix file system feature) are excluded
@@ -1074,7 +1076,7 @@ FILTER_SOURCE_PATTERNS =
 # (index.html). This can be useful if you have a project on for instance GitHub
 # and want to reuse the introduction page also for the doxygen output.
 
-USE_MDFILE_AS_MAINPAGE = LUKEGHGREFMANINTRO.md
+USE_MDFILE_AS_MAINPAGE = REFMAN_INTRO.md
 
 #---------------------------------------------------------------------------
 # Configuration options related to source browsing
