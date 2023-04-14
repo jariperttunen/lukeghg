@@ -113,7 +113,7 @@ in `bash` denotes line continuation:
 - -o: Excel output file
 - --start: The start year of the scenario inventory
 - --end: The end year of the scenario inventory
-- --GWP: Global warming potential for CH4 and N2O, possible values AR4 (GHG inventory) or AR5 (default)
+- --GWP: Global warming potentials for CH4 and N2O, possible values AR4 (GHG inventory) or AR5 (default)
 - --noformulas: Add up values in summary sheets. Default: Not present, generate excel formulas
 
 To run `ghg-scenario.py` set your working directory next to [*lukeghg*](https://github.com/jariperttunen/lukeghg) 
