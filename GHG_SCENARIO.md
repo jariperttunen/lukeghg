@@ -62,7 +62,7 @@ clusters.
   3. Excel sheets for land use and land use change classes constructed from scenario results. 
 
 In addition the first sheet  lists UIDs in the UIDMatrix sheet not found in inventory input files. 
-The second sheet contains Global Warming Potentials (GWP) used.
+The second sheet contains UIDs and lengths of the too long time series. Third sheet has the Global Warming Potentials (GWP) used.
 
 The undescore ('_') in a sheet name denotes summary for a land use cluster and hyphen ('-') change in land use.
 For example Lands_FL means lands to forest land and CL-FL means cropland to forest land. 
