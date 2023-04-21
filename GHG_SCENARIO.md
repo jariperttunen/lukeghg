@@ -2,13 +2,6 @@
 
 GHG inventory software is freqently used to make projections about future emissions. `ghg-scenario.py` reads GHG scenario result files and using excel template file produces scenario inventory summary in excel format. It is part of the [*lukeghg*](LUKEGHG_INSTALL_AND_USAGE.md) python package. 
 
-## Contents
-
-1. GHG scenario result files
-2. Excel template file
-3. Excel result file
-4. Usage 
-
 ## 1. GHG scenario result files ##
 
 GHG scenario results, input for `ghg-scenario.py`, have exactly the same file format as in the annual GHG inventory
@@ -62,10 +55,13 @@ clusters.
 
 ## 3. Excel result file ##
 
-`ghg-scenario.py` produces excel file for scenarios in three parts: 1) LULUCF summary
-sheet covering the whole inventory, 2) excel summary sheets for land use clusters
-generated from 3) excel sheets for land use and land use change classes constructed from scenario
-results. In addition the first sheet  lists UIDs in the UIDMatrix sheet not found in inventory input files. 
+`ghg-scenario.py` produces excel file for scenarios in three parts: 
+
+  1. LULUCF summary sheet covering the whole inventory
+  2. Excel summary sheets for land use clusters generated from 
+  3. Excel sheets for land use and land use change classes constructed from scenario results. 
+
+In addition the first sheet  lists UIDs in the UIDMatrix sheet not found in inventory input files. 
 The second sheet contains Global Warming Potentials (GWP) used.
 
 The undescore ('_') in a sheet name denotes summary for a land use cluster and hyphen ('-') change in land use.
