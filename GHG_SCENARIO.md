@@ -18,7 +18,7 @@ to provide finer level of detail.
 
 ## 2. Excel template file ##
 
-The [Excel template file](ScenarioTemplate) gives `ghg-scenario.py` information about the times series to collect
+The [Excel template file](ScenarioTemplate) gives to `ghg-scenario.py` information about the times series to collect
 them into their proper sheets and rows in the final excel result file. The template file
 has three sheets: UIDMatrix, LandUse and LULUCF.
 
