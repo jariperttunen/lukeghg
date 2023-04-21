@@ -42,9 +42,28 @@ grey_color='D4D4D4'
 class NoInventoryFiles(Exception):
     pass
 
+def check_data_series(ls,start_year:int,end_year:int):
+    """
+    Check the right length of the time series
+    @param ls The time series
+    @param start_year Scenario start year
+    @param end_year Scenario end year
+    @post The time series `ls`  length equal or shorter that scenario years
+    @retval ls The time series
+    @retval cut True if time series too long False otherwise
+    """
+    cut = False
+    right_length = end_year-start_year+1
+    diff = len(ls)-right_length
+    if diff > 0:
+        ls = ls[:-diff]
+        cut = True
+    return (ls,cut)
+
 def convert_to_float(x:str, keys_to_zero:bool=True):
     """
-    keys_to_zero: if False maintain notation keys 
+    @param x The item to be converted
+    @param keys_to_zero: if False maintain notation keys 
     """
     try:
         return float(x)
@@ -191,6 +210,7 @@ def set_data_series(df_scen,new_row_ls,start:str,end:str,row_number:int):
     #but mixing strings and integers will get slicing complicated
     #print("SET DATA:",len(new_row_ls),new_row_ls)
     df_scen.loc[row_number,start:end]=new_row_ls
+    #print("SET DATA DONE", len(new_row_ls))
     return df_scen
 
 def write_subtract_formula(sheet,start_col,ncols,result_row,subtract_row):
@@ -469,6 +489,7 @@ def create_land_use_summary_formulas(sheet,start_col:int,ncols:int,result_row_ls
 def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_template_file:str,uid_300_500_file:str,
                           start_year:int,end_year:int,ch4co2eq,n2oco2eq,formulas:bool,gwp_str:str):
     missing_uid_dict = dict()
+    long_time_series_dict = dict()
     writer = pd.ExcelWriter(scen_excel_file,engine='openpyxl')
     #Read inventory to dictionary: UID:time series
     uid_time_series_dictionary = create_ghg_file_dictionary(scen_files_reg_expr,uid_300_500_file,True)
@@ -550,7 +571,12 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
             (name,id_number) = stock_change_name_id_number(df_uid,class_name,uid)
             if uid in uid_time_series_dictionary:
                 check_land_class = 0
+                #print("UID",uid)
                 data_series_ls = uid_time_series_dictionary[uid]
+                orig_length = len(data_series_ls)
+                (data_series_ls,cut) = check_data_series(data_series_ls,start_year,end_year)
+                if cut:
+                    long_time_series_dict[uid]=orig_length
                 row_number = select_row_number(df_scen_template,id_number)
                 df_scen_new = set_data_series(df_scen_new,data_series_ls,str(start_year),str(end_year),row_number)
                 if class_name in Lands_FL:
@@ -616,8 +642,12 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
     missing_uid_df = pd.DataFrame.from_dict(missing_uid_dict,orient='index')
     #missing_uid_df = missing_uid_df.dropna()
     print("Creating information sheets")
-    uid_sheet_name="UIDMatrix UID not in Inventory"
+    uid_sheet_name="UID not in Inventory"
     missing_uid_df.to_excel(writer,sheet_name=uid_sheet_name)
+    #Excel sheet for too long time series
+    long_time_series_df = pd.DataFrame.from_dict(long_time_series_dict,orient='index')
+    long_series_sheet_name = "Long time series"
+    long_time_series_df.to_excel(writer,sheet_name=long_series_sheet_name)
     #Excel sheet for GWP
     ls = [['CO2','CH4','N2O'],[1,ch4co2eq,n2oco2eq]]
     df = pd.DataFrame(ls)
@@ -730,22 +760,23 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
     #ad hoc numbers to get summary sheets first
     print("Rotating sheets: summary sheets first")
     workbook = writer.book
-    workbook.move_sheet('WLpeat_summary',-110)
-    workbook.move_sheet('WLflooded_summary',-110)
-    workbook.move_sheet('WLother_summary',-110)
-    workbook.move_sheet('Lands_WLother',-110)
-    workbook.move_sheet('Lands_WLflooded',-110)
-    workbook.move_sheet('Lands_WLpeat',-110)
-    workbook.move_sheet('WL_WL',-110)
-    workbook.move_sheet('Lands_WL',-110)
-    workbook.move_sheet('Lands_SE',-110)
-    workbook.move_sheet('Lands_GL',-110)
-    workbook.move_sheet('Lands_CL',-110)
-    workbook.move_sheet('Lands_FL',-110)
-    workbook.move_sheet('FL_Lands',-110)
-    workbook.move_sheet('LULUCF',-110)
-    workbook.move_sheet(gwp_sheet,-110)
-    workbook.move_sheet(uid_sheet_name,-110)
+    workbook.move_sheet('WLpeat_summary',-112)
+    workbook.move_sheet('WLflooded_summary',-112)
+    workbook.move_sheet('WLother_summary',-112)
+    workbook.move_sheet('Lands_WLother',-112)
+    workbook.move_sheet('Lands_WLflooded',-112)
+    workbook.move_sheet('Lands_WLpeat',-112)
+    workbook.move_sheet('WL_WL',-112)
+    workbook.move_sheet('Lands_WL',-112)
+    workbook.move_sheet('Lands_SE',-112)
+    workbook.move_sheet('Lands_GL',-112)
+    workbook.move_sheet('Lands_CL',-112)
+    workbook.move_sheet('Lands_FL',-112)
+    workbook.move_sheet('FL_Lands',-112)
+    workbook.move_sheet('LULUCF',-112)
+    workbook.move_sheet(gwp_sheet,-112)
+    workbook.move_sheet(long_series_sheet_name,-112)
+    workbook.move_sheet(uid_sheet_name,-112)
     workbook.active=0
     return writer
 
