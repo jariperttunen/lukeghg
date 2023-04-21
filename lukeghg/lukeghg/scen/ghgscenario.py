@@ -575,7 +575,7 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
                 data_series_ls = uid_time_series_dictionary[uid]
                 orig_length = len(data_series_ls)
                 (data_series_ls,cut) = check_data_series(data_series_ls,start_year,end_year)
-                if cut:
+                if orig_length != (end_year - start_year + 1):
                     long_time_series_dict[uid]=orig_length
                 row_number = select_row_number(df_scen_template,id_number)
                 df_scen_new = set_data_series(df_scen_new,data_series_ls,str(start_year),str(end_year),row_number)
@@ -646,7 +646,7 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
     missing_uid_df.to_excel(writer,sheet_name=uid_sheet_name)
     #Excel sheet for too long time series
     long_time_series_df = pd.DataFrame.from_dict(long_time_series_dict,orient='index')
-    long_series_sheet_name = "Long time series"
+    long_series_sheet_name = "Time series length != "+str(end_year-start_year+1)
     long_time_series_df.to_excel(writer,sheet_name=long_series_sheet_name)
     #Excel sheet for GWP
     ls = [['CO2','CH4','N2O'],[1,ch4co2eq,n2oco2eq]]
