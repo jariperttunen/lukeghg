@@ -19,7 +19,7 @@ the UID ("unique identifier") of the time series and after that the time series 
        #fl.to.cl# A4DB34A0-1847-401A-92BA-7CCE37611F1A -29.903 -28.157 -26.926 ... -14.865 -14.865 -14.865
 
 The *#* character denotes the beginning and the end of the comment. The UID (*A4DB3 ...611F1A*) is CRFReporter generated or
-user defined. In the latter case the time series used in GHG inventory has been divided into two or more parts 
+user defined. In the latter case the time series used in GHG inventory may have been divided into two or more parts 
 to provide finer level of detail.
 
 ## 2. Excel template file ##
@@ -37,8 +37,8 @@ into the right row deduced from the same number (red) found in the *LandUse* tem
 
 The sheet cells contain UIDs of the time series. For example 4A48C2F0-02C0-4EAB-8547-6A109929DDCD 
 denotes *CL-FL biomass gains*. **Only those time series having UID entry will appear in the result Excel file**. 
-Some scenario results may not be based on GHG inventory. Those time series can have a user defined tag ("UID").
-This tag can be any alphanumerical sequence of characters. Note that some sheet cells cannot have an UID
+Some scenario results may not be used on GHG inventory. Those time series can have a user defined tag ("UID").
+This tag can be any alphanumerical sequence of characters as in GHGInventory. Note that some sheet cells cannot have an UID
 simply because such land use vs. emissions or stock change cases do not occur.
 
 ### LandUse sheet ###
