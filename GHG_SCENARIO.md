@@ -54,7 +54,7 @@ that corresponds to numbers (in red) in the matching column A in the UID Matrix 
 
 ### LULUCF sheet ###
 
-The LULUCF sheet will be the summary for the whole scenario. `ghg-scenario.py` will fill sheet
+The LULUCF sheet is the template for the scenario summary. `ghg-scenario.py` will fill the sheet
 rows with appropriate excel formulas to collect results from land use classes and land use class
 clusters.
 
