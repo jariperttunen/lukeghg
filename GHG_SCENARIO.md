@@ -41,11 +41,14 @@ within the framework of GHG inventory.
 
 The LandUse sheet is the template for the results for each land use class or clusters of land use classes 
 straightforwardly collected from the result files or summarised from other sheets.
-The sheet columns contain inventory years from 1990 to 2050. *The missing years from the end of the
-time series to 2050 will appear as zeros in results*. Scenarios intended from 1990 beyond 2050
-require matching number of years in the (new) template sheet. The sheet rows contain Carbon stock changes
-and emissions by gases. The column A has numbers (red) that corresponds to numbers (red)
-in the matching column A in the UID Matrix sheet.
+The sheet columns contain inventory years from 1990 to 2050. 
+
+*The missing years from the end of the time series to 2050 will appear as zeros in results. Too long
+time series are shortened from the end to match the template years from 1990 to 2050*. Scenarios intended 
+from 1990 beyond 2050 require a new template sheet with matching number of scenario years. 
+
+The sheet rows contain Carbon stock changes and emissions by gases. The column A has numbers (in red) 
+that corresponds to numbers (in red) in the matching column A in the UID Matrix sheet.
 
 ### LULUCF sheet ###
 
