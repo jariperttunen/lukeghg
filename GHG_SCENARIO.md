@@ -54,16 +54,15 @@ rows with appropriate excel formulas to collect results from land use classes an
 clusters.
 
 ## 3. Excel result file ##
+The first Excel sheet  lists UIDs in the UIDMatrix sheet not found in inventory input files. 
+The second sheet contains UIDs and lengths of the time series that differ from the number of inventory years 
+between 1990 and 2050 (i.e 61 years). The third sheet has the Global Warming Potentials (GWP) used.
 
-`ghg-scenario.py` produces excel file for scenarios in three parts: 
+The results for scenarios are in three parts: 
 
   1. LULUCF summary sheet covering the whole inventory
   2. Excel summary sheets for land use clusters generated from 
   3. Excel sheets for land use and land use change classes constructed from scenario results. 
-
-In addition the first sheet  lists UIDs in the UIDMatrix sheet not found in inventory input files. 
-The second sheet contains UIDs and lengths of the time series that differ from the number of inventory years 
-between 1990 and 2050 (i.e 61). Third sheet has the Global Warming Potentials (GWP) used.
 
 The undescore ('_') in a sheet name denotes summary for a land use cluster and hyphen ('-') change in land use.
 For example Lands_FL means lands to forest land and CL-FL means cropland to forest land. 
