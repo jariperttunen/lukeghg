@@ -66,8 +66,8 @@ between 1990 and 2050 (i.e 61 years). The third sheet has the Global Warming Pot
 The results for scenarios are in three parts: 
 
   1. LULUCF summary sheet presenting the total tally
-  2. Excel land use summary sheets for land use clusters generated from 
-  3. Excel sheets for land use and land use change classes constructed from scenario results. 
+  2. Land use summary sheets for land use clusters generated from 
+  3. Land use and land use change classes sheets in turn constructed from scenario results. 
 
 The undescore ('_') in a sheet name denotes summary for a land use cluster and hyphen ('-') change in land use.
 For example Lands_FL means lands to forest land and CL-FL means cropland to forest land. 
