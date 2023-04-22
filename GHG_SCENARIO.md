@@ -88,7 +88,7 @@ The land use summary sheets are defined as follows:
  + WLother_summary = WL-WL(other) + Lands_WLother
 
 The last three wetlands summaries (WLpeat_summary, WLflooded_summary, WLother_summary) contain emissions
-from peat productions, artificial lakes, wetlands etc. regardless coming about from remaining or converted areas.
+from peat productions, artificial lakes, wetlands etc. regardless originating from remaining or converted areas.
 
 ### Colour coding ###
 
