@@ -61,7 +61,7 @@ clusters.
 ## 3. Excel result file ##
 The first Excel sheet  lists UIDs in the UIDMatrix sheet not found in inventory input files. 
 The second sheet contains UIDs and lengths of the time series that differ from the number of inventory years 
-between 1990 and 2050 (i.e 61 years). The third sheet has the Global Warming Potentials (GWP) used.
+between 1990 and 2050 (i.e. 61 years). The third sheet has the Global Warming Potentials (GWP) used.
 
 The results for scenarios are in three parts: 
 
