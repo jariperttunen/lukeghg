@@ -4,6 +4,10 @@ GHG inventory software is freqently used to make projections about future emissi
 and using Excel template file produces scenario inventory summary in Excel format. It is part of the 
 [*lukeghg*](LUKEGHG_INSTALL_AND_USAGE.md) python package. 
 
+It is difficult, may even be impossible, to produce completely automated construction of the final Excel file
+for GHG scenarios. However, the aim is to provide some flexibility to react to different wishes and specifications 
+within the framework of GHG inventory.
+
 ## 1. GHG scenario result files ##
 
 GHG scenario results, input for `ghg-scenario.py`, have exactly the same file format as in the annual GHG inventory
@@ -36,10 +40,6 @@ denotes *CL-FL biomass gains*. **Only those time series having UID entry will ap
 Some scenario results may not be based on GHG inventory. Those time series can have a user defined tag ("UID").
 This tag can be any alphanumerical sequence of characters. Note that some sheet cells cannot have an UID
 simply because such land use vs. emissions or stock change cases do not occur.
-
-It is difficult, may even be impossible, to produce completely automated construction of the final Excel file
-for GHG scenarios. However, this approach provides some flexibility to react to different wishes and specifications 
-within the framework of GHG inventory.
 
 ### LandUse sheet ###
 
