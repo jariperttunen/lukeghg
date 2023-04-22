@@ -1,6 +1,8 @@
 # Produce GHG scenario excel #
 
-GHG inventory software is freqently used to make projections about future emissions. `ghg-scenario.py` reads GHG scenario result files and using excel template file produces scenario inventory summary in excel format. It is part of the [*lukeghg*](LUKEGHG_INSTALL_AND_USAGE.md) python package. 
+GHG inventory software is freqently used to make projections about future emissions. `ghg-scenario.py` reads GHG scenario result files
+and using Excel template file produces scenario inventory summary in Excel format. It is part of the 
+[*lukeghg*](LUKEGHG_INSTALL_AND_USAGE.md) python package. 
 
 ## 1. GHG scenario result files ##
 
