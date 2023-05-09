@@ -1,3 +1,7 @@
+## @file ghgscenario.py
+# Generate Excel file from GHG inventory files used for scenarios.
+## @package  scen
+# Generate Excel file from GHG inventory files used for scenarios.
 import glob
 import argparse
 import numpy as np
@@ -62,8 +66,12 @@ def check_data_series(ls,start_year:int,end_year:int):
 
 def convert_to_float(x:str, keys_to_zero:bool=True):
     """
+    Convert GHG inventory item to float
     @param x The item to be converted
-    @param keys_to_zero: if False maintain notation keys 
+    @param keys_to_zero: True return notation key to 0, False maintain notation keys
+    @param x String representing float or notation key or zero
+    @pre x is String that can be converted to float or notation key
+    @retval x Float, 0 or notation key
     """
     try:
         return float(x)
@@ -74,6 +82,13 @@ def convert_to_float(x:str, keys_to_zero:bool=True):
             return x
 
 def insert_ghg_file_to_dictionary(d:dict,fname:str,uid_mapping_file:str,keys_to_zero:bool=True):
+    """
+    @param d The dictionary
+    @param fname GHG inventory file
+    @param uid_mapping_file UID mappings from  CRFReporter version 3.0 to current 5.x one
+    @param keys True Convert notation keyes to zero, False maintain notation keys
+    @retval d The dictionary filled with the data from `fname`
+    """
     datalss = ghginv.ParseGHGInventoryFile(fname,uid_mapping_file)
     for datals in datalss:
         uid=datals.pop(0)
@@ -82,6 +97,12 @@ def insert_ghg_file_to_dictionary(d:dict,fname:str,uid_mapping_file:str,keys_to_
     return d
 
 def create_ghg_file_dictionary(reg_expr:str,uid_mapping_file:str,keys_to_zero:bool=True):
+    """
+    @param reg_expr  Regular expression to list files in a directory
+    @param uid_mapping_file  UID mappings from  CRFReporter version 3.0 to current one
+    @param keys_to_zero True convert notation keys to zero, False maintain notain keys
+    @retval d The dictionary containing the time series, UID is the dectinary key
+    """
     filels = glob.glob(reg_expr)
     d=dict()
     for fname in filels:
@@ -91,6 +112,12 @@ def create_ghg_file_dictionary(reg_expr:str,uid_mapping_file:str,keys_to_zero:bo
     return d
 
 def read_uid_matrix_file(excel_file:str,skip_rows=4):
+    """
+    Read the UID matrix sheet from the template Excel
+    @param excel_file The Excel template file
+    @param skip_rows Empty rows in the sheet to skip
+    @retval df The dataframe representing UIDMatrix sheet
+    """
     df = pd.read_excel(excel_file,sheet_name="UIDMatrix",skiprows=skip_rows,
                        header=0,engine='openpyxl')
     return df
@@ -109,15 +136,17 @@ def read_scenario_lulucf_file(excel_file:str):
 def land_use_classes(df_uid_matrix,index:int=2):
     """
     Slice column names and return land use classes
+    @param df_uid_matrix Dataframe UIDMatrix
+    @return Column names of the UIDMatrix
     """  
     columnls = list(df_uid_matrix.columns)
     return columnls[index:]
 
 def land_use_class_uid_df(df,name:str):
     """
-    name: land use name
-    Return 3 columns: Number, stock change/emission type and the 
-    corresponding land use UID's
+    @param df Data frame for UIDMatrix
+    @param name Land use name
+    @retval df2 Return three columns: Number, stock change/emission type and the corresponding land use UID's
     """
     #print("NAME",name)
     df1=df[[df.columns[0],df.columns[1],name]]
@@ -127,17 +156,19 @@ def land_use_class_uid_df(df,name:str):
 
 def land_use_class_uid_ls(df,name):
     """
-    name: land use name
-    return: The list of land use stock change/emission type UID's
+    @param df Dataframe for UIDMatrix
+    @param name land use name
+    @return The list of land use stock change/emission  UID's
     """
     s = df[name]
     return list(s)
 
 def stock_change_name(df,name,uid):
     """
-    name: land use name
-    uid: stock change/emission type UID
-    return: stock change/emission type name
+    @param df Dataframe for UIDMatrix
+    @param name Land use name
+    @param uid Stock change/emission  UID
+    @return Stock change/emission type name
     """
     df1 = df[df[name]==uid]
     s = df1[df1.columns[1]]
@@ -146,9 +177,10 @@ def stock_change_name(df,name,uid):
 
 def stock_change_id_number(df,name,uid):
     """
-    name: land use name
-    uid: stock change/emission type UID
-    return: stock change/emission type id_number 
+    @param df Dataframe for UID matrix
+    @param name Land use name
+    @param uid Stock change/emission type UID
+    @return Stock change/emission type identification number 
     """
     df1 = df[df[name]==uid]
     s = df1[df1.columns[0]]
@@ -156,16 +188,23 @@ def stock_change_id_number(df,name,uid):
     return ls[0]
 
 def stock_change_name_id_number(df,name,uid):
+    """
+    @param df Dataframe for UIDMatrix
+    @param name Stock/emission name
+    @param uid Stock/emission uid number
+    @return Tuple (n,id_number) where n is stock/emission type name, id_number is the identification number
+    """
     n = stock_change_name(df,name,uid)
     id_number = stock_change_id_number(df,name,uid)
     return (n,id_number)
 
 def select_row_number(df_template,id_number):
     """"
-    df_template: UID template sheet or scenario result template sheet
-    First (i.e. 0) column is the column name where id_numbers are
-    Return row number corresponding to id_number
+    @param df_template UID template sheet or scenario result template sheet
+    @param id_number The identification number of the stock emission type
+    @retval number Row number corresponding to id_number
     """
+    #First (i.e. 0) column is the column name where id_numbers are
     name = df_template.columns[0]
     df_tmp1 = df_template[df_template[name]==id_number]
     number = df_template[df_template[name]==id_number].index[0]
@@ -174,9 +213,12 @@ def select_row_number(df_template,id_number):
 def add_data_series(df_scen,new_row_ls,start:str,end:str,row_number:int):
     """
     Add scenario template data series to summary data frame (eventually excel sheet)
-    df_scen: Scenario template sheet
-    new_row_ls: scenario data series to be added to total
-    row_number: the row where the data series belongs to
+    @param df_scen Scenario template sheet
+    @param new_row_ls: scenario data series to be added to total
+    @param start Start year of the inventory
+    @apram end End year of the inventory
+    @param row_number: the row where the data series belongs to
+    @retval df_scen Dataframe with `new_row_ls` added to total 
     """
     length_row = len(new_row_ls)
     length_series = int(end)-int(start)+1
@@ -194,9 +236,10 @@ def add_data_series(df_scen,new_row_ls,start:str,end:str,row_number:int):
 def set_data_series(df_scen,new_row_ls,start:str,end:str,row_number:int):
     """
     Set scenario template data series
-    df_scen: Scenario template sheet
-    new_row_ls: scenario data series
-    row_number: the row where the data series belongs to
+    @param df_scen Scenario template sheet
+    @param new_row_ls Scenario data series
+    @param row_number The row where the data series belongs to
+    @retval df_scen Dataframe with the `new_row_ls` data series added
     """
     length_row = len(new_row_ls)
     length_series = int(end)-int(start)+1
@@ -214,7 +257,15 @@ def set_data_series(df_scen,new_row_ls,start:str,end:str,row_number:int):
     return df_scen
 
 def write_subtract_formula(sheet,start_col,ncols,result_row,subtract_row):
-    """Subract cell from existing formula"""
+    """
+    Create new subtract cell formulas in a row by appending cells in a `subtract_row`
+    @param sheet The Excel sheet
+    @param start_col The start column in a row
+    @param ncols Number of columns to be used from `start_col`
+    @param result_row The result row number
+    @param subtract_row The row number for the `subtract_row`
+    @retval sheet The Excel `sheet`  with the new subtract formula in `result_row` 
+    """
     for i in range(start_col,ncols):
         cell = openpyxl.cell.cell.Cell(sheet,result_row,i)
         cell_subtract = openpyxl.cell.cell.Cell(sheet,subtract_row,i)
@@ -227,13 +278,16 @@ def write_subtract_formula(sheet,start_col,ncols,result_row,subtract_row):
     
 def write_co2sum_formula(sheet,start_col,ncols,result_row,row_number_ls,color,scale=1,sheet_ref=""):
     """
-    start_col: start column of the time series
-    ncols: number of columns (i.e. length) in the time series
-    result_row: the row number of the sum
-    row_number_ls: the rows to be added to total.
-    color: background color
-    scale: the final unit (e.g. scale ktC to Mt CO2 eq if needed)
-    sheet_ref:refer to another sheet (e.g. sheet_ref="FL-FL!") if needed 
+    Create summary row as CO2 from its constituent rows
+    @param sheet The Excel sheet
+    @param start_col start column of the time series
+    @param ncols Number of columns (i.e. the length) in the time series
+    @param result_row The row number of the sum row
+    @paramt row_number_ls The rows to be added to total.
+    @param color Background color of the result row
+    @param scale The final unit (e.g. scale ktC,CH4,N2O to MtCO2 eq if needed)
+    @param sheet_ref Refer to another sheet (e.g. sheet_ref="FL-FL!") if needed
+    @retval sheet The excel `sheet`with the `result_row`
     """
     for i in range(start_col,ncols):
         cell = openpyxl.cell.cell.Cell(sheet,result_row,i)
@@ -488,6 +542,20 @@ def create_land_use_summary_formulas(sheet,start_col:int,ncols:int,result_row_ls
 
 def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_template_file:str,uid_300_500_file:str,
                           start_year:int,end_year:int,ch4co2eq,n2oco2eq,formulas:bool,gwp_str:str):
+    """
+    Main program entry. Create scenario excel from scenario inventory files.
+    @param scen_excel_file The name of the output excel file
+    @param scen_files_reg_expr Regular expression to list scenario inventory files 
+    @param scen_template_file The Excel template file to generate `scen_excel_file`
+    @param uid_300_500_file The UID conversion file to convert CRFReporter 3.0.0 UIDs to CRFReport 5.x UIDs
+    @param start_year Scenario start year (1990)
+    @param end_year Scenario end year (2050)
+    @param ch4co2eq CH4 to CO2eq Global Warming Potential
+    @param n2oco2eq N2O to CO2eq Global Warming Potential
+    @param formulas True create Excel formulas in summary sheets, False calculate the values in summary sheets
+    @param gwp_str Either GWP4 or GWP5 (default)
+    @retval writer The representation of the Excel file `scen_excel_file`
+    """
     missing_uid_dict = dict()
     long_time_series_dict = dict()
     writer = pd.ExcelWriter(scen_excel_file,engine='openpyxl')
