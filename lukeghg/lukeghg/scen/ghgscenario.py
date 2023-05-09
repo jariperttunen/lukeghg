@@ -636,6 +636,8 @@ def create_scenario_excel(scen_excel_file:str,scen_files_reg_expr:str,scen_templ
         df_scen_new = df_scen_template.copy()
         #1.Add time series to dataframe
         for uid in uid_ls:
+            #Strip whitespace from the beginning and at the end
+            uid = uid.strip()
             (name,id_number) = stock_change_name_id_number(df_uid,class_name,uid)
             if uid in uid_time_series_dictionary:
                 check_land_class = 0
