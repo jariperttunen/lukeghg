@@ -7,7 +7,8 @@ There are no intentions to make graphical user interface.
 **The instructions are for `bash` shell in sorvi**.  Your default shell might be for example `tcsh` 
 and you must for instance adjust quotation marks (') in the examples to fit shell's syntax. 
 
-**Note:** From 2021 GHG inventory (calendar year 2022) and onwards KPLULUCF sector is obsolete. 
+>[!NOTE]
+>From 2021 GHG inventory (calendar year 2022) and onwards KPLULUCF sector is obsolete. 
 
 ## 1. Create Python virtual environment
 
