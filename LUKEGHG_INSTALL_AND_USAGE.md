@@ -4,6 +4,9 @@ The *lukeghg* Python package contains command line tools to generate CRF Reporte
 programs for rudimentary validation of the inventory and to generate some ubiquitous NIR tables. 
 There are no intentions to make graphical user interface.
 
+>[IMPORTANT]
+>The new CRFReporter to be used is avalable from https://crfappar5.unfccc.int. The old one can be found from https://unfccc.int/crfapp/.
+
 **The instructions are for `bash` shell in sorvi**.  Your default shell might be for example `tcsh` 
 and you must for instance adjust quotation marks (') in the examples to fit shell's syntax. 
 
