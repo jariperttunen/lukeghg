@@ -86,32 +86,35 @@ def KPRegionSum(activity_file,uid_dict,inventory_year):
             uid_from_new = uid_from.strip('{}')
             print("UIDfrom",uid_from_new)
             #One or more time series in a list
-            time_series_lss = uid_dict[uid_from_new]
-            print("Time series",time_series_lss)
-            first_sum_ls = time_series_lss.pop(0)
-            #Remove UID
-            first_sum_ls.pop(0)
-            #Time series in KP differ in length: some have calculated 1990->
-            #and some 2013->. Create paading list of zeros to make time series of equal length
-            #We should not get problem with padding zeros, because only years 2013-> in KP
-            #are imported to reporter
-            padding_ls = PaddingList(inventory_year,first_sum_ls)
-            first_sum_ls=padding_ls+first_sum_ls
-            if len(time_series_lss) > 2:
-                print(uid_new, "More than two with the same UID!", file=stderr)
-            for time_series_ls in time_series_lss:
-                #Remove the UID, not needed
-                time_series_ls.pop(0)
-                #KPLULUCF: Some have calculated  from 1990 to inventory to
-                #year, some from 2013 to inventory yesr. Fill with zeroes so that
-                #all time series are of equal length. 
-                padding_ls = PaddingList(inventory_year,time_series_ls)
-                time_series_ls = padding_ls+time_series_ls
-                sum_ls = [SumTwoValues(ConvertFloat(x),ConvertFloat(y)) for (x,y) in zip(first_sum_ls,
+            try:
+                time_series_lss = uid_dict[uid_from_new]
+                print("Time series",time_series_lss)
+                first_sum_ls = time_series_lss.pop(0)
+                #Remove UID
+                first_sum_ls.pop(0)
+                #Time series in KP differ in length: some have calculated 1990->
+                #and some 2013->. Create paading list of zeros to make time series of equal length
+                #We should not get problem with padding zeros, because only years 2013-> in KP
+                #are imported to reporter
+                padding_ls = PaddingList(inventory_year,first_sum_ls)
+                first_sum_ls=padding_ls+first_sum_ls
+                if len(time_series_lss) > 2:
+                    print(uid_new, "More than two with the same UID!", file=stderr)
+                for time_series_ls in time_series_lss:
+                    #Remove the UID, not needed
+                    time_series_ls.pop(0)
+                    #KPLULUCF: Some have calculated  from 1990 to inventory to
+                    #year, some from 2013 to inventory yesr. Fill with zeroes so that
+                    #all time series are of equal length. 
+                    padding_ls = PaddingList(inventory_year,time_series_ls)
+                    time_series_ls = padding_ls+time_series_ls
+                    sum_ls = [SumTwoValues(ConvertFloat(x),ConvertFloat(y)) for (x,y) in zip(first_sum_ls,
                                                                                          time_series_ls)]
-                #print('Series',uid_new,time_series_ls)
-                #print('Sum series',uid_new_first,sum_ls)
-                #print("")
+                    #print('Series',uid_new,time_series_ls)
+                    #print('Sum series',uid_new_first,sum_ls)
+                    #print("")
+            except KeyError:
+                print("KPLULUSUMMARY UID",uid_from_new,"NOT IN INVENTORY")
         #The sum for the aggregate uid_to is done 
         reporter_sum_ls.append([uid_new_to]+sum_ls)
     return reporter_sum_ls
