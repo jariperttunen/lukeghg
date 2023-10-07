@@ -8,7 +8,9 @@ There are no intentions to make graphical user interface.
 >The new CRFReporter to be used is avalable from https://crfappar5.unfccc.int/crfapp/. The old one can be found from https://unfccc.int/crfapp/.
 
 >[!WARNING]
->XML import: Make sure that you have write access only and solely to 4. Land Use, Land-Use Change and Forestry (a.k.a LULUCF) and 7. KP LULUCF >sectors in CRFReporter. The bulk xml import in CRFReporter tries to clear all results in all sectors first. If you have for example write access >to 3. Agriculture sector you will delete existing results there.
+>XML import: Make sure that you have write access only and solely to 4. Land Use, Land-Use Change and Forestry (a.k.a LULUCF) and 7. KP LULUCF
+>sectors in CRFReporter. The bulk xml import in CRFReporter tries to clear all results in all sectors first. If you have for example write access
+>to 3. Agriculture sector you will delete existing results there.
 
 **The instructions are for `bash` shell in sorvi**.  Your default shell might be for example `tcsh` 
 and you must for instance adjust quotation marks (') in the examples to fit shell's syntax. 
