@@ -5,7 +5,7 @@ programs for rudimentary validation of the inventory and to generate some ubiqui
 There are no intentions to make graphical user interface.
 
 >[!IMPORTANT]
->The new CRFReporter to be used is avalable from [crfappar5.unfccc.int](https://crfappar5.unfccc.int/crfapp/). The old one can be found from
+>The new CRFReporter to be used is available from [crfappar5.unfccc.int](https://crfappar5.unfccc.int/crfapp/). The old one can be found from
 >[unfccc.int](https://unfccc.int/crfapp/).
 
 >[!WARNING]
