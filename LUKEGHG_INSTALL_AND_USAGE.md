@@ -43,9 +43,10 @@ You can now install *lukeghg* Python package.
 **Tips:** Python virtual environments are so omnipresent that it is customary to create all of them under one
 directory (*venv* for example). You can quit virtual environment with `deactivate`.
 
-**NB:** If you have any problems creating the virtual environment check your `.bashrc` file. For example 
-if you are part of NFI or closely work with them you may have settings by NFI that  disrupt the `python3`
-environment installed in sorvi.
+>[!NOTE]
+>If you have any problems creating the virtual environment check your `.bashrc` file. For example 
+>if you are part of NFI or closely work with them you may have settings by NFI that  disrupt the `python3`
+>environment installed in sorvi.
 
 ## 2. Install the lukeghg Python package
 We assume that the working directory will be in */work/\<user\>/GHGInventory* in sorvi
