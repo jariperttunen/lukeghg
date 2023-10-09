@@ -114,7 +114,7 @@ def KPRegionSum(activity_file,uid_dict,inventory_year):
                     #print('Sum series',uid_new_first,sum_ls)
                     #print("")
             except KeyError:
-                print("KPLULUSUMMARY UID",uid_from_new,"NOT IN INVENTORY")
+                print("kplulusummary.py: UID",uid_from_new,"NOT IN INVENTORY",file=sys.stderr)
         #The sum for the aggregate uid_to is done 
         reporter_sum_ls.append([uid_new_to]+sum_ls)
     return reporter_sum_ls
