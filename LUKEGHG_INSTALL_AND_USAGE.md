@@ -5,16 +5,16 @@ programs for rudimentary validation of the inventory and to generate some ubiqui
 There are no intentions to make graphical user interface.
 
 >[!IMPORTANT]
->The new CRFReporter to be used is avalable from [crfappar5.unfccc.int](https://crfappar5.unfccc.int/crfapp/). The old one can be found from
+>The new CRFReporter to be used is available from [crfappar5.unfccc.int](https://crfappar5.unfccc.int/crfapp/). The old one can be found from
 >[unfccc.int](https://unfccc.int/crfapp/).
 
 >[!WARNING]
->XML import: Make sure that you have write access only and solely to 4. Land Use, Land-Use Change and Forestry (a.k.a LULUCF) and 7. KP LULUCF
+>XML import: Make sure that you have write access *only and solely* to 4. Land Use, Land-Use Change and Forestry (a.k.a LULUCF) and 7. KP LULUCF
 >sectors in CRFReporter. The bulk xml import in CRFReporter tries to clear all results in all sectors first. If you have for example write access
 >to 3. Agriculture sector you will delete existing results there.
 
 **The instructions are for `bash` shell in sorvi**.  Your default shell might be for example `tcsh` 
-and you must for instance adjust quotation marks (') in the examples to fit shell's syntax. 
+and you must for instance adjust quotation marks (') in the examples to fit `tcsh` shell's syntax. 
 
 >[!NOTE]
 >From 2021 GHG inventory (calendar year 2022) and onwards KPLULUCF sector is obsolete. 
@@ -43,9 +43,10 @@ You can now install *lukeghg* Python package.
 **Tips:** Python virtual environments are so omnipresent that it is customary to create all of them under one
 directory (*venv* for example). You can quit virtual environment with `deactivate`.
 
-**NB:** If you have any problems creating the virtual environment check your `.bashrc` file. For example 
-if you are part of NFI or closely work with them you may have settings by NFI that  disrupt the `python3`
-environment installed in sorvi.
+>[!NOTE]
+>If you have any problems creating the virtual environment check your `.bashrc` file. For example 
+>if you are part of NFI or closely work with them you may have settings by NFI that  disrupt the `python3`
+>environment installed in sorvi.
 
 ## 2. Install the lukeghg Python package
 We assume that the working directory will be in */work/\<user\>/GHGInventory* in sorvi
