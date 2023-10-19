@@ -47,7 +47,7 @@ def CreateGHGDictionary(dirfilels):
                    #print("B",ls_tmp1)
                    #print("")
             else:
-               print(file_name,"Found empty line")
+               print(file_name,"Found empty line",file=sys.stderr)
     return dictionary 
 
 def CheckActivityFile(activity_file,uid_dict):
@@ -58,7 +58,7 @@ def CheckActivityFile(activity_file,uid_dict):
         for uid in line:
             uid_new = uid.strip('{}')
             if not uid_new in uid_dict:
-                print(activity_file,"UID not found", uid_new)
+                print(activity_file,"UID not found", uid_new,file=sys.stderr)
 
 def KPRegionSum(activity_file,uid_dict,inventory_year):
     """
@@ -71,7 +71,7 @@ def KPRegionSum(activity_file,uid_dict,inventory_year):
     [[UID1,year1,year2...,inv_year],...,[UIDN,year1,year2,...,inv_year]]
     """
     ls = ReadGHGInventoryFile(activity_file)
-    print('Activity file',ls)
+    #print('Activity file',ls)
     sum_ls=[]
     reporter_sum_ls=[]
     for line in ls:
@@ -84,11 +84,11 @@ def KPRegionSum(activity_file,uid_dict,inventory_year):
         for uid_from in line:
             #Find the time series for the UID
             uid_from_new = uid_from.strip('{}')
-            print("UIDfrom",uid_from_new)
+            #print("UIDfrom",uid_from_new)
             #One or more time series in a list
             try:
                 time_series_lss = uid_dict[uid_from_new]
-                print("Time series",time_series_lss)
+                #print("Time series",time_series_lss)
                 first_sum_ls = time_series_lss.pop(0)
                 #Remove UID
                 first_sum_ls.pop(0)
@@ -99,7 +99,7 @@ def KPRegionSum(activity_file,uid_dict,inventory_year):
                 padding_ls = PaddingList(inventory_year,first_sum_ls)
                 first_sum_ls=padding_ls+first_sum_ls
                 if len(time_series_lss) > 2:
-                    print(uid_new, "More than two with the same UID!", file=stderr)
+                    print(uid_new, "More than two with the same UID!", file=sys.stderr)
                 for time_series_ls in time_series_lss:
                     #Remove the UID, not needed
                     time_series_ls.pop(0)
@@ -200,7 +200,7 @@ if __name__ == "__main__":
         InsertInventoryData(uid,t,time_series_ls,options.f5,not_found_uid_ls,start_year,int(options.f4))
     
     if len(not_found_uid_ls) != 0:
-        print("The following", len(not_found_uid_ls), "UID not found",file=sys.stderr)
+        print("kplulusummary.py the following", len(not_found_uid_ls), "UID not found",file=sys.stderr)
         for item in not_found_uid_ls:
             print(item,file=sys.stderr)
         

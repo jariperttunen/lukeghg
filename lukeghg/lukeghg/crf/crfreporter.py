@@ -335,8 +335,7 @@ def InsertInventoryData(uid,variablels,datals,file_name,not_found_uid_ls,start_y
         first_year=yearls[0]
         first_year_number=int(first_year.get('name'))
         if len(yearls) != len(datals):
-            print("Warning! File:",file_name,uid,"datalength",len(datals),"differs from number of records",len(yearls),"in XML file")
-            print("Warning! File:",file_name,uid,"datalength",len(datals),"differs from number of records",len(yearls),"in XML file",file=sys.stderr)
+            print("crfreporter.py Warning! File:",file_name,uid,"datalength",len(datals),"differs from number of records",len(yearls),"in XML file",file=sys.stderr)
         if len(yearls) == 0:
             print('NO RECORD',uid, len(yearls), len(datals),file=sys.stderr)
         if start_year == kp_start_year:
@@ -355,8 +354,7 @@ def InsertInventoryData(uid,variablels,datals,file_name,not_found_uid_ls,start_y
         if first_year_number == lulu_hwp_start_year and start_year==lulu_start_year:
             yearls.reverse()
             datals.reverse()
-            print("Note! File:",file_name,uid,"start year is", lulu_hwp_start_year,"filling XML from", yearls[0].get('name'),"backwards")
-            print("Note! File:",file_name,uid,"start year is", lulu_hwp_start_year,"filling XML from", yearls[0].get('name'),"backwards",file=sys.stderr)
+            print("crfreporter.py Note! File:",file_name,uid,"start year is", lulu_hwp_start_year,"filling XML from", yearls[0].get('name'),"backwards",file=sys.stderr)
         for year_record,data in zip(yearls,datals):
             #A year_record has name and uid attributes, a single value (data to be inserted) and comment subtrees
             #Special case HWP requires Exported or Domestically consumed information
