@@ -144,7 +144,7 @@ Then create *crf* and *PartyProfile* directories for GHG Inventory result files 
 
 Copy GHG inventory files to *crf* directory. Be sure the read rights for the files exists, e.g. 2020 inventory:
 
-	(lukeghg) prompt% scp /projects/khk/ghg/2020/crf/*.csv crf/
+	(lukeghg) prompt% scp /data/projects/khk/ghg/2020/crf/*.csv crf/
 
 It has been practice that all GHG inventory results are by year in the same */data/projects/khk/ghg/\<year\>/crf* directory on the sorvi
 server.
