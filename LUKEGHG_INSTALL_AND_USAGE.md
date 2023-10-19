@@ -146,10 +146,14 @@ Copy GHG inventory files to *crf* directory. Be sure the read rights for the fil
 
 	(lukeghg) prompt% scp /projects/khk/ghg/2020/crf/*.csv crf/
 
-It has been practice that all GHG inventory results are by year in the same *ghg/\<year\>/crf* directory on the server.
+It has been practice that all GHG inventory results are by year in the same */data/projects/khk/ghg/\<year\>/crf* directory on the sorvi
+server.
 
 Log in CRFReporter *Import/Export* section, export PartyProfile xml and copy it to *PartyProfile* directory. 
-Rename as denoted by the `-p`  argument in [`run-ghg-master.sh`](lukeghg/lukeghg/bin/run-ghg-master.sh). 
+Rename the PartyProfile as denoted by the `-p`  argument in [`run-ghg-master.sh`](lukeghg/lukeghg/bin/run-ghg-master.sh). 
+The naming practice uses the name of current inventory in the CRFReporter. For example the first 2022 inventory in CRFReporter
+has the name *FIN_2024_1* and the PartyProfile xml is named *PartyProfile_FIN_2024_1.xml*.
+
 To produce the PartyProfile result file filled with the  GHG inventory results type the two commands:
 
 	(lukeghg) prompt% convertutf8.py -f 'crf/*.csv'
@@ -205,11 +209,14 @@ PartyProfile xml from CRFReporter, even during the same active inventory.
 to  run `convertutf8.py` first. Otherwise file reading might fail and string comparisons in python
 may go astray.
 
-**NB3 XML import:** Make sure that you have write access *only and solely* to *4. Land Use, Land-Use Change and Forestry*
-(a.k.a LULUCF) and *7. KP LULUCF* sectors in CRFReporter. The bulk xml import in CRFReporter tries to clear
-all results in all sectors first. If you have for example write access to *3. Agriculture* sector
-you will delete existing results
-there.
+>[!WARNING]
+>**NB3 XML import:** Make sure that you have write access *only and solely* to *4. Land Use, Land-Use Change and Forestry*
+>(a.k.a LULUCF) and *7. KP LULUCF* sectors in CRFReporter. The bulk xml import in CRFReporter tries to clear
+>all results in all sectors first. If you have for example write access to *3. Agriculture* sector
+>you will delete existing results
+>there.
+
+---
 
 ## 5. GHG Scenarios
 
