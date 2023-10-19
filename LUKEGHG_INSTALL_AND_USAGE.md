@@ -161,7 +161,7 @@ To produce the PartyProfile result file filled with the  GHG inventory results t
 
 The GHG inventory result files (csv files) seem to use different encoding systems, most notably some files
 seem to use UTF-8 BOM (Byte Order Marking). `convertutf8.py` converts files to UTF-8 encoding if needed 
-(this is why they need to be copied first from *ghg/\<year\>/crf* folder). See also **NB2**.
+(this is why they need to be copied first from */data/projects/khk/ghg/\<year\>/crf* folder). See also **NB2**.
 
 The `>`character redirects standard out terminal output to *Import.log* file and `2>` redirects standard error 
 terminal output to *Error.log* file.
