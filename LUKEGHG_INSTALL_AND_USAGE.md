@@ -212,6 +212,8 @@ may go astray.
 >you will delete existing results
 >there.
 
+---
+
 ## 5. GHG Scenarios
 
 `ghg-scenario.py` can generate excel file for GHG scenario calculations.
