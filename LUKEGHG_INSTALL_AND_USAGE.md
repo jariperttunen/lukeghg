@@ -168,7 +168,9 @@ terminal output to *Error.log* file.
 
 The final step is to import the PartyProfile result file to CRFReporter. Log in CRFReporter
 *Import/Export* section and follow the instructions in *Excel/XML-import*. Read also **NB3**
-before xml import.
+before xml import. The xml import usually takes about 15 minutes, However, it may be preceeded
+by a substantial waiting time. You will receive an email after CRFReporter has finished the import.
+The status of successful import is *SUCCESS*.
 
 **Obsolete 2021 inventory and onwards:** For EU529 inventory there is similar 
 [`run-eu529-ghg-master.sh`](lukeghg/lukeghg/bin/run-eu529-ghg-master.sh). 
