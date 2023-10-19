@@ -24,22 +24,22 @@ if __name__ == "__main__":
     (options,args) = parser.parse_args()
 
     if options.f1 is None:
-        print("No input Reporter Party Profile XML data file")
+        print("kp-lulu-summary.py No input Reporter Party Profile XML data file")
         quit()
     if options.f2 is None:
-        print("No input GHG inventory csv files")
+        print("kp-lulu-summary.py No input GHG inventory csv files")
         quit()
     if options.f3 is None:
-        print("No output PartyProfile XML file")
+        print("kp-lulu-summary.py No output PartyProfile XML file")
         quit()
     if options.f4 is None:
-        print("No inventory year given")
+        print("kp-lulu-summary.py No inventory year given")
         quit()
     if options.f5 is None:
-        print("No Activity file given")
+        print("kp-lulu-summary.py No Activity file given")
         quit()
     if options.f6 is None:
-        print("No CRFReporter 340 to 500 UID mapping file")
+        print("kp-lulu-summary.py No CRFReporter 340 to 500 UID mapping file")
         quit()
     activity_file=options.f5
     start_year=lulu_start_year
@@ -48,34 +48,34 @@ if __name__ == "__main__":
     elif os.path.basename(activity_file).startswith('LU'):
         start_year = lulu_start_year
     else:
-        print("Cannot decide if KP LULUCF or LULUCF file", activity_file,file=sys.stderr)
+        print("kp-lulu-summary.py Cannot decide if KP LULUCF or LULUCF file", activity_file,file=sys.stderr)
         quit()
 
-    print("Summary for", activity_file,"begins")
+    print("kp-lulu-summary.py Summary for", activity_file,"begins")
     (uid340set,uiddict340to500) = Create340to500UIDMapping(options.f6)
  
     #Parse xml tree
-    print("Parsing Party Profile xml from:",options.f1)
+    print("kp-lulu-summary.py Parsing Party Profile xml from:",options.f1)
     t=ET()
     t.parse(options.f1)
     #Find all varibles once
     it = t.iter('variable')
     variablels = [e for e in it if e.tag=='variable']
-    print("Reading GHG Inventory files")
+    print("kp-lulu-summary.py Reading GHG Inventory files")
     dirfilels = glob.glob(options.f2)
-    print("Inserting GHG files into a dictionary")
+    print("kp-lulu-summary.py Inserting GHG files into a dictionary")
     ghg_dict=CreateGHGDictionary(dirfilels)
-    print("Reading UID files for Activities and Regions:",options.f5)
+    print("kp-lulu-summary.py Reading UID files for Activities and Regions:",options.f5)
 
     #Check data available
-    print("Checking UID exists")
+    print("kp-lulu-summary.py Checking UID exists")
     CheckActivityFile(activity_file,ghg_dict)
     print("Done")
     kp_region_sum_ls = KPRegionSum(activity_file,ghg_dict,int(options.f4))
 
     #This data comes from KP4A2_D_mineraalisationcl_gl_sl.csv
     if options.f7 is True:
-        print("KP4A2_D_mineraalisationcl_gl_sl.csv conversion N2O->C:",n2o_min_c)
+        print("kp-lulu-summary.py KP4A2_D_mineraalisationcl_gl_sl.csv conversion N2O->C:",n2o_min_c)
         kp_mineralization_ls = []
         #The conversion 
         for time_series in  kp_region_sum_ls:
@@ -88,22 +88,22 @@ if __name__ == "__main__":
         uid=time_series_ls.pop(0)
         uid_changed = MapUID340to500(uid,uid340set,uiddict340to500)
         if uid_changed != uid:
-            print("UID changed:",uid,"-->",uid_changed)
+            print("kp-lulu-summary.py UID changed:",uid,"-->",uid_changed)
         uid = uid_changed
-        print(uid)
+        #print(uid)
         #crfreporter.InsertInventoryData assumes data series are strings
         time_series_ls = [str(x) for x in time_series_ls]
         crfreporter.InsertInventoryData(uid,variablels,time_series_ls,options.f5,not_found_uid_ls,start_year,int(options.f4))
     
     if len(not_found_uid_ls) != 0:
-        print("The following", len(not_found_uid_ls), "UID not found",file=sys.stderr)
+        print("kp-lulu-sumamry.py The following", len(not_found_uid_ls), "UID not found",file=sys.stderr)
         for item in not_found_uid_ls:
             print(item,file=sys.stderr)
         
-    print("Pretty print xml for humans")
+    print("kp-lulu-summary.py Pretty print xml for humans")
     PrettyPrint(t.getroot(),0,"   ")
-    print("Writing xml to:",options.f3)
+    print("kp-lulu-summary.py Writing xml to:",options.f3)
     if not options.f3 is None:
         t.write(options.f3)
         print("Done")
-    print("Exit program")
+    print("kp-lulu-summary.py Exit program")

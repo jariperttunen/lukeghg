@@ -47,7 +47,7 @@ def CreateGHGDictionary(dirfilels):
                    #print("B",ls_tmp1)
                    #print("")
             else:
-               print(file_name,"Found empty line",file=sys.stderr)
+               print("kplulusummary.py",file_name,"Found empty line",file=sys.stderr)
     return dictionary 
 
 def CheckActivityFile(activity_file,uid_dict):
@@ -58,7 +58,7 @@ def CheckActivityFile(activity_file,uid_dict):
         for uid in line:
             uid_new = uid.strip('{}')
             if not uid_new in uid_dict:
-                print(activity_file,"UID not found", uid_new,file=sys.stderr)
+                print("kplulusummary.py",activity_file,"UID not found", uid_new,file=sys.stderr)
 
 def KPRegionSum(activity_file,uid_dict,inventory_year):
     """
@@ -99,7 +99,7 @@ def KPRegionSum(activity_file,uid_dict,inventory_year):
                 padding_ls = PaddingList(inventory_year,first_sum_ls)
                 first_sum_ls=padding_ls+first_sum_ls
                 if len(time_series_lss) > 2:
-                    print(uid_new, "More than two with the same UID!", file=sys.stderr)
+                    print("kplulusummary.py",uid_new, "More than two with the same UID!", file=sys.stderr)
                 for time_series_ls in time_series_lss:
                     #Remove the UID, not needed
                     time_series_ls.pop(0)
@@ -157,26 +157,26 @@ if __name__ == "__main__":
     elif os.path.basename(activity_file).startswith('LU'):
         start_year = lulu_start_year
     else:
-        print("Cannot decide if KP LULUCF or LULUCF file", activity_file,file=sys.stderr)
+        print("kplulusummary.py Cannot decide if KP LULUCF or LULUCF file", activity_file,file=sys.stderr)
         quit()
 
-    print("Summary for", activity_file,"begins")
+    print("kplulusummary.py Summary for", activity_file,"begins")
     (uid340set,uiddict340to500) = Create340to500UIDMapping(options.f6)
- 
+    print("HELLO from kplulucf.py") 
     #Parse xml tree
-    print("Parsing Party Profile xml from:",options.f1)
+    print("kplulusummary.py Parsing Party Profile xml from:",options.f1)
     t=ET()
     t.parse(options.f1)
-    print("Reading GHG KP Inventory files")
+    print("kplulusummary.py Reading GHG KP Inventory files")
     dirfilels = glob.glob(options.f2)
-    print("Inserting GHG files into a dictionary")
+    print("kplulusummary.py Inserting GHG files into a dictionary")
     ghg_dict=CreateGHGDictionary(dirfilels)
-    print("Reading UID files for Activities and Regions:",options.f5)
+    print("kplulusummary.py Reading UID files for Activities and Regions:",options.f5)
 
     #Check data available
-    print("Checking UID exists")
+    print("kplulusummary.py Checking UID exists")
     CheckActivityFile(activity_file,ghg_dict)
-    print("Done")
+    print("kplulusummary.py Done")
     kp_region_sum_ls = KPRegionSum(activity_file,ghg_dict,int(options.f4))
 
     #This data comes from KP4A2_D_mineraalisationcl_gl_sl.csv
@@ -194,9 +194,9 @@ if __name__ == "__main__":
         uid=time_series_ls.pop(0)
         uid_changed = MapUID340to500(uid,uid340set,uiddict340to500)
         if uid_changed != uid:
-            print("UID changed:",uid,"-->",uid_changed)
+            print("kplulusummary.py UID changed:",uid,"-->",uid_changed)
         uid = uid_changed
-        print(uid) 
+        #print(uid) 
         InsertInventoryData(uid,t,time_series_ls,options.f5,not_found_uid_ls,start_year,int(options.f4))
     
     if len(not_found_uid_ls) != 0:
@@ -204,10 +204,10 @@ if __name__ == "__main__":
         for item in not_found_uid_ls:
             print(item,file=sys.stderr)
         
-    print("Pretty print xml for humans")
+    print("kplulusummary.py Pretty print xml for humans")
     PrettyPrint(t.getroot(),0,"   ")
-    print("Writing xml to:",options.f3)
+    print("kplulusummary.py Writing xml to:",options.f3)
     if not options.f3 is None:
         t.write(options.f3)
-        print("Done")
-    print("Exit program")
+        print("kplulusummary.py Done")
+    print("kplulusummary.py Exit program")
