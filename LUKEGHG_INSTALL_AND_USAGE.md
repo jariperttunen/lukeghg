@@ -55,7 +55,7 @@ in your home directory (see [GitHub version control](#github-version-control) at
 
 Create *GHGInventory* directory and clone *lukeghg* from GitHub:
 
-	(lukeghg) prompt% cd /work/<user>
+	(lukeghg) prompt% cd /work/users/<user>
 	(lukeghg) prompt% mkdir GHGInvenory
 	(lukeghg) prompt% cd GHGInventory
 	(lukeghg) prompt% git clone https://github.com/jariperttunen/lukeghg.git
