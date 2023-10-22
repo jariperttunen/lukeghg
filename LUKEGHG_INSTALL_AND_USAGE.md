@@ -4,6 +4,9 @@ The *lukeghg* Python package contains command line tools to generate CRF Reporte
 programs for rudimentary validation of the inventory and to generate some ubiquitous NIR tables. 
 There are no intentions to make graphical user interface.
 
+**The instructions are for `bash` shell in sorvi**.  Your default shell might be for example `tcsh` 
+and you must for instance adjust quotation marks (') in the examples to fit `tcsh` shell's syntax. 
+
 >[!IMPORTANT]
 >The new CRFReporter to be used is available from [crfappar5.unfccc.int](https://crfappar5.unfccc.int/crfapp/). The old one can be found from
 >[unfccc.int](https://unfccc.int/crfapp/).
@@ -12,9 +15,6 @@ There are no intentions to make graphical user interface.
 >XML import to CRFReporter: Make sure that you have write access *only and solely* to 4. Land Use, Land-Use Change and Forestry (a.k.a LULUCF) and 7. KP LULUCF
 >sectors in CRFReporter. The bulk xml import in CRFReporter tries to clear all results in all sectors first. If you have for example write access
 >to 3. Agriculture sector you will delete existing results there.
-
-**The instructions are for `bash` shell in sorvi**.  Your default shell might be for example `tcsh` 
-and you must for instance adjust quotation marks (') in the examples to fit `tcsh` shell's syntax. 
 
 >[!NOTE]
 >From 2021 GHG inventory (calendar year 2022) and onwards KPLULUCF sector is obsolete. 
@@ -203,16 +203,18 @@ Do xml imports incrementally, you can easily check if new results have become av
 Always check that you have the right active inventory in CRFReporter. Each year CRFReporter requires 
 [manual work](CRFREPORTER_ANNUAL_CHECK.md) that needs to be done.
 
-**NB1:** CRFReporter requires that the version number of the PartyProfile 
-xml matches the CRFReporter version. Each CRFReporter version update requires new
-PartyProfile xml from CRFReporter, even during the same active inventory. 
+>[!NOTE]
+>**NB1:** CRFReporter requires that the version number of the PartyProfile 
+>xml matches the CRFReporter version. Each CRFReporter version update requires new
+>PartyProfile xml from CRFReporter, even during the same active inventory. 
 
-**NB2:** The GHG inventory result files tend to come in various character encodings. It is important 
-to  run `convertutf8.py` first. Otherwise file reading might fail and string comparisons in python
-may go astray.
+>[!NOTE]
+>**NB2:** The GHG inventory result files tend to come in various character encodings. It is important 
+>to  run `convertutf8.py` first. Otherwise file reading might fail and string comparisons in python
+>may go astray.
 
 >[!WARNING]
->**NB3 XML import:** Make sure that you have write access *only and solely* to *4. Land Use, Land-Use Change and Forestry*
+>**NB3 XML import to CRFReporter:** Make sure that you have write access *only and solely* to *4. Land Use, Land-Use Change and Forestry*
 >(a.k.a LULUCF) and *7. KP LULUCF* sectors in CRFReporter. The bulk xml import in CRFReporter tries to clear
 >all results in all sectors first. If you have for example write access to *3. Agriculture* sector
 >you will delete existing results
