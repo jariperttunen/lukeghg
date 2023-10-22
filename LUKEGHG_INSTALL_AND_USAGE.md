@@ -249,7 +249,7 @@ to appear annually in the NIR report. Standard python -h (help) argument prints 
 ### ghg-todo.py
 Compare two inventories and list missing time series from the current inventory, time series already in current inventory
 and UIDs not found. This sample command assumes that 2021 inventory is copied to *2021crf*
-directory and the current 2022 inventory in *crf* directory. The output excel file is GHGToDo2022.xlsx:
+directory and the current 2022 inventory is in *crf* directory. The output excel file is GHGToDo2022.xlsx:
 
 	(lukeghg) prompt% convertutf8.py -f '2021crf/LU*.csv'
 	(lukeghg) prompt% ghg-todo.py -f1 '2021crf/LU*.csv' -f2 'crf/LU*.csv' \ 
