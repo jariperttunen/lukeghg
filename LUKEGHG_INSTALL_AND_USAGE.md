@@ -9,7 +9,7 @@ There are no intentions to make graphical user interface.
 >[unfccc.int](https://unfccc.int/crfapp/).
 
 >[!WARNING]
->XML import: Make sure that you have write access *only and solely* to 4. Land Use, Land-Use Change and Forestry (a.k.a LULUCF) and 7. KP LULUCF
+>XML import to CRFReporter: Make sure that you have write access *only and solely* to 4. Land Use, Land-Use Change and Forestry (a.k.a LULUCF) and 7. KP LULUCF
 >sectors in CRFReporter. The bulk xml import in CRFReporter tries to clear all results in all sectors first. If you have for example write access
 >to 3. Agriculture sector you will delete existing results there.
 
