@@ -156,8 +156,8 @@ def GHGToDo(fprev:str,fcurrent:str,xml_file:str,outfile:str,uid_mapping_file:str
     df3 = pd.DataFrame(df_ls3)
     print("Creating Excel file",outfile)
     writer = pd.ExcelWriter(outfile,engine='xlsxwriter')
-    df1.to_excel(writer,sheet_name='Missing from '+str(inventory_year-1))
-    df2.to_excel(writer,sheet_name=str(inventory_year)+' inventory')
+    df1.to_excel(writer,sheet_name='Data not in '+str(inventory_year))
+    df2.to_excel(writer,sheet_name=str(inventory_year)+' inventory data')
     df3.to_excel(writer,sheet_name='Missing UID '+str(inventory_year))
     writer.save()
 #---------------------------------The main program begins--------------------------------------------------
