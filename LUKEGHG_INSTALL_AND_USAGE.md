@@ -55,8 +55,8 @@ in your home directory (see [GitHub version control](#github-version-control) at
 
 Create *GHGInventory* directory and clone *lukeghg* from GitHub:
 
-	(lukeghg) prompt% cd /work/<user>
-	(lukeghg) prompt% mkdir GHGInvenory
+	(lukeghg) prompt% cd /work/users/<user>
+	(lukeghg) prompt% mkdir GHGInventory
 	(lukeghg) prompt% cd GHGInventory
 	(lukeghg) prompt% git clone https://github.com/jariperttunen/lukeghg.git
 
@@ -144,7 +144,7 @@ Then create *crf* and *PartyProfile* directories for GHG Inventory result files 
 
 Copy GHG inventory files to *crf* directory. Be sure the read rights for the files exists, e.g. 2020 inventory:
 
-	(lukeghg) prompt% scp /projects/khk/ghg/2020/crf/*.csv crf/
+	(lukeghg) prompt% scp /data/projects/khk/ghg/2020/crf/*.csv crf/
 
 It has been practice that all GHG inventory results are by year in the same */data/projects/khk/ghg/\<year\>/crf* directory on the sorvi
 server.
@@ -161,7 +161,7 @@ To produce the PartyProfile result file filled with the  GHG inventory results t
 
 The GHG inventory result files (csv files) seem to use different encoding systems, most notably some files
 seem to use UTF-8 BOM (Byte Order Marking). `convertutf8.py` converts files to UTF-8 encoding if needed 
-(this is why they need to be copied first from *ghg/\<year\>/crf* folder). See also **NB2**.
+(this is why they need to be copied first from */data/projects/khk/ghg/\<year\>/crf* folder). See also **NB2**.
 
 The `>`character redirects standard out terminal output to *Import.log* file and `2>` redirects standard error 
 terminal output to *Error.log* file.
@@ -248,12 +248,13 @@ to appear annually in the NIR report. Standard python -h (help) argument prints 
 
 ### ghg-todo.py
 Compare two inventories and list missing time series from the current inventory, time series already in current inventory
-and UIDs not found. This sample command assumes that 2018 inventory is in *2018crf*
-directory and the current (2019) inventory in *crf* directory. The output excel file is GHGToDo2019.xlsx:
+and UIDs not found. This sample command assumes that 2021 inventory is copied to *2021crf*
+directory and the current 2022 inventory is in *crf* directory. The output excel file is GHGToDo2022.xlsx:
 
-	(lukeghg) prompt% ghg-todo.py -f1 '2018crf/[KPLU]*.csv' -f2 'crf/[KPLU]*.csv' \ 
-	                  -x PartyProfile/PartyProfile_FIN_2021_1.xml -o GHGToDo2019.xlsx \
-			  -m lukeghg/CRFReporterMappings/300_500_mappings_1.1.csv -y 2019
+	(lukeghg) prompt% convertutf8.py -f '2021crf/LU*.csv'
+	(lukeghg) prompt% ghg-todo.py -f1 '2021crf/LU*.csv' -f2 'crf/LU*.csv' \ 
+	                  -x PartyProfile/PartyProfile_FIN_2024_1.xml -o GHGToDo2022.xlsx \
+			  -m lukeghg/CRFReporterMappings/300_500_mappings_1.1.csv -y 2022
 
 The PartyProfile xml is needed to validate UID's found in the inventories. The 300_500_mappings_1.1.csv file 
 maps the obsolete CRFReporter 3.0.0 UIDs used in GHG inventory result files to new UIDs corrected for the CRFReporter 5.0.0.
