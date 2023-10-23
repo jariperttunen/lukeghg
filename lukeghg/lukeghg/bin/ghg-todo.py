@@ -114,7 +114,7 @@ def GHGToDo(fprev:str,fcurrent:str,xml_file:str,outfile:str,uid_mapping_file:str
     set3 = set1.difference(set2)
     print("Number of inventory records:","Previous",len(set1),"Current",len(set2),"Set difference",len(set3))
     df_ls1=[]
-    df_ls1.append(['Data in '+str(inventory_year-1)+' but not in '+str(inventory_year)])
+    df_ls1.append(['Data in '+fprev+' but not in '+str(inventory_year)+' inventory'])
     df_ls1.append(['UID','File','Inventory Years','CRFReporter name','Owner','Data'])
     print("Creating Excel sheets for",outfile)
     if len(set3) == 0:
