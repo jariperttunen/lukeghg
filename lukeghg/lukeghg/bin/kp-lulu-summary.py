@@ -70,7 +70,7 @@ if __name__ == "__main__":
     #Check data available
     print("kp-lulu-summary.py Checking UID exists")
     CheckActivityFile(activity_file,ghg_dict)
-    print("Done")
+    print("kp-lulu-summary.py Done")
     kp_region_sum_ls = KPRegionSum(activity_file,ghg_dict,int(options.f4))
 
     #This data comes from KP4A2_D_mineraalisationcl_gl_sl.csv
@@ -84,17 +84,18 @@ if __name__ == "__main__":
         #Replace with converted data
         kp_region_sum_ls=kp_mineralization_ls
     not_found_uid_ls=[]
+    print("--------------------------------------------------------------------------")
     for time_series_ls in kp_region_sum_ls:
         uid=time_series_ls.pop(0)
         uid_changed = MapUID340to500(uid,uid340set,uiddict340to500)
         if uid_changed != uid:
             print("kp-lulu-summary.py UID changed:",uid,"-->",uid_changed)
         uid = uid_changed
-        #print(uid)
+        print("UID:",uid)
         #crfreporter.InsertInventoryData assumes data series are strings
         time_series_ls = [str(x) for x in time_series_ls]
         crfreporter.InsertInventoryData(uid,variablels,time_series_ls,options.f5,not_found_uid_ls,start_year,int(options.f4))
-    
+        print("--------------------------------------------------------------------------")
     if len(not_found_uid_ls) != 0:
         print("kp-lulu-sumamry.py The following", len(not_found_uid_ls), "UID not found",file=sys.stderr)
         for item in not_found_uid_ls:
