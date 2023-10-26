@@ -370,10 +370,6 @@ form. This is useful when new UIDs must be found for GHG inventory:
 Currently *lukeghg* package is in GitHub. Sample minimum gitgonfig file for Git is available in [Git](Git) directory. 
 Download it, edit your name, email address and install it as *.gitconfig* in your home directory. 
 
-## ToDo
-There is a bit to do to reorganise the *lukeghg* package so that it is a proper Python package  
-in Python Package Index (PyPI) installable simply by `pip install lukeghg` to use out of the box.
-
 ## Reading
 
 + https://sorvi-int1.ns.luke.fi/sorvi-guides/ug/
