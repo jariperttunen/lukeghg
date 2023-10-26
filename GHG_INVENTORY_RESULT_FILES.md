@@ -15,7 +15,7 @@ time series. For the time series the comment is between two number signs. As an 
 
       #Produced by <file name here> depends on <file names here>
       #This file has deadwood emissions from Cropland (organinc), Grassland (organic),
-      #Settlements and Wetlands.
+      #Settlements and Wetlands. Units are in <units used here>.
       #CLorg# 810E194F-0D38-4486-8A88-96ACF87C2059 -0.119 -0.119 -0.119 ...  -0.882 -0.948 -0.948
       #GLorg# 197C9403-609C-45DA-9A25-A0AD0BBA5930 NA NA NA -0.005 -0.01 ...  -0.026 NA NA NA
       #SL# 6E9B1091-9498-487A-8C33-268D053181AA -3.53 -3.638 -3.758 ... -2.522 -2.062 -2.062
