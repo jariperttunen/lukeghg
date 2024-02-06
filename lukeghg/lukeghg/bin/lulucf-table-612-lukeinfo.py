@@ -77,5 +77,5 @@ if __name__ == "__main__":
     df = lulu622tolukeinfo(args.f1,args.f3,args.f4)
     print("Writing file",args.f2)
     writer = pd.ExcelWriter(args.f2,engine='xlsxwriter')
-    df.to_excel(writer,sheet_name="Table6-1.2",na_rep='NA')
+    df.to_excel(writer,sheet_name="Table6-1.2",index=False,na_rep='NA')
     writer.close()
