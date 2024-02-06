@@ -303,6 +303,15 @@ is LULUTable_6.1-2.xlsx.
 from a precalculated file in *NIR/Table_6.1-2.csv* for the current inventory year. AR5 Global Warming Potentials
 are in use.
 
+### lulucf-table-612-lukeinfo.py
+Translate LULUCF Table 6.1-2 to format Luke information services need. In practice rows are stacked yearly to blocks
+containing GHG inventory results in one column. Additional columns contain codes that are used by Luke information
+services. 
+
+	(lukeghg) prompt% lulucf-table-612-lukeinfo.py -i LULUTable_6.1-2.xlsx -o LULUTable_6.1-2lukeinfo.xlsx -s 1990 -e 2022
+
+The options *-s* and *-e* are inventory start and end years.
+
 ### lulucf-table-622.py
 Produce NIR LULUCF Table 6.2-2 for IPCC land use. For example:
 
@@ -321,7 +330,8 @@ Remember to compare results from lulucf-table-622.py with values in *NIR/LU_tabl
 
 Inventory year is 2019. Program simply echoes if differences in results occur or not. The `lulucf-table-622.py` program needs 
 to be rewritten so that IPCC areas are read directly from NIR/LU_table6.2-2_areas.csv.  
-						 
+
+
 ### lulucf-table-641.py
 Produce NIR LULUCF Table 6.4-1. The usage is:
 
