@@ -11,6 +11,10 @@ and you must for instance adjust quotation marks (') in the examples to fit `tcs
 >The new CRFReporter to be used is available from [crfappar5.unfccc.int](https://crfappar5.unfccc.int/crfapp/). The old one can be found from
 >[unfccc.int](https://unfccc.int/crfapp/).
 
+>[!IMPORTANT]
+>In fall 2024 new CRFReporter will be used. It will make XML file format obsolete with its new JSON format
+>and thus this *lukeghg* project will become deprecated too. No new major development of *lukeghg* is meaningful.
+
 >[!WARNING]
 >XML import to CRFReporter: Make sure that you have write access *only and solely* to 4. Land Use, Land-Use Change and Forestry (a.k.a LULUCF) and 7. KP LULUCF
 >sectors in CRFReporter. The bulk xml import in CRFReporter tries to clear all results in all sectors first. If you have for example write access
