@@ -8,8 +8,12 @@ There are no intentions to make graphical user interface.
 and you must for instance adjust quotation marks (') in the examples to fit `tcsh` shell's syntax. 
 
 >[!IMPORTANT]
->The new CRFReporter to be used is available from [crfappar5.unfccc.int](https://crfappar5.unfccc.int/crfapp/). The old one can be found from
->[unfccc.int](https://unfccc.int/crfapp/).
+>The current CRFReporter to be used is available from [crfappar5.unfccc.int](https://crfappar5.unfccc.int/crfapp/).
+>The old one can be found from [unfccc.int](https://unfccc.int/crfapp/).
+
+>[!IMPORTANT]
+>In fall 2024 completely new CRFReporter will be used. It will make XML file format obsolete with its new JSON format
+>and thus this *lukeghg* project will become deprecated too. No new major development of *lukeghg* is meaningful.
 
 >[!WARNING]
 >XML import to CRFReporter: Make sure that you have write access *only and solely* to 4. Land Use, Land-Use Change and Forestry (a.k.a LULUCF) and 7. KP LULUCF
@@ -152,7 +156,7 @@ server.
 Log in CRFReporter *Import/Export* section, export PartyProfile xml and copy it to *PartyProfile* directory. 
 Rename the PartyProfile as denoted by the `-p`  argument in [`run-ghg-master.sh`](lukeghg/lukeghg/bin/run-ghg-master.sh). 
 The naming practice uses the name of current inventory in the CRFReporter. For example the first 2022 inventory in CRFReporter
-has the name *FIN_2024_1* and the PartyProfile xml is named *PartyProfile_FIN_2024_1.xml*.
+has the name *FIN_2024_1* and the PartyProfile xml is named *PartyProfile_FIN_2024_1.xml* (see also **NB1**).
 
 To produce the PartyProfile result file filled with the  GHG inventory results type the two commands:
 
