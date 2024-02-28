@@ -270,10 +270,10 @@ Compare two inventories and check time series for 1) too large differences in in
 3) UID's not accounted for and 4) optionally list NO notation keys for the *current* year on separate sheet. 
 Results will appear in their respective sections in the output file.
 
-The sample command line assumes 2018 inventory  is in *2018crf* directory and 2019 inventory in *crf* directory.
+The sample command line assumes 2018 inventory  is in *2018crf* directory and 2019 inventory in *2019crf* directory.
 The excel file *GHGComparison.xlsx* will be generated:
 
-	(lukeghg) prompt% check-inventory-values.py -p '2018crf/[KPLU]*.csv' -c 'crf/[KPLU]*.csv' \ 
+	(lukeghg) prompt% check-inventory-values.py -p '2018crf/[KPLU]*.csv' -c '2019crf/[KPLU]*.csv' \ 
 	                  -m lukeghg/CRFReporterMappings/300_500_mappings_1.1.csv -o GHGComparison.xlsx -t 20 --NO
 	  
 The argument `-t` defines the values that disagree 20% or more will be accounted for. More precisely, 
