@@ -8,11 +8,11 @@ There are no intentions to make graphical user interface.
 and you must for instance adjust quotation marks (') in the examples to fit `tcsh` shell's syntax. 
 
 >[!IMPORTANT]
->The new CRFReporter to be used is available from [crfappar5.unfccc.int](https://crfappar5.unfccc.int/crfapp/). The old one can be found from
->[unfccc.int](https://unfccc.int/crfapp/).
+>The current CRFReporter to be used is available from [crfappar5.unfccc.int](https://crfappar5.unfccc.int/crfapp/).
+>The old one can be found from [unfccc.int](https://unfccc.int/crfapp/).
 
 >[!IMPORTANT]
->In fall 2024 new CRFReporter will be used. It will make XML file format obsolete with its new JSON format
+>In fall 2024 completely new CRFReporter will be used. It will make XML file format obsolete with its new JSON format
 >and thus this *lukeghg* project will become deprecated too. No new major development of *lukeghg* is meaningful.
 
 >[!WARNING]
