@@ -237,7 +237,7 @@ def CompareTwoInventoryYears(dict1:dict,dict2:dict,tolerance,uidnotincurrentyear
         relative_change_ls=[ConvertFloat(x) for x in relative_change_ls]
         data_frame_list.append([key,comment,file_prev]+time_series_prev)
         data_frame_list.append([key,comment,file_current]+time_series_current)
-        data_frame_list.append([key,"","Difference"]+relative_change_ls)
+        data_frame_list.append([key,"","Difference %"]+relative_change_ls)
     data_frame_list.append(['------'])
     data_frame_list.append(['Section Change in Notation key'])
     result_nk_diff_keyls = nk_diff_dict.keys()
