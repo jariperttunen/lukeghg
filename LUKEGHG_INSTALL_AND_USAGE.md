@@ -156,7 +156,7 @@ server.
 Log in CRFReporter *Import/Export* section, export PartyProfile xml and copy it to *PartyProfile* directory. 
 Rename the PartyProfile as denoted by the `-p`  argument in [`run-ghg-master.sh`](lukeghg/lukeghg/bin/run-ghg-master.sh). 
 The naming practice uses the name of current inventory in the CRFReporter. For example the first 2022 inventory in CRFReporter
-has the name *FIN_2024_1* and the PartyProfile xml is named *PartyProfile_FIN_2024_1.xml*.
+has the name *FIN_2024_1* and the PartyProfile xml is named *PartyProfile_FIN_2024_1.xml* (see also **NB1**).
 
 To produce the PartyProfile result file filled with the  GHG inventory results type the two commands:
 
