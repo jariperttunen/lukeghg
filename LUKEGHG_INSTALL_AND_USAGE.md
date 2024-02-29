@@ -13,7 +13,7 @@ and you must for instance adjust quotation marks (') in the examples to fit `tcs
 
 >[!IMPORTANT]
 >In fall 2024 completely new CRFReporter will be used. It will make XML file format obsolete with its new JSON format
->and thus this *lukeghg* project will become deprecated too. No new major development of *lukeghg* is meaningful.
+>and thus this *lukeghg* project will become deprecated too.
 
 >[!WARNING]
 >XML import to CRFReporter: Make sure that you have write access *only and solely* to 4. Land Use, Land-Use Change and Forestry (a.k.a LULUCF) and 7. KP LULUCF
