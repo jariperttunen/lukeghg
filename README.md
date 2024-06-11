@@ -3,7 +3,10 @@ Tools to generate CRFReporter xml file from GHG inventory results, check missing
 
 + [ARKISTOON/ARCHIVE](ARKISTOON.md): Tiedostot Luken arkistoon KHK Inventaarion jälkeen. 
   Files to store in Luke official archive system after annual GHG inventory.
-+ [CRFREPORTER_ANNUAL_CHECK](CRFREPORTER_ANNUAL_CHECK.md): Once a year manual work with CRFReporter.
+---
 + [LUKEGHG_INSTALL_AND_USAGE](LUKEGHG_INSTALL_AND_USAGE.md): Install and update *lukeghg* python package, user guides for python scripts.
+  + [CRFREPORTER_ANNUAL_CHECK](CRFREPORTER_ANNUAL_CHECK.md): Once a year manual work with CRFReporter.
+  + [GHG_INVENTORY_RESULT_FILES](GHG_INVENTORY_RESULT_FILES.md): File format in GHG inventory and file naming conventions.
+---
 + [GHG_SCENARIO](GHG_SCENARIO.md): Produce GHG Scenario Excel summary file from scenario results.
-+ [GHG_INVENTORY_RESULT_FILES](GHG_INVENTORY_RESULT_FILES.md): File format in GHG inventory and file naming conventions.
+

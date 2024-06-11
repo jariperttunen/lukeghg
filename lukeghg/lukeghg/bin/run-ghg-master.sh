@@ -6,8 +6,8 @@
 #To redirect output type e.g.: run-ghg-master.sh > output.txt 2> errors.txt.
 #It assumed that this script is in python virtual environment (lukeghg)
 ghg-master.py -c "crf/[KPLU]*.csv"\
-              -p PartyProfile/PartyProfile_FIN_2024_1.xml\
-	      -x PartyProfile/PartyProfile_FIN_2024_1_result.xml\
+              -p PartyProfile/PartyProfile_FIN_2024_3.xml\
+	      -x PartyProfile/PartyProfile_FIN_2024_3_result.xml\
 	      -b lukeghg/KPLULU1990/KP_CM_GM_RV_WDR_UID_notaatioavain.csv\
 	      -k lukeghg/KPLULUSummary/KPSummary.csv\
 	      -l lukeghg/KPLULUSummary/LUSummary.csv\
