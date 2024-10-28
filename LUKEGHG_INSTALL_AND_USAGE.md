@@ -34,7 +34,7 @@ You can now install *lukeghg* Python package. You can quit the virtual environme
 >One can collect Python virtual environments under one directory (*venv* for example). 
 
 ## 2. Install the lukeghg Python package
-Choose your working directory. Use git to download *lukeghg* package.
+Choose your working directory. Use `git` to download *lukeghg* package.
 
 	(lukeghg) git clone https://github.com/jariperttunen/lukeghg.git
 
@@ -60,7 +60,7 @@ prompt). The tilde (~) character in `bash` expands to your home directory:
 
 	source ~/lukeghg/bin/activate
 
-Update *lukeghg* package from GitHub in case someone has made contributions to the package.
+Use `git` to update *lukeghg* package from GitHub in case someone has made contributions to the package.
 
 	(lukeghg) cd /work/<user>/GHGInventory/lukeghg/
 	(lukeghg) git pull
