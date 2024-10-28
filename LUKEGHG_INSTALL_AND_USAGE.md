@@ -72,7 +72,7 @@ Note that one has to move a bit in the directory hierarchy.
 
 ## 4 The CRT programs
 
-All CRT utility programs for the GHG inventory have the *-h* option for help.
+All CRT utility programs for the GHG inventory have the *-h* command line option for help.
 
 ### 4.1 crttool.py
 
