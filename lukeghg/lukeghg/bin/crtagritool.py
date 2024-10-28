@@ -5,19 +5,17 @@ import pandas as pd
 
 agri_excel_sheet_names_ls = ['CH4 manure','CH4 enteric']
 
-def agri_excel_to_csv(df_sheet,):
-    pass
-
 def agri_excel_to_csv(fname:str,sheet_name_ls:list,inventory_year:int):
     df_ls=[]
     for sheet_name in sheet_name_ls:
         print("Sheet name",sheet_name) 
-        df = pd.read_excel(fname,sheet_name)
+        df = pd.read_excel(fname,sheet_name,engine='xlrd')
         ls=list(df.columns)
+        ls = [str(x) for x in ls]
         ls[1] = 'UID'
         df.columns = ls
         df1 = df[df['UID'].apply(lambda x: not pd.isna(x))]
-        df2 = df1.loc[:,'UID':inventory_year]
+        df2 = df1.loc[:,'UID':str(inventory_year)]
         df_ls.append(df2)
     df_result = pd.concat(df_ls,ignore_index=True)
     return df_result
