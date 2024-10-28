@@ -90,11 +90,9 @@ The `>` operator redirects standard output to the *output.tx* file and the `2>´
 about UIDs not found in the CRT json file) to *error.txt*.
 
 ### 4.2 crtcomments.py
-Insert notation key comments to CRT json file. Traditionally the comments have been in *CLU_notation_explanations.csv* file:
+Insert notation key comments to CRT json file. Traditionally the comments have been in the *CLU_notation_explanations.csv* file:
 
 	(lukeghg) crttool.py -csv  /data/projects/khk/ghg/2023/crf/CLU_notation_explanations.csv --json FIN-CRT-2025-V0-3-DataEntry-20241028-082756_results.json --begin 1990 --year 2023 --out FIN-CRT-2025-V0-3-DataEntry-20241028-082756_comments_results.json >output.txt 2> error.txt
-	
-The example uses the output json from the `crttool.py` example as input. 
 
 >[!IMPORTANT]
 >ETF Reporting Tool cannot import notation key comments fall 2024. There seems to be a program bug that consumes 
