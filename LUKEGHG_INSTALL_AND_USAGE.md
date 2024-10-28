@@ -70,11 +70,11 @@ Update *lukeghg* package from GitHub in case someone has made contributions to t
 
 Note that one has to move a bit in the directory hierarchy.
 
-##4 The CRT programs
+## 4 The CRT programs
 
 All CRT utility programs for the GHG inventory have the *-h* option for help.
 
-###4.1 crttool.py
+### 4.1 crttool.py
 
 Program creates the CRT json file from GHG inventory results. The command line needs the GHG inventory files,
 the CRT json file as arguments:
@@ -89,7 +89,7 @@ Download the CRT json file from the ETF Reporting Tool. Before json import the r
 The `>` operator redirects standard output to the *output.tx* file and the `2>´ operator standard error output (e.g. notifications
 about UIDs not found in the CRT json file) to *error.txt*.
 
-###4.1 crtcomments.py
+### 4.2 crtcomments.py
 Insert notation key comments to CRT json file. Traditionally the comments have been in *CLU_notation_explanations.csv* file:
 
 	(lukeghg) crttool.py -csv  /data/projects/khk/ghg/2023/crf/CLU_notation_explanations.csv --json FIN-CRT-2025-V0-3-DataEntry-20241028-082756_results.json --begin 1990 --year 2023 --out FIN-CRT-2025-V0-3-DataEntry-20241028-082756_comments_results.json >output.txt 2> error.txt
@@ -100,7 +100,7 @@ The example uses the output json from the `crttool.py` example as input.
 >ETF Reporting Tool cannot import notation key comments fall 2024. There seems to be a program bug that consumes 
 >browser memory even with few new notation key comments.
 
-###4.2 crtagritool.py
+### 4.3 crtagritool.py
 The GHG inventory results from Agriculture sector are in an Excel file. The file has been augmented with a new UID column
 for time series:
 
