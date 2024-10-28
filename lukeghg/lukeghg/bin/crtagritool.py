@@ -30,13 +30,15 @@ if __name__ == "__main__":
         epilog="Use 'crttool.py' to insert the csv file to CRT json file.")
     parser.add_argument('-e','--excel',dest="e",type=str,required=True,
                         help="Agri GHG Excel file")
+    parser.add_argument('-s','--sheets', dest="s",nargs='+', type=str,default=agri_excel_sheet_names_ls,
+                        help="Excel sheet names")
     parser.add_argument('-y','--year',dest="y",type=int,required=True,
-                        help="Inventory year, the last year in ETF tool")
+                        help="Inventory year, the last year in the ETF tool")
     parser.add_argument('-o','--out',dest="o",type=str,required=True,
-                        help="Agri GHG csv file")
+                        help="Agri GHG csv output file")
     args = parser.parse_args()
     print("Reading excel file",args.e)
-    df = agri_excel_to_csv(args.e,agri_excel_sheet_names_ls,args.y)
+    df = agri_excel_to_csv(args.e,args.s,args.y)
     print("Writing time series to", args.o)
     df.to_csv(args.o,sep=' ',header=False,index=False)
     print("Done")
