@@ -112,4 +112,4 @@ in other files in GHG inventory and it can be read to the CRT json file with `cr
 
 >[!NOTE]
 >Importing Agruculture sector is a work in progress. If the Excel file format remains the same new sheets can be read and results extracted
->to the output csv file. (Ideally, also Agriculture sector should have results in csv files as in the LULUCF sector). 
+>to the output csv file. 
