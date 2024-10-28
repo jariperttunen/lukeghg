@@ -104,7 +104,7 @@ for time series:
 
 	crtagritool.py --excel Kopio_LUKEAgri_2023_2025_joulu-ETFtesti.xls --year 2023 --sheets "CH4 manure" "CH4 enteric" -out AgriGHG.csv
 
-The *--sheets* option is a list of Excel sheets for the GHG inventory results. The ouput file has the same format as
+The *--sheets* option is a list of Excel sheets for the GHG inventory results. The ouput file *AgriGHG.csv* has the same format as
 in other files in GHG inventory and it can be read to the CRT json file with `crttool.py`.
 
 >[!NOTE]
