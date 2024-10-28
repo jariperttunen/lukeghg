@@ -46,6 +46,8 @@ for Python package dependencies and virtual environment set-up:
 	(lukeghg) python3 -m build --wheel .
 	(lukeghg( python3 -m pip install  dist/lukeghg-1.0-py3-none-any.whl
 
+You should see *setup.py* file where the `python3 -m build --wheel .` command is made.
+
 All the terminal command line programs in *lukeghg* package are now available in your virtual environment
 (see *~/lukeghg/bin/* in your home directory). In the *lukeghg* package hierarchy the programs are located
 in the [lukeghg/lukeghg/bin](lukeghg/lukeghg/bin) directory.
@@ -62,13 +64,14 @@ prompt). The tilde (~) character in `bash` expands to your home directory:
 
 Use `git` to update *lukeghg* package from GitHub in case someone has made contributions to the package.
 
-	(lukeghg) cd /work/<user>/GHGInventory/lukeghg/
+	(lukeghg) cd \<working director\>/lukeghg/
 	(lukeghg) git pull
-	(lukeghg) cd /work/<user>/GHGInventory/lukeghg/lukeghg
+	(lukeghg) cd lukeghg
 	(lukeghg) python3 -m build --wheel .
 	(lukeghg) python3 -m pip install --force-reinstall dist/lukeghg-1.0-py3-none-any.whl
 
-Note that one has to move a bit in the directory hierarchy.
+Note that one has to move a bit in the directory hierarchy. You should see *setup.py* file where the `python3 -m build --wheel .` 
+command is made.
 
 ## 4 The CRT programs
 
