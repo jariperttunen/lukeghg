@@ -34,7 +34,7 @@ You can now install *lukeghg* Python package. You can quit the virtual environme
 >One can collect Python virtual environments under one directory (*venv* for example). 
 
 ## 2. Install the lukeghg Python package
-Choose your working directory. Use git to download *lukeghg* package.
+Choose your working directory. Use `git` to download *lukeghg* package.
 
 	(lukeghg) git clone https://github.com/jariperttunen/lukeghg.git
 
@@ -45,6 +45,8 @@ for Python package dependencies and virtual environment set-up:
 	(lukeghg) cd lukeghg/lukeghg
 	(lukeghg) python3 -m build --wheel .
 	(lukeghg( python3 -m pip install  dist/lukeghg-1.0-py3-none-any.whl
+
+You should see *setup.py* file where the `python3 -m build --wheel .` command is made.
 
 All the terminal command line programs in *lukeghg* package are now available in your virtual environment
 (see *~/lukeghg/bin/* in your home directory). In the *lukeghg* package hierarchy the programs are located
@@ -60,15 +62,16 @@ prompt). The tilde (~) character in `bash` expands to your home directory:
 
 	source ~/lukeghg/bin/activate
 
-Update *lukeghg* package from GitHub in case someone has made contributions to the package.
+Use `git` to update *lukeghg* package from GitHub in case someone has made contributions to the package.
 
-	(lukeghg) cd /work/<user>/GHGInventory/lukeghg/
+	(lukeghg) cd \<working director\>/lukeghg/
 	(lukeghg) git pull
-	(lukeghg) cd /work/<user>/GHGInventory/lukeghg/lukeghg
+	(lukeghg) cd lukeghg
 	(lukeghg) python3 -m build --wheel .
 	(lukeghg) python3 -m pip install --force-reinstall dist/lukeghg-1.0-py3-none-any.whl
 
-Note that one has to move a bit in the directory hierarchy.
+Note that one has to move a bit in the directory hierarchy. You should see *setup.py* file where the `python3 -m build --wheel .` 
+command is made.
 
 ## 4 The CRT programs
 
@@ -76,8 +79,8 @@ All CRT utility programs for the GHG inventory have the *-h* command line option
 
 ### 4.1 crttool.py
 
-Program creates the CRT json file from GHG inventory results. The command line needs the GHG inventory files,
-the CRT json file as arguments:
+Program creates the CRT json file from GHG inventory results. The command line needs the GHG inventory files and
+the CRT json file as command line arguments:
 
 	(lukeghg) crttool.py -crf /data/projects/khk/ghg/2023/crf/'LU*.csv' -json FIN-CRT-2025-V0-3-DataEntry-20241028-082756.json -year 2023  -out FIN-CRT-2025-V0-3-DataEntry-20241028-082756_results.json > output.txt 2> error.txt
 	
@@ -109,4 +112,4 @@ in other files in GHG inventory and it can be read to the CRT json file with `cr
 
 >[!NOTE]
 >Importing Agruculture sector is a work in progress. If the Excel file format remains the same new sheets can be read and results extracted
->to the output csv file. (Ideally, also Agriculture sector should have results in csv files as in the LULUCF sector). 
+>to the output csv file. 
