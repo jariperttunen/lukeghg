@@ -86,7 +86,7 @@ The set of GHG inventory files (*LU\*.csv*) can be given with wild card search. 
 Download the CRT json file from the ETF Reporting Tool. Before json import the resulting json file 
 must be validated in ETF.
 
-The `>` operator redirects standard output to the *output.tx* file and the `2>´ operator standard error output (e.g. notifications
+The `>` operator redirects standard output to the *output.tx* file and the `2>` operator standard error output (e.g. notifications
 about UIDs not found in the CRT json file) to *error.txt*.
 
 ### 4.2 crtcomments.py
