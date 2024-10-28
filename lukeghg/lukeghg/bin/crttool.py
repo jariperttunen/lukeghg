@@ -12,6 +12,11 @@ import crtcomments as crtc
 #Decimal precision used in ETF reporter 
 DECIMAL_PRECISION=6
 
+#Two UIDs that appear two times. These are added up in json.
+#See  ghg_inventory_to_crtjson() 
+CL_FL_UID = '60EB12FB-2993-433B-81F9-451C56919187'.casefold()
+GL_FL_UID = '18C29684-3802-456A-8925-FAC535734216'.casefold()
+
 def isnumeric(n):
     """
     Test with conversion to float.
@@ -24,6 +29,30 @@ def isnumeric(n):
         return True
     except ValueError:
         return False
+    
+def add_two_lists(ls1:list,ls2:list):
+    """
+    Add two lists element-wise. Check the lists for notation keys.
+    @param ls1 The first list
+    @param ls2 The second lists
+    @return The sum of two lists.
+    """
+    sum_ls=[]
+    for (n1,n2) in zip(ls1,ls2):
+        if (n1==0) and (not isnumeric(n2)):
+            #If the first is the initial value zero and the second one notation key
+            #return the notation key
+            sum_ls.append(n2)
+        elif isnumeric(n1) and isnumeric(n2):
+            sum_ls.append(str(float(n1)+float(n2)))
+        elif isnumeric(n1):
+            sum_ls.append(n1)
+        elif isnumeric(n2):
+            sum_ls.append(n2)
+        else:
+            #No other options: concatinate the two notation keys 
+            sum_ls.append(n1+","+n2)
+    return sum_ls
     
 def has_crt_uid_entry(year_entry:dict,uid:str):
     """
@@ -184,7 +213,7 @@ def crtjson(fname:str):
         crt_json = json.load(f)
         return crt_json
     
-def ghg_inventory_to_crtjson(fjson:str,glob_expr:str,inventory_year:int):
+def ghg_inventory_to_crtjson(fjson:str,glob_expr:str,inventory_start:int,inventory_year:int):
     """
     List LULUCF inventory files. Read time series from the files
     and insert into CRT json.
@@ -198,6 +227,9 @@ def ghg_inventory_to_crtjson(fjson:str,glob_expr:str,inventory_year:int):
     crt_json = crtjson(fjson)
     crt_values_ls = crtvalues(crt_json)
     year_entry = find_crt_inventory_year(crt_values_ls,str(inventory_year))
+    number_of_years = len(list(range(inventory_start,inventory_year+1)))
+    cl_fl_ls = [0]*number_of_years
+    gl_fl_ls = [0]*number_of_years
     for file in file_ls:
         time_series_lss = read_ghg_inventory_file(file)
         for time_series_ls in time_series_lss:
@@ -208,7 +240,18 @@ def ghg_inventory_to_crtjson(fjson:str,glob_expr:str,inventory_year:int):
             if has_crt_uid_entry(year_entry,uid):
                 print(uid,"Inserting time series", file)
                 years = generate_crt_years(time_series_ls,inventory_year)
-                insert_ghg_time_series(crt_values_ls,uid,time_series_ls,years)
+                if uid == CL_FL_UID:
+                    cl_fl_orig_ls = cl_fl_ls 
+                    cl_fl_ls = add_two_lists(cl_fl_ls,time_series_ls)
+                    print(uid,"Inserting CL_FL: ",cl_fl_orig_ls,'+',time_series_ls,'=',cl_fl_ls)
+                    insert_ghg_time_series(crt_values_ls,uid,cl_fl_ls,years)
+                elif uid == GL_FL_UID:
+                    gl_fl_ls_orig = gl_fl_ls
+                    gl_fl_ls =  add_two_lists(gl_fl_ls,time_series_ls)
+                    print(uid,"Inserting GL_FL: ",gl_fl_ls_orig,'+',time_series_ls,'=',gl_fl_ls)
+                    insert_ghg_time_series(crt_values_ls,uid,gl_fl_ls,years)
+                else:
+                    insert_ghg_time_series(crt_values_ls,uid,time_series_ls,years)
             else:
                 print(uid,"Not found in CRT json",file,file=sys.stderr)
     return crt_json
@@ -222,8 +265,9 @@ if __name__ == "__main__":
         "NOTE: Notation key comments are inserted with crtcomments.py")
     parser.add_argument('-c','--crf',dest="c",type=str,required=True,
                         help="Glob expression listing GHG LULUCF files (e.g. 'crf/LU*.csv')")
-    parser.add_argument('-j','-json' ,dest="j",type=str,required=True,
+    parser.add_argument('-j','--json' ,dest="j",type=str,required=True,
                         help="CRT json data exchange file")
+    parser.add_argument('-s','--start',dest="s",type=int,default=1990)
     parser.add_argument('-y','--year',dest="y",type=int,required=True,
                         help="Inventory year, the last year in ETF tool")
     parser.add_argument('-o','--out',dest="o",type=str,required=True,
@@ -231,7 +275,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     print("Inserting GHG inventory to CRT json",args.j)
     print("File glob expression",args.c)
-    crt_json = ghg_inventory_to_crtjson(args.j,args.c,args.y)
+    crt_json = ghg_inventory_to_crtjson(args.j,args.c,args.s,args.y)
     print("Writing CRT json to file:",args.o)
     crtjsondump(args.o,crt_json)
     print("Done")
