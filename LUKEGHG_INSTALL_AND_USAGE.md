@@ -115,5 +115,5 @@ The *--sheets* option is a list of Excel sheets for the GHG inventory results. T
 in other files in GHG inventory and it can be read to the CRT json file with `crttool.py`.
 
 >[!NOTE]
->Importing Agruculture sector is a work in progress. If the Excel file format remains the same new sheets can be read and results extracted
+>Importing Agriculture sector is a work in progress. If the Excel file format remains the same new sheets can be read and results extracted
 >to the output csv file. 
