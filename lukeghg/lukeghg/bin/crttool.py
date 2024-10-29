@@ -115,6 +115,7 @@ def insert_value(crt_value_ls:list,uid:str,val:str,year:str,val_type:str):
     @param uid The UID of the inventory time series
     @param val The value for the UID
     @param year The inventory year for the \p value
+    @param val_type The value type. One of "NK", "number" or "dropdown".
     @pre The \p uid exists
     @pre Inventory \p year exists
     @sa insert_time_series
@@ -187,7 +188,7 @@ def crtvalues(crt_json:dict):
     """
     Read CRT tool LULUCF inventory json dictionary and
     retrieve the `values` section.
-    @param fname LULUCF inventory json dictionary
+    @param crt_json LULUCF inventory json dictionary
     @retval crt_values The list of the 'values' section from the json file
     @sa crtjson
     """
@@ -219,6 +220,7 @@ def ghg_inventory_to_crtjson(fjson:str,glob_expr:str,inventory_start:int,invento
     and insert into CRT json.
     @param fjson CRT json file name
     @param glob_expr Glob expression that can list (all) GHG inventory files
+    @param inventory_start Start year for the inventory (1990) 
     @param inventory_year Inventory year (last year in the ETF tool)
     @retval crt_json Updated CRT json dictionary
     @sa insert_ghg_time_series

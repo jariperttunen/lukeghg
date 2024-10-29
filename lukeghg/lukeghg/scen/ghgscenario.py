@@ -67,9 +67,8 @@ def check_data_series(ls,start_year:int,end_year:int):
 def convert_to_float(x:str, keys_to_zero:bool=True):
     """
     Convert GHG inventory item to float
-    @param x The item to be converted
+    @param x The item to be converted. String representing float or notation key or zero.
     @param keys_to_zero: True return notation key to 0, False maintain notation keys
-    @param x String representing float or notation key or zero
     @pre x is String that can be converted to float or notation key
     @retval x Float, 0 or notation key
     """
@@ -86,7 +85,7 @@ def insert_ghg_file_to_dictionary(d:dict,fname:str,uid_mapping_file:str,keys_to_
     @param d The dictionary
     @param fname GHG inventory file
     @param uid_mapping_file UID mappings from  CRFReporter version 3.0 to current 5.x one
-    @param keys True Convert notation keyes to zero, False maintain notation keys
+    @param keys_to_zero True: Convert notation keyes to zero, False: maintain notation keys
     @retval d The dictionary filled with the data from `fname`
     """
     datalss = ghginv.ParseGHGInventoryFile(fname,uid_mapping_file)
@@ -137,6 +136,7 @@ def land_use_classes(df_uid_matrix,index:int=2):
     """
     Slice column names and return land use classes
     @param df_uid_matrix Dataframe UIDMatrix
+    @param index The start row for land use classes  
     @return Column names of the UIDMatrix
     """  
     columnls = list(df_uid_matrix.columns)
@@ -216,7 +216,7 @@ def add_data_series(df_scen,new_row_ls,start:str,end:str,row_number:int):
     @param df_scen Scenario template sheet
     @param new_row_ls: scenario data series to be added to total
     @param start Start year of the inventory
-    @apram end End year of the inventory
+    @param end End year of the inventory
     @param row_number: the row where the data series belongs to
     @retval df_scen Dataframe with `new_row_ls` added to total 
     """
@@ -238,6 +238,8 @@ def set_data_series(df_scen,new_row_ls,start:str,end:str,row_number:int):
     Set scenario template data series
     @param df_scen Scenario template sheet
     @param new_row_ls Scenario data series
+    @param start Start year for the scenario
+    @param end End year for the scenario
     @param row_number The row where the data series belongs to
     @retval df_scen Dataframe with the `new_row_ls` data series added
     """
@@ -283,7 +285,7 @@ def write_co2sum_formula(sheet,start_col,ncols,result_row,row_number_ls,color,sc
     @param start_col start column of the time series
     @param ncols Number of columns (i.e. the length) in the time series
     @param result_row The row number of the sum row
-    @paramt row_number_ls The rows to be added to total.
+    @param row_number_ls The rows to be added to total.
     @param color Background color of the result row
     @param scale The final unit (e.g. scale ktC,CH4,N2O to MtCO2 eq if needed)
     @param sheet_ref Refer to another sheet (e.g. sheet_ref="FL-FL!") if needed

@@ -25,13 +25,13 @@ Check you have the latest versions of `pip`, *setuptools* and *wheel* installed:
 
 You can now install *lukeghg* Python package. You can quit the virtual environment with `deactivate`.
 
->[!NOTE]
->If you have any problems creating the virtual environment check your `.bashrc` file. For example 
->if you are part of NFI  you may have settings by NFI that  disrupt the `python3`
->environment installed in sorvi.
+> [!NOTE]
+> If you have any problems creating the virtual environment check your `.bashrc` file. For example 
+> if you are part of NFI  you may have settings by NFI that  disrupt the `python3`
+> environment installed in sorvi.
 
->[!TIP] 
->One can collect Python virtual environments under one directory (*venv* for example). 
+> [!TIP] 
+> One can collect Python virtual environments under one directory (*venv* for example). 
 
 ## 2. Install the lukeghg Python package
 Choose your working directory. Use `git` to download *lukeghg* package.
@@ -92,18 +92,18 @@ must be validated in ETF.
 The `>` operator redirects standard output to the *output.tx* file and the `2>` operator standard error output (e.g. notifications
 about UIDs not found in the CRT json file) to *error.txt*.
 
->[!NOTE]
->Two UIDs related to *losses* have their UID twice in CL-FL (60EB12FB-2993-433B-81F9-451C56919187) and 
->GL-FL (18C29684-3802-456A-8925-FAC535734216). These UIDs are added together when filling the CRT json with results.
+> [!NOTE]
+> Two UIDs related to *losses* have their UID twice in CL-FL (60EB12FB-2993-433B-81F9-451C56919187) and 
+> GL-FL (18C29684-3802-456A-8925-FAC535734216). These UIDs are added together when filling the CRT json with results.
 
 ### 4.2 crtcomments.py
 Insert notation key comments to CRT json file. Traditionally the comments have been in the *CLU_notation_explanations.csv* file:
 
 	(lukeghg) crttool.py -csv  /data/projects/khk/ghg/2023/crf/CLU_notation_explanations.csv --json FIN-CRT-2025-V0-3-DataEntry-20241028-082756_results.json --begin 1990 --year 2023 --out FIN-CRT-2025-V0-3-DataEntry-20241028-082756_comments_results.json >output.txt 2> error.txt
 
->[!IMPORTANT]
->ETF Reporting Tool cannot import notation key comments fall 2024. There seems to be a program bug that consumes 
->browser memory even with few new notation key comments.
+> [!IMPORTANT]
+> ETF Reporting Tool cannot import notation key comments fall 2024. There seems to be a program bug that consumes 
+> browser memory even with few new notation key comments.
 
 ### 4.3 crtagritool.py
 The GHG inventory results from Agriculture sector are in an Excel file. The file has been augmented with a new UID column
@@ -114,6 +114,7 @@ for time series:
 The *--sheets* option is a list of Excel sheets for the GHG inventory results. The ouput file *AgriGHG.csv* has the same format as
 in other files in GHG inventory and it can be read to the CRT json file with `crttool.py`.
 
->[!NOTE]
->Importing Agriculture sector is a work in progress. If the Excel file format remains the same new sheets can be read and results extracted
->to the output csv file. 
+> [!NOTE]
+> Importing Agriculture sector is a work in progress. If the Excel file format remains the same 
+> new sheets can be read and results extracted
+> to the output csv file. 

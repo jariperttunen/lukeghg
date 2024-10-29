@@ -29,11 +29,6 @@ The dot (.) character must be used as a decimal point. During the the creation o
 are rounded to six decimals. The exceptions are the results that need more than six decimals for the first significant digit. 
 In such cases results are not rounded. 
 
-The GHG inventory results are eventually reported to  CRFReporter via CRFreporter PartyProfile xml.
-The programs used, [`run-ghg-master.sh`](lukeghg/lukeghg/bin/run-ghg-master.sh) and
-[`run-eu529-ghg-master.sh`](lukeghg/lukeghg/bin/run-eu529-ghg-master.sh), resort to
-the UID's of the time series to find their proper places in the PartyProfile xml. 
-
 ## File name conventions (ideas and comments welcome)
 
 Although the process to fill CRFReporter PartyProfile xml with GHG inventory results is automated
@@ -42,9 +37,8 @@ The use of descriptive comments and common file naming conventions can make this
 
 The GHG inventory results read by `run-ghg-master.sh` and `run-eu529-ghg-master.sh` assume
 that LULUCF and KPLULUCF file names begin with *LU* and *KP* respectively. The file name suffix should
-be *.csv* used for csv files. There is no need to use *LULUCF* or *KPLULUCF* to start the file name but
-shorten them and use spared characters to describe the content of the file. **Note** that EU529
-submission requires the year 1990 for CL and GL land use. These files will begin as *KPEU529*.
+be *.csv* used for csv files. There is no need to use *LULUCF*  to start the file name but
+shorten to *LU* and use the spared characters to describe the content of the file. 
 
 Try to indicate first in the file name, as much it is possible and feasible, the place in CRFreporter
 where the content of the file is to appear. For example *LU4A1xxx.csv* guides the reader

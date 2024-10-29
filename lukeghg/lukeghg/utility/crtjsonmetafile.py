@@ -55,7 +55,7 @@ def create_lulucf_var_excel(fname:str,df:pd.DataFrame):
     """
     Create excel file from the dataframe of LULUCF variables and their UID's.
     @param fname Excel file name
-    @df Dataframe of LULUCF variables and their names
+    @param df Dataframe of LULUCF variables and their names
     """
     xlsx_writer  = pd.ExcelWriter(fname, engine='xlsxwriter')
     df.to_excel(xlsx_writer,index=False,sheet_name='Variables')

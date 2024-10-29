@@ -105,9 +105,9 @@ def insert_crt_comment(year,year_entry:dict,uid:str,comment_ls:list):
     """
     Insert notation key comment for the \p uid and \p year
     @param  year Year for the time series
-    @year_entry Year entry dictionary from CRT json
-    @uid UID fot the time series
-    @comment_ls List of notation key comments
+    @param year_entry Year entry dictionary from CRT json
+    @param uid UID fot the time series
+    @param comment_ls List of notation key comments
     @pre Inventory results have been inserted with `crttool`
     @pre Time series year must contain notation key
     """ 
@@ -130,7 +130,7 @@ def insert_crt_comments(crt_json:dict,commentlss:list,yearls:list):
     """
     Insert notation key comments to CRT json
     @param crt_json CRT json dictionary
-    @param comment_lss List of list of comments
+    @param commentlss List of list of comments
     @param yearls The inventory years
     @retval crt_json CRT json dictionary with notation key comments
     """    

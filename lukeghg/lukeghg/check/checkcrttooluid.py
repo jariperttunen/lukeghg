@@ -19,12 +19,12 @@ def select_crttool_uid(fname:str):
     """
     Read CRT Excel file listing all LULUCF UIDs and return
     the set of UIDs.
-    @note The file name has been CRT_LULUCF_variables.xlsx.
-    @param f Excel file name
+    @param fname Excel file name
     @retval uidset Set of UIDs found in the Excel file
+    @note The file name has been CRT_LULUCF_variables.xlsx.
+    """
     fxlsx = pd.ExcelFile(fname)
     df_dict = pd.read_excel(fxlsx,sheet_name=None)
-    """
     keyls = df_dict.keys()
     uidset=set()
     for key in keyls:
