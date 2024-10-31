@@ -82,7 +82,7 @@ All CRT utility programs for the GHG inventory have the *-h* command line option
 Program creates the CRT json file from GHG inventory results. The command line needs the GHG inventory files and
 the CRT json file as command line arguments:
 
-	(lukeghg) crttool.py -crf /data/projects/khk/ghg/2023/crf/'LU*.csv' -json FIN-CRT-2025-V0-3-DataEntry-20241028-082756.json -year 2023  -out FIN-CRT-2025-V0-3-DataEntry-20241028-082756_results.json > output.txt 2> error.txt
+	(lukeghg) crttool.py --crf /data/projects/khk/ghg/2023/crf/'LU*.csv' --json FIN-CRT-2025-V0-3-DataEntry-20241028-082756.json --year 2023  --out FIN-CRT-2025-V0-3-DataEntry-20241028-082756_results.json > output.txt 2> error.txt
 	
 The set of GHG inventory files (*LU\*.csv*) can be given with wild card search. Note the use of hyphen (') characters.
 
