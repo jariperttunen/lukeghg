@@ -109,7 +109,7 @@ Insert notation key comments to CRT json file. Traditionally the comments have b
 The GHG inventory results from Agriculture sector are in an Excel file. The file has been augmented with a new UID column
 for time series:
 
-	crtagritool.py --excel Kopio_LUKEAgri_2023_2025_joulu-ETFtesti.xls --year 2023 --sheets "CH4 manure" "CH4 enteric" -out AgriGHG.csv
+	crtagritool.py --excel Kopio_LUKEAgri_2023_2025_joulu-ETFtesti.xls --year 2023 --sheets "CH4 manure" "CH4 enteric" --out AgriGHG.csv
 
 The *--sheets* option is a list of Excel sheets for the GHG inventory results. The ouput file *AgriGHG.csv* has the same format as
 in other files in GHG inventory and it can be read to the CRT json file with `crttool.py`.
