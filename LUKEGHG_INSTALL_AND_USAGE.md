@@ -21,7 +21,7 @@ Note the name of the virtual environment *(lukeghg)* appearing in front of your 
 Check you have the latest versions of `pip`, *setuptools* and *wheel* installed:
 
 	(lukeghg) python3 -m pip install --upgrade pip
-	(lukeghg) python3 -m pip install --upgrade setuptools wheel
+	(lukeghg) python3 -m pip install --upgrade setuptools wheel build
 
 You can now install *lukeghg* Python package. You can quit the virtual environment with `deactivate`.
 
