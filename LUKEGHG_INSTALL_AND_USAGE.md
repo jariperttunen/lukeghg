@@ -23,7 +23,7 @@ Check you have the latest versions of `pip`, *setuptools* and *wheel* installed:
 	(lukeghg) python3 -m pip install --upgrade pip
 	(lukeghg) python3 -m pip install --upgrade setuptools wheel build
 
-You can now install *lukeghg* Python package. You can quit the virtual environment with `deactivate`.
+You can now install *lukeghg* Python package. You can quit the virtual environment with the `deactivate` command.
 
 > [!NOTE]
 > If you have any problems creating the virtual environment check your `.bashrc` file. For example 
