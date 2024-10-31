@@ -92,6 +92,10 @@ must be validated in ETF.
 The `>` operator redirects standard output to the *output.tx* file and the `2>` operator standard error output (e.g. notifications
 about UIDs not found in the CRT json file) to *error.txt*.
 
+>[!IMPORTANT]
+>The json file must be exported from the LULUCF sector for LULUCF results. The json file must be exported from Agriculure sector
+>for Agriculture results. 
+
 > [!NOTE]
 > Two UIDs related to *losses* have their UID twice in CL-FL (60EB12FB-2993-433B-81F9-451C56919187) and 
 > GL-FL (18C29684-3802-456A-8925-FAC535734216). These UIDs are added together when filling the CRT json with results.
