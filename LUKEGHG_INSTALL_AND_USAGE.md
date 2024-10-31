@@ -93,8 +93,8 @@ The `>` operator redirects standard output to the *output.tx* file and the `2>` 
 about UIDs not found in the CRT json file) to *error.txt*.
 
 >[!IMPORTANT]
->The json file must be exported from the LULUCF sector for LULUCF results. The json file must be exported from Agriculture sector
->for Agriculture results. 
+>The json file must have been exported from the LULUCF sector for LULUCF results.
+>The json file must have been exported from Agriculture sector for Agriculture results. 
 
 > [!NOTE]
 > Two UIDs related to *losses* have their UID twice in CL-FL (60EB12FB-2993-433B-81F9-451C56919187) and 
